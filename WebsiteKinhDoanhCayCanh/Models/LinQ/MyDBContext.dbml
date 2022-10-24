@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QuanLyCayCanh" Class="MyDBContextDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=CRIS-AN\SQLEXPRESS;Initial Catalog=QuanLyCayCanh;Persist Security Info=True;User ID=CrisDame" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QuanLyCayCanhConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.[__MigrationHistory]" Member="__MigrationHistories">
+    <Type Name="__MigrationHistory">
+      <Column Name="MigrationId" Type="System.String" DbType="NVarChar(150) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ContextKey" Type="System.String" DbType="NVarChar(300) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Model" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="ProductVersion" Type="System.String" DbType="NVarChar(32) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Voucher" Member="Vouchers">
+    <Type Name="Voucher">
+      <Column Name="id_voucher" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="tenVoucher" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="noiDung" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="phanTramGiamGia" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="thoiGianBatDau" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="thoiGianKetThuc" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Association Name="Voucher_DonHang" Member="DonHangs" ThisKey="id_voucher" OtherKey="id_Voucher" Type="DonHang" />
+      <Association Name="Voucher_UserVoucher" Member="UserVouchers" ThisKey="id_voucher" OtherKey="id_voucher" Type="UserVoucher" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BinhLuan" Member="BinhLuans">
+    <Type Name="BinhLuan">
+      <Column Name="id_BinhLuan" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ngayDangBinhLuan" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="noiDung" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="trangThai" Type="System.String" DbType="Char(10)" CanBeNull="true" />
+      <Column Name="id_User" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="id_SP" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Association Name="SanPham_BinhLuan" Member="SanPham" ThisKey="id_SP" OtherKey="id_SP" Type="SanPham" IsForeignKey="true" />
+      <Association Name="User_BinhLuan" Member="User" ThisKey="id_User" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CachChamSoc" Member="CachChamSocs">
+    <Type Name="CachChamSoc">
+      <Column Name="id_CCS" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="tuoiNuoc" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="dat" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="anhSang" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="viTriDatCay" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="duongChat" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="CachChamSoc_NhomSP" Member="NhomSPs" ThisKey="id_CCS" OtherKey="id_CCS" Type="NhomSP" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CTDH" Member="CTDHs">
+    <Type Name="CTDH">
+      <Column Name="id_DH" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="id_SP" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="soLuong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="thanhTien" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="DonHang_CTDH" Member="DonHang" ThisKey="id_DH" OtherKey="id_DH" Type="DonHang" IsForeignKey="true" />
+      <Association Name="SanPham_CTDH" Member="SanPham" ThisKey="id_SP" OtherKey="id_SP" Type="SanPham" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DanhGia" Member="DanhGias">
+    <Type Name="DanhGia">
+      <Column Name="id_DanhGia" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="soSao" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ngayDG" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="trangThai" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="id_User" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="id_SP" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Association Name="SanPham_DanhGia" Member="SanPham" ThisKey="id_SP" OtherKey="id_SP" Type="SanPham" IsForeignKey="true" />
+      <Association Name="User_DanhGia" Member="User" ThisKey="id_User" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DonHang" Member="DonHangs">
+    <Type Name="DonHang">
+      <Column Name="id_DH" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ngayDat" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ngayGiao" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="trangThaiThanhToan" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="trangThaiGiaoHang" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="phuongThucThanhToan" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="tongTien" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="id_User" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="id_Voucher" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Association Name="DonHang_CTDH" Member="CTDHs" ThisKey="id_DH" OtherKey="id_DH" Type="CTDH" />
+      <Association Name="Voucher_DonHang" Member="Voucher" ThisKey="id_Voucher" OtherKey="id_voucher" Type="Voucher" IsForeignKey="true" />
+      <Association Name="User_DonHang" Member="User" ThisKey="id_User" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HinhAnhSP" Member="HinhAnhSPs">
+    <Type Name="HinhAnhSP">
+      <Column Name="id_Hinh" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="duongDan" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="id_SP" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Association Name="SanPham_HinhAnhSP" Member="SanPham" ThisKey="id_SP" OtherKey="id_SP" Type="SanPham" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NhomSP" Member="NhomSPs">
+    <Type Name="NhomSP">
+      <Column Name="id_Nhom" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="tenNhom" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="id_CCS" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Association Name="NhomSP_SanPham" Member="SanPhams" ThisKey="id_Nhom" OtherKey="id_Nhom" Type="SanPham" />
+      <Association Name="CachChamSoc_NhomSP" Member="CachChamSoc" ThisKey="id_CCS" OtherKey="id_CCS" Type="CachChamSoc" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Roles" Member="Roles">
+    <Type Name="Role">
+      <Column Name="Id" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Association Name="Role_UserRole" Member="UserRoles" ThisKey="Id" OtherKey="RoleId" Type="UserRole" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SanPham" Member="SanPhams">
+    <Type Name="SanPham">
+      <Column Name="id_SP" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="tenSP" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="mota" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="gia" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="soLuong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DVT" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="phanTramGiamGia" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id_Nhom" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Association Name="SanPham_BinhLuan" Member="BinhLuans" ThisKey="id_SP" OtherKey="id_SP" Type="BinhLuan" />
+      <Association Name="SanPham_CTDH" Member="CTDHs" ThisKey="id_SP" OtherKey="id_SP" Type="CTDH" />
+      <Association Name="SanPham_DanhGia" Member="DanhGias" ThisKey="id_SP" OtherKey="id_SP" Type="DanhGia" />
+      <Association Name="SanPham_HinhAnhSP" Member="HinhAnhSPs" ThisKey="id_SP" OtherKey="id_SP" Type="HinhAnhSP" />
+      <Association Name="SanPham_ThongTinThemVeSP" Member="ThongTinThemVeSP" ThisKey="id_SP" OtherKey="id_SP" Type="ThongTinThemVeSP" Cardinality="One" />
+      <Association Name="NhomSP_SanPham" Member="NhomSP" ThisKey="id_Nhom" OtherKey="id_Nhom" Type="NhomSP" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ThongTinThemVeSP" Member="ThongTinThemVeSPs">
+    <Type Name="ThongTinThemVeSP">
+      <Column Name="id_SP" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="congDung" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="cachTrong" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="SanPham_ThongTinThemVeSP" Member="SanPham" ThisKey="id_SP" OtherKey="id_SP" Type="SanPham" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserClaims" Member="UserClaims">
+    <Type Name="UserClaim">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="ClaimType" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ClaimValue" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="User_UserClaim" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserLogins" Member="UserLogins">
+    <Type Name="UserLogin">
+      <Column Name="LoginProvider" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ProviderKey" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="User_UserLogin" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserRoles" Member="UserRoles">
+    <Type Name="UserRole">
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RoleId" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Role_UserRole" Member="Role" ThisKey="RoleId" OtherKey="Id" Type="Role" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="User_UserRole" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Users" Member="Users">
+    <Type Name="User">
+      <Column Name="Id" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="EmailConfirmed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="PasswordHash" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="SecurityStamp" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PhoneNumberConfirmed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="TwoFactorEnabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LockoutEndDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LockoutEnabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="AccessFailedCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Association Name="User_BinhLuan" Member="BinhLuans" ThisKey="Id" OtherKey="id_User" Type="BinhLuan" />
+      <Association Name="User_DanhGia" Member="DanhGias" ThisKey="Id" OtherKey="id_User" Type="DanhGia" />
+      <Association Name="User_DonHang" Member="DonHangs" ThisKey="Id" OtherKey="id_User" Type="DonHang" />
+      <Association Name="User_UserClaim" Member="UserClaims" ThisKey="Id" OtherKey="UserId" Type="UserClaim" />
+      <Association Name="User_UserLogin" Member="UserLogins" ThisKey="Id" OtherKey="UserId" Type="UserLogin" />
+      <Association Name="User_UserRole" Member="UserRoles" ThisKey="Id" OtherKey="UserId" Type="UserRole" />
+      <Association Name="User_UserVoucher" Member="UserVouchers" ThisKey="Id" OtherKey="id_User" Type="UserVoucher" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserVoucher" Member="UserVouchers">
+    <Type Name="UserVoucher">
+      <Column Name="id_voucher" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="id_User" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="soLuotConLai" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="User_UserVoucher" Member="User" ThisKey="id_User" OtherKey="Id" Type="User" IsForeignKey="true" />
+      <Association Name="Voucher_UserVoucher" Member="Voucher" ThisKey="id_voucher" OtherKey="id_voucher" Type="Voucher" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
