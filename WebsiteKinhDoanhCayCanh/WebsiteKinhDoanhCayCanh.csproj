@@ -191,19 +191,25 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BinhLuan.cs" />
     <Compile Include="Models\CachChamSoc.cs" />
     <Compile Include="Models\CTDH.cs" />
+    <Compile Include="Models\C__MigrationHistory.cs" />
+    <Compile Include="Models\DanhGia.cs" />
     <Compile Include="Models\DonHang.cs" />
+    <Compile Include="Models\HinhAnhSP.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\LinQ\MyData.designer.cs">
+    <Compile Include="Models\LinQ\MyDBContext.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MyData.dbml</DependentUpon>
+      <DependentUpon>MyDBContext.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MyDataEF.cs" />
     <Compile Include="Models\NhomSP.cs" />
     <Compile Include="Models\SanPham.cs" />
+    <Compile Include="Models\ThongTinThemVeSP.cs" />
+    <Compile Include="Models\UserVoucher.cs" />
     <Compile Include="Models\Voucher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -415,13 +421,13 @@
     <Content Include="Content\assets\scss\bootstrap\_utilities.scss" />
     <Content Include="Content\assets\scss\bootstrap\_variables.scss" />
     <Content Include="Content\assets\scss\style.scss" />
-    <Content Include="Models\LinQ\MyData.dbml">
+    <Content Include="Models\LinQ\MyDBContext.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>MyData.designer.cs</LastGenOutput>
+      <LastGenOutput>MyDBContext.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <None Include="Models\LinQ\MyData.dbml.layout">
-      <DependentUpon>MyData.dbml</DependentUpon>
+    <None Include="Models\LinQ\MyDBContext.dbml.layout">
+      <DependentUpon>MyDBContext.dbml</DependentUpon>
     </None>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
