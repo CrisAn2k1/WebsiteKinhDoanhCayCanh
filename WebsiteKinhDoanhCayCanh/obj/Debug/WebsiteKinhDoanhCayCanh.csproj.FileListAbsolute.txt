@@ -112,3 +112,7 @@ C:\Users\WIN\Desktop\DACN\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\De
 C:\Users\WIN\Desktop\DACN\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.csproj.CopyComplete
 C:\Users\WIN\Desktop\DACN\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.dll
 C:\Users\WIN\Desktop\DACN\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.pdb
+C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.csproj.AssemblyReference.cache
+C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.csproj.CoreCompileInputs.cache
+C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.dll
+C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.pdb
