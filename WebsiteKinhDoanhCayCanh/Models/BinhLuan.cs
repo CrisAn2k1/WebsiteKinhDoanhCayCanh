@@ -27,5 +27,7 @@ namespace WebsiteKinhDoanhCayCanh.Models
         public string id_SP { get; set; }
 
         public virtual SanPham SanPham { get; set; }
+
+        public string hoTen;
     }
 }
