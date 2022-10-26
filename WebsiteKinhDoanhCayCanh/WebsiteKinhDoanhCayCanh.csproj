@@ -442,6 +442,19 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Template\img\banner-img.jpg" />
     <Content Include="Template\img\banner1.png" />
+    <Content Include="Template\img\banner2.jpg" />
+    <Content Include="Template\img\bonsai.jpg" />
+    <Content Include="Template\img\cay-canh-de-ban-lam-viec.jpg" />
+    <Content Include="Template\img\cay-de-trong-trong-van-phong.jpg" />
+    <Content Include="Template\img\caycauvang.jpg" />
+    <Content Include="Template\img\caydetrong nha.jpg" />
+    <Content Include="Template\img\cayphattainui.jpg" />
+    <Content Include="Template\img\caytrongnha.jpg" />
+    <Content Include="Template\img\Cua-hang-cay-canh-ILG.jpg" />
+    <Content Include="Template\img\luoihovang.jpg" />
+    <Content Include="Template\img\senda.jpg" />
+    <Content Include="Template\img\traubathanhxuan.jpg" />
+    <Content Include="Template\img\Xuong-rong_1.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
