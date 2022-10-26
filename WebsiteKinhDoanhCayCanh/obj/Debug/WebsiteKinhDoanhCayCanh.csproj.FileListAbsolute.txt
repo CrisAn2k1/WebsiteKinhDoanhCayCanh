@@ -116,3 +116,7 @@ C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\Web
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.csproj.CoreCompileInputs.cache
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.dll
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.pdb
+C:\Users\WIN\Desktop\DACN\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\PagedList.dll
+C:\Users\WIN\Desktop\DACN\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\PagedList.Mvc.dll
+C:\Users\WIN\Desktop\DACN\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\PagedList.xml
+C:\Users\WIN\Desktop\DACN\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\PagedList.Mvc.xml
