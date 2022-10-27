@@ -136,13 +136,26 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 int SoSao = Int32.Parse(soSao);
                 addDanhGia.Create(SoSao, id, danhGia);
             }
-
-
-
-
             return RedirectToAction("Details");
         }
 
+        //public ActionResult SanPhamTheoLoai(int? page, string id_Nhom, string searchString)
+        //{
+        //    var loaiSP = db.NhomSP.ToList();
+        //    int pageSize = 15;
+        //    int pageNum = page ?? 1;
+        //    int maloaii = maloai ?? 8;
+        //    SanPhamViewModel sp = new SanPhamViewModel
+        //    {
+        //        LoaiSPs = loaiSP,
+        //        SanPhams = (PagedList<SanPham>)SanPham.getsanphamtheoid(maloaii).ToPagedList(pageNum, pageSize)
+        //    };
+        //    if (searchString != null && searchString != "")
+        //    {
+        //        return RedirectToAction("Index", new { @searchString = searchString });
+        //    }
+        //    return View(sp);
+        //}
 
         // GET: SanPhams/Create
         public ActionResult Create()
