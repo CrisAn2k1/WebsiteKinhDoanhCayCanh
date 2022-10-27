@@ -84,7 +84,7 @@
         <div class="col-md-12 heading-section text-center ftco-animate">
             <span class="subheading">Các loại sản phẩm</span>
             <h2 class="mb-4">Các loại sản phẩm bán chạy</h2>
-            
+
         </div>
     </div>
 </div>
@@ -103,35 +103,39 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(https://cdn.chanhtuoi.com/uploads/2021/07/cay-trong-trong-nha-00-1.jpeg) ;">
-                            <div class="text px-3 py-1">
-
-                                <h2 class="mb-0"><a href="#">Cây trong nhà</a></h2>
+                        <a href="#">
+                            <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(https://cdn.chanhtuoi.com/uploads/2021/07/cay-trong-trong-nha-00-1.jpeg) ;">
+                                <div class="text px-3 py-1">
+                                    <h2 class="mb-0" style="color: #fff">Cây trong nhà</h2>
+                                </div>
                             </div>
-                        </div>
-                        <div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(https://static1.cafeland.vn/cafelandnew/hinh-anh/2022/01/04/95/cay-trong-hop-trong-nha-nhat-5.jpg);">
-                            <div class="text px-3 py-1">
-
-                                <h2 class="mb-0"><a href="#">Cây văn phòng</a></h2>
+                        </a>
+                        <a href="#">
+                            <div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(https://static1.cafeland.vn/cafelandnew/hinh-anh/2022/01/04/95/cay-trong-hop-trong-nha-nhat-5.jpg);">
+                                <div class="text px-3 py-1">
+                                    <h2 class="mb-0" style="color: #fff">Cây văn phòng</h2>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-4">
-                <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(https://bancongxanh.com/wp-content/uploads/2022/05/can-mua-cay-de-ban-quan-7-2-1.jpg);">
-                    <div class="text px-3 py-1">
-
-                        <h2 class="mb-0"><a href="#">Cây để bàn</a></h2>
+                <a href="#">
+                    <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(https://bancongxanh.com/wp-content/uploads/2022/05/can-mua-cay-de-ban-quan-7-2-1.jpg);">
+                        <div class="text px-3 py-1">
+                            <h2 class="mb-0" style="color: #fff">Cây để bàn</h2>
+                        </div>
                     </div>
-                </div>
-                <div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(https://sendakimcuong.com/wp-content/uploads/2021/12/cach-cham-soc-sen-da-khi-moi-mua-ve.jpg);">
-                    <div class="text px-3 py-1">
-
-                        <h2 class="mb-0"><a href="#">Sen đá</a></h2>
+                </a>
+                <a href="#">
+                    <div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(https://sendakimcuong.com/wp-content/uploads/2021/12/cach-cham-soc-sen-da-khi-moi-mua-ve.jpg);">
+                        <div class="text px-3 py-1">
+                            <h2 class="mb-0" style="color: #fff">Sen đá</h2>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>
@@ -149,46 +153,48 @@
 
     <div class="container">
         <div class="row">
-            @foreach (var item in Model)
-            {
-               @* var hinh = @item.HinhAnhSP.Where(p => p.id_SP == item.id_SP).FirstOrDefault().duongDan;*@
-                <div class="col-md-6 col-lg-3 ftco-animate">
+            @{
 
-                    <div class="product">
-                        <a href="#" class="img-prod">
-                            <img class="img-fluid" src="~/Template/img/caycauvang.jpg" alt="Colorlib Template">
-                            @if (@item.phanTramGiamGia > 0)
-                            {
-                            <span class="status">@item.phanTramGiamGia %</span>}
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="#">@item.tenSP</a></h3>
-                            @if (@item.phanTramGiamGia > 0)
-                            {
-                <div class="d-flex">
-                    <div class="pricing">
-
-                        <p class="price"><span class="mr-2 price-dc">@String.Format("{0:0,0}", @item.gia)</span><span class="price-sale">@String.Format("{0:0,0}", @item.gia - ((float)@item.phanTramGiamGia / 100) * @item.gia) VND </span></p>
-                    </div>
-                </div> }
-                else
+                foreach (var item in Model)
                 {
-                <div class="d-flex">
-                    <div class="pricing">
-                        <p class="price"><span>@String.Format("{0:0,0}", @item.gia) VNĐ</span></p>
-                    </div>
-                </div>}
-                            <div class="bottom-area d-flex px-3">
-                                <div class="m-auto d-flex">
-                                    <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                        <span><i class="ion-ios-cart"></i></span>
-                                    </a>
+                    <div class="col-md-6 col-lg-3 ftco-animate">
+                        <div class="product">
+                            <a href="#" class="img-prod">
+                                <img class="img-fluid" src="@item.HinhAnhSP.Where(p => p.id_SP == item.id_SP).FirstOrDefault().duongDan" alt="Colorlib Template">
+                                @if (@item.phanTramGiamGia > 0)
+                                {
+                                    <span class="status">@item.phanTramGiamGia%</span>}
+                                <div class="overlay"></div>
+                            </a>
+                            <div class="text py-3 pb-4 px-3 text-center">
+                                <h3><a href="#">@item.tenSP</a></h3>
+                                @if (@item.phanTramGiamGia > 0)
+                                {
+                                    <div class="d-flex">
+                                        <div class="pricing">
+
+                                            <p class="price"><span class="mr-2 price-dc">@String.Format("{0:0,0}", @item.gia)&#8363;</span><span class="price-sale">@String.Format("{0:0,0}", @item.gia - ((float)@item.phanTramGiamGia / 100) * @item.gia)&#8363; </span></p>
+                                        </div>
+                                    </div> }
+                                else
+                                {
+                                    <div class="d-flex">
+                                        <div class="pricing">
+                                            <p class="price"><span>@String.Format("{0:0,0}", @item.gia)&#8363;</span></p>
+                                        </div>
+                                    </div>}
+                                <div class="bottom-area d-flex px-3">
+                                    <div class="m-auto d-flex">
+                                        <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                            <span><i class="ion-ios-cart"></i></span>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>}
+                }
+            }
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="product">
                     <a href="#" class="img-prod">
