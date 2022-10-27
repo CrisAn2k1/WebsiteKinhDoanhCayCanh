@@ -1,63 +1,87 @@
 ﻿@using WebsiteKinhDoanhCayCanh.Models
 @model LoginViewModel
-@{
-    ViewBag.Title = "Log in";
-}
+@{ ViewBag.Title = "Log in"; }
+<br />
 
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
+<link href="~/Content/assets/css/css/Style1.css" rel="stylesheet" />
+
+<section>
+    <div style="font-family: 'Sans-serif'">
+        <div class="hero-wrap hero-bread" style="background-image: url('/Template/img/banner-img.jpg');opacity:0.9" ;>
+            <div>
+                <div class="container">
+                    <div class="row no-gutters slider-text align-items-center justify-content-center">
+                        <div class="col-md-9 ftco-animate text-center bg-text">
+                            <h1 class="mb-0 bread" style="color:antiquewhite">ĐĂNG NHẬP</h1>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
+            </div>
+        </div>
+        </div>
+</section>
+<br />
+<br />
+<section>
+        <div class="row">
+            <div class="col-lg-6  col-md-6">
+                <section id="socialLoginForm">
+                    @* @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })*@
+                    <div class="form-group" style="text-align:center">
+                        <div style="text-align:center">
+                            <h4 style="color:green"> TA-TREES Xin chào</h4>
+                            <p>Vui lòng đăng nhập để mua hàng !</p>
+                        </div>
                     </div>
-                </div>
-                <p>
-                    @Html.ActionLink("Register as a new user", "Register")
-                </p>
-                @* Enable this once you have account confirmation enabled for password reset functionality
-                    <p>
-                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                    </p>*@
-            }
-        </section>
-    </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
-    </div>
-</div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+                    <div class="form-group" style="text-align:center">
+                        <div style="text-align:center">
+                            <img src="~/Template/img/bonsai1.png" width="250" height="250" ; />
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-lg-6  col-md-6">
+                <section id="loginForm">
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                     @Html.AntiForgeryToken()
+                     <h4 style="color:green" ;>Đăng nhập bằng tài khoản của bạn.</h4>
+                     <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email" })
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Mật khẩu" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(m => m.RememberMe)
+                                    @Html.LabelFor(m => m.RememberMe)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" style="text-align:center">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Đăng nhập" class="btn btn-default" style="background-color: #7fad39;" />
+                            </div>
+                        </div> 
+                    }
+                </section>
+            </div>
+        </div>
+ </section>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
