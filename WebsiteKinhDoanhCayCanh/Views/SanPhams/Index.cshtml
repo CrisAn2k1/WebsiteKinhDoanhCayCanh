@@ -1,77 +1,103 @@
-﻿@model IEnumerable<WebsiteKinhDoanhCayCanh.Models.SanPham>
+﻿
+@using PagedList.Mvc;
+
+@model WebsiteKinhDoanhCayCanh.Models.OtherModels.Product_Index
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="goto-here">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.NhomSP.tenNhom)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ThongTinThemVeSP.congDung)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tenSP)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.mota)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.gia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.soLuong)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DVT)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.phanTramGiamGia)
-        </th>
-        <th></th>
-    </tr>
+    <div class="hero-wrap hero-bread" style="background-image: url('/Template/img/banner-img.jpg');opacity:0.9" ;>
+        <div>
+            <div class="container">
+                <div class="row no-gutters slider-text align-items-center justify-content-center">
+                    <div class="col-md-9 ftco-animate text-center bg-text">
+                        <h1 class="mb-0 bread" style="color:antiquewhite">Products</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NhomSP.tenNhom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ThongTinThemVeSP.congDung)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tenSP)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.mota)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.gia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.soLuong)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DVT)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.phanTramGiamGia)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id_SP }) |
-                @Html.ActionLink("Details", "Details", new { id = item.id_SP }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.id_SP })
-            </td>
-        </tr>
-    }
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-10 mb-5 text-center">
+                    @using WebsiteKinhDoanhCayCanh.Models
+                    @{
+                        MyDataEF db = new MyDataEF();
+                        <ul class="product-category">
+                            @foreach (var item in db.NhomSP.ToList())
+                            {
+                                <li><a href="@Url.Action("Index", "SanPhams", new {@id_Nhom = item.id_Nhom,@searchString = "" })">@item.tenNhom</a></li>
+                            }
+                        </ul>
+                        <form class="form-inline">
+                            <input type="search" value="@ViewBag.idNhom" name="id_Nhom" hidden>
+                            <input class="form-control mr-sm-2" type="search" value="@ViewBag.Keyword" name="searchString" placeholder="Nhập tên sản phẩm cần tìm" aria-label="Search"
+                                   style="width:297px; height:40px; font-size:16px;"> 
+                            <input type="submit" class="btn btn-success my-2 my-sm-0" value="Tìm kiếm" style="margin-left: 10px; height: 40px; font-size: 16px;" width="50">
+                        </form>
+                    }
+                </div>
+            </div>
+            <div class="row">
 
-</table>
+                @{
+                    foreach (var item in Model.SanPhams)
+                    {
+                        <div class="col-md-6 col-lg-3 ftco-animate">
+                            <div class="product">
+                                <a href="@Url.Action("Details","SanPhams", new { id = item.id_SP })" class="img-prod">
+                                    <img class="img-fluid" src="@item.HinhAnhSP.Where(p => p.id_SP == item.id_SP).FirstOrDefault().duongDan" alt="Colorlib Template">
+                                    @if (@item.phanTramGiamGia > 0)
+                                    {
+                                        <span class="status">@item.phanTramGiamGia%</span>}
+                                    <div class="overlay"></div>
+                                </a>
+                                <div class="text py-3 pb-4 px-3 text-center">
+                                    <h3><a href="#">@item.tenSP</a></h3>
+                                    @if (@item.phanTramGiamGia > 0)
+                                    {
+                                        <div class="d-flex">
+                                            <div class="pricing">
+
+                                                <p class="price"><span class="mr-2 price-dc">@String.Format("{0:0,0}", @item.gia)&#8363;</span><span class="price-sale">@String.Format("{0:0,0}", @item.gia - ((float)@item.phanTramGiamGia / 100) * @item.gia)&#8363; </span></p>
+                                            </div>
+                                        </div> }
+                                    else
+                                    {
+                                        <div class="d-flex">
+                                            <div class="pricing">
+                                                <p class="price"><span>@String.Format("{0:0,0}", @item.gia)&#8363;</span></p>
+                                            </div>
+                                        </div>}
+                                    <div class="bottom-area d-flex px-3">
+                                        <div class="m-auto d-flex">
+                                            <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                                <span><i class="ion-ios-cart"></i></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="row mt-5">
+                <div class="col text-center">
+                    <div class="block-27">
+                        <ul style="display: flex; justify-content: center;">
+                            @Html.PagedListPager(Model.SanPhams, page => Url.Action("Index", new { page = page }))
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
