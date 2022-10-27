@@ -64,6 +64,11 @@ namespace WebsiteKinhDoanhCayCanh.Models
 
     public class RegisterViewModel
     {
+
+        [Required]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -79,6 +84,14 @@ namespace WebsiteKinhDoanhCayCanh.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Phone number")]
+        public string PhoneNumber { get; set; }
+
+        [Required]
+        [Display(Name = "Address")]
+        public string Address { get; set; }
     }
 
     public class ResetPasswordViewModel

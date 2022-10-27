@@ -233,6 +233,7 @@
     <Content Include="Content\assets\css\bootstrap\bootstrap-reboot.css" />
     <Content Include="Content\assets\css\css\bootstrap-reboot.css" />
     <Content Include="Content\assets\css\css\mixins\_text-hide.css" />
+    <Content Include="Content\assets\css\css\Style1.css" />
     <Content Include="Content\assets\css\flaticon.css" />
     <Content Include="Content\assets\css\icomoon.css" />
     <Content Include="Content\assets\css\ionicons.min.css" />
@@ -452,6 +453,8 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Template\img\banner-img.jpg" />
     <Content Include="Template\img\banner1.png" />
+    <Content Include="Template\img\bonsai1.png" />
+    <Content Include="Template\img\bonsai2.png" />
     <Content Include="Template\img\icon-web.png" />
     <Content Include="Template\img\banner2.jpg" />
     <Content Include="Template\img\bonsai.jpg" />
