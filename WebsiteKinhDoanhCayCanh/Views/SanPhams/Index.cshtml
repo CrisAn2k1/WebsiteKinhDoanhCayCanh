@@ -30,18 +30,36 @@
                     @{
                         MyDataEF db = new MyDataEF();
                         <ul class="product-category">
+                            <li><a class="category-product" style="background:" href="/SanPhams">Tất cả</a></li>
                             @foreach (var item in db.NhomSP.ToList())
                             {
-                                <li><a href="@Url.Action("Index", "SanPhams", new {@id_Nhom = item.id_Nhom,@searchString = "" })">@item.tenNhom</a></li>
+                                <li><a class="category-product" href="@Url.Action("Index", "SanPhams", new {item.id_Nhom})">@item.tenNhom</a></li>
                             }
                         </ul>
-                        <form class="form-inline">
+                        <br />
+                        <form class="form-inline d-flex justify-content-center">
                             <input type="search" value="@ViewBag.idNhom" name="id_Nhom" hidden>
                             <input class="form-control mr-sm-2" type="search" value="@ViewBag.Keyword" name="searchString" placeholder="Nhập tên sản phẩm cần tìm" aria-label="Search"
-                                   style="width:297px; height:40px; font-size:16px;"> 
+                                   style="width:297px; height:40px; font-size:16px;">
                             <input type="submit" class="btn btn-success my-2 my-sm-0" value="Tìm kiếm" style="margin-left: 10px; height: 40px; font-size: 16px;" width="50">
                         </form>
                     }
+                    <script>
+                        Array.from($('.category-product')).forEach(function (item) {
+                            if (location.href.split('/')[3] == item.href.split('/')[3]) {
+                                item.style = 'background: #28a745;color: #ecefe8 !important;border-radius:15px;'
+                            }
+                            else { 
+                                if (location.href.split('/')[3].includes(item.href.split('/')[3])) {
+                                    if (item.href.split('/')[3] != 'SanPhams') {
+                                        item.style = 'background: #28a745;color: #ecefe8 !important;border-radius:15px;'
+                                    }
+                                    if (location.href.split('?')[1].includes('id_Nhom=&searchString')) {
+                                        item.style = 'background: #28a745;color: #ecefe8 !important;border-radius:15px;'
+                                    }
+                                }
+                            }
+                        })</script>
                 </div>
             </div>
             <div class="row">
@@ -77,7 +95,7 @@
                                         </div>}
                                     <div class="bottom-area d-flex px-3">
                                         <div class="m-auto d-flex">
-                                            <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                            <a href="/SanPhams/" class="buy-now d-flex justify-content-center align-items-center mx-1">
                                                 <span><i class="ion-ios-cart"></i></span>
                                             </a>
                                         </div>

@@ -77,7 +77,7 @@ namespace WebsiteKinhDoanhCayCanh.Models
             searchKey = searchKey.ToLower();
             MyDataEF db = new MyDataEF();
             var listNhom_SP = db.SanPham.Where(p => p.id_Nhom == maNhomSP && p.soLuong > 0).ToList();
-            var kq = listNhom_SP.Where(p => p.tenSP.Contains(searchKey.ToLower())).ToList();
+            var kq = listNhom_SP.Where(p => p.tenSP.ToLower().Contains(searchKey)).ToList();
             return kq;
         }
     }

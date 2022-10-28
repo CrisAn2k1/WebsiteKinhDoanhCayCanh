@@ -8681,7 +8681,7 @@ h1, h2, h3, h4, h5,
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
-    border-radius: 5px; }
+    border-radius: 20px; }
     .product-category li a.active {
       background: #82ae46;
       color: #fff; }

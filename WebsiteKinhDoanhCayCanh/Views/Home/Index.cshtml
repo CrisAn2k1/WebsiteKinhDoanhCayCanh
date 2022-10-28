@@ -14,7 +14,7 @@
                         <p></p>
                         <h1 class="mb-2">Ở đây chúng tôi có cây đẹp</h1>
                         <h2 class="subheading mb-4">Uy tín - Chất lượng - Giá hợp lí</h2>
-                        <p><a href="#" class="btn btn-primary">Xem thêm</a></p>
+                        <p><a href="/SanPhams" class="btn btn-primary">Xem thêm</a></p>
                     </div>
 
                 </div>
@@ -29,7 +29,7 @@
                         <p></p>
                         <h1 class="mb-2">Ở đây chúng tôi có cây đẹp</h1>
                         <h2 class="subheading mb-4">Uy tín - Chất lượng - Giá hợp lí</h2>
-                        <p><a href="#" class="btn btn-primary">Xem thêm</a></p>
+                        <p><a href="/SanPhams" class="btn btn-primary">Xem thêm</a></p>
                     </div>
 
                 </div>
@@ -103,14 +103,14 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <a href="#">
+                        <a href="/SanPhams?id_Nhom=CTN">
                             <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(https://cdn.chanhtuoi.com/uploads/2021/07/cay-trong-trong-nha-00-1.jpeg) ;">
                                 <div class="text px-3 py-1">
                                     <h2 class="mb-0" style="color: #fff">Cây trong nhà</h2>
                                 </div>
                             </div>
                         </a>
-                        <a href="#">
+                        <a href="SanPhams?id_Nhom=CVP">
                             <div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(https://static1.cafeland.vn/cafelandnew/hinh-anh/2022/01/04/95/cay-trong-hop-trong-nha-nhat-5.jpg);">
                                 <div class="text px-3 py-1">
                                     <h2 class="mb-0" style="color: #fff">Cây văn phòng</h2>
@@ -122,14 +122,14 @@
             </div>
 
             <div class="col-md-4">
-                <a href="#">
+                <a href="SanPhams?id_Nhom=CDB">
                     <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(https://bancongxanh.com/wp-content/uploads/2022/05/can-mua-cay-de-ban-quan-7-2-1.jpg);">
                         <div class="text px-3 py-1">
                             <h2 class="mb-0" style="color: #fff">Cây để bàn</h2>
                         </div>
                     </div>
                 </a>
-                <a href="#">
+                <a href="SanPhams?id_Nhom=SENDA">
                     <div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(https://sendakimcuong.com/wp-content/uploads/2021/12/cach-cham-soc-sen-da-khi-moi-mua-ve.jpg);">
                         <div class="text px-3 py-1">
                             <h2 class="mb-0" style="color: #fff">Sen đá</h2>
@@ -158,7 +158,7 @@
                 {
                     <div class="col-md-6 col-lg-3 ftco-animate">
                         <div class="product">
-                            <a href="#" class="img-prod">
+                            <a href="@Url.Action("Details","SanPhams", new { id = item.id_SP })" class="img-prod">
                                 <img class="img-fluid" src="@item.HinhAnhSP.Where(p => p.id_SP == item.id_SP).FirstOrDefault().duongDan" alt="Colorlib Template">
                                 @if (@item.phanTramGiamGia > 0)
                                 {

@@ -520,7 +520,6 @@
     <Content Include="Views\DanhGias\Details.cshtml" />
     <Content Include="Views\DanhGias\Edit.cshtml" />
     <Content Include="Views\DanhGias\Index.cshtml" />
-    <Content Include="Views\SanPhams\TheoLoaiSP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
