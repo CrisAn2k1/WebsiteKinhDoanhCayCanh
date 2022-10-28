@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace WebsiteKinhDoanhCayCanh.Models
+namespace WebsiteKinhDoanhCayCanh.Models.OtherModels
 {
     public class Product_Details
     {

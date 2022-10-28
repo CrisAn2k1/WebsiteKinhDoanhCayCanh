@@ -10,6 +10,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebsiteKinhDoanhCayCanh.Models;
+using WebsiteKinhDoanhCayCanh.Models.OtherModels;
 
 namespace WebsiteKinhDoanhCayCanh.Controllers
 {
@@ -18,10 +19,43 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         private MyDataEF db = new MyDataEF();
 
         // GET: SanPhams
-        public ActionResult Index()
+        public ActionResult Index(int? page, string id_Nhom, string searchString)
         {
-            var sanPham = db.SanPham.Include(s => s.NhomSP).Include(s => s.ThongTinThemVeSP);
-            return View(sanPham.ToList());
+            ViewBag.Keyword = searchString;
+            ViewBag.idNhom = id_Nhom;
+            int pageSize = 12;
+            int pageNum = page ?? 1;
+            Product_Index search_SP;
+
+            if ((id_Nhom != null && id_Nhom != "") && (searchString != null))
+            {
+                search_SP = new Product_Index()
+                {
+                    SanPhams = (PagedList<SanPham>)SanPham.getSanPhamTheoLoai_Search(id_Nhom, searchString).ToPagedList(pageNum, pageSize)
+                };
+                return View(search_SP);
+            }
+            else
+            {
+                if ((id_Nhom != null) && id_Nhom != "")
+                {
+                    search_SP = new Product_Index()
+                    {
+                        SanPhams = (PagedList<SanPham>)SanPham.getSanPhamTheoLoai(id_Nhom).ToPagedList(pageNum, pageSize)
+                    };
+                    return View(search_SP);
+                }
+                else
+                {
+                    search_SP = new Product_Index()
+                    {
+                        SanPhams = (PagedList<SanPham>)SanPham.getAll(searchString).ToPagedList(pageNum, pageSize)
+                    };
+                    return View(search_SP);
+
+                }
+            }
+
         }
 
         // GET: SanPhams/Details/5
@@ -136,13 +170,8 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 int SoSao = Int32.Parse(soSao);
                 addDanhGia.Create(SoSao, id, danhGia);
             }
-
-
-
-
             return RedirectToAction("Details");
         }
-
 
         // GET: SanPhams/Create
         public ActionResult Create()

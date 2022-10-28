@@ -231,7 +231,8 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MyDataEF.cs" />
     <Compile Include="Models\NhomSP.cs" />
-    <Compile Include="Models\Product-Details.cs" />
+    <Compile Include="Models\OtherModels\Product-Details.cs" />
+    <Compile Include="Models\OtherModels\Product-Index.cs" />
     <Compile Include="Models\SanPham.cs" />
     <Compile Include="Models\ThongTinThemVeSP.cs" />
     <Compile Include="Models\UserVoucher.cs" />

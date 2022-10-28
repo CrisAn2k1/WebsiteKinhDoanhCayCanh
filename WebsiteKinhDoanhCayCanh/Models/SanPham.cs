@@ -5,6 +5,7 @@ namespace WebsiteKinhDoanhCayCanh.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     [Table("SanPham")]
     public partial class SanPham
@@ -55,5 +56,29 @@ namespace WebsiteKinhDoanhCayCanh.Models
         public virtual NhomSP NhomSP { get; set; }
 
         public virtual ThongTinThemVeSP ThongTinThemVeSP { get; set; }
+
+        // Mot so chuc nang rieng biet
+
+        public static List<SanPham> getAll(string searchKey)
+        {
+            MyDataEF db = new MyDataEF();
+            searchKey = searchKey + "";
+            return db.SanPham.Where(p => p.tenSP.Contains(searchKey) && p.soLuong > 0).ToList();
+        }
+
+        public static List<SanPham> getSanPhamTheoLoai(string maNhomSP)
+        {
+            MyDataEF db = new MyDataEF();
+            return db.SanPham.Where(p => p.id_Nhom == maNhomSP && p.soLuong > 0).ToList();
+        }
+
+        public static List<SanPham> getSanPhamTheoLoai_Search(string maNhomSP, string searchKey)
+        {
+            searchKey = searchKey.ToLower();
+            MyDataEF db = new MyDataEF();
+            var listNhom_SP = db.SanPham.Where(p => p.id_Nhom == maNhomSP && p.soLuong > 0).ToList();
+            var kq = listNhom_SP.Where(p => p.tenSP.ToLower().Contains(searchKey)).ToList();
+            return kq;
+        }
     }
 }
