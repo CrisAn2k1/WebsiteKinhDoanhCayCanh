@@ -62,14 +62,25 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Reactive, Version=5.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reactive.5.0.0\lib\net472\System.Reactive.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -125,6 +136,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
@@ -192,12 +204,15 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BinhLuansController.cs" />
     <Compile Include="Controllers\DanhGiasController.cs" />
+    <Compile Include="Controllers\GioHangsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SanPhamsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Message\ModelNotification.cs" />
+    <Compile Include="Message\Notification.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BinhLuan.cs" />
     <Compile Include="Models\CachChamSoc.cs" />
@@ -205,6 +220,7 @@
     <Compile Include="Models\C__MigrationHistory.cs" />
     <Compile Include="Models\DanhGia.cs" />
     <Compile Include="Models\DonHang.cs" />
+    <Compile Include="Models\GioHang.cs" />
     <Compile Include="Models\HinhAnhSP.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LinQ\MyDBContext.designer.cs">
@@ -456,6 +472,9 @@
     <Content Include="Template\img\banner1.png" />
     <Content Include="Template\img\bonsai1.png" />
     <Content Include="Template\img\bonsai2.png" />
+    <Content Include="Template\img\cayngocngan.jpg" />
+    <Content Include="Template\img\caytieutram.jpg" />
+    <Content Include="Template\img\home.png" />
     <Content Include="Template\img\icon-web.png" />
     <Content Include="Template\img\banner2.jpg" />
     <Content Include="Template\img\bonsai.jpg" />
@@ -469,6 +488,7 @@
     <Content Include="Template\img\luoihovang.jpg" />
     <Content Include="Template\img\senda.jpg" />
     <Content Include="Template\img\traubathanhxuan.jpg" />
+    <Content Include="Template\img\xexanh.png" />
     <Content Include="Template\img\Xuong-rong_1.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -520,6 +540,9 @@
     <Content Include="Views\DanhGias\Details.cshtml" />
     <Content Include="Views\DanhGias\Edit.cshtml" />
     <Content Include="Views\DanhGias\Index.cshtml" />
+    <Content Include="Views\GioHangs\GioHang.cshtml" />
+    <Content Include="Views\GioHangs\GiohangPartial.cshtml" />
+    <Content Include="Views\Shared\_MessageAlert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

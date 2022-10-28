@@ -21,5 +21,10 @@ namespace WebsiteKinhDoanhCayCanh
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        protected void Session_Start()
+        {
+            Session["Notification"] = "";
+        }
     }
 }
