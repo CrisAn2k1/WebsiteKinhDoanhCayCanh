@@ -25,5 +25,6 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         {
             return View();
         }
+
     }
 }

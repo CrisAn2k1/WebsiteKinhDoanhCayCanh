@@ -116,3 +116,9 @@ C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\Web
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.dll
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.pdb
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.csproj.AssemblyReference.cache
+C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Reactive.dll
+C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Threading.Tasks.Extensions.dll
+C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Reactive.xml
+C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Threading.Tasks.Extensions.xml
