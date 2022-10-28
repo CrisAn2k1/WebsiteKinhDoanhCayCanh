@@ -1,0 +1,489 @@
+﻿@model WebsiteKinhDoanhCayCanh.Models.OtherModels.Product_Details
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="font-family: 'Sans-serif'">
+    <div class="hero-wrap hero-bread" style="background-image: url('/Template/img/banner-img.jpg');opacity:0.9" ;>
+        <div>
+            <div class="container">
+                <div class="row no-gutters slider-text align-items-center justify-content-center">
+                    <div class="col-md-9 ftco-animate text-center bg-text">
+                        <h1 class="mb-0 bread" style="color:antiquewhite">Product Details</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-5 ftco-animate">
+                    <a href="~/Template/img/banner1.png" class="image-popup">
+                        <img src="~/Template/img/banner1.png" class="img-fluid" alt="Colorlib Template">
+                    </a>
+                </div>
+                <div class="col-lg-6 product-details pl-md-5 ftco-animate">
+                    <h3 style="font-family:  'Lora', Georgia, serif; font-weight:bold">@Model.SanPham.tenSP</h3>
+                    <div class="rating d-flex">
+                        <p class="text-left mr-4">
+                            <a href="#" class="mr-2">5.0</a>
+                            <a href="#"><span class="ion-ios-star-outline"></span></a>
+                            <a href="#"><span class="ion-ios-star-outline"></span></a>
+                            <a href="#"><span class="ion-ios-star-outline"></span></a>
+                            <a href="#"><span class="ion-ios-star-outline"></span></a>
+                            <a href="#"><span class="ion-ios-star-outline"></span></a>
+                        </p>
+                        <p class="text-left mr-4">
+                            <a href="#" class="mr-2" style="color: #000;">100 <span style="color: #bbb;">Rating</span></a>
+                        </p>
+                        <p class="text-left">
+                            <a href="#" class="mr-2" style="color: #000;">500 <span style="color: #bbb;">Sold</span></a>
+                        </p>
+                    </div>
+                    <span>Còn lại:<strong> @Model.SanPham.soLuong </strong></span>
+                    <p class="price"><span style="display: flex; align-items: center;"><span style="font-size: 20px;padding-right:10px"> Giá:</span> <price style="font-weight:bold;color:red;"> @String.Format("{0:0,0}", @Model.SanPham.gia)&#8363; </price></span></p>
+                    <div class="custom-table">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <strong> Công dụng:</strong> @Model.SanPham.ThongTinThemVeSP.congDung
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong> Cách trồng:</strong> @Model.SanPham.ThongTinThemVeSP.cachTrong
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br />
+                    <p>
+                        <strong>Mô tả:</strong><br />
+                        @Model.SanPham.mota
+                    </p>
+                    <div class="row mt-4">
+                        <div class="w-100"></div>
+                        <div class="input-group col-md-6 d-flex mb-3">
+                            <span class="input-group-btn mr-2">
+                                <button type="button" class="quantity-left-minus btn" data-type="minus" data-field="">
+                                    <i class="ion-ios-remove"></i>
+                                </button>
+                            </span>
+                            <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
+                            <span class="input-group-btn ml-2">
+                                <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
+                                    <i class="ion-ios-add"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <div class="w-100"></div>
+                        <br />
+                    </div>
+                    <p><a href="cart.html" class="btn btn-black py-3 px-5">Add to Cart</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center mb-3 pb-3">
+                <div class="col-md-12 heading-section text-center ftco-animate">
+                    <span style="font-size:26px" class="subheading">Sản Phẩm Tương Tự</span>
+                    <p>Dưới đây là một số sản phẩm tương tự mà bạn có thể thích!</p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-3 ftco-animate">
+                    <div class="product">
+                        <a href="#" class="img-prod">
+                            <img class="img-fluid" src="" alt="Colorlib Template">
+                            <span class="status">30%</span>
+                            <div class="overlay"></div>
+                        </a>
+                        <div class="text py-3 pb-4 px-3 text-center">
+                            <h3><a href="#">Bell Pepper</a></h3>
+                            <div class="d-flex">
+                                <div class="pricing">
+                                    <p class="price"><span class="mr-2 price-dc">$120.00</span><span class="price-sale">$80.00</span></p>
+                                </div>
+                            </div>
+                            <div class="bottom-area d-flex px-3">
+                                <div class="m-auto d-flex">
+                                    <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                        <span><i class="ion-ios-menu"></i></span>
+                                    </a>
+                                    <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                        <span><i class="ion-ios-cart"></i></span>
+                                    </a>
+                                    <a href="#" class="heart d-flex justify-content-center align-items-center ">
+                                        <span><i class="ion-ios-heart"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 ftco-animate">
+                    <div class="product">
+                        <a href="#" class="img-prod">
+                            <img class="img-fluid" src="" alt="Colorlib Template">
+                            <div class="overlay"></div>
+                        </a>
+                        <div class="text py-3 pb-4 px-3 text-center">
+                            <h3><a href="#">Strawberry</a></h3>
+                            <div class="d-flex">
+                                <div class="pricing">
+                                    <p class="price"><span>$120.00</span></p>
+                                </div>
+                            </div>
+                            <div class="bottom-area d-flex px-3">
+                                <div class="m-auto d-flex">
+                                    <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                        <span><i class="ion-ios-menu"></i></span>
+                                    </a>
+                                    <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                        <span><i class="ion-ios-cart"></i></span>
+                                    </a>
+                                    <a href="#" class="heart d-flex justify-content-center align-items-center ">
+                                        <span><i class="ion-ios-heart"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 ftco-animate">
+                    <div class="product">
+                        <a href="#" class="img-prod">
+                            <img class="img-fluid" src="" alt="Colorlib Template">
+                            <div class="overlay"></div>
+                        </a>
+                        <div class="text py-3 pb-4 px-3 text-center">
+                            <h3><a href="#">Green Beans</a></h3>
+                            <div class="d-flex">
+                                <div class="pricing">
+                                    <p class="price"><span>$120.00</span></p>
+                                </div>
+                            </div>
+                            <div class="bottom-area d-flex px-3">
+                                <div class="m-auto d-flex">
+                                    <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                        <span><i class="ion-ios-menu"></i></span>
+                                    </a>
+                                    <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                        <span><i class="ion-ios-cart"></i></span>
+                                    </a>
+                                    <a href="#" class="heart d-flex justify-content-center align-items-center ">
+                                        <span><i class="ion-ios-heart"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 ftco-animate">
+                    <div class="product">
+                        <a href="#" class="img-prod">
+                            <img class="img-fluid" src="" alt="Colorlib Template">
+                            <div class="overlay"></div>
+                        </a>
+                        <div class="text py-3 pb-4 px-3 text-center">
+                            <h3><a href="#">Purple Cabbage</a></h3>
+                            <div class="d-flex">
+                                <div class="pricing">
+                                    <p class="price"><span>$120.00</span></p>
+                                </div>
+                            </div>
+                            <div class="bottom-area d-flex px-3">
+                                <div class="m-auto d-flex">
+                                    <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                        <span><i class="ion-ios-menu"></i></span>
+                                    </a>
+                                    <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                        <span><i class="ion-ios-cart"></i></span>
+                                    </a>
+                                    <a href="#" class="heart d-flex justify-content-center align-items-center ">
+                                        <span><i class="ion-ios-heart"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        $(document).ready(function () {
+
+            var quantitiy = 0;
+            $('.quantity-right-plus').click(function (e) {
+
+                // Stop acting like a button
+                e.preventDefault();
+                // Get the field name
+                var quantity = parseInt($('#quantity').val());
+
+                // If is not undefined
+
+                $('#quantity').val(quantity + 1);
+
+
+                // Increment
+
+            });
+
+            $('.quantity-left-minus').click(function (e) {
+                // Stop acting like a button
+                e.preventDefault();
+                // Get the field name
+                var quantity = parseInt($('#quantity').val());
+
+                // If is not undefined
+
+                // Increment
+                if (quantity > 0) {
+                    $('#quantity').val(quantity - 1);
+                }
+            });
+
+        });
+    </script>
+</div>
+
+<!-- Comment & đánh giá -->
+<div class="col-lg-12" style="background: rgb(71 198 92 / 13%); margin: 40px 0; ">
+    <div class="row">
+        <div class="col-lg-6" style="padding: 30px 20px;">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                if (HttpContext.Current.User.Identity.IsAuthenticated == true && @ViewBag.ttMuaHang == 1)
+                {
+                    <div class="form-horizontal" style="margin-bottom: 10px;">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div style="margin-bottom: 10px;"> <strong style="font-size:20px">Bình Luận(@Model.SanPham.BinhLuan.Count())</strong></div>
+                        <div>
+                            <textarea name="txtContent" rows="3" style="resize:none;border:none;font-size:14px; width:100%; padding: 10px;" placeholder="Hãy để lại cảm nghĩ của bạn về sản phẩm này nhé!"></textarea>
+                        </div>
+                        <div style=" display:flex; flex-direction: row; justify-content: right;">
+                            <input type="submit" value="Send" class="btn btn-warning pull-right" />
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-horizontal" style="margin-bottom: 10px;">
+                        <div>
+                            <p style="font-weight: bold; color: #cd9932; font-size: 18px">Hãy để lại bình luận sau khi nhận hàng nhé!</p>
+                        </div>
+                    </div>
+                }
+
+
+            }
+            <hr />
+            @foreach (var item in Model.BinhLuan)
+            {
+                <div class="card p-3" style="margin-bottom: 20px;">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="user d-flex flex-row align-items-center">
+                            <img src="https://i.imgur.com/hczKIze.jpg" width="30" class="user-img rounded-circle mr-2">
+                            <span>
+                                <small style="font-size: 16px;" class="font-weight-bold text-primary">@item.hoTen</small>
+                            </span>
+                        </div> <small style="font-size: 14px;"> @Html.DisplayFor(ngaytao => item.ngayDangBinhLuan)</small>
+                    </div>
+                    <div class="action d-flex justify-content-between mt-2 align-items-center">
+                        <div class="reply px-4" style="font-size: 16px;min-width:100vw;">@Html.DisplayFor(noidung => item.noiDung)</div>
+                    </div>
+                </div>
+            }
+            <div class="col text-center">
+                <div class="block-27">
+                    Trang @(Model.BinhLuan.PageCount < Model.BinhLuan.PageNumber ? 0 : Model.BinhLuan.PageNumber) / @Model.BinhLuan.PageCount
+                    <div style="display:flex;justify-content:center">
+                        @Html.PagedListPager(Model.BinhLuan, page => Url.Action("Details", new { page = page }))
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-6" style="padding: 30px 20px;">
+            <div class="Te9Tpc">
+                <div>
+                    @if (@Model.SanPham.DanhGia.Count() == 0)
+                    {
+                        <div class="jILTFe">0/5</div>
+                    }
+                    else
+                    {
+                        <div class="jILTFe">@ViewBag.updateStar/5</div>
+                    }
+                    <div role="img" class="I26one" style="display: inline-block;">
+                        <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="1" ssk="1#1">
+                            <span class="Z1Dz7b" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                                </svg>
+                            </span>
+                        </span>
+                        <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="2" ssk="1#2">
+                            <span class="Z1Dz7b" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                                </svg>
+                            </span>
+                        </span>
+                        <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="3" ssk="1#3">
+                            <span class="Z1Dz7b" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                                </svg>
+                            </span>
+                        </span>
+                        <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="4" ssk="1#4">
+                            <span class="Z1Dz7b" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                                </svg>
+                            </span>
+                        </span>
+                        <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="5" ssk="1#5">
+                            <span class="" aria-hidden="true">
+                                <svg class="xdPrrd" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="url(#lAhE9)">
+                                    <defs>
+                                        <linearGradient id="lAhE9">
+                                            <stop stop-opacity="1" offset="50%" class="Z1Dz7b"></stop>
+                                            <stop stop-opacity="1" offset="50%" class="Wi7KIe"></stop>
+                                        </linearGradient>
+                                    </defs>
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                                </svg>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="EHUI5b">@Model.SanPham.DanhGia.Count() &nbsp;đánh giá</div>
+                </div>
+                @if (@Model.SanPham.DanhGia.Count() == 0)
+                {
+                    <div>
+                        <div class="JzwBgb" role="img">
+                            <div aria-hidden="true" class="Qjdn7d">5</div>
+                            <div aria-hidden="true" class="RJfYGf">
+                                <div class="RutFAf wcB8se" style="width: 0"></div>
+                            </div>
+                        </div>
+                        <div class="JzwBgb" role="img">
+                            <div aria-hidden="true" class="Qjdn7d">4</div>
+                            <div aria-hidden="true" class="RJfYGf">
+                                <div class="RutFAf wcB8se" style="width: 0"></div>
+                            </div>
+                        </div>
+                        <div class="JzwBgb" role="img">
+                            <div aria-hidden="true" class="Qjdn7d">3</div>
+                            <div aria-hidden="true" class="RJfYGf">
+                                <div class="RutFAf wcB8se" style="width: 0"></div>
+                            </div>
+                        </div>
+                        <div class="JzwBgb" role="img">
+                            <div aria-hidden="true" class="Qjdn7d">2</div>
+                            <div aria-hidden="true" class="RJfYGf">
+                                <div class="RutFAf wcB8se" style="width: 0"></div>
+                            </div>
+                        </div>
+                        <div class="JzwBgb" role="img">
+                            <div aria-hidden="true" class="Qjdn7d">1</div>
+                            <div aria-hidden="true" class="RJfYGf">
+                                <div class="RutFAf wcB8se" style="width: 0"></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        <div class="JzwBgb" role="img">
+                            <div aria-hidden="true" class="Qjdn7d">5</div>
+                            <div aria-hidden="true" class="RJfYGf">
+                                <div class="RutFAf wcB8se" style="width: @ViewBag.namSao"></div>
+                            </div>
+                        </div>
+                        <div class="JzwBgb" role="img">
+                            <div aria-hidden="true" class="Qjdn7d">4</div>
+                            <div aria-hidden="true" class="RJfYGf">
+                                <div class="RutFAf wcB8se" style="width: @ViewBag.bonSao%"></div>
+                            </div>
+                        </div>
+                        <div class="JzwBgb" role="img">
+                            <div aria-hidden="true" class="Qjdn7d">3</div>
+                            <div aria-hidden="true" class="RJfYGf">
+                                <div class="RutFAf wcB8se" style="width: @ViewBag.baSao%"></div>
+                            </div>
+                        </div>
+                        <div class="JzwBgb" role="img">
+                            <div aria-hidden="true" class="Qjdn7d">2</div>
+                            <div aria-hidden="true" class="RJfYGf">
+                                <div class="RutFAf wcB8se" style="width: @ViewBag.haiSao%"></div>
+                            </div>
+                        </div>
+                        <div class="JzwBgb" role="img">
+                            <div aria-hidden="true" class="Qjdn7d">1</div>
+                            <div aria-hidden="true" class="RJfYGf">
+                                <div class="RutFAf wcB8se" style="width: @ViewBag.motSao%"></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <hr />
+
+            @if (ViewBag.ttDanhGia == 0 && ViewBag.ttMuaHang == 1)
+            {
+                <div>
+                    <div><h5 style="font-weight:600;">Tạo đánh giá</h5></div>
+                    <div class="stars">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            <input class="star star-5" id="star-5" type="radio" value="5" name="star" />
+                            <label class="star star-5" for="star-5"></label>
+                            <input class="star star-4" id="star-4" type="radio" value="4" name="star" />
+                            <label class="star star-4" for="star-4"></label>
+                            <input class="star star-3" id="star-3" type="radio" value="3" name="star" />
+                            <label class="star star-3" for="star-3"></label>
+                            <input class="star star-2" id="star-2" type="radio" value="2" name="star" />
+                            <label class="star star-2" for="star-2"></label>
+                            <input class="star star-1" id="star-1" type="radio" value="1" name="star" />
+                            <label class="star star-1" for="star-1"></label>
+                            <input type="submit" style="border-radius: 5px; border:none; padding: 5px; " value="Đánh giá" />
+                        }
+                    </div>
+                </div>
+            }
+            else if (ViewBag.ttDanhGia == 1)
+            {
+                <div>
+                    <h5 style="font-weight:600;text-align:center;">Bạn đã đánh giá sản phẩm này!</h5>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>

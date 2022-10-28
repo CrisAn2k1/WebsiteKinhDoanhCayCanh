@@ -2538,7 +2538,7 @@ input[type="button"].btn-block {
 
 .dropdown-menu {
   position: absolute;
-  top: 100%;
+  top: 95%;
   left: 0;
   z-index: 1000;
   display: none;
@@ -2715,6 +2715,21 @@ input[type="button"].btn-block {
     color: #6c757d;
     pointer-events: none;
     background-color: transparent; }
+
+@media (max-width: 991.98px) {
+    .dropdown-item {
+        display: block;
+        width: 100%;
+        padding: 0.25rem 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.7);
+        text-align: inherit;
+        white-space: nowrap;
+        background-color: transparent;
+        border: 0;
+    }
+}
 
 .dropdown-menu.show {
   display: block; }
@@ -8057,10 +8072,18 @@ h1, h2, h3, h4, h5,
   .ftco-navbar-light .navbar-brand {
     color: #82ae46; }
     .ftco-navbar-light .navbar-brand:hover, .ftco-navbar-light .navbar-brand:focus {
-      color: #000000; }
+      color: #50d636; }
     @media (max-width: 991.98px) {
-      .ftco-navbar-light .navbar-brand {
-        color: #fff; } }
+        .ftco-navbar-light .navbar-brand:hover, .ftco-navbar-light .navbar-brand:focus {
+            color: rgb(255 242 0 / 77%);
+        }
+    }
+
+    @media (max-width: 991.98px) {
+        .ftco-navbar-light .navbar-brand {
+            color: #50d636;
+        }
+    }
   @media (max-width: 991.98px) {
     .ftco-navbar-light .navbar-nav {
       padding-bottom: 10px; } }
@@ -8076,14 +8099,23 @@ h1, h2, h3, h4, h5,
     letter-spacing: 2px;
     opacity: 1 !important; }
     .ftco-navbar-light .navbar-nav > .nav-item > .nav-link:hover {
-      color: #000000; }
+        color: #28a53f !important;
+    }
+    .ftco-navbar-light .navbar-nav > .nav-item {
+        transition: 0.25s;
+    }
+    .ftco-navbar-light .navbar-nav > .nav-item:hover {
+        transition: 0.25s;
+        transform: translateY(-3px);
+    }
+
     @media (max-width: 991.98px) {
       .ftco-navbar-light .navbar-nav > .nav-item > .nav-link {
         padding-left: 0;
         padding-right: 0;
         padding-top: .9rem;
         padding-bottom: .9rem;
-        color: rgba(255, 255, 255, 0.7); }
+        color: rgba(255, 255, 255, 0.7) !important; }
         .ftco-navbar-light .navbar-nav > .nav-item > .nav-link:hover {
           color: #fff; } }
   .ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu {
@@ -8098,13 +8130,23 @@ h1, h2, h3, h4, h5,
     border-radius: 0; }
     .ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu .dropdown-item {
       font-size: 14px; }
-      .ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu .dropdown-item:hover, .ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu .dropdown-item:focus {
-        background: transparent;
-        color: #000000; }
-  .ftco-navbar-light .navbar-nav > .nav-item.ftco-seperator {
+        .ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu .dropdown-item:hover, .ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu .dropdown-item:focus {
+            background: #4ac38745;
+            color: #28a53f;
+        }
+    @media (max-width: 991.98px) {
+    .ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu {
+        border: none;
+        background: #000;
+        box-shadow: 0px 10px 34px -20px rgba(0, 0, 0, 0.41);
+        border-radius: 15px;
+    }
+}
+.ftco-navbar-light .navbar-nav > .nav-item.ftco-seperator {
     position: relative;
     margin-left: 20px;
-    padding-left: 20px; }
+    padding-left: 20px;
+}
     @media (max-width: 991.98px) {
       .ftco-navbar-light .navbar-nav > .nav-item.ftco-seperator {
         padding-left: 0;
@@ -8639,7 +8681,7 @@ h1, h2, h3, h4, h5,
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
-    border-radius: 5px; }
+    border-radius: 20px; }
     .product-category li a.active {
       background: #82ae46;
       color: #fff; }
@@ -9198,7 +9240,7 @@ textarea.form-control {
 
 .ftco-footer {
   font-size: 14px;
-  padding: 7em 0;
+  padding: 3em 0;
   color: #000000; }
   .ftco-footer .ftco-footer-logo {
     text-transform: uppercase;
