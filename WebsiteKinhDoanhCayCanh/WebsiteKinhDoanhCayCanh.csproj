@@ -202,6 +202,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BinhLuansController.cs" />
     <Compile Include="Controllers\DanhGiasController.cs" />
     <Compile Include="Controllers\GioHangsController.cs" />
@@ -470,8 +471,13 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Template\img\banner-img.jpg" />
     <Content Include="Template\img\banner1.png" />
+    <Content Include="Template\img\banner3.jpg" />
+    <Content Include="Template\img\banner4.png" />
     <Content Include="Template\img\bonsai1.png" />
     <Content Include="Template\img\bonsai2.png" />
+    <Content Include="Template\img\caycauvang.jpg" />
+    <Content Include="Template\img\cayhongmon.jpg" />
+    <Content Include="Template\img\cayluoiho.jpg" />
     <Content Include="Template\img\cayngocngan.jpg" />
     <Content Include="Template\img\caytieutram.jpg" />
     <Content Include="Template\img\home.png" />
@@ -480,7 +486,6 @@
     <Content Include="Template\img\bonsai.jpg" />
     <Content Include="Template\img\cay-canh-de-ban-lam-viec.jpg" />
     <Content Include="Template\img\cay-de-trong-trong-van-phong.jpg" />
-    <Content Include="Template\img\caycauvang.jpg" />
     <Content Include="Template\img\caydetrong nha.jpg" />
     <Content Include="Template\img\cayphattainui.jpg" />
     <Content Include="Template\img\caytrongnha.jpg" />
@@ -543,9 +548,13 @@
     <Content Include="Views\GioHangs\GioHang.cshtml" />
     <Content Include="Views\GioHangs\GiohangPartial.cshtml" />
     <Content Include="Views\Shared\_MessageAlert.cshtml" />
+    <Content Include="Views\Home\ChinhSachMuaHang.cshtml" />
+    <Content Include="Views\Home\CachChamSoc.cshtml" />
+    <Content Include="Views\Home\ChinhSachBaoHanh.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
