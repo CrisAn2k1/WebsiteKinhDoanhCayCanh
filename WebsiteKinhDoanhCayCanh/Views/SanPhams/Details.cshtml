@@ -1,18 +1,17 @@
 ﻿@model WebsiteKinhDoanhCayCanh.Models.OtherModels.Product_Details
 @using PagedList.Mvc;
-
+@using WebsiteKinhDoanhCayCanh.Models
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div style="font-family: 'Sans-serif'">
     <div class="hero-wrap hero-bread" style="background-image: url('/Template/img/banner-img.jpg');opacity:0.9" ;>
         <div>
             <div class="container">
                 <div class="row no-gutters slider-text align-items-center justify-content-center">
                     <div class="col-md-9 ftco-animate text-center bg-text">
-                        <h1 class="mb-0 bread" style="color:antiquewhite">Product Details</h1>
+                        <h1 class="mb-0 bread" style="color: antiquewhite; font-family: 'cursive', 'Amatic SC','Liberation Mono';">Chi Tiết Sản Phẩm</h1>
                     </div>
                 </div>
             </div>
@@ -23,9 +22,44 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 mb-5 ftco-animate">
-                    <a href="~/Template/img/banner1.png" class="image-popup">
-                        <img src="~/Template/img/banner1.png" class="img-fluid" alt="Colorlib Template">
-                    </a>
+                    @{
+                        int index = 0;
+                        <div class="container_product">
+                            @foreach (var item in Model.SanPham.HinhAnhSP)
+                            {
+                                index++;
+                                <div class="mySlides_product">
+                                    <a href="@item.duongDan" class="image-popup">
+                                        <img src="@item.duongDan" style="width: 100%;position:relative" />
+                                    </a>
+                                    <div class="caption-container_product">
+                                        <div id="caption" style="margin:0.5em 0;height:100%;width:100%">
+                                            @index/@Model.SanPham.HinhAnhSP.Count()
+                                        </div>
+                                    </div>
+                                    <!--  -->
+                                    <a class="prev" onclick="plusSlides(-1)">❮</a>
+                                    <a class="next" onclick="plusSlides(1)">❯</a>
+                                    <!--  -->
+                                </div>
+                            }
+                        </div>
+                        <br />
+
+                        index = 0;
+                        <div class="row_product">
+                            @foreach (var item in Model.SanPham.HinhAnhSP)
+                            {
+                                index++;
+                                <div class="column_product">
+                                    <img class="miniImg cursor"
+                                         src="@item.duongDan"
+                                         onclick="currentSlide(@index)" />
+                                </div>
+                            }
+                        </div>
+                    }
+
                 </div>
                 <div class="col-lg-6 product-details pl-md-5 ftco-animate">
                     <h3 style="font-family:  'Lora', Georgia, serif; font-weight:bold">@Model.SanPham.tenSP</h3>
@@ -47,23 +81,26 @@
                     </div>
                     <span>Còn lại:<strong> @Model.SanPham.soLuong </strong></span>
                     <p class="price"><span style="display: flex; align-items: center;"><span style="font-size: 20px;padding-right:10px"> Giá:</span> <price style="font-weight:bold;color:red;"> @String.Format("{0:0,0}", @Model.SanPham.gia)&#8363; </price></span></p>
-                    <div class="custom-table">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <strong> Công dụng:</strong> @Model.SanPham.ThongTinThemVeSP.congDung
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <strong> Cách trồng:</strong> @Model.SanPham.ThongTinThemVeSP.cachTrong
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <br />
+                    @if (Model.SanPham.ThongTinThemVeSP != null)
+                    {
+                        <div class="custom-table">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong> Công dụng:</strong> @Model.SanPham.ThongTinThemVeSP.congDung
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong> Cách trồng:</strong> @Model.SanPham.ThongTinThemVeSP.cachTrong
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br />
+                    }
                     <p>
                         <strong>Mô tả:</strong><br />
                         @Model.SanPham.mota
@@ -76,7 +113,9 @@
                                     <i class="ion-ios-remove"></i>
                                 </button>
                             </span>
-                            <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
+
+                            <input type="text" id="quantity_product" name="quantity_product" class="form-control input-number" value="1" min="1" max="100" maxlength="4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace('.','');"/>
+
                             <span class="input-group-btn ml-2">
                                 <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
                                     <i class="ion-ios-add"></i>
@@ -86,7 +125,11 @@
                         <div class="w-100"></div>
                         <br />
                     </div>
-                    <p><a href="cart.html" class="btn btn-black py-3 px-5">Add to Cart</a></p>
+                    <p>
+                        <a id="URL_SoLuong" href="@Url.Action("ThemGioHang", "GioHangs", new { @id = Model.SanPham.id_SP, @strURL = Request.Url.ToString(), @soLuong = 1 })" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                            <span><i class="ion-ios-cart"></i></span>
+                        </a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -223,7 +266,8 @@
             </div>
         </div>
     </section>
-    <script>
+
+<script>
         $(document).ready(function () {
 
             var quantitiy = 0;
@@ -232,33 +276,110 @@
                 // Stop acting like a button
                 e.preventDefault();
                 // Get the field name
-                var quantity = parseInt($('#quantity').val());
+                var quantity_product = parseInt($('#quantity_product').val());
+
+                if (quantity_product >= @Model.SanPham.soLuong) {
+                    Swal.fire(
+                        'Thông báo!',
+                        'Sản phẩm hiện còn: ' + '@Model.SanPham.soLuong',
+                        'warning')
+                    $('#quantity_product').val(@Model.SanPham.soLuong);
+                }
+                else {
+                    if (quantity_product >= 100) {
+                        Swal.fire(
+                            'Thông báo!',
+                            'Chỉ được mua tối đa 100 sản phẩm cùng loại!',
+                            'warning')
+                        $('#quantity_product').val(100);
+                    }
+                    else {
+                        quantity_product++;
+                        $('#quantity_product').val(quantity_product);
+                        $('#URL_SoLuong').prop('href', '/GioHangs/ThemGioHang/' + '@Model.SanPham.id_SP' + '?strURL=' + location.href + '&soLuong=' + quantity_product)
+                    }
+                }
 
                 // If is not undefined
 
-                $('#quantity').val(quantity + 1);
 
 
                 // Increment
 
             });
 
+           //---------------------------------------------------------------
             $('.quantity-left-minus').click(function (e) {
                 // Stop acting like a button
                 e.preventDefault();
                 // Get the field name
-                var quantity = parseInt($('#quantity').val());
+                var quantity_product = parseInt($('#quantity_product').val());
 
                 // If is not undefined
 
                 // Increment
-                if (quantity > 0) {
-                    $('#quantity').val(quantity - 1);
+                if (quantity_product > 1) {
+                    quantity_product--;
+                    $('#quantity_product').val(quantity_product);
+                    $('#URL_SoLuong').prop('href', '/GioHangs/ThemGioHang/' + '@Model.SanPham.id_SP' + '?strURL=' + location.href + '&soLuong=' + quantity_product)
+                }
+                else {
+                    $('#URL_SoLuong').prop('href', '/GioHangs/ThemGioHang/' + '@Model.SanPham.id_SP' + '?strURL=' + location.href + '&soLuong=' + 1)
+
                 }
             });
 
+           //---------------------------------------------------------------
+
+            $('#quantity_product').change(function (e) {
+
+                var quantity_product = $('#quantity_product').val();
+                $('#URL_SoLuong').prop('href', '/GioHangs/ThemGioHang/' + '@Model.SanPham.id_SP' + '?strURL=' + location.href + '&soLuong=' + quantity_product)
+
+
+                if (quantity_product <= 0 || quantity_product == '') {
+                    console.log('adasdadasd')
+                    $('#quantity_product').val(1);
+                    $('#URL_SoLuong').prop('href', '/GioHangs/ThemGioHang/' + '@Model.SanPham.id_SP' + '?strURL=' + location.href + '&soLuong=' + 1)
+                }
+
+                if (quantity_product > @Model.SanPham.soLuong) {
+                     if (@Model.SanPham.soLuong >=100) {
+                        Swal.fire(
+                            'Thông báo!',
+                            'Chỉ được mua tối đa 100 sản phẩm cùng loại!',
+                            'warning')
+
+                        $('#quantity_product').val(100);
+                        $('#URL_SoLuong').prop('href', '/GioHangs/ThemGioHang/' + '@Model.SanPham.id_SP' + '?strURL=' + location.href + '&soLuong=' + 100)
+                    }
+                     else {
+                         Swal.fire(
+                        'Thông báo!',
+                        'Sản phẩm hiện chỉ còn: ' + '@Model.SanPham.soLuong',
+                        'warning')
+
+                        $('#quantity_product').val(@Model.SanPham.soLuong);
+                        $('#URL_SoLuong').prop('href', '/GioHangs/ThemGioHang/' + '@Model.SanPham.id_SP' + '?strURL=' + location.href + '&soLuong=' + @Model.SanPham.soLuong)
+                     }
+                }
+                else {
+                    if (quantity_product > 100) {
+                        Swal.fire(
+                            'Thông báo!',
+                            'Chỉ được mua tối đa 100 sản phẩm cùng loại!',
+                            'warning')
+
+                        $('#quantity_product').val(100);
+                        $('#URL_SoLuong').prop('href', '/GioHangs/ThemGioHang/' + '@Model.SanPham.id_SP' + '?strURL=' + location.href + '&soLuong=' + 100)
+                    }
+                }
+            });
+
+
+
         });
-    </script>
+</script>
 </div>
 
 <!-- Comment & đánh giá -->
@@ -486,4 +607,36 @@
         </div>
     </div>
 </div>
-<link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
+
+<script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides((slideIndex += n));
+    }
+
+    function currentSlide(n) {
+        showSlides((slideIndex = n));
+    }
+
+    function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("mySlides_product");
+        let dots = document.getElementsByClassName("miniImg");
+        if (n > slides.length) {
+            slideIndex = 1;
+        }
+        if (n < 1) {
+            slideIndex = slides.length;
+        }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+    }
+</script>
