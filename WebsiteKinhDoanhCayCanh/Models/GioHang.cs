@@ -16,17 +16,17 @@ namespace WebsiteKinhDoanhCayCanh.Models
         public int iSoLuong { set; get; }
         public double dThanhTien
         {
-            get { return iSoLuong * (dGia - dGia*((float)igiamGia/100)); }
+            get { return iSoLuong * (dGia - dGia * ((float)igiamGia / 100)); }
         }
         public GioHang(string Id)
         {
             iIdSanPham = Id;
             SanPham sp = db.SanPham.Single(n => n.id_SP == iIdSanPham);
             sTenSanPham = sp.tenSP;
-            HinhAnhSP hsp = db.HinhAnhSP.Single(n => n.id_SP == iIdSanPham);
+            HinhAnhSP hsp = db.HinhAnhSP.FirstOrDefault(n => n.id_SP == iIdSanPham);
             sHinh = hsp.duongDan;
             dGia = double.Parse(sp.gia.ToString());
-            iSoLuong = 1;
+            iSoLuong = (int)sp.soLuong;
             igiamGia = (int)sp.phanTramGiamGia;
         }
 

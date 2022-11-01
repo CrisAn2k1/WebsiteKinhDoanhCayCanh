@@ -25,22 +25,35 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             return lstGioHang;
         }
 
-        public ActionResult ThemGioHang(string id, string strURL)
+        public ActionResult ThemGioHang(string id, string strURL, int soLuong)
         {
+
             List<GioHang> lstGioHang = layGioHang();
             GioHang sanPham = lstGioHang.Find(n => n.iIdSanPham == id);
             if (sanPham == null)
             {
-                sanPham = new GioHang(id);
-                lstGioHang.Add(sanPham);
-                Notification.set_flash("Đã thêm sản phẩm vào giỏ hàng!", "success");
-                return Redirect(strURL);
+                if (soLuong > 1)
+                {
+                    sanPham = new GioHang(id);
+                    sanPham.iSoLuong = soLuong;
+                    lstGioHang.Add(sanPham);
+                    Notification.set_flash("Đã thêm sản phẩm vào giỏ hàng!", "success");
+                    return Redirect(strURL);
+                }
+                else
+                {
+                    sanPham = new GioHang(id);
+                    sanPham.iSoLuong = 1;
+                    lstGioHang.Add(sanPham);
+                    Notification.set_flash("Đã thêm sản phẩm vào giỏ hàng!", "success");
+                    return Redirect(strURL);
+                }
+
             }
             else
             {
-                //sanPham.updateGiamGia(id);
-                sanPham.iSoLuong++;
-                Notification.set_flash("Đã thêm sản phẩm vào giỏ hàng!", "success");
+                //sanPham.updateGiamGia(id)
+                Notification.set_flash("Đã có sản phẩm này trong giỏ hàng!", "warning");
                 return Redirect(strURL);
             }
         }
@@ -81,17 +94,17 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         public ActionResult GioHang()
         {
             List<GioHang> lstGioHang = layGioHang();
-            ViewBag.TongSoLuong = TongSoLuong();
+            ViewBag.TongSoLuongSanPham = TongSoLuong();
             ViewBag.TongTien = TongTien();
-            ViewBag.TongSoLuongSanPham = TongSoLuongSanPham();
+            ViewBag.TongSoSanPham = TongSoLuongSanPham();
             return View(lstGioHang);
         }
 
         public ActionResult GioHangPartial()
         {
-            ViewBag.TongSoLuong = TongSoLuong();
+            ViewBag.TongSoLuongSanPham = TongSoLuong();
             ViewBag.TongTien = TongTien();
-            ViewBag.TongSoLuongSanPham = TongSoLuongSanPham();
+            ViewBag.TongSoSanPham = TongSoLuongSanPham();
             return PartialView();
         }
 
@@ -117,7 +130,6 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             {
                 lstGiohang.RemoveAll(n => n.iIdSanPham == iIdSanPham);
                 Notification.set_flash("Đã xoá sản phẩm khỏi giỏ hàng!", "success");
-                Notification.set_flash("Deleted form cart!", "success");
                 return RedirectToAction("GioHang");
             }
             if (lstGiohang.Count == 0)
@@ -131,15 +143,44 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         {
             List<GioHang> lstGioHang = layGioHang();
             GioHang sanPham = lstGioHang.SingleOrDefault(n => n.iIdSanPham == id);
+
             if (sanPham != null)
             {
                 SanPham sp = db.SanPham.FirstOrDefault(s => s.id_SP == id);
                 var soLuong = int.Parse(collection["quantity"].ToString());
-                if (sp.soLuong < soLuong)
-                    return RedirectToAction("GioHang");
-                sanPham.iSoLuong = soLuong;
+
+                if (soLuong > sp.soLuong)
+                {
+                    if (sp.soLuong >= 100)
+                    {
+                        sanPham.iSoLuong = 100;
+                        Notification.set_flash("Chỉ được mua tối đa 100 sản phẩm cùng loại !", "warning");
+                        return RedirectToAction("GioHang");
+                    }
+                    else
+                    {
+                        sanPham.iSoLuong = (int)sp.soLuong;
+                        Notification.set_flash("Sản phẩm hiện có chỉ còn lại: " + sp.soLuong + " !", "warning");
+                        return RedirectToAction("GioHang");
+                    }
+                }
+                else
+                {
+                    if (soLuong < 100)
+                    {
+                        sanPham.iSoLuong = soLuong;
+                        Notification.set_flash("Cập nhật giỏ hàng thành công!", "success");
+                    }
+                    else
+                    {
+                        sanPham.iSoLuong = 100;
+                        Notification.set_flash("Chỉ được mua tối đa 100 sản phẩm cùng loại !", "warning");
+                        return RedirectToAction("GioHang");
+                    }
+                }
                 //sanPham.giamGia = double.Parse((soLuong * sp.GiamGia).ToString());
             }
+
             return RedirectToAction("GioHang");
         }
 
@@ -171,9 +212,9 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             }
 
             List<GioHang> lstGioHang = layGioHang();
-            ViewBag.TongSoLuong = TongSoLuong();
+            ViewBag.TongSoLuongSanPham = TongSoLuong();
             ViewBag.TongTien = TongTien();
-            ViewBag.TongSoLuongSanPham = TongSoLuongSanPham();
+            ViewBag.TongSoSanPham = TongSoLuongSanPham();
             return View(lstGioHang);
         }
         public ActionResult DatHang(FormCollection collection)
