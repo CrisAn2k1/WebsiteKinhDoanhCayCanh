@@ -26,5 +26,18 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             return View();
         }
 
+        public ActionResult ChinhSachMuaHang()
+        {
+            return View();
+        }
+
+        public ActionResult ChinhSachBaoHanh()
+        {
+            return View();
+        }
+        public ActionResult CachChamSoc()
+        {
+            return View();
+        }
     }
 }

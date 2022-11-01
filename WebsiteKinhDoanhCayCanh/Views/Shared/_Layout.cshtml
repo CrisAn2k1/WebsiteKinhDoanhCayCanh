@@ -60,7 +60,6 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar" @*style="background-color: #b3bc744f !important;"*@>
         <div class="container">
-
             <a class="navbar-brand" href="/Home/Index" style="font-family:  'Lora', Georgia, serif;"><img src="~/Template/img/bonsai1.png" width="60"/>AT-TREES</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="oi oi-menu"></span> Menu
@@ -70,25 +69,30 @@
                 MyDataEF db = new MyDataEF();
                 <div class="collapse navbar-collapse" id="ftco-nav">
                                 <ul class="navbar-nav ml-auto">
-                                    <li class="nav-item"><a href="/Home" class="nav-link">Home</a></li>
+                                    <li class="nav-item"><a href="/Home" class="nav-link">Trang chủ</a></li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="/SanPhams" id="dropdown04" aria-haspopup="true" aria-expanded="false">Sản Phẩm</a>
                                         <div class="dropdown-menu" aria-labelledby="dropdown04">
                                             @foreach (var item in db.NhomSP.ToList())
                                             {
-                                                <a class="dropdown-item" href="@Url.Action("Index", "SanPhams", new { @id_Nhom = item.id_Nhom })">@item.tenNhom</a>
-                                            }
+                                            <a class="dropdown-item" href="@Url.Action("Index", "SanPhams", new { @id_Nhom = item.id_Nhom })">@item.tenNhom</a>}
 
-                                            @*<a class="dropdown-item" href="product-single.html">Cây trong nhà</a>
-                <a class="dropdown-item" href="shop.html">Chậu Bonsai</a>
-                <a class="dropdown-item" href="/Home/Cart.html">Phụ kiện Bonsai</a>
-                <a class="dropdown-item" href="checkout.html">Checkout</a>*@
                                         </div>
                                     </li>
-                                    <li class="nav-item"><a href="/Home/About" class="nav-link">About</a></li>
-                                    <li class="nav-item"><a @*href="/Home/Blog"*@ class="nav-link">Blog</a></li>
-                                    <li class="nav-item"><a href="/Home/Contact" class="nav-link">Contact</a></li>
-                                    <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>&emsp;
+                                    
+                                    <li class="nav-item"><a href="/Home/About" class="nav-link">Giới thiệu</a></li>
+@*                                    <li class="nav-item"><a href="/Home/ChinhSachMuaHang" class="nav-link">Chính sách</a></li>
+                                    <li class="nav-item"><a href="/Home/CachChamSoc" class="nav-link">Cách chăm sóc</a></li>*@
+                                    <li class="nav-item dropdown">
+                                      <a class="nav-link dropdown-toggle" href="#" id="dropdown04"  aria-haspopup="true" aria-expanded="false">Dịch vụ khác</a>
+                                      <div class="dropdown-menu" aria-labelledby="dropdown04">
+                                          <a class="dropdown-item" href="/Home/ChinhSachMuaHang">Chính sách mua hàng</a>
+                                          <a class="dropdown-item" href="/Home/ChinhSachBaoHanh">Chính sách bảo hành</a>
+                                          <a class="dropdown-item" href="/Home/CachChamSoc">Cách chăm sóc</a>
+                                      </div>
+                                    </li>
+                                    <li class="nav-item"><a href="/Home/Contact" class="nav-link">Liên hệ</a></li>
+                                    @Html.Action("GiohangPartial", "GioHangs")
                                     <li style="display:flex;flex-direction:column;justify-content:center"> @Html.Partial("_LoginPartial") </li>
                                 </ul>
                     <script>
