@@ -14,6 +14,7 @@ namespace WebsiteKinhDoanhCayCanh.Models
         public SanPham()
         {
             BinhLuan = new HashSet<BinhLuan>();
+            CTCapNhat = new HashSet<CTCapNhat>();
             CTDH = new HashSet<CTDH>();
             DanhGia = new HashSet<DanhGia>();
             HinhAnhSP = new HashSet<HinhAnhSP>();
@@ -43,6 +44,9 @@ namespace WebsiteKinhDoanhCayCanh.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BinhLuan> BinhLuan { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CTCapNhat> CTCapNhat { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTDH> CTDH { get; set; }
