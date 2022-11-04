@@ -51,6 +51,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="GoogleRecaptcha, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GoogleRecaptcha.1.2.1\lib\GoogleRecaptcha.dll</HintPath>
+    </Reference>
+    <Reference Include="GoogleRecaptchaMvc, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GoogleRecaptchaMvc.1.0.1\lib\GoogleRecaptchaMvc.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
@@ -238,6 +244,7 @@
     <Compile Include="Models\ThongTinThemVeSP.cs" />
     <Compile Include="Models\UserVoucher.cs" />
     <Compile Include="Models\Voucher.cs" />
+    <Compile Include="Others\MailRegister.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -331,6 +338,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Others\AccountConfirmation.html" />
+    <Content Include="Others\MailRegister.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\assets\css\.DS_Store" />
@@ -490,6 +499,7 @@
     <Content Include="Template\img\cayphattainui.jpg" />
     <Content Include="Template\img\caytrongnha.jpg" />
     <Content Include="Template\img\Cua-hang-cay-canh-ILG.jpg" />
+    <Content Include="Template\img\login-google.jpg" />
     <Content Include="Template\img\luoihovang.jpg" />
     <Content Include="Template\img\senda.jpg" />
     <Content Include="Template\img\traubathanhxuan.jpg" />

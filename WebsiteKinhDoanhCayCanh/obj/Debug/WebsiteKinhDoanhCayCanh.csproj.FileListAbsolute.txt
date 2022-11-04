@@ -246,3 +246,5 @@ C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.dll
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.pdb
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.csproj.AssemblyReference.cache
+C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\GoogleRecaptcha.dll
+C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\GoogleRecaptchaMvc.dll

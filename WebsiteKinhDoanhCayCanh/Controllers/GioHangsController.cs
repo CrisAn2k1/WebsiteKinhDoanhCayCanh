@@ -58,7 +58,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             }
         }
 
-        private int TongSoLuong()
+        private int TongSoLuongSanPham()
         {
             int tsl = 0;
             List<GioHang> lstGioHang = Session["GioHang"] as List<GioHang>;
@@ -69,7 +69,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             return tsl;
         }
 
-        private int TongSoLuongSanPham()
+        private int TongSoSanPham()
         {
             int tsl = 0;
             List<GioHang> lstGioHang = Session["GioHang"] as List<GioHang>;
@@ -94,17 +94,17 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         public ActionResult GioHang()
         {
             List<GioHang> lstGioHang = layGioHang();
-            ViewBag.TongSoLuongSanPham = TongSoLuong();
+            ViewBag.TongSoLuongSanPham = TongSoLuongSanPham();
             ViewBag.TongTien = TongTien();
-            ViewBag.TongSoSanPham = TongSoLuongSanPham();
+            ViewBag.TongSoSanPham = TongSoSanPham();
             return View(lstGioHang);
         }
 
         public ActionResult GioHangPartial()
         {
-            ViewBag.TongSoLuongSanPham = TongSoLuong();
+            ViewBag.TongSoLuongSanPham = TongSoLuongSanPham();
             ViewBag.TongTien = TongTien();
-            ViewBag.TongSoSanPham = TongSoLuongSanPham();
+            ViewBag.TongSoSanPham = TongSoSanPham();
             return PartialView();
         }
 
@@ -212,11 +212,12 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             }
 
             List<GioHang> lstGioHang = layGioHang();
-            ViewBag.TongSoLuongSanPham = TongSoLuong();
+            ViewBag.TongSoLuongSanPham = TongSoLuongSanPham();
             ViewBag.TongTien = TongTien();
-            ViewBag.TongSoSanPham = TongSoLuongSanPham();
+            ViewBag.TongSoSanPham = TongSoSanPham();
             return View(lstGioHang);
         }
+
         public ActionResult DatHang(FormCollection collection)
         {
 
