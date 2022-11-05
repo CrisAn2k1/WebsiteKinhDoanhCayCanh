@@ -1,0 +1,43 @@
+﻿@model WebsiteKinhDoanhCayCanh.Models.CachChamSoc
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+
+            <h2 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen;">Xóa cách chăm sóc </h2>
+
+            <h3 class="text-center">Bạn có chắc chắn muốn xóa?</h3>
+            <div>
+                <hr />
+                <div></div>
+                <dl class="dl-horizontal" style="display:flex;justify-content:center;align-items:center;flex-direction:column">
+                    <dt>
+                        <strong>Cách chăm sóc cây</strong>
+                    </dt>
+                    <dd style="font-size:20px">
+                        @Html.DisplayFor(model => model.NhomSP)
+                    </dd>
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-actions no-color">
+                            <input type="submit" value="Xóa" class="btn btn-danger" /> |
+                            <a class="btn btn-info" href='@Url.Action("Index", "CachChamSoc")' style="margin:10px 0px;">
+                                Trở lại
+                            </a>
+                        </div>
+                    }
+                </dl>
+
+            </div>
+        </div>
+    </main>
+</div>
+
+

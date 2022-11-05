@@ -5,6 +5,7 @@ namespace WebsiteKinhDoanhCayCanh.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     [Table("CachChamSoc")]
     public partial class CachChamSoc
@@ -36,5 +37,11 @@ namespace WebsiteKinhDoanhCayCanh.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NhomSP> NhomSP { get; set; }
+        public static List<CachChamSoc> getAll(string searchKey)
+        {
+            MyDataEF db = new MyDataEF();
+            searchKey = searchKey + "";
+            return db.CachChamSoc.Where(p => p.id_CCS.Contains(searchKey)).ToList();
+        }
     }
 }
