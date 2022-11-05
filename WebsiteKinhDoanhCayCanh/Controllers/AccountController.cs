@@ -13,6 +13,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebsiteKinhDoanhCayCanh.Models;
 using WebsiteKinhDoanhCayCanh.Others;
+using WebsiteKinhDoanhCayCanh.Models.LinQ;
 
 namespace WebsiteKinhDoanhCayCanh.Controllers
 {
@@ -21,6 +22,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        MyDBDataContext context = new MyDBDataContext();
 
         public AccountController()
         {
@@ -83,20 +85,39 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                     return View(model);
                 }
 
+                var user = await UserManager.FindByEmailAsync(model.Email);
+                if (user != null)
+                {
+                    if (!await UserManager.IsEmailConfirmedAsync(user.Id))
+                    {
+                        ModelState.AddModelError("", "Hãy xác thực tài khoản của bạn trong email đã đăng ký!");
+                        return View();
+                    }
+                }
+
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, change to shouldLockout: true
                 var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
                 switch (result)
                 {
                     case SignInStatus.Success:
-                        return RedirectToLocal(returnUrl);
+                        {
+                            var kh = context.Users.Where(p => p.Email == model.Email).FirstOrDefault();
+                            if (kh.LockoutEnabled == false)
+                            {
+                                AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                                return View("Lockout");
+                            }
+                            Session["TaiKhoan"] = kh;
+                            return RedirectToLocal(returnUrl);
+                        }
                     case SignInStatus.LockedOut:
                         return View("Lockout");
                     case SignInStatus.RequiresVerification:
                         return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                     case SignInStatus.Failure:
                     default:
-                        ModelState.AddModelError("", "Invalid login attempt.");
+                        ModelState.AddModelError("", "Sai tài khoản hoặc mật khẩu!");
                         return View(model);
                 }
             }

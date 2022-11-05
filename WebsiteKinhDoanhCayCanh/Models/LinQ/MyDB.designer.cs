@@ -23,7 +23,7 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 	
 	
 	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="QuanLyCayCanh")]
-	public partial class MyDBContextDataContext : System.Data.Linq.DataContext
+	public partial class MyDBDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
@@ -42,6 +42,9 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
     partial void InsertCachChamSoc(CachChamSoc instance);
     partial void UpdateCachChamSoc(CachChamSoc instance);
     partial void DeleteCachChamSoc(CachChamSoc instance);
+    partial void InsertCTCapNhat(CTCapNhat instance);
+    partial void UpdateCTCapNhat(CTCapNhat instance);
+    partial void DeleteCTCapNhat(CTCapNhat instance);
     partial void InsertCTDH(CTDH instance);
     partial void UpdateCTDH(CTDH instance);
     partial void DeleteCTDH(CTDH instance);
@@ -83,31 +86,31 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
     partial void DeleteUserVoucher(UserVoucher instance);
     #endregion
 		
-		public MyDBContextDataContext() : 
+		public MyDBDataContext() : 
 				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyCayCanhConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public MyDBContextDataContext(string connection) : 
+		public MyDBDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public MyDBContextDataContext(System.Data.IDbConnection connection) : 
+		public MyDBDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public MyDBContextDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public MyDBDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public MyDBContextDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public MyDBDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
@@ -142,6 +145,14 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 			get
 			{
 				return this.GetTable<CachChamSoc>();
+			}
+		}
+		
+		public System.Data.Linq.Table<CTCapNhat> CTCapNhats
+		{
+			get
+			{
+				return this.GetTable<CTCapNhat>();
 			}
 		}
 		
@@ -904,6 +915,8 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		
 		private string _duongChat;
 		
+		private string _tenCCS;
+		
 		private EntitySet<NhomSP> _NhomSPs;
 		
     #region Extensibility Method Definitions
@@ -922,6 +935,8 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
     partial void OnviTriDatCayChanged();
     partial void OnduongChatChanging(string value);
     partial void OnduongChatChanged();
+    partial void OntenCCSChanging(string value);
+    partial void OntenCCSChanged();
     #endregion
 		
 		public CachChamSoc()
@@ -950,7 +965,7 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tuoiNuoc", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tuoiNuoc", DbType="NText", UpdateCheck=UpdateCheck.Never)]
 		public string tuoiNuoc
 		{
 			get
@@ -970,7 +985,7 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dat", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dat", DbType="NText", UpdateCheck=UpdateCheck.Never)]
 		public string dat
 		{
 			get
@@ -990,7 +1005,7 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_anhSang", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_anhSang", DbType="NText", UpdateCheck=UpdateCheck.Never)]
 		public string anhSang
 		{
 			get
@@ -1010,7 +1025,7 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_viTriDatCay", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_viTriDatCay", DbType="NText", UpdateCheck=UpdateCheck.Never)]
 		public string viTriDatCay
 		{
 			get
@@ -1030,7 +1045,7 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_duongChat", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_duongChat", DbType="NText", UpdateCheck=UpdateCheck.Never)]
 		public string duongChat
 		{
 			get
@@ -1046,6 +1061,26 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 					this._duongChat = value;
 					this.SendPropertyChanged("duongChat");
 					this.OnduongChatChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tenCCS", DbType="NVarChar(50)")]
+		public string tenCCS
+		{
+			get
+			{
+				return this._tenCCS;
+			}
+			set
+			{
+				if ((this._tenCCS != value))
+				{
+					this.OntenCCSChanging(value);
+					this.SendPropertyChanging();
+					this._tenCCS = value;
+					this.SendPropertyChanged("tenCCS");
+					this.OntenCCSChanged();
 				}
 			}
 		}
@@ -1093,6 +1128,246 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		{
 			this.SendPropertyChanging();
 			entity.CachChamSoc = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CTCapNhat")]
+	public partial class CTCapNhat : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _id_CTCN;
+		
+		private string _id_User;
+		
+		private string _id_SP;
+		
+		private System.Nullable<System.DateTime> _ngayCapNhat;
+		
+		private string _thaoTac;
+		
+		private EntityRef<SanPham> _SanPham;
+		
+		private EntityRef<User> _User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void Onid_CTCNChanging(long value);
+    partial void Onid_CTCNChanged();
+    partial void Onid_UserChanging(string value);
+    partial void Onid_UserChanged();
+    partial void Onid_SPChanging(string value);
+    partial void Onid_SPChanged();
+    partial void OnngayCapNhatChanging(System.Nullable<System.DateTime> value);
+    partial void OnngayCapNhatChanged();
+    partial void OnthaoTacChanging(string value);
+    partial void OnthaoTacChanged();
+    #endregion
+		
+		public CTCapNhat()
+		{
+			this._SanPham = default(EntityRef<SanPham>);
+			this._User = default(EntityRef<User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_CTCN", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long id_CTCN
+		{
+			get
+			{
+				return this._id_CTCN;
+			}
+			set
+			{
+				if ((this._id_CTCN != value))
+				{
+					this.Onid_CTCNChanging(value);
+					this.SendPropertyChanging();
+					this._id_CTCN = value;
+					this.SendPropertyChanged("id_CTCN");
+					this.Onid_CTCNChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_User", DbType="NVarChar(128) NOT NULL", CanBeNull=false)]
+		public string id_User
+		{
+			get
+			{
+				return this._id_User;
+			}
+			set
+			{
+				if ((this._id_User != value))
+				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_UserChanging(value);
+					this.SendPropertyChanging();
+					this._id_User = value;
+					this.SendPropertyChanged("id_User");
+					this.Onid_UserChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_SP", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+		public string id_SP
+		{
+			get
+			{
+				return this._id_SP;
+			}
+			set
+			{
+				if ((this._id_SP != value))
+				{
+					if (this._SanPham.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_SPChanging(value);
+					this.SendPropertyChanging();
+					this._id_SP = value;
+					this.SendPropertyChanged("id_SP");
+					this.Onid_SPChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ngayCapNhat", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ngayCapNhat
+		{
+			get
+			{
+				return this._ngayCapNhat;
+			}
+			set
+			{
+				if ((this._ngayCapNhat != value))
+				{
+					this.OnngayCapNhatChanging(value);
+					this.SendPropertyChanging();
+					this._ngayCapNhat = value;
+					this.SendPropertyChanged("ngayCapNhat");
+					this.OnngayCapNhatChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_thaoTac", DbType="NVarChar(50)")]
+		public string thaoTac
+		{
+			get
+			{
+				return this._thaoTac;
+			}
+			set
+			{
+				if ((this._thaoTac != value))
+				{
+					this.OnthaoTacChanging(value);
+					this.SendPropertyChanging();
+					this._thaoTac = value;
+					this.SendPropertyChanged("thaoTac");
+					this.OnthaoTacChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SanPham_CTCapNhat", Storage="_SanPham", ThisKey="id_SP", OtherKey="id_SP", IsForeignKey=true)]
+		public SanPham SanPham
+		{
+			get
+			{
+				return this._SanPham.Entity;
+			}
+			set
+			{
+				SanPham previousValue = this._SanPham.Entity;
+				if (((previousValue != value) 
+							|| (this._SanPham.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SanPham.Entity = null;
+						previousValue.CTCapNhats.Remove(this);
+					}
+					this._SanPham.Entity = value;
+					if ((value != null))
+					{
+						value.CTCapNhats.Add(this);
+						this._id_SP = value.id_SP;
+					}
+					else
+					{
+						this._id_SP = default(string);
+					}
+					this.SendPropertyChanged("SanPham");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_CTCapNhat", Storage="_User", ThisKey="id_User", OtherKey="Id", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.CTCapNhats.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.CTCapNhats.Add(this);
+						this._id_User = value.Id;
+					}
+					else
+					{
+						this._id_User = default(string);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 	
@@ -1596,6 +1871,8 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		
 		private System.Nullable<long> _tongTien;
 		
+		private string _diaChiGiao;
+		
 		private string _id_User;
 		
 		private string _id_Voucher;
@@ -1624,6 +1901,8 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
     partial void OnphuongThucThanhToanChanged();
     partial void OntongTienChanging(System.Nullable<long> value);
     partial void OntongTienChanged();
+    partial void OndiaChiGiaoChanging(string value);
+    partial void OndiaChiGiaoChanged();
     partial void Onid_UserChanging(string value);
     partial void Onid_UserChanged();
     partial void Onid_VoucherChanging(string value);
@@ -1774,6 +2053,26 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 					this._tongTien = value;
 					this.SendPropertyChanged("tongTien");
 					this.OntongTienChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_diaChiGiao", DbType="NVarChar(250)")]
+		public string diaChiGiao
+		{
+			get
+			{
+				return this._diaChiGiao;
+			}
+			set
+			{
+				if ((this._diaChiGiao != value))
+				{
+					this.OndiaChiGiaoChanging(value);
+					this.SendPropertyChanging();
+					this._diaChiGiao = value;
+					this.SendPropertyChanged("diaChiGiao");
+					this.OndiaChiGiaoChanged();
 				}
 			}
 		}
@@ -2408,6 +2707,8 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		
 		private EntitySet<BinhLuan> _BinhLuans;
 		
+		private EntitySet<CTCapNhat> _CTCapNhats;
+		
 		private EntitySet<CTDH> _CTDHs;
 		
 		private EntitySet<DanhGia> _DanhGias;
@@ -2443,6 +2744,7 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		public SanPham()
 		{
 			this._BinhLuans = new EntitySet<BinhLuan>(new Action<BinhLuan>(this.attach_BinhLuans), new Action<BinhLuan>(this.detach_BinhLuans));
+			this._CTCapNhats = new EntitySet<CTCapNhat>(new Action<CTCapNhat>(this.attach_CTCapNhats), new Action<CTCapNhat>(this.detach_CTCapNhats));
 			this._CTDHs = new EntitySet<CTDH>(new Action<CTDH>(this.attach_CTDHs), new Action<CTDH>(this.detach_CTDHs));
 			this._DanhGias = new EntitySet<DanhGia>(new Action<DanhGia>(this.attach_DanhGias), new Action<DanhGia>(this.detach_DanhGias));
 			this._HinhAnhSPs = new EntitySet<HinhAnhSP>(new Action<HinhAnhSP>(this.attach_HinhAnhSPs), new Action<HinhAnhSP>(this.detach_HinhAnhSPs));
@@ -2628,6 +2930,19 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SanPham_CTCapNhat", Storage="_CTCapNhats", ThisKey="id_SP", OtherKey="id_SP")]
+		public EntitySet<CTCapNhat> CTCapNhats
+		{
+			get
+			{
+				return this._CTCapNhats;
+			}
+			set
+			{
+				this._CTCapNhats.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SanPham_CTDH", Storage="_CTDHs", ThisKey="id_SP", OtherKey="id_SP")]
 		public EntitySet<CTDH> CTDHs
 		{
@@ -2757,6 +3072,18 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		}
 		
 		private void detach_BinhLuans(BinhLuan entity)
+		{
+			this.SendPropertyChanging();
+			entity.SanPham = null;
+		}
+		
+		private void attach_CTCapNhats(CTCapNhat entity)
+		{
+			this.SendPropertyChanging();
+			entity.SanPham = this;
+		}
+		
+		private void detach_CTCapNhats(CTCapNhat entity)
 		{
 			this.SendPropertyChanging();
 			entity.SanPham = null;
@@ -3452,6 +3779,10 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		
 		private string _Id;
 		
+		private string _FullName;
+		
+		private string _Address;
+		
 		private string _Email;
 		
 		private bool _EmailConfirmed;
@@ -3474,11 +3805,9 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		
 		private string _UserName;
 		
-		private string _Name;
-		
-		private string _Address;
-		
 		private EntitySet<BinhLuan> _BinhLuans;
+		
+		private EntitySet<CTCapNhat> _CTCapNhats;
 		
 		private EntitySet<DanhGia> _DanhGias;
 		
@@ -3498,6 +3827,10 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
     partial void OnCreated();
     partial void OnIdChanging(string value);
     partial void OnIdChanged();
+    partial void OnFullNameChanging(string value);
+    partial void OnFullNameChanged();
+    partial void OnAddressChanging(string value);
+    partial void OnAddressChanged();
     partial void OnEmailChanging(string value);
     partial void OnEmailChanged();
     partial void OnEmailConfirmedChanging(bool value);
@@ -3520,15 +3853,12 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
     partial void OnAccessFailedCountChanged();
     partial void OnUserNameChanging(string value);
     partial void OnUserNameChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnAddressChanging(string value);
-    partial void OnAddressChanged();
     #endregion
 		
 		public User()
 		{
 			this._BinhLuans = new EntitySet<BinhLuan>(new Action<BinhLuan>(this.attach_BinhLuans), new Action<BinhLuan>(this.detach_BinhLuans));
+			this._CTCapNhats = new EntitySet<CTCapNhat>(new Action<CTCapNhat>(this.attach_CTCapNhats), new Action<CTCapNhat>(this.detach_CTCapNhats));
 			this._DanhGias = new EntitySet<DanhGia>(new Action<DanhGia>(this.attach_DanhGias), new Action<DanhGia>(this.detach_DanhGias));
 			this._DonHangs = new EntitySet<DonHang>(new Action<DonHang>(this.attach_DonHangs), new Action<DonHang>(this.detach_DonHangs));
 			this._UserClaims = new EntitySet<UserClaim>(new Action<UserClaim>(this.attach_UserClaims), new Action<UserClaim>(this.detach_UserClaims));
@@ -3554,6 +3884,46 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 					this._Id = value;
 					this.SendPropertyChanged("Id");
 					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FullName", DbType="NVarChar(MAX)")]
+		public string FullName
+		{
+			get
+			{
+				return this._FullName;
+			}
+			set
+			{
+				if ((this._FullName != value))
+				{
+					this.OnFullNameChanging(value);
+					this.SendPropertyChanging();
+					this._FullName = value;
+					this.SendPropertyChanged("FullName");
+					this.OnFullNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="NVarChar(MAX)")]
+		public string Address
+		{
+			get
+			{
+				return this._Address;
+			}
+			set
+			{
+				if ((this._Address != value))
+				{
+					this.OnAddressChanging(value);
+					this.SendPropertyChanging();
+					this._Address = value;
+					this.SendPropertyChanged("Address");
+					this.OnAddressChanged();
 				}
 			}
 		}
@@ -3778,46 +4148,6 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(256)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="NVarChar(256)")]
-		public string Address
-		{
-			get
-			{
-				return this._Address;
-			}
-			set
-			{
-				if ((this._Address != value))
-				{
-					this.OnAddressChanging(value);
-					this.SendPropertyChanging();
-					this._Address = value;
-					this.SendPropertyChanged("Address");
-					this.OnAddressChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_BinhLuan", Storage="_BinhLuans", ThisKey="Id", OtherKey="id_User")]
 		public EntitySet<BinhLuan> BinhLuans
 		{
@@ -3828,6 +4158,19 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 			set
 			{
 				this._BinhLuans.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_CTCapNhat", Storage="_CTCapNhats", ThisKey="Id", OtherKey="id_User")]
+		public EntitySet<CTCapNhat> CTCapNhats
+		{
+			get
+			{
+				return this._CTCapNhats;
+			}
+			set
+			{
+				this._CTCapNhats.Assign(value);
 			}
 		}
 		
@@ -3936,6 +4279,18 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		}
 		
 		private void detach_BinhLuans(BinhLuan entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = null;
+		}
+		
+		private void attach_CTCapNhats(CTCapNhat entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = this;
+		}
+		
+		private void detach_CTCapNhats(CTCapNhat entity)
 		{
 			this.SendPropertyChanging();
 			entity.User = null;
