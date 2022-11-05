@@ -50,7 +50,7 @@
                                         @using (Html.BeginForm("CapNhatGioHang", "GioHangs", new { @id = item.iIdSanPham }, FormMethod.Post, new { @id = "target-form" + "-" + item.iIdSanPham }))
                                         {
                                             <tr class="text-center">
-                                                <td class="product-remove"><a href="@Url.Action("XoaGioHang", "GioHangs", new { @iIdSanPham = item.iIdSanPham })"><span class="ion-ios-close"></span></a></td>
+                                                <td class="product-remove"><a href="@Url.Action("XoaGioHang", "GioHangs", new { @iIdSanPham = item.iIdSanPham })"> <i class="ion-ios-trash" style="color:red;font-size:20px;font-weight:bold"></i></a></td>
 
                                                 <td class="image-prod"><a href="/SanPhams/Details/@item.iIdSanPham"><div class="img" style="background-image:url('@item.sHinh');"></div></a> </td>
 
@@ -59,15 +59,15 @@
                                                     @*<p>Far far away, behind the word mountains, far from the countries</p>*@
                                                 </td>
                                                 @*<td class="product-quantity">
-                                                    Còn lại: @db.SanPham.Where(p => p.id_SP == item.iIdSanPham).FirstOrDefault().soLuong
-                                                </td>*@
+                                Còn lại: @db.SanPham.Where(p => p.id_SP == item.iIdSanPham).FirstOrDefault().soLuong
+                            </td>*@
 
                                                 <td class="price">@String.Format("{0:0,0}", item.dGia)&#8363;</td>
                                                 <td class="sale">@item.igiamGia %</td>
                                                 <td class="quantity">
                                                     <div class="input-group mb-3">
                                                         <input id="quantity-@item.iIdSanPham" type="number" name="quantity" class="quantity form-control input-number" value="@item.iSoLuong" min="1" max="100"
-                                                               onchange="updateGioHang('target-form-@item.iIdSanPham', this.id ,this.value)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace('.','');"  />
+                                                               onchange="updateGioHang('target-form-@item.iIdSanPham', this.id ,this.value)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace('.','');" />
                                                     </div>
                                                 </td>
 
@@ -77,16 +77,15 @@
                                         }
                                     </tbody>
                                 }
-                                <td class="product-remove"><a href="@Url.Action("XoaTatCaGioHang", "GioHangs")"><span class="ion-ios-trash"></span>Xóa tất cả sản phẩm.</a></td>
                             </table>
-
                         </div>
+                    </div>
+                    <div class="d-flex justify-content-center" style="width:100%;margin-top:25px;">
+                        <a class="btn btn-primary py-3 px-4" href="@Url.Action("XoaTatCaGioHang", "GioHangs")"><i class="ion-ios-trash" style="color:red;font-size:20px;font-weight:bold;"></i>&ensp;Xóa tất cả sản phẩm.</a>
                     </div>
                 </div>
                 <div class="row justify-content-end">
                     <div class="col-lg-6 mt-5 cart-wrap ftco-animate">
-
-
                         <hr />
                         <div>
                             <p><a href="@Url.Action("Index", "Home")" class="btn btn-primary py-3 px-4 "><img src="~/Template/img/home.png" width="25" height="25" ; />&ensp; Quay lại trang chủ </a></p>
