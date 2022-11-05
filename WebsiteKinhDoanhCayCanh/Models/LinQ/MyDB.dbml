@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QuanLyCayCanh" Class="MyDBContextDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=LAPTOP-2FT9H6RM\SQLEXPRESS;Initial Catalog=QuanLyCayCanh;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QuanLyCayCanhConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QuanLyCayCanh" Class="MyDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=CRIS-AN\SQLEXPRESS;Initial Catalog=QuanLyCayCanh;Persist Security Info=True;User ID=CrisDame" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QuanLyCayCanhConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.[__MigrationHistory]" Member="__MigrationHistories">
     <Type Name="__MigrationHistory">
       <Column Name="MigrationId" Type="System.String" DbType="NVarChar(150) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -35,12 +35,24 @@
   <Table Name="dbo.CachChamSoc" Member="CachChamSocs">
     <Type Name="CachChamSoc">
       <Column Name="id_CCS" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="tuoiNuoc" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="dat" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="anhSang" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="viTriDatCay" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="duongChat" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="tuoiNuoc" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="dat" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="anhSang" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="viTriDatCay" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="duongChat" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="tenCCS" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Association Name="CachChamSoc_NhomSP" Member="NhomSPs" ThisKey="id_CCS" OtherKey="id_CCS" Type="NhomSP" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CTCapNhat" Member="CTCapNhats">
+    <Type Name="CTCapNhat">
+      <Column Name="id_CTCN" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="id_User" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="id_SP" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="ngayCapNhat" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="thaoTac" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="SanPham_CTCapNhat" Member="SanPham" ThisKey="id_SP" OtherKey="id_SP" Type="SanPham" IsForeignKey="true" />
+      <Association Name="User_CTCapNhat" Member="User" ThisKey="id_User" OtherKey="Id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.CTDH" Member="CTDHs">
@@ -74,6 +86,7 @@
       <Column Name="trangThaiGiaoHang" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
       <Column Name="phuongThucThanhToan" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
       <Column Name="tongTien" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="diaChiGiao" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
       <Column Name="id_User" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
       <Column Name="id_Voucher" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
       <Association Name="DonHang_CTDH" Member="CTDHs" ThisKey="id_DH" OtherKey="id_DH" Type="CTDH" />
@@ -116,6 +129,7 @@
       <Column Name="phanTramGiamGia" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="id_Nhom" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
       <Association Name="SanPham_BinhLuan" Member="BinhLuans" ThisKey="id_SP" OtherKey="id_SP" Type="BinhLuan" />
+      <Association Name="SanPham_CTCapNhat" Member="CTCapNhats" ThisKey="id_SP" OtherKey="id_SP" Type="CTCapNhat" />
       <Association Name="SanPham_CTDH" Member="CTDHs" ThisKey="id_SP" OtherKey="id_SP" Type="CTDH" />
       <Association Name="SanPham_DanhGia" Member="DanhGias" ThisKey="id_SP" OtherKey="id_SP" Type="DanhGia" />
       <Association Name="SanPham_HinhAnhSP" Member="HinhAnhSPs" ThisKey="id_SP" OtherKey="id_SP" Type="HinhAnhSP" />
@@ -159,6 +173,8 @@
   <Table Name="dbo.Users" Member="Users">
     <Type Name="User">
       <Column Name="Id" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Email" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
       <Column Name="EmailConfirmed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="PasswordHash" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
@@ -170,9 +186,8 @@
       <Column Name="LockoutEnabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="AccessFailedCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="UserName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="Address" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
       <Association Name="User_BinhLuan" Member="BinhLuans" ThisKey="Id" OtherKey="id_User" Type="BinhLuan" />
+      <Association Name="User_CTCapNhat" Member="CTCapNhats" ThisKey="Id" OtherKey="id_User" Type="CTCapNhat" />
       <Association Name="User_DanhGia" Member="DanhGias" ThisKey="Id" OtherKey="id_User" Type="DanhGia" />
       <Association Name="User_DonHang" Member="DonHangs" ThisKey="Id" OtherKey="id_User" Type="DonHang" />
       <Association Name="User_UserClaim" Member="UserClaims" ThisKey="Id" OtherKey="UserId" Type="UserClaim" />

@@ -33,6 +33,9 @@ namespace WebsiteKinhDoanhCayCanh.Models
 
         public long? tongTien { get; set; }
 
+        [StringLength(250)]
+        public string diaChiGiao { get; set; }
+
         [StringLength(128)]
         public string id_User { get; set; }
 
