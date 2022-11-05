@@ -17,8 +17,9 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
     public class SanPhamsController : Controller
     {
         private MyDataEF db = new MyDataEF();
-
+        ApplicationDbContext data = new ApplicationDbContext();
         // GET: SanPhams
+        //user 
         public ActionResult Index(int? page, string id_Nhom, string searchString)
         {
             ViewBag.Keyword = searchString;
@@ -58,7 +59,8 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
 
         }
 
-        // GET: SanPhams/Details/5
+        // GET: SanPhams/Details
+        //user
         public ActionResult Details(string id, int? page)
         {
             if (id == null)
@@ -173,6 +175,34 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             return RedirectToAction("Details");
         }
 
+
+        // ADMIN
+        public ActionResult IndexAdmin(int? page, string searchString)
+        {
+            if (!AuthAdmin())
+                return RedirectToAction("Error401", "Admin");
+            ViewBag.Keyword = searchString;
+            //var all_sanPham = db.SanPham.ToList();
+            int pageSize = 5;
+            int pageNum = page ?? 1;
+            return View(SanPham.getAll(searchString).ToPagedList(pageNum, pageSize));
+        }
+        // GET: SanPhams/Details/5 Admin
+        public ActionResult DetailsAdmin(string id)
+        {
+            if (!AuthAdmin())
+                return RedirectToAction("Error401", "Admin");
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            SanPham sanPham = db.SanPham.Find(id);
+            if (sanPham == null)
+            {
+                return HttpNotFound();
+            }
+            return View(sanPham);
+        }
         // GET: SanPhams/Create
         public ActionResult Create()
         {
@@ -192,7 +222,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             {
                 db.SanPham.Add(sanPham);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexAdmin");
             }
 
             ViewBag.id_Nhom = new SelectList(db.NhomSP, "id_Nhom", "tenNhom", sanPham.id_Nhom);
@@ -200,7 +230,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             return View(sanPham);
         }
 
-        // GET: SanPhams/Edit/5
+        // GET: SanPhams/Edit
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -217,7 +247,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             return View(sanPham);
         }
 
-        // POST: SanPhams/Edit/5
+        // POST: Edit
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -228,14 +258,14 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             {
                 db.Entry(sanPham).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexAdmin");
             }
             ViewBag.id_Nhom = new SelectList(db.NhomSP, "id_Nhom", "tenNhom", sanPham.id_Nhom);
             ViewBag.id_SP = new SelectList(db.ThongTinThemVeSP, "id_SP", "congDung", sanPham.id_SP);
             return View(sanPham);
         }
 
-        // GET: SanPhams/Delete/5
+        // GET: SanPhams/Delete
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -250,7 +280,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             return View(sanPham);
         }
 
-        // POST: SanPhams/Delete/5
+        // POST: SanPhams/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
@@ -258,7 +288,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             SanPham sanPham = db.SanPham.Find(id);
             db.SanPham.Remove(sanPham);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("IndexAdmin");
         }
 
         protected override void Dispose(bool disposing)
@@ -268,6 +298,18 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public bool AuthAdmin()
+        {
+            var user = data.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            if (user == null)
+                return false;
+            var userExist = user.Roles.FirstOrDefault(r => r.UserId == user.Id);
+            if (userExist == null)
+                return false;
+            if (userExist.RoleId != "1")
+                return false;
+            return true;
         }
     }
 }

@@ -5,6 +5,7 @@ namespace WebsiteKinhDoanhCayCanh.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     [Table("NhomSP")]
     public partial class NhomSP
@@ -29,5 +30,11 @@ namespace WebsiteKinhDoanhCayCanh.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SanPham> SanPham { get; set; }
+        public static List<NhomSP> getAll(string searchKey)
+        {
+            MyDataEF db = new MyDataEF();
+            searchKey = searchKey + "";
+            return db.NhomSP.Where(p => p.tenNhom.Contains(searchKey)).ToList();
+        }
     }
 }

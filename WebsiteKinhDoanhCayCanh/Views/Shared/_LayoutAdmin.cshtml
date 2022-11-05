@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>WebsiteLaptop Admin</title>
+    <title>WebsiteBanCayCanh TA-TREES</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href=@Url.Content("/Content/admin/css/styles.css") rel="stylesheet" />
     <link href=@Url.Content("/Content/css/jquery.fancybox.css") rel="stylesheet" />
@@ -70,16 +70,11 @@
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
-        @*<form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Tìm kiếm..." aria-label="Tìm kiếm..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-                </div>
-            </form>*@
+
         <!-- Navbar-->
         <ul class="navbar-nav ms-auto me-0 me-md-3 my-2 my-md-0 d-none d-md-inline-block">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">@userLogin.Name &nbsp;<i class="fas fa-user fa-fw"></i></a>
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">@userLogin.UserName &nbsp;<i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
                     {
@@ -105,20 +100,20 @@
                             Đơn hàng
                         </a>
                         <a class="nav-link" href='@Url.Action("IndexAdmin", "SanPhams")'>
-                            <div class="sb-nav-link-icon"><i class="fa fa-duotone fa-laptop"></i></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa fa-duotone fa-laptop"></i></div>
                             Sản phẩm
                         </a>
-                        <a class="nav-link" href='@Url.Action("Index", "LoaiSPs")'>
+@*                        <a class="nav-link" href='@Url.Action("Index", "LoaiSPs")'>
                             <div class="sb-nav-link-icon"><i class="fa fa-light fa-table-list"></i></div>
                             Loại sản phẩm
-                        </a>
-                        <a class="nav-link" href='@Url.Action("Index", "NhomSanPhams")'>
+                        </a>*@
+                        <a class="nav-link" href='@Url.Action("Index", "NhomSP")'>
                             <div class="sb-nav-link-icon"><i class="fa fa-light fa-table-list"></i></div>
-                            Nhóm sản phẩm
+                            Nhóm cây
                         </a>
-                        <a class="nav-link" href='@Url.Action("Index", "ThuongHieux")'>
+                        <a class="nav-link" href='@Url.Action("Index", "CachChamSoc")'>
                             <div class="sb-nav-link-icon"><i class="fa fa-duotone fa-building-columns"></i></div>
-                            Thương Hiệu
+                            Cách chăm sóc
                         </a>
                         <a class="nav-link" href='@Url.Action("Index", "BinhLuans")'>
                             <div class="sb-nav-link-icon"><i class="fa fa-light fa-comment-dots"></i></div>

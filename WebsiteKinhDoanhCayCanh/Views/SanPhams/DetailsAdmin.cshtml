@@ -1,0 +1,121 @@
+﻿@model WebsiteKinhDoanhCayCanh.Models.SanPham
+
+@{
+    ViewBag.Title = "DetailsAdmin";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    .signup-form {
+        background-color: #f3efea;
+        padding: 10px 100px;
+        border-radius: 5px;
+        font-family: 'Raleway', sans-serif;
+    }
+
+    input.form-control {
+        background: #95f0eb2b !important;
+    }
+
+    .col-md-10 {
+        max-width: 100% !important;
+    }
+</style>
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <div style="padding: 4vh 20vw">
+                <div class="signup-form">
+                    <h3 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen;">Chi Tiết Sản Phẩm</h3>
+                    <hr />
+                    <dl class="dl-horizontal" style="margin-left:20px">
+                        <dt>
+                            Nhóm sản phẩm
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.NhomSP.tenNhom)
+                        </dd>
+                        <dt>
+                            Tên sản phẩm
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.tenSP)
+                        </dd>
+                        <dt>
+                            Hình sản phẩm
+                        </dt>
+                        <dd>
+                            <img src="" alt="thumbnail" width="150" />
+                        </dd>
+                        <dt>
+                            Mô tả
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.mota)
+                        </dd>
+                        <dt>
+                            Số lượng
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.soLuong)
+                        </dd>
+
+                        <dt>
+                            Đơn vị tính
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.DVT)
+                        </dd>
+
+                        <dt>
+                            Giá
+                        </dt>
+
+                        <dd>
+                            @String.Format("{0:0,0}", @Model.gia) VNĐ
+                        </dd>
+
+                        <dt>
+                            Phần trăm giảm giá
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.phanTramGiamGia) %
+                        </dd>
+                        <dt>
+                            Thông tin thêm:
+                        </dt>
+                        <dt>
+                            Cách trồng
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ThongTinThemVeSP.cachTrong)
+                        </dd>
+
+                        <dt>
+                            Công dụng
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.ThongTinThemVeSP.congDung)
+                        </dd>
+
+                    </dl>
+
+                    <br />
+                    <hr />
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            @Html.ActionLink("Sửa", "Edit", new { id = Model.id_SP }, new { @class = "btn btn-info" }) |
+                            <a class="btn btn-success" href='@Url.Action("IndexAdmin", "SanPhams")' style="margin:10px 0px;">
+                                Trở về
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

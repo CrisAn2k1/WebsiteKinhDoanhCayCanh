@@ -204,10 +204,12 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BinhLuansController.cs" />
+    <Compile Include="Controllers\CachChamSocController.cs" />
     <Compile Include="Controllers\DanhGiasController.cs" />
     <Compile Include="Controllers\GioHangsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NhomSPController.cs" />
     <Compile Include="Controllers\SanPhamsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -242,6 +244,13 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Admin\css\styles.css" />
+    <Content Include="Content\Admin\assets\demo\chart-area-demo.js" />
+    <Content Include="Content\Admin\assets\demo\chart-bar-demo.js" />
+    <Content Include="Content\Admin\assets\demo\chart-pie-demo.js" />
+    <Content Include="Content\Admin\assets\demo\datatables-demo.js" />
+    <Content Include="Content\Admin\js\datatables-simple-demo.js" />
+    <Content Include="Content\Admin\js\scripts.js" />
     <Content Include="Content\assets\css\ajax-loader.gif" />
     <Content Include="Content\assets\css\animate.css" />
     <Content Include="Content\assets\css\aos.css" />
@@ -529,10 +538,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\SanPhams\Create.cshtml" />
-    <Content Include="Views\SanPhams\Delete.cshtml" />
     <Content Include="Views\SanPhams\Details.cshtml" />
-    <Content Include="Views\SanPhams\Edit.cshtml" />
     <Content Include="Views\SanPhams\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\BinhLuans\Create.cshtml" />
@@ -551,10 +557,26 @@
     <Content Include="Views\Home\ChinhSachMuaHang.cshtml" />
     <Content Include="Views\Home\CachChamSoc.cshtml" />
     <Content Include="Views\Home\ChinhSachBaoHanh.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\Error401.cshtml" />
+    <Content Include="Views\NhomSP\Index.cshtml" />
+    <Content Include="Views\NhomSP\Create.cshtml" />
+    <Content Include="Views\NhomSP\Edit.cshtml" />
+    <Content Include="Views\NhomSP\Details.cshtml" />
+    <Content Include="Views\NhomSP\Delete.cshtml" />
+    <Content Include="Views\CachChamSoc\Index.cshtml" />
+    <Content Include="Views\CachChamSoc\Details.cshtml" />
+    <Content Include="Views\CachChamSoc\Edit.cshtml" />
+    <Content Include="Views\CachChamSoc\Create.cshtml" />
+    <Content Include="Views\CachChamSoc\Delete.cshtml" />
+    <Content Include="Views\SanPhams\IndexAdmin.cshtml" />
+    <Content Include="Views\SanPhams\DetailsAdmin.cshtml" />
+    <Content Include="Views\SanPhams\Edit.cshtml" />
+    <Content Include="Views\SanPhams\Delete.cshtml" />
+    <Content Include="Views\SanPhams\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

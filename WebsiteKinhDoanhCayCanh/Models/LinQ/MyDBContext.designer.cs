@@ -28,60 +28,60 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
 		
-    #region Extensibility Method Definitions
-    partial void OnCreated();
-    partial void Insert__MigrationHistory(__MigrationHistory instance);
-    partial void Update__MigrationHistory(__MigrationHistory instance);
-    partial void Delete__MigrationHistory(__MigrationHistory instance);
-    partial void InsertVoucher(Voucher instance);
-    partial void UpdateVoucher(Voucher instance);
-    partial void DeleteVoucher(Voucher instance);
-    partial void InsertBinhLuan(BinhLuan instance);
-    partial void UpdateBinhLuan(BinhLuan instance);
-    partial void DeleteBinhLuan(BinhLuan instance);
-    partial void InsertCachChamSoc(CachChamSoc instance);
-    partial void UpdateCachChamSoc(CachChamSoc instance);
-    partial void DeleteCachChamSoc(CachChamSoc instance);
-    partial void InsertCTDH(CTDH instance);
-    partial void UpdateCTDH(CTDH instance);
-    partial void DeleteCTDH(CTDH instance);
-    partial void InsertDanhGia(DanhGia instance);
-    partial void UpdateDanhGia(DanhGia instance);
-    partial void DeleteDanhGia(DanhGia instance);
-    partial void InsertDonHang(DonHang instance);
-    partial void UpdateDonHang(DonHang instance);
-    partial void DeleteDonHang(DonHang instance);
-    partial void InsertHinhAnhSP(HinhAnhSP instance);
-    partial void UpdateHinhAnhSP(HinhAnhSP instance);
-    partial void DeleteHinhAnhSP(HinhAnhSP instance);
-    partial void InsertNhomSP(NhomSP instance);
-    partial void UpdateNhomSP(NhomSP instance);
-    partial void DeleteNhomSP(NhomSP instance);
-    partial void InsertRole(Role instance);
-    partial void UpdateRole(Role instance);
-    partial void DeleteRole(Role instance);
-    partial void InsertSanPham(SanPham instance);
-    partial void UpdateSanPham(SanPham instance);
-    partial void DeleteSanPham(SanPham instance);
-    partial void InsertThongTinThemVeSP(ThongTinThemVeSP instance);
-    partial void UpdateThongTinThemVeSP(ThongTinThemVeSP instance);
-    partial void DeleteThongTinThemVeSP(ThongTinThemVeSP instance);
-    partial void InsertUserClaim(UserClaim instance);
-    partial void UpdateUserClaim(UserClaim instance);
-    partial void DeleteUserClaim(UserClaim instance);
-    partial void InsertUserLogin(UserLogin instance);
-    partial void UpdateUserLogin(UserLogin instance);
-    partial void DeleteUserLogin(UserLogin instance);
-    partial void InsertUserRole(UserRole instance);
-    partial void UpdateUserRole(UserRole instance);
-    partial void DeleteUserRole(UserRole instance);
-    partial void InsertUser(User instance);
-    partial void UpdateUser(User instance);
-    partial void DeleteUser(User instance);
-    partial void InsertUserVoucher(UserVoucher instance);
-    partial void UpdateUserVoucher(UserVoucher instance);
-    partial void DeleteUserVoucher(UserVoucher instance);
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnCreated();
+	partial void Insert__MigrationHistory(__MigrationHistory instance);
+	partial void Update__MigrationHistory(__MigrationHistory instance);
+	partial void Delete__MigrationHistory(__MigrationHistory instance);
+	partial void InsertVoucher(Voucher instance);
+	partial void UpdateVoucher(Voucher instance);
+	partial void DeleteVoucher(Voucher instance);
+	partial void InsertBinhLuan(BinhLuan instance);
+	partial void UpdateBinhLuan(BinhLuan instance);
+	partial void DeleteBinhLuan(BinhLuan instance);
+	partial void InsertCachChamSoc(CachChamSoc instance);
+	partial void UpdateCachChamSoc(CachChamSoc instance);
+	partial void DeleteCachChamSoc(CachChamSoc instance);
+	partial void InsertCTDH(CTDH instance);
+	partial void UpdateCTDH(CTDH instance);
+	partial void DeleteCTDH(CTDH instance);
+	partial void InsertDanhGia(DanhGia instance);
+	partial void UpdateDanhGia(DanhGia instance);
+	partial void DeleteDanhGia(DanhGia instance);
+	partial void InsertDonHang(DonHang instance);
+	partial void UpdateDonHang(DonHang instance);
+	partial void DeleteDonHang(DonHang instance);
+	partial void InsertHinhAnhSP(HinhAnhSP instance);
+	partial void UpdateHinhAnhSP(HinhAnhSP instance);
+	partial void DeleteHinhAnhSP(HinhAnhSP instance);
+	partial void InsertNhomSP(NhomSP instance);
+	partial void UpdateNhomSP(NhomSP instance);
+	partial void DeleteNhomSP(NhomSP instance);
+	partial void InsertRole(Role instance);
+	partial void UpdateRole(Role instance);
+	partial void DeleteRole(Role instance);
+	partial void InsertSanPham(SanPham instance);
+	partial void UpdateSanPham(SanPham instance);
+	partial void DeleteSanPham(SanPham instance);
+	partial void InsertThongTinThemVeSP(ThongTinThemVeSP instance);
+	partial void UpdateThongTinThemVeSP(ThongTinThemVeSP instance);
+	partial void DeleteThongTinThemVeSP(ThongTinThemVeSP instance);
+	partial void InsertUserClaim(UserClaim instance);
+	partial void UpdateUserClaim(UserClaim instance);
+	partial void DeleteUserClaim(UserClaim instance);
+	partial void InsertUserLogin(UserLogin instance);
+	partial void UpdateUserLogin(UserLogin instance);
+	partial void DeleteUserLogin(UserLogin instance);
+	partial void InsertUserRole(UserRole instance);
+	partial void UpdateUserRole(UserRole instance);
+	partial void DeleteUserRole(UserRole instance);
+	partial void InsertUser(User instance);
+	partial void UpdateUser(User instance);
+	partial void DeleteUser(User instance);
+	partial void InsertUserVoucher(UserVoucher instance);
+	partial void UpdateUserVoucher(UserVoucher instance);
+	partial void DeleteUserVoucher(UserVoucher instance);
+	#endregion
 		
 		public MyDBContextDataContext() : 
 				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyCayCanhConnectionString"].ConnectionString, mappingSource)
@@ -264,19 +264,19 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		
 		private string _ProductVersion;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnMigrationIdChanging(string value);
-    partial void OnMigrationIdChanged();
-    partial void OnContextKeyChanging(string value);
-    partial void OnContextKeyChanged();
-    partial void OnModelChanging(System.Data.Linq.Binary value);
-    partial void OnModelChanged();
-    partial void OnProductVersionChanging(string value);
-    partial void OnProductVersionChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnMigrationIdChanging(string value);
+	partial void OnMigrationIdChanged();
+	partial void OnContextKeyChanging(string value);
+	partial void OnContextKeyChanged();
+	partial void OnModelChanging(System.Data.Linq.Binary value);
+	partial void OnModelChanged();
+	partial void OnProductVersionChanging(string value);
+	partial void OnProductVersionChanged();
+	#endregion
 		
 		public @__MigrationHistory()
 		{
@@ -406,23 +406,23 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		
 		private EntitySet<UserVoucher> _UserVouchers;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onid_voucherChanging(string value);
-    partial void Onid_voucherChanged();
-    partial void OntenVoucherChanging(string value);
-    partial void OntenVoucherChanged();
-    partial void OnnoiDungChanging(string value);
-    partial void OnnoiDungChanged();
-    partial void OnphanTramGiamGiaChanging(System.Nullable<int> value);
-    partial void OnphanTramGiamGiaChanged();
-    partial void OnthoiGianBatDauChanging(System.Nullable<System.DateTime> value);
-    partial void OnthoiGianBatDauChanged();
-    partial void OnthoiGianKetThucChanging(System.Nullable<System.DateTime> value);
-    partial void OnthoiGianKetThucChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void Onid_voucherChanging(string value);
+	partial void Onid_voucherChanged();
+	partial void OntenVoucherChanging(string value);
+	partial void OntenVoucherChanged();
+	partial void OnnoiDungChanging(string value);
+	partial void OnnoiDungChanged();
+	partial void OnphanTramGiamGiaChanging(System.Nullable<int> value);
+	partial void OnphanTramGiamGiaChanged();
+	partial void OnthoiGianBatDauChanging(System.Nullable<System.DateTime> value);
+	partial void OnthoiGianBatDauChanged();
+	partial void OnthoiGianKetThucChanging(System.Nullable<System.DateTime> value);
+	partial void OnthoiGianKetThucChanged();
+	#endregion
 		
 		public Voucher()
 		{
@@ -644,23 +644,23 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		
 		private EntityRef<User> _User;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onid_BinhLuanChanging(int value);
-    partial void Onid_BinhLuanChanged();
-    partial void OnngayDangBinhLuanChanging(System.Nullable<System.DateTime> value);
-    partial void OnngayDangBinhLuanChanged();
-    partial void OnnoiDungChanging(string value);
-    partial void OnnoiDungChanged();
-    partial void OntrangThaiChanging(string value);
-    partial void OntrangThaiChanged();
-    partial void Onid_UserChanging(string value);
-    partial void Onid_UserChanged();
-    partial void Onid_SPChanging(string value);
-    partial void Onid_SPChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void Onid_BinhLuanChanging(int value);
+	partial void Onid_BinhLuanChanged();
+	partial void OnngayDangBinhLuanChanging(System.Nullable<System.DateTime> value);
+	partial void OnngayDangBinhLuanChanged();
+	partial void OnnoiDungChanging(string value);
+	partial void OnnoiDungChanged();
+	partial void OntrangThaiChanging(string value);
+	partial void OntrangThaiChanged();
+	partial void Onid_UserChanging(string value);
+	partial void Onid_UserChanged();
+	partial void Onid_SPChanging(string value);
+	partial void Onid_SPChanged();
+	#endregion
 		
 		public BinhLuan()
 		{
@@ -906,23 +906,23 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		
 		private EntitySet<NhomSP> _NhomSPs;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onid_CCSChanging(string value);
-    partial void Onid_CCSChanged();
-    partial void OntuoiNuocChanging(string value);
-    partial void OntuoiNuocChanged();
-    partial void OndatChanging(string value);
-    partial void OndatChanged();
-    partial void OnanhSangChanging(string value);
-    partial void OnanhSangChanged();
-    partial void OnviTriDatCayChanging(string value);
-    partial void OnviTriDatCayChanged();
-    partial void OnduongChatChanging(string value);
-    partial void OnduongChatChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void Onid_CCSChanging(string value);
+	partial void Onid_CCSChanged();
+	partial void OntuoiNuocChanging(string value);
+	partial void OntuoiNuocChanged();
+	partial void OndatChanging(string value);
+	partial void OndatChanged();
+	partial void OnanhSangChanging(string value);
+	partial void OnanhSangChanged();
+	partial void OnviTriDatCayChanging(string value);
+	partial void OnviTriDatCayChanged();
+	partial void OnduongChatChanging(string value);
+	partial void OnduongChatChanged();
+	#endregion
 		
 		public CachChamSoc()
 		{
@@ -1114,19 +1114,19 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		
 		private EntityRef<SanPham> _SanPham;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onid_DHChanging(int value);
-    partial void Onid_DHChanged();
-    partial void Onid_SPChanging(string value);
-    partial void Onid_SPChanged();
-    partial void OnsoLuongChanging(System.Nullable<int> value);
-    partial void OnsoLuongChanged();
-    partial void OnthanhTienChanging(System.Nullable<long> value);
-    partial void OnthanhTienChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void Onid_DHChanging(int value);
+	partial void Onid_DHChanged();
+	partial void Onid_SPChanging(string value);
+	partial void Onid_SPChanged();
+	partial void OnsoLuongChanging(System.Nullable<int> value);
+	partial void OnsoLuongChanged();
+	partial void OnthanhTienChanging(System.Nullable<long> value);
+	partial void OnthanhTienChanged();
+	#endregion
 		
 		public CTDH()
 		{
@@ -1334,23 +1334,23 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		
 		private EntityRef<User> _User;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onid_DanhGiaChanging(int value);
-    partial void Onid_DanhGiaChanged();
-    partial void OnsoSaoChanging(System.Nullable<int> value);
-    partial void OnsoSaoChanged();
-    partial void OnngayDGChanging(System.Nullable<System.DateTime> value);
-    partial void OnngayDGChanged();
-    partial void OntrangThaiChanging(System.Nullable<char> value);
-    partial void OntrangThaiChanged();
-    partial void Onid_UserChanging(string value);
-    partial void Onid_UserChanged();
-    partial void Onid_SPChanging(string value);
-    partial void Onid_SPChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void Onid_DanhGiaChanging(int value);
+	partial void Onid_DanhGiaChanged();
+	partial void OnsoSaoChanging(System.Nullable<int> value);
+	partial void OnsoSaoChanged();
+	partial void OnngayDGChanging(System.Nullable<System.DateTime> value);
+	partial void OnngayDGChanged();
+	partial void OntrangThaiChanging(System.Nullable<char> value);
+	partial void OntrangThaiChanged();
+	partial void Onid_UserChanging(string value);
+	partial void Onid_UserChanged();
+	partial void Onid_SPChanging(string value);
+	partial void Onid_SPChanged();
+	#endregion
 		
 		public DanhGia()
 		{
@@ -1606,29 +1606,29 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		
 		private EntityRef<User> _User;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onid_DHChanging(int value);
-    partial void Onid_DHChanged();
-    partial void OnngayDatChanging(System.Nullable<System.DateTime> value);
-    partial void OnngayDatChanged();
-    partial void OnngayGiaoChanging(System.Nullable<System.DateTime> value);
-    partial void OnngayGiaoChanged();
-    partial void OntrangThaiThanhToanChanging(System.Nullable<char> value);
-    partial void OntrangThaiThanhToanChanged();
-    partial void OntrangThaiGiaoHangChanging(System.Nullable<char> value);
-    partial void OntrangThaiGiaoHangChanged();
-    partial void OnphuongThucThanhToanChanging(System.Nullable<char> value);
-    partial void OnphuongThucThanhToanChanged();
-    partial void OntongTienChanging(System.Nullable<long> value);
-    partial void OntongTienChanged();
-    partial void Onid_UserChanging(string value);
-    partial void Onid_UserChanged();
-    partial void Onid_VoucherChanging(string value);
-    partial void Onid_VoucherChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void Onid_DHChanging(int value);
+	partial void Onid_DHChanged();
+	partial void OnngayDatChanging(System.Nullable<System.DateTime> value);
+	partial void OnngayDatChanged();
+	partial void OnngayGiaoChanging(System.Nullable<System.DateTime> value);
+	partial void OnngayGiaoChanged();
+	partial void OntrangThaiThanhToanChanging(System.Nullable<char> value);
+	partial void OntrangThaiThanhToanChanged();
+	partial void OntrangThaiGiaoHangChanging(System.Nullable<char> value);
+	partial void OntrangThaiGiaoHangChanged();
+	partial void OnphuongThucThanhToanChanging(System.Nullable<char> value);
+	partial void OnphuongThucThanhToanChanged();
+	partial void OntongTienChanging(System.Nullable<long> value);
+	partial void OntongTienChanged();
+	partial void Onid_UserChanging(string value);
+	partial void Onid_UserChanged();
+	partial void Onid_VoucherChanging(string value);
+	partial void Onid_VoucherChanged();
+	#endregion
 		
 		public DonHang()
 		{
@@ -1954,17 +1954,17 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		
 		private EntityRef<SanPham> _SanPham;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onid_HinhChanging(int value);
-    partial void Onid_HinhChanged();
-    partial void OnduongDanChanging(string value);
-    partial void OnduongDanChanged();
-    partial void Onid_SPChanging(string value);
-    partial void Onid_SPChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void Onid_HinhChanging(int value);
+	partial void Onid_HinhChanged();
+	partial void OnduongDanChanging(string value);
+	partial void OnduongDanChanged();
+	partial void Onid_SPChanging(string value);
+	partial void Onid_SPChanged();
+	#endregion
 		
 		public HinhAnhSP()
 		{
@@ -2107,17 +2107,17 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		
 		private EntityRef<CachChamSoc> _CachChamSoc;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onid_NhomChanging(string value);
-    partial void Onid_NhomChanged();
-    partial void OntenNhomChanging(string value);
-    partial void OntenNhomChanged();
-    partial void Onid_CCSChanging(string value);
-    partial void Onid_CCSChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void Onid_NhomChanging(string value);
+	partial void Onid_NhomChanged();
+	partial void OntenNhomChanging(string value);
+	partial void OntenNhomChanged();
+	partial void Onid_CCSChanging(string value);
+	partial void Onid_CCSChanged();
+	#endregion
 		
 		public NhomSP()
 		{
@@ -2282,15 +2282,15 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		
 		private EntitySet<UserRole> _UserRoles;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(string value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnIdChanging(string value);
+	partial void OnIdChanged();
+	partial void OnNameChanging(string value);
+	partial void OnNameChanged();
+	#endregion
 		
 		public Role()
 		{
@@ -2418,27 +2418,27 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		
 		private EntityRef<NhomSP> _NhomSP;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onid_SPChanging(string value);
-    partial void Onid_SPChanged();
-    partial void OntenSPChanging(string value);
-    partial void OntenSPChanged();
-    partial void OnmotaChanging(string value);
-    partial void OnmotaChanged();
-    partial void OngiaChanging(System.Nullable<long> value);
-    partial void OngiaChanged();
-    partial void OnsoLuongChanging(System.Nullable<int> value);
-    partial void OnsoLuongChanged();
-    partial void OnDVTChanging(string value);
-    partial void OnDVTChanged();
-    partial void OnphanTramGiamGiaChanging(System.Nullable<int> value);
-    partial void OnphanTramGiamGiaChanged();
-    partial void Onid_NhomChanging(string value);
-    partial void Onid_NhomChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void Onid_SPChanging(string value);
+	partial void Onid_SPChanged();
+	partial void OntenSPChanging(string value);
+	partial void OntenSPChanged();
+	partial void OnmotaChanging(string value);
+	partial void OnmotaChanged();
+	partial void OngiaChanging(System.Nullable<long> value);
+	partial void OngiaChanged();
+	partial void OnsoLuongChanging(System.Nullable<int> value);
+	partial void OnsoLuongChanged();
+	partial void OnDVTChanging(string value);
+	partial void OnDVTChanged();
+	partial void OnphanTramGiamGiaChanging(System.Nullable<int> value);
+	partial void OnphanTramGiamGiaChanged();
+	partial void Onid_NhomChanging(string value);
+	partial void Onid_NhomChanged();
+	#endregion
 		
 		public SanPham()
 		{
@@ -2813,17 +2813,17 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		
 		private EntityRef<SanPham> _SanPham;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onid_SPChanging(string value);
-    partial void Onid_SPChanged();
-    partial void OncongDungChanging(string value);
-    partial void OncongDungChanged();
-    partial void OncachTrongChanging(string value);
-    partial void OncachTrongChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void Onid_SPChanging(string value);
+	partial void Onid_SPChanged();
+	partial void OncongDungChanging(string value);
+	partial void OncongDungChanged();
+	partial void OncachTrongChanging(string value);
+	partial void OncachTrongChanged();
+	#endregion
 		
 		public ThongTinThemVeSP()
 		{
@@ -2966,19 +2966,19 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		
 		private EntityRef<User> _User;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnUserIdChanging(string value);
-    partial void OnUserIdChanged();
-    partial void OnClaimTypeChanging(string value);
-    partial void OnClaimTypeChanged();
-    partial void OnClaimValueChanging(string value);
-    partial void OnClaimValueChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnIdChanging(int value);
+	partial void OnIdChanged();
+	partial void OnUserIdChanging(string value);
+	partial void OnUserIdChanged();
+	partial void OnClaimTypeChanging(string value);
+	partial void OnClaimTypeChanged();
+	partial void OnClaimValueChanging(string value);
+	partial void OnClaimValueChanged();
+	#endregion
 		
 		public UserClaim()
 		{
@@ -3139,17 +3139,17 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		
 		private EntityRef<User> _User;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnLoginProviderChanging(string value);
-    partial void OnLoginProviderChanged();
-    partial void OnProviderKeyChanging(string value);
-    partial void OnProviderKeyChanged();
-    partial void OnUserIdChanging(string value);
-    partial void OnUserIdChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnLoginProviderChanging(string value);
+	partial void OnLoginProviderChanged();
+	partial void OnProviderKeyChanging(string value);
+	partial void OnProviderKeyChanged();
+	partial void OnUserIdChanging(string value);
+	partial void OnUserIdChanged();
+	#endregion
 		
 		public UserLogin()
 		{
@@ -3290,15 +3290,15 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		
 		private EntityRef<User> _User;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnUserIdChanging(string value);
-    partial void OnUserIdChanged();
-    partial void OnRoleIdChanging(string value);
-    partial void OnRoleIdChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnUserIdChanging(string value);
+	partial void OnUserIdChanged();
+	partial void OnRoleIdChanging(string value);
+	partial void OnRoleIdChanged();
+	#endregion
 		
 		public UserRole()
 		{
@@ -3492,39 +3492,39 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		
 		private EntitySet<UserVoucher> _UserVouchers;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(string value);
-    partial void OnIdChanged();
-    partial void OnEmailChanging(string value);
-    partial void OnEmailChanged();
-    partial void OnEmailConfirmedChanging(bool value);
-    partial void OnEmailConfirmedChanged();
-    partial void OnPasswordHashChanging(string value);
-    partial void OnPasswordHashChanged();
-    partial void OnSecurityStampChanging(string value);
-    partial void OnSecurityStampChanged();
-    partial void OnPhoneNumberChanging(string value);
-    partial void OnPhoneNumberChanged();
-    partial void OnPhoneNumberConfirmedChanging(bool value);
-    partial void OnPhoneNumberConfirmedChanged();
-    partial void OnTwoFactorEnabledChanging(bool value);
-    partial void OnTwoFactorEnabledChanged();
-    partial void OnLockoutEndDateUtcChanging(System.Nullable<System.DateTime> value);
-    partial void OnLockoutEndDateUtcChanged();
-    partial void OnLockoutEnabledChanging(bool value);
-    partial void OnLockoutEnabledChanged();
-    partial void OnAccessFailedCountChanging(int value);
-    partial void OnAccessFailedCountChanged();
-    partial void OnUserNameChanging(string value);
-    partial void OnUserNameChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnAddressChanging(string value);
-    partial void OnAddressChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void OnIdChanging(string value);
+	partial void OnIdChanged();
+	partial void OnEmailChanging(string value);
+	partial void OnEmailChanged();
+	partial void OnEmailConfirmedChanging(bool value);
+	partial void OnEmailConfirmedChanged();
+	partial void OnPasswordHashChanging(string value);
+	partial void OnPasswordHashChanged();
+	partial void OnSecurityStampChanging(string value);
+	partial void OnSecurityStampChanged();
+	partial void OnPhoneNumberChanging(string value);
+	partial void OnPhoneNumberChanged();
+	partial void OnPhoneNumberConfirmedChanging(bool value);
+	partial void OnPhoneNumberConfirmedChanged();
+	partial void OnTwoFactorEnabledChanging(bool value);
+	partial void OnTwoFactorEnabledChanged();
+	partial void OnLockoutEndDateUtcChanging(System.Nullable<System.DateTime> value);
+	partial void OnLockoutEndDateUtcChanged();
+	partial void OnLockoutEnabledChanging(bool value);
+	partial void OnLockoutEnabledChanged();
+	partial void OnAccessFailedCountChanging(int value);
+	partial void OnAccessFailedCountChanged();
+	partial void OnUserNameChanging(string value);
+	partial void OnUserNameChanged();
+	partial void OnNameChanging(string value);
+	partial void OnNameChanged();
+	partial void OnAddressChanging(string value);
+	partial void OnAddressChanged();
+	#endregion
 		
 		public User()
 		{
@@ -4030,17 +4030,17 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 		
 		private EntityRef<Voucher> _Voucher;
 		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onid_voucherChanging(string value);
-    partial void Onid_voucherChanged();
-    partial void Onid_UserChanging(string value);
-    partial void Onid_UserChanged();
-    partial void OnsoLuotConLaiChanging(System.Nullable<int> value);
-    partial void OnsoLuotConLaiChanged();
-    #endregion
+	#region Extensibility Method Definitions
+	partial void OnLoaded();
+	partial void OnValidate(System.Data.Linq.ChangeAction action);
+	partial void OnCreated();
+	partial void Onid_voucherChanging(string value);
+	partial void Onid_voucherChanged();
+	partial void Onid_UserChanging(string value);
+	partial void Onid_UserChanged();
+	partial void OnsoLuotConLaiChanging(System.Nullable<int> value);
+	partial void OnsoLuotConLaiChanged();
+	#endregion
 		
 		public UserVoucher()
 		{
