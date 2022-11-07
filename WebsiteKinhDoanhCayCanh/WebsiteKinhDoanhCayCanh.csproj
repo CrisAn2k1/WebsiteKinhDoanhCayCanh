@@ -51,6 +51,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="GoogleRecaptcha, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GoogleRecaptcha.1.2.1\lib\GoogleRecaptcha.dll</HintPath>
+    </Reference>
+    <Reference Include="GoogleRecaptchaMvc, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GoogleRecaptchaMvc.1.0.1\lib\GoogleRecaptchaMvc.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
@@ -202,11 +208,14 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BinhLuansController.cs" />
+    <Compile Include="Controllers\CachChamSocController.cs" />
     <Compile Include="Controllers\DanhGiasController.cs" />
     <Compile Include="Controllers\GioHangsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NhomSPController.cs" />
     <Compile Include="Controllers\SanPhamsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -216,6 +225,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BinhLuan.cs" />
     <Compile Include="Models\CachChamSoc.cs" />
+    <Compile Include="Models\CTCapNhat.cs" />
     <Compile Include="Models\CTDH.cs" />
     <Compile Include="Models\C__MigrationHistory.cs" />
     <Compile Include="Models\DanhGia.cs" />
@@ -223,10 +233,10 @@
     <Compile Include="Models\GioHang.cs" />
     <Compile Include="Models\HinhAnhSP.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\LinQ\MyDBContext.designer.cs">
+    <Compile Include="Models\LinQ\MyDB.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MyDBContext.dbml</DependentUpon>
+      <DependentUpon>MyDB.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MyDataEF.cs" />
@@ -237,10 +247,19 @@
     <Compile Include="Models\ThongTinThemVeSP.cs" />
     <Compile Include="Models\UserVoucher.cs" />
     <Compile Include="Models\Voucher.cs" />
+    <Compile Include="Others\MailHelper.cs" />
+    <Compile Include="Others\MailRegister.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Admin\css\styles.css" />
+    <Content Include="Content\Admin\assets\demo\chart-area-demo.js" />
+    <Content Include="Content\Admin\assets\demo\chart-bar-demo.js" />
+    <Content Include="Content\Admin\assets\demo\chart-pie-demo.js" />
+    <Content Include="Content\Admin\assets\demo\datatables-demo.js" />
+    <Content Include="Content\Admin\js\datatables-simple-demo.js" />
+    <Content Include="Content\Admin\js\scripts.js" />
     <Content Include="Content\assets\css\ajax-loader.gif" />
     <Content Include="Content\assets\css\animate.css" />
     <Content Include="Content\assets\css\aos.css" />
@@ -330,6 +349,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Others\AccountConfirmation.html" />
+    <Content Include="Others\Checkout.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\assets\css\.DS_Store" />
@@ -449,13 +470,13 @@
     <Content Include="Content\assets\scss\bootstrap\_utilities.scss" />
     <Content Include="Content\assets\scss\bootstrap\_variables.scss" />
     <Content Include="Content\assets\scss\style.scss" />
-    <Content Include="Models\LinQ\MyDBContext.dbml">
+    <Content Include="Models\LinQ\MyDB.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>MyDBContext.designer.cs</LastGenOutput>
+      <LastGenOutput>MyDB.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <None Include="Models\LinQ\MyDBContext.dbml.layout">
-      <DependentUpon>MyDBContext.dbml</DependentUpon>
+    <None Include="Models\LinQ\MyDB.dbml.layout">
+      <DependentUpon>MyDB.dbml</DependentUpon>
     </None>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -470,21 +491,27 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Template\img\banner-img.jpg" />
     <Content Include="Template\img\banner1.png" />
+    <Content Include="Template\img\banner3.jpg" />
+    <Content Include="Template\img\banner4.png" />
     <Content Include="Template\img\bonsai1.png" />
     <Content Include="Template\img\bonsai2.png" />
+    <Content Include="Template\img\caycauvang.jpg" />
+    <Content Include="Template\img\cayhongmon.jpg" />
+    <Content Include="Template\img\cayluoiho.jpg" />
     <Content Include="Template\img\cayngocngan.jpg" />
     <Content Include="Template\img\caytieutram.jpg" />
     <Content Include="Template\img\home.png" />
+    <Content Include="Template\img\icon-cart.png" />
     <Content Include="Template\img\icon-web.png" />
     <Content Include="Template\img\banner2.jpg" />
     <Content Include="Template\img\bonsai.jpg" />
     <Content Include="Template\img\cay-canh-de-ban-lam-viec.jpg" />
     <Content Include="Template\img\cay-de-trong-trong-van-phong.jpg" />
-    <Content Include="Template\img\caycauvang.jpg" />
     <Content Include="Template\img\caydetrong nha.jpg" />
     <Content Include="Template\img\cayphattainui.jpg" />
     <Content Include="Template\img\caytrongnha.jpg" />
     <Content Include="Template\img\Cua-hang-cay-canh-ILG.jpg" />
+    <Content Include="Template\img\login-google.jpg" />
     <Content Include="Template\img\luoihovang.jpg" />
     <Content Include="Template\img\senda.jpg" />
     <Content Include="Template\img\traubathanhxuan.jpg" />
@@ -524,10 +551,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\SanPhams\Create.cshtml" />
-    <Content Include="Views\SanPhams\Delete.cshtml" />
     <Content Include="Views\SanPhams\Details.cshtml" />
-    <Content Include="Views\SanPhams\Edit.cshtml" />
     <Content Include="Views\SanPhams\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\BinhLuans\Create.cshtml" />
@@ -543,6 +567,27 @@
     <Content Include="Views\GioHangs\GioHang.cshtml" />
     <Content Include="Views\GioHangs\GiohangPartial.cshtml" />
     <Content Include="Views\Shared\_MessageAlert.cshtml" />
+    <Content Include="Views\Home\ChinhSachMuaHang.cshtml" />
+    <Content Include="Views\Home\CachChamSoc.cshtml" />
+    <Content Include="Views\Home\ChinhSachBaoHanh.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\Error401.cshtml" />
+    <Content Include="Views\NhomSP\Index.cshtml" />
+    <Content Include="Views\NhomSP\Create.cshtml" />
+    <Content Include="Views\NhomSP\Edit.cshtml" />
+    <Content Include="Views\NhomSP\Details.cshtml" />
+    <Content Include="Views\NhomSP\Delete.cshtml" />
+    <Content Include="Views\CachChamSoc\Index.cshtml" />
+    <Content Include="Views\CachChamSoc\Details.cshtml" />
+    <Content Include="Views\CachChamSoc\Edit.cshtml" />
+    <Content Include="Views\CachChamSoc\Create.cshtml" />
+    <Content Include="Views\CachChamSoc\Delete.cshtml" />
+    <Content Include="Views\SanPhams\IndexAdmin.cshtml" />
+    <Content Include="Views\SanPhams\DetailsAdmin.cshtml" />
+    <Content Include="Views\SanPhams\Edit.cshtml" />
+    <Content Include="Views\SanPhams\Delete.cshtml" />
+    <Content Include="Views\SanPhams\Create.cshtml" />
+    <Content Include="Views\GioHangs\DatHang.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

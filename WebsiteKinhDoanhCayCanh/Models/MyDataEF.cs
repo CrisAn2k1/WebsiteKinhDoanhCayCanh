@@ -15,6 +15,7 @@ namespace WebsiteKinhDoanhCayCanh.Models
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<BinhLuan> BinhLuan { get; set; }
         public virtual DbSet<CachChamSoc> CachChamSoc { get; set; }
+        public virtual DbSet<CTCapNhat> CTCapNhat { get; set; }
         public virtual DbSet<CTDH> CTDH { get; set; }
         public virtual DbSet<DanhGia> DanhGia { get; set; }
         public virtual DbSet<DonHang> DonHang { get; set; }
@@ -60,6 +61,10 @@ namespace WebsiteKinhDoanhCayCanh.Models
                 .Property(e => e.duongChat)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<CTCapNhat>()
+                .Property(e => e.id_SP)
+                .IsUnicode(false);
+
             modelBuilder.Entity<CTDH>()
                 .Property(e => e.id_SP)
                 .IsUnicode(false);
@@ -71,11 +76,6 @@ namespace WebsiteKinhDoanhCayCanh.Models
 
             modelBuilder.Entity<DanhGia>()
                 .Property(e => e.id_SP)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<DonHang>()
-                .Property(e => e.trangThaiThanhToan)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<DonHang>()
@@ -120,6 +120,11 @@ namespace WebsiteKinhDoanhCayCanh.Models
             modelBuilder.Entity<SanPham>()
                 .Property(e => e.id_Nhom)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<SanPham>()
+                .HasMany(e => e.CTCapNhat)
+                .WithRequired(e => e.SanPham)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<SanPham>()
                 .HasMany(e => e.CTDH)

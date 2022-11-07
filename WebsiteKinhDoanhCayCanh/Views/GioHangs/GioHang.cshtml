@@ -1,160 +1,156 @@
-﻿@model IEnumerable<WebsiteKinhDoanhCayCanh.Models.GioHang>
+﻿
+@using WebsiteKinhDoanhCayCanh.Models;
+@model IEnumerable<WebsiteKinhDoanhCayCanh.Models.GioHang>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    MyDataEF db = new MyDataEF();
 }
-<link href="~/Content/assets/css/style.css" rel="stylesheet" />
 
-<div style="font-family: 'Sans-serif'">
-    <div class="hero-wrap hero-bread" style="background-image: url('/Template/img/banner-img.jpg');opacity:0.9" ;>
-        <div>
+<body>
+    <div style="font-family: 'Sans-serif'">
+        <div class="hero-wrap hero-bread" style="background-image: url('/Template/img/banner-img.jpg');opacity:0.9" ;>
+            <div>
+                <div class="container">
+                    <div class="row no-gutters slider-text align-items-center justify-content-center">
+                        <div class="col-md-9 ftco-animate text-center bg-text">
+                            <h1 class="mb-0 bread" style="color:antiquewhite">GIỎ HÀNG</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.Count() != 0)
+    {
+        <section class="ftco-section ftco-cart">
             <div class="container">
-                <div class="row no-gutters slider-text align-items-center justify-content-center">
-                    <div class="col-md-9 ftco-animate text-center bg-text">
-                        <h1 class="mb-0 bread" style="color:antiquewhite">GIỎ HÀNG</h1>
+                <h2 style=" text-align:center; color:green">Giỏ hàng của bạn</h2>
+                <div class="row">
+
+                    <div class="col-md-12 ftco-animate">
+                        <div class="cart-list">
+                            <table class="table">
+                                <thead class="thead-primary">
+                                    <tr class="text-center">
+                                        <th></th>
+                                        <th></th>
+                                        <th>Tên sản phẩm</th>
+                                        @*<th>SL còn lại</th>*@
+                                        <th>Giá</th>
+                                        <th>Giảm giá</th>
+                                        <th>Số lượng</th>
+                                        <th>Số tiền</th>
+
+                                    </tr>
+                                </thead>
+                                @foreach (var item in Model)
+                                {
+                                    <tbody>
+                                        @using (Html.BeginForm("CapNhatGioHang", "GioHangs", new { @id = item.iIdSanPham }, FormMethod.Post, new { @id = "target-form" + "-" + item.iIdSanPham }))
+                                        {
+                                            <tr class="text-center">
+                                                <td class="product-remove"><a href="@Url.Action("XoaGioHang", "GioHangs", new { @iIdSanPham = item.iIdSanPham })"> <i class="ion-ios-trash" style="color:red;font-size:20px;font-weight:bold"></i></a></td>
+
+                                                <td class="image-prod"><a href="/SanPhams/Details/@item.iIdSanPham"><div class="img" style="background-image:url('@item.sHinh');"></div></a> </td>
+
+                                                <td class="product-name">
+                                                    <h3><a href="/SanPhams/Details/@item.iIdSanPham">@item.sTenSanPham</a></h3>
+                                                    @*<p>Far far away, behind the word mountains, far from the countries</p>*@
+                                                </td>
+                                                @*<td class="product-quantity">
+                                                        Còn lại: @db.SanPham.Where(p => p.id_SP == item.iIdSanPham).FirstOrDefault().soLuong
+                                                    </td>*@
+
+                                                <td class="price">@String.Format("{0:0,0}", item.dGia)&#8363;</td>
+                                                <td class="sale"> <strong>-@item.igiamGia%</strong></td>
+                                                <td class="quantity">
+                                                    <div class="input-group mb-3">
+                                                        <input id="quantity-@item.iIdSanPham" type="number" name="quantity" class="quantity form-control input-number" value="@item.iSoLuong" min="1" max="100" maxlength="3"
+                                                               onchange="updateGioHang('target-form-@item.iIdSanPham', this.id ,this.value)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace('.','');" />
+                                                    </div>
+                                                </td>
+
+                                                <td class="total-price" style="color:red"><strong>@String.Format("{0:0,0}", item.dThanhTien)&#8363;</strong> </td>
+
+                                            </tr><!-- END TR-->
+                                        }
+                                    </tbody>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center" style="width:100%;margin-top:25px;">
+                        <a class="btn btn-primary py-3 px-4" href="@Url.Action("XoaTatCaGioHang", "GioHangs")"><i class="ion-ios-trash" style="color:red;font-size:20px;font-weight:bold;"></i>&ensp;Xóa tất cả sản phẩm.</a>
+                    </div>
+                </div>
+                <div class="row justify-content-end">
+                    <div class="col-lg-6 mt-5 cart-wrap ftco-animate">
+                        <hr />
+                        <div>
+                            <p><a href="@Url.Action("Index", "Home")" class="btn btn-primary py-3 px-4 "><img src="~/Template/img/home.png" width="25" height="25" ; />&ensp; Quay lại trang chủ </a></p>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6 mt-5 cart-wrap ftco-animate">
+                        <div class="cart-total mb-3">
+                            <h3 style="color:green">Hóa đơn</h3>
+                            <p class="d-flex">
+                                <span> Tổng số sản phẩm</span>
+                                <strong>@ViewBag.TongSoSanPham</strong>
+                            </p>
+                            <p class="d-flex">
+                                <span> Tổng số lượng sản phẩm</span>
+                                <strong>@ViewBag.TongSoLuongSanPham</strong>
+                            </p>
+                            <p class="d-flex">
+                                <span>Giảm giá:</span>
+                                <span style="color:red"><strong>-@String.Format("{0:0,0}", Model.Sum(p => (p.dGia * p.iSoLuong)) - ViewBag.TongTien)&#8363;</strong></span>
+                            </p>
+                            <hr>
+                            <p class="d-flex total-price">
+                                <span style="font-weight:bold;font-size:18px">Tổng tiền</span>
+                                <span style="color:red; font-size:18px"><strong>@String.Format("{0:0,0}", ViewBag.TongTien)&#8363;</strong></span>
+                            </p>
+                        </div>
+                        <p><a href="/GioHangs/DatHang" class="btn btn-primary py-3 px-4"><i class="icon-shopping_cart"></i> Đặt hàng  </a></p>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-
-@if (Model.Count() != 0)
-{
-    <section class="ftco-section ftco-cart">
-        <div class="container">
-            <h2 style=" text-align:center; color:green">Giỏ hàng của bạn</h2>
-            <div class="row">
-
-                <div class="col-md-12 ftco-animate">
-                    <div class="cart-list">
-                        <table class="table">
-                            <thead class="thead-primary">
-                                <tr class="text-center">
-                                    <th>&nbsp;</th>
-                                    <th>&nbsp;</th>
-                                    <th>Tên sản phẩm</th>
-                                    <th>Giá</th>
-                                    <th>Giảm giá</th>
-                                    <th>Số lượng</th>
-                                    <th>Số tiền</th>
-
-                                </tr>
-                            </thead>
-                            @foreach (var item in Model)
-                            {
-                                <tbody>
-                                    @using (Html.BeginForm("CapNhatGioHang", "GioHangs", new { @id = item.iIdSanPham }))
-                                    {
-                                        <tr class="text-center">
-                                            <td class="product-remove"><a href="@Url.Action("XoaGioHang", "GioHangs", new { @iIdSanPham = item.iIdSanPham })"><span class="ion-ios-close"></span></a></td>
-
-                                            <td class="image-prod"><div class="img" style="background-image:url('@item.sHinh');"></div></td>
-
-                                            <td class="product-name">
-                                                <h3>@item.sTenSanPham</h3>
-                                                @*<p>Far far away, behind the word mountains, far from the countries</p>*@
-                                            </td>
-
-                                            <td class="price">@String.Format("{0:0,0}", item.dGia)</td>
-                                            <td class="price">@item.igiamGia %</td>
-                                            <td class="quantity">
-                                                <div class="input-group mb-3">
-                                                    <input type="number" name="quantity" class="quantity form-control input-number" value="@item.iSoLuong" min="1" max="100" onchange="this.form.submit()">
-                                                </div>
-                                            </td>
-
-                                            <td class="total">@String.Format("{0:0,0}", item.dThanhTien) VNĐ</td>
-
-                                        </tr><!-- END TR-->
-
-
-                                    }
-                                </tbody>
-                            }
-                        </table>
-                    </div>
-                </div>
+        </section>
+    }
+    else
+    {
+        <div style="display: flex; flex-direction: column;align-items:center">
+            <br />
+            <div>
+                <img src="~/Template/img/icon-cart.png" alt="thumbnail" width="300" style="margin: auto" />
             </div>
-            <div class="row justify-content-end">
-                <div class="col-lg-6 mt-5 cart-wrap ftco-animate">
-
-
-                    <hr />
+            <h2 style="color: #d45353e8; font-weight: 600">Oops! Chưa có sản phầm nào!</h2>
+            <div style="margin: 20px 0 100px 0 ">
+                <div>
                     <div>
-                        <p><a href="@Url.Action("Index", "Home")" class="btn btn-primary py-3 px-4 ">Quay lại trang chủ <img src="~/Template/img/home.png" width="25" height="25" ; /></a></p>
+                        <div class="" style="text-align:center">
+                            <a href="@Url.Action("Index", "Home")" class="btn btn-primary py-3 px-4"><span class="icon-shopping_cart"></span>&nbsp; Mua sắm ngay thôi!!! </a>
+                        </div>
                     </div>
                 </div>
-
-
-                <div class="col-lg-6 mt-5 cart-wrap ftco-animate">
-                    <div class="cart-total mb-3">
-                        <h3 style="color:green">Hóa đơn</h3>
-                        <p class="d-flex">
-                            <span>Số lượng sản phẩm</span>
-                            <span>@ViewBag.TongSoLuong</span>
-                        </p>
-                        <hr>
-                        <p class="d-flex total-price">
-                            <span>Tổng tiền</span>
-                            <span>@String.Format("{0:0,0}", ViewBag.TongTien) VNĐ</span>
-                        </p>
-                    </div>
-                    <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Đặt hàng  <span class="icon-shopping_cart"></span></a></p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-}
-else
-{
-    <h2 style="color:green; text-align:center"> GIỎ HÀNG ĐANG TRỐNG</h2>
-    <h3 style=" text-align:center"> Thêm sản phẩm vào giỏ</h3>
-    <div>
-        <div>
-            <div class="" style="text-align:center">
-                <a href="@Url.Action("Index", "Home")" class="btn btn-primary py-3 px-4">TIẾP TỤC MUA <span class="icon-shopping_cart"></span></a>
             </div>
         </div>
-    </div>
-    <br />
-    <br />
-}
+    }
 
-<script>
-    $(document).ready(function () {
-
-        var quantitiy = 0;
-        $('.quantity-right-plus').click(function (e) {
-
-            // Stop acting like a button
-            e.preventDefault();
-            // Get the field name
-            var quantity = parseInt($('#quantity').val());
-
-            // If is not undefined
-
-            $('#quantity').val(quantity + 1);
-
-
-            // Increment
-
-        });
-
-        $('.quantity-left-minus').click(function (e) {
-            // Stop acting like a button
-            e.preventDefault();
-            // Get the field name
-            var quantity = parseInt($('#quantity').val());
-
-            // If is not undefined
-
-            // Increment
-            if (quantity > 0) {
-                $('#quantity').val(quantity - 1);
+    <script>
+        function updateGioHang(idForm, idInput, val) {
+            if (val <= 0 || val == '') {
+                document.getElementById(idInput).value = 1;
             }
-        });
-
-    });</script>
+            if (val.length > 3) {
+                document.getElementById(idInput).value = 101;
+            }
+            document.getElementById(idForm).submit();
+        }
+    </script>
+</body>
 
 

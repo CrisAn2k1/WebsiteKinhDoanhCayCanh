@@ -22,8 +22,7 @@ namespace WebsiteKinhDoanhCayCanh.Models
 
         public DateTime? ngayGiao { get; set; }
 
-        [StringLength(1)]
-        public string trangThaiThanhToan { get; set; }
+        public bool? trangThaiThanhToan { get; set; }
 
         [StringLength(1)]
         public string trangThaiGiaoHang { get; set; }
@@ -32,6 +31,9 @@ namespace WebsiteKinhDoanhCayCanh.Models
         public string phuongThucThanhToan { get; set; }
 
         public long? tongTien { get; set; }
+
+        [StringLength(250)]
+        public string diaChiGiao { get; set; }
 
         [StringLength(128)]
         public string id_User { get; set; }

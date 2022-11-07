@@ -141,11 +141,129 @@ label.star:before {
 .auth {
     transition: 0.25s;
 }
+
     .auth:hover {
         transition: 0.25s;
         transform: translateY(-3px);
     }
-    .auth a:hover
-    {
-        color:red;
+
+    .auth a:hover {
+        color: red;
+    }
+
+
+
+
+/*
+        css for slide img product
+    */
+body {
+    background: #66ca6d1f;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.mySlides_product img {
+    height: 60vh;
+    width: 100vw;
+    vertical-align: middle;
+    object-fit: cover;
+}
+
+.row_product {
+    flex-direction: row;
+    justify-content: center;
+}
+
+    .row_product img {
+        height: 10vh;
+        width: 60px !important;
+        max-width: 9vw;
+        vertical-align: middle;
+        object-fit: cover;
+    }
+
+/* Position the image container_product (needed to position the left and right arrows) */
+.container_product {
+    position: relative;
+}
+
+/* Hide the images by default */
+.mySlides_product {
+    display: none;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+    cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 40%;
+    width: auto;
+    padding: 16px;
+    color: white;
+    background: rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+    /* On hover, add a black background color with a little bit see-through */
+    .prev:hover,
+    .next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+/* Number text (1/3 etc) */
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+/* Container_product for image text */
+.caption-container_product {
+    text-align: center;
+    background-color: #222;
+    padding: 2px 16px;
+    color: white;
+}
+
+.row_product:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Six columns side by side */
+.column_product {
+    float: left;
+    width: 16.66%;
+}
+
+/* Add a transparency effect for thumnbail images */
+.miniImg {
+    opacity: 0.6;
+}
+
+    .active,
+    .miniImg:hover {
+        opacity: 1;
     }

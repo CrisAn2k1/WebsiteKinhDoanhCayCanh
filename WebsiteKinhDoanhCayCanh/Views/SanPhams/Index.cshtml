@@ -15,7 +15,7 @@
             <div class="container">
                 <div class="row no-gutters slider-text align-items-center justify-content-center">
                     <div class="col-md-9 ftco-animate text-center bg-text">
-                        <h1 class="mb-0 bread" style="color:antiquewhite">Products</h1>
+                        <h1 class="mb-0 bread" style="color:antiquewhite; font-family:'Amatic SC', cursive;">Sản Phẩm</h1>
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                         <form class="form-inline d-flex justify-content-center">
                             <input type="search" value="@ViewBag.idNhom" name="id_Nhom" hidden>
                             <input class="form-control mr-sm-2" type="search" value="@ViewBag.Keyword" name="searchString" placeholder="Nhập tên sản phẩm cần tìm" aria-label="Search"
-                                   style="width:297px; height:40px; font-size:16px;">
+                                   style="width: 297px; height: 40px; font-size: 16px; border-radius: 25px; border-color: #30c051b5; ">
                             <input type="submit" class="btn btn-success my-2 my-sm-0" value="Tìm kiếm" style="margin-left: 10px; height: 40px; font-size: 16px;" width="50">
                         </form>
                     }
@@ -49,7 +49,7 @@
                             if (location.href.split('/')[3] == item.href.split('/')[3]) {
                                 item.style = 'background: #28a745;color: #ecefe8 !important;border-radius:15px;'
                             }
-                            else { 
+                            else {
                                 if (location.href.split('/')[3].includes(item.href.split('/')[3])) {
                                     if (item.href.split('/')[3] != 'SanPhams') {
                                         item.style = 'background: #28a745;color: #ecefe8 !important;border-radius:15px;'
@@ -95,7 +95,7 @@
                                         </div>}
                                     <div class="bottom-area d-flex px-3">
                                         <div class="m-auto d-flex">
-                                            <a href="/SanPhams/" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                            <a href="@Url.Action("ThemGioHang", "GioHangs", new { @id = item.id_SP, @strURL = Request.Url.ToString(),@soLuong = 1 })" class="buy-now d-flex justify-content-center align-items-center mx-1">
                                                 <span><i class="ion-ios-cart"></i></span>
                                             </a>
                                         </div>

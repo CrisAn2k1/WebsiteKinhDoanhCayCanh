@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<WebsiteKinhDoanhCayCanh.Models.SanPham>
 
 @{ ViewBag.Title = "Home Page"; }
-@Html.Partial("_MessageAlert")
 <section id="home-section" class="hero">
     <div class="home-slider owl-carousel">
         <div class="slider-item" style="background-image: url(https://finduid.com/wp-content/uploads/2021/05/iu.jpg);">
@@ -107,10 +106,10 @@
                                 </div>
                             </div>
                         </a>
-                        <a href="SanPhams?id_Nhom=CVP">
-                            <div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(https://static1.cafeland.vn/cafelandnew/hinh-anh/2022/01/04/95/cay-trong-hop-trong-nha-nhat-5.jpg);">
+                        <a href="SanPhams?id_Nhom=CTS">
+                            <div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(https://www.hanoi-office.com/uploads/images/trang-tri-bang-cay-thuy-sinh.jpg);">
                                 <div class="text px-3 py-1">
-                                    <h2 class="mb-0" style="color: #fff">Cây văn phòng</h2>
+                                    <h2 class="mb-0" style="color: #fff">Cây thủy sinh</h2>
                                 </div>
                             </div>
                         </a>
@@ -151,43 +150,42 @@
     <div class="container">
         <div class="row">
             @{ foreach (var item in Model)
-                            {
-                <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="product">
-                        <a href="@Url.Action("Details","SanPhams", new { id = item.id_SP })" class="img-prod">
-                            <img class="img-fluid" src="@item.HinhAnhSP.Where(p => p.id_SP == item.id_SP).FirstOrDefault().duongDan" alt="Colorlib Template">
-                            @if (@item.phanTramGiamGia > 0)
-                            {
-            <span class="status">@item.phanTramGiamGia%</span>}
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="#">@item.tenSP</a></h3>
-                            @if (@item.phanTramGiamGia > 0)
-                            {
-            <div class="d-flex">
-                <div class="pricing">
-
-                    <p class="price"><span class="mr-2 price-dc">@String.Format("{0:0,0}", @item.gia)&#8363;</span><span class="price-sale">@String.Format("{0:0,0}", @item.gia - ((float)@item.phanTramGiamGia / 100) * @item.gia)&#8363; </span></p>
-                </div>
-            </div> }
-        else
-        {
-<div class="d-flex">
-    <div class="pricing">
-        <p class="price"><span>@String.Format("{0:0,0}", @item.gia)&#8363;</span></p>
-    </div>
-</div>}
-                            <div class="bottom-area d-flex px-3">
-                                <div class="m-auto d-flex">
-                                    <a href="@Url.Action("ThemGioHang", "GioHangs", new { @id = item.id_SP, @strURL = Request.Url.ToString() })" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                        <span><i class="ion-ios-cart"></i></span>
-                                    </a>
+                {
+                    <div class="col-md-6 col-lg-3 ftco-animate">
+                        <div class="product">
+                            <a href="@Url.Action("Details","SanPhams", new { id = item.id_SP })" class="img-prod">
+                                <img class="img-fluid" src="@item.HinhAnhSP.Where(p => p.id_SP == item.id_SP).FirstOrDefault().duongDan" alt="Colorlib Template">
+                                @if (@item.phanTramGiamGia > 0)
+                                {
+                                    <span class="status">@item.phanTramGiamGia%</span>}
+                                <div class="overlay"></div>
+                            </a>
+                            <div class="text py-3 pb-4 px-3 text-center">
+                                <h3><a href="#">@item.tenSP</a></h3>
+                                @if (@item.phanTramGiamGia > 0)
+                                {
+                                    <div class="d-flex">
+                                        <div class="pricing">
+                                            <p class="price"><span class="mr-2 price-dc">@String.Format("{0:0,0}", @item.gia)&#8363;</span><span class="price-sale">@String.Format("{0:0,0}", @item.gia - ((float)@item.phanTramGiamGia / 100) * @item.gia)&#8363; </span></p>
+                                        </div>
+                                    </div> }
+                                else
+                                {
+                                    <div class="d-flex">
+                                        <div class="pricing">
+                                            <p class="price"><span>@String.Format("{0:0,0}", @item.gia)&#8363;</span></p>
+                                        </div>
+                                    </div>}
+                                <div class="bottom-area d-flex px-3">
+                                    <div class="m-auto d-flex">
+                                        <a href="@Url.Action("ThemGioHang", "GioHangs", new { @id = item.id_SP, @strURL = Request.Url.ToString(), @soLuong = 1 })" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                            <span><i class="ion-ios-cart"></i></span>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div> } }
+                    </div> } }
             <div class="container">
                 <div class="row justify-content-center mb-3 pb-3">
                     <div class="col-md-12 heading-section text-center ftco-animate">
@@ -201,7 +199,7 @@
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="product">
                     <a href="#" class="img-prod">
-                        <img class="img-fluid" src="/Template/img/caycauvang.jpg" alt="Colorlib Template">
+                        <img class="img-fluid" src="~/Template/img/cayluoiho.jpg" alt="Colorlib Template">
                         @*<span class="status">30%</span>*@
                         <div class="overlay"></div>
                     </a>
@@ -225,7 +223,7 @@
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="product">
                     <a href="#" class="img-prod">
-                        <img class="img-fluid" src="~/Template/img/caycauvang.jpg" alt="Colorlib Template">
+                        <img class="img-fluid" src="~/Template/img/cayluoiho.jpg" alt="Colorlib Template">
                         <div class="overlay"></div>
                     </a>
                     <div class="text py-3 pb-4 px-3 text-center">
@@ -248,7 +246,7 @@
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="product">
                     <a href="#" class="img-prod">
-                        <img class="img-fluid" src="~/Template/img/cayphattainui.jpg" alt="Colorlib Template">
+                        <img class="img-fluid" src="~/Template/img/cayluoiho.jpg" alt="Colorlib Template">
                         <div class="overlay"></div>
                     </a>
                     <div class="text py-3 pb-4 px-3 text-center">
@@ -272,7 +270,7 @@
             <div class="col-md-6 col-lg-3 ftco-animate">
                 <div class="product">
                     <a href="#" class="img-prod">
-                        <img class="img-fluid" src="~/Template/img/caycauvang.jpg" alt="Colorlib Template">
+                        <img class="img-fluid" src="~/Template/img/cayluoiho.jpg" alt="Colorlib Template">
                         <div class="overlay"></div>
                     </a>
                     <div class="text py-3 pb-4 px-3 text-center">
@@ -292,7 +290,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </section>

@@ -29,6 +29,10 @@
     <link rel="stylesheet" href="~/Content/assets/css/style.css" />
 
     <link href="~/Content/assets/css/css/Style1.css" rel="stylesheet" />
+
+    <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
+
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <!-- Sweet alert 2 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.17/sweetalert2.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -36,6 +40,7 @@
 
 </head>
 <body>
+    @Html.Partial("_MessageAlert")
     <div class="py-1 bg-primary">
         <div class="container">
             <div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
@@ -60,8 +65,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar" @*style="background-color: #b3bc744f !important;"*@>
         <div class="container">
-
-            <a class="navbar-brand" href="/Home/Index" style="font-family:  'Lora', Georgia, serif;"><img src="~/Template/img/bonsai1.png" width="60"/>AT-TREES</a>
+            <a class="navbar-brand" href="/Home/Index" style="font-family:  'Lora', Georgia, serif;"><img src="~/Template/img/bonsai1.png" width="60" />AT-TREES</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="oi oi-menu"></span> Menu
             </button>
@@ -70,7 +74,7 @@
                 MyDataEF db = new MyDataEF();
                 <div class="collapse navbar-collapse" id="ftco-nav">
                                 <ul class="navbar-nav ml-auto">
-                                    <li class="nav-item"><a href="/Home" class="nav-link">Home</a></li>
+                                    <li class="nav-item"><a href="/Home" class="nav-link">Trang chủ</a></li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="/SanPhams" id="dropdown04" aria-haspopup="true" aria-expanded="false">Sản Phẩm</a>
                                         <div class="dropdown-menu" aria-labelledby="dropdown04">
@@ -79,22 +83,27 @@
                                                 <a class="dropdown-item" href="@Url.Action("Index", "SanPhams", new { @id_Nhom = item.id_Nhom })">@item.tenNhom</a>
                                             }
 
-                                            @*<a class="dropdown-item" href="product-single.html">Cây trong nhà</a>
-                <a class="dropdown-item" href="shop.html">Chậu Bonsai</a>
-                <a class="dropdown-item" href="/Home/Cart.html">Phụ kiện Bonsai</a>
-                <a class="dropdown-item" href="checkout.html">Checkout</a>*@
                                         </div>
                                     </li>
-                                    <li class="nav-item"><a href="/Home/About" class="nav-link">About</a></li>
-                                    <li class="nav-item"><a @*href="/Home/Blog"*@ class="nav-link">Blog</a></li>
-                                    <li class="nav-item"><a href="/Home/Contact" class="nav-link">Contact</a></li>
-                                    <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>&emsp;
+                                    <li class="nav-item"><a href="/Home/About" class="nav-link">Giới thiệu</a></li>
+@*                                    <li class="nav-item"><a href="/Home/ChinhSachMuaHang" class="nav-link">Chính sách</a></li>
+                                    <li class="nav-item"><a href="/Home/CachChamSoc" class="nav-link">Cách chăm sóc</a></li>*@
+                                    <li class="nav-item dropdown">
+                                      <a class="nav-link dropdown-toggle" href="#" id="dropdown04"  aria-haspopup="true" aria-expanded="false">Dịch vụ khác</a>
+                                      <div class="dropdown-menu" aria-labelledby="dropdown04">
+                                          <a class="dropdown-item" href="/Home/ChinhSachMuaHang">Chính sách mua hàng</a>
+                                          <a class="dropdown-item" href="/Home/ChinhSachBaoHanh">Chính sách bảo hành</a>
+                                          <a class="dropdown-item" href="/Home/CachChamSoc">Cách chăm sóc</a>
+                                      </div>
+                                    </li>
+                                    <li class="nav-item"><a href="/Home/Contact" class="nav-link">Liên hệ</a></li>
+                                    @Html.Action("GiohangPartial", "GioHangs")
                                     <li style="display:flex;flex-direction:column;justify-content:center"> @Html.Partial("_LoginPartial") </li>
                                 </ul>
                     <script>
                         Array.from($('.nav-link')).forEach(function (item) {
                             if (location.href.split('/')[3].includes(item.href.split('/')[3]) && item.href.split('/')[4] == window.location.href.split('/')[4]) {
-                                item.style = 'color: #28a53f !important;transform: translateY(-3px);font-size: 13px;'
+                                item.style = 'color: #28a53f;transform: translateY(-3px);font-size: 13px;background: #00ff6b17;'
                             }
                             else
                                 item.style.color = 'black';
@@ -119,9 +128,9 @@
             <div class="row mb-5">
                 <div class="col-md">
                     <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2">TA-TREES</h2>
+                        <h2 class="ftco-heading-2"><img src="~/Template/img/bonsai1.png" width="30" />AT-TREES</h2>
                         <p>
-                            Công ty TNHH Webcaycanh với sứ mệnh mang đến không gian xanh cho mọi người, 
+                            Công ty TNHH Webcaycanh với sứ mệnh mang đến không gian xanh cho mọi người,
                             chia sẻ kinh nghiệm và kiến thức chăm sóc cây cảnh.
                         </p>
                         <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
@@ -141,10 +150,10 @@
                     <div class="ftco-footer-widget mb-4 ml-md-5">
                         <h2 class="ftco-heading-2">Menu</h2>
                         <ul class="list-unstyled">
-                            <li><a href="#" class="py-2 d-block">Shop</a></li>
-                            <li><a href="#" class="py-2 d-block">About</a></li>
-                            <li><a href="#" class="py-2 d-block">Journal</a></li>
-                            <li><a href="#" class="py-2 d-block">Contact Us</a></li>
+                            <li><a href="/SanPhams" class="py-2 d-block">Shop</a></li>
+                            <li><a href="/Home/About" class="py-2 d-block">About</a></li>
+                           @* <li><a href="#" class="py-2 d-block">Journal</a></li>*@
+                            <li><a href="/Home/Contact" class="py-2 d-block">Contact Us</a></li>
                         </ul>
                     </div>
                 </div>
@@ -180,7 +189,7 @@
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <span class="icon icon-envelope"></span><span class="text" style="margin-left:10px">info@CayCanhAT.com</span>
+                                        <span class="icon icon-envelope"></span><span class="text" style="margin-left:10px">info@AT-Trees.com</span>
                                     </a>
                                 </li>
                             </ul>
@@ -198,7 +207,7 @@
                         </script>
                         All rights reserved | This template is made with
                         <i class="icon-heart color-danger" aria-hidden="true"></i> by
-                        <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <a href="https://colorlib.com" target="_blank">AT-Trees</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </p>
                 </div>

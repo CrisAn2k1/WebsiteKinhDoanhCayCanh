@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json.Linq;
 using WebsiteKinhDoanhCayCanh.Message;
 using WebsiteKinhDoanhCayCanh.Models;
+using WebsiteKinhDoanhCayCanh.Others;
+
 
 namespace WebsiteKinhDoanhCayCanh.Controllers
 {
@@ -25,27 +28,40 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             return lstGioHang;
         }
 
-        public ActionResult ThemGioHang(string id, string strURL)
+        public ActionResult ThemGioHang(string id, string strURL, int soLuong)
         {
+
             List<GioHang> lstGioHang = layGioHang();
             GioHang sanPham = lstGioHang.Find(n => n.iIdSanPham == id);
             if (sanPham == null)
             {
-                sanPham = new GioHang(id);
-                lstGioHang.Add(sanPham);
-                Notification.set_flash("Đã thêm sản phẩm vào giỏ hàng!", "success");
-                return Redirect(strURL);
+                if (soLuong > 1)
+                {
+                    sanPham = new GioHang(id);
+                    sanPham.iSoLuong = soLuong;
+                    lstGioHang.Add(sanPham);
+                    Notification.set_flash("Đã thêm sản phẩm vào giỏ hàng!", "success");
+                    return Redirect(strURL);
+                }
+                else
+                {
+                    sanPham = new GioHang(id);
+                    sanPham.iSoLuong = 1;
+                    lstGioHang.Add(sanPham);
+                    Notification.set_flash("Đã thêm sản phẩm vào giỏ hàng!", "success");
+                    return Redirect(strURL);
+                }
+
             }
             else
             {
-                //sanPham.updateGiamGia(id);
-                sanPham.iSoLuong++;
-                Notification.set_flash("Đã thêm sản phẩm vào giỏ hàng!", "success");
+                //sanPham.updateGiamGia(id)
+                Notification.set_flash("Đã có sản phẩm này trong giỏ hàng!", "warning");
                 return Redirect(strURL);
             }
         }
 
-        private int TongSoLuong()
+        private int TongSoLuongSanPham()
         {
             int tsl = 0;
             List<GioHang> lstGioHang = Session["GioHang"] as List<GioHang>;
@@ -56,7 +72,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             return tsl;
         }
 
-        private int TongSoLuongSanPham()
+        private int TongSoSanPham()
         {
             int tsl = 0;
             List<GioHang> lstGioHang = Session["GioHang"] as List<GioHang>;
@@ -77,21 +93,29 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             }
             return tt;
         }
+        private double ApDungVoucher()
+        {
+            double tt = 0;
+            List<GioHang> lstGioHang = Session["GioHang"] as List<GioHang>;
+            if (lstGioHang != null)
+            {
+                tt = lstGioHang.Sum(n => n.dThanhTien);
+            }
+            return tt;
+        }
 
         public ActionResult GioHang()
         {
             List<GioHang> lstGioHang = layGioHang();
-            ViewBag.TongSoLuong = TongSoLuong();
-            ViewBag.TongTien = TongTien();
             ViewBag.TongSoLuongSanPham = TongSoLuongSanPham();
+            ViewBag.TongTien = TongTien();
+            ViewBag.TongSoSanPham = TongSoSanPham();
             return View(lstGioHang);
         }
 
         public ActionResult GioHangPartial()
         {
-            ViewBag.TongSoLuong = TongSoLuong();
-            ViewBag.TongTien = TongTien();
-            ViewBag.TongSoLuongSanPham = TongSoLuongSanPham();
+            ViewBag.TongSoSanPham = TongSoSanPham();
             return PartialView();
         }
 
@@ -117,7 +141,6 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             {
                 lstGiohang.RemoveAll(n => n.iIdSanPham == iIdSanPham);
                 Notification.set_flash("Đã xoá sản phẩm khỏi giỏ hàng!", "success");
-                Notification.set_flash("Deleted form cart!", "success");
                 return RedirectToAction("GioHang");
             }
             if (lstGiohang.Count == 0)
@@ -131,15 +154,44 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         {
             List<GioHang> lstGioHang = layGioHang();
             GioHang sanPham = lstGioHang.SingleOrDefault(n => n.iIdSanPham == id);
+
             if (sanPham != null)
             {
                 SanPham sp = db.SanPham.FirstOrDefault(s => s.id_SP == id);
                 var soLuong = int.Parse(collection["quantity"].ToString());
-                if (sp.soLuong < soLuong)
-                    return RedirectToAction("GioHang");
-                sanPham.iSoLuong = soLuong;
+
+                if (soLuong > sp.soLuong)
+                {
+                    if (sp.soLuong >= 100)
+                    {
+                        sanPham.iSoLuong = 100;
+                        Notification.set_flash("Chỉ được mua tối đa 100 sản phẩm cùng loại !", "warning");
+                        return RedirectToAction("GioHang");
+                    }
+                    else
+                    {
+                        sanPham.iSoLuong = (int)sp.soLuong;
+                        Notification.set_flash("Sản phẩm hiện có chỉ còn lại: " + sp.soLuong + " !", "warning");
+                        return RedirectToAction("GioHang");
+                    }
+                }
+                else
+                {
+                    if (soLuong <= 100)
+                    {
+                        sanPham.iSoLuong = soLuong;
+                        Notification.set_flash("Cập nhật giỏ hàng thành công!", "success");
+                    }
+                    else
+                    {
+                        sanPham.iSoLuong = 100;
+                        Notification.set_flash("Chỉ được mua tối đa 100 sản phẩm cùng loại !", "warning");
+                        return RedirectToAction("GioHang");
+                    }
+                }
                 //sanPham.giamGia = double.Parse((soLuong * sp.GiamGia).ToString());
             }
+
             return RedirectToAction("GioHang");
         }
 
@@ -158,7 +210,6 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         {
             if (TongTien() == 0)
             {
-                var tong = TongTien();
                 return RedirectToAction("GioHang");
             }
             if (Session["TaiKhoan"] == null || Session["TaiKhoan"].ToString() == "")
@@ -171,11 +222,20 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             }
 
             List<GioHang> lstGioHang = layGioHang();
-            ViewBag.TongSoLuong = TongSoLuong();
-            ViewBag.TongTien = TongTien();
             ViewBag.TongSoLuongSanPham = TongSoLuongSanPham();
+            ViewBag.TongTien = TongTien();
+            ViewBag.TongSoSanPham = TongSoSanPham();
+            //try
+            //{
+            //    var a = Request["Voucher"].ToString() + "";
+            //}
+            //catch (Exception)
+            //{
+            //    return View(lstGioHang);
+            //}
             return View(lstGioHang);
         }
+
         public ActionResult DatHang(FormCollection collection)
         {
 
@@ -183,12 +243,14 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             Models.LinQ.User kh = (Models.LinQ.User)Session["TaiKhoan"];
             //SanPham s = new SanPham();
             List<GioHang> gh = layGioHang();
-            var ngaygiao = String.Format("{0:MM/dd/yyyy}", collection["NgayGiao"]);
+            var ngaygiao = String.Format("{0:dd/MM/yyyy hh:mm tt}", collection["NgayGiao"]);
             dh.id_User = kh.Id;
             dh.ngayDat = DateTime.Now;
-            dh.ngayDat = DateTime.Parse(ngaygiao);
+            dh.ngayGiao = DateTime.Parse(ngaygiao);
             dh.trangThaiGiaoHang = "0";
-            dh.trangThaiThanhToan = "0";
+            dh.trangThaiThanhToan = false;
+            dh.phuongThucThanhToan = "0";
+            dh.diaChiGiao = Request["txtAddress"].ToString() + "";
             dh.tongTien = ((int)TongTien());
 
             db.DonHang.Add(dh);
@@ -208,19 +270,21 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             }
             Session["GioHang"] = null;
 
-            /*            String content = System.IO.File.ReadAllText(Server.MapPath("~/Content/sendmail.html"));
-                        content = content.Replace("{{CustomerName}}", kh.Name);
-                        content = content.Replace("{{Phone}}", kh.PhoneNumber);
-                        content = content.Replace("{{Email}}", kh.Email);
-                        content = content.Replace("{{Address}}", kh.Address);
-                        content = content.Replace("{{NgayDat}}", dh.NgayDat.ToString());
-                        content = content.Replace("{{NgayGiao}}", dh.NgayGiao.ToString());
-                        content = content.Replace("{{Total}}", dh.TongTien.ToString() + " VNĐ");
-                        var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
+            String content = System.IO.File.ReadAllText(Server.MapPath("~/Others/Checkout.html"));
+            content = content.Replace("{{CustomerName}}", kh.FullName);
+            content = content.Replace("{{Phone}}", kh.PhoneNumber);
+            content = content.Replace("{{Email}}", kh.Email);
+            content = content.Replace("{{Address}}", dh.diaChiGiao);
+            content = content.Replace("{{NgayDat}}", dh.ngayDat.ToString());
+            content = content.Replace("{{NgayGiao}}", String.Format("{0:dd/MM/yyyy}", dh.ngayGiao).ToString());
+            content = content.Replace("{{Total}}", String.Format("{0:0,0}", dh.tongTien).ToString());
+            var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
 
-                        new common.MailHelper().sendMail(kh.Email, "Đơn hàng mới từ Điện Tử Chính Hãng - ATC", content);
-                        return RedirectToAction("XacNhanDonHang", "GioHang");*/
-            return RedirectToAction("XacNhanDonHang", "GioHang");
+            new MailHelper().sendMail(kh.Email, "Đơn hàng mới từ Cây Cảnh AT - Trees", content);
+            Notification.set_flash("Đặt hàng thành công!", "success");
+            //return RedirectToAction("XemDonHang", "GioHang");
+            return RedirectToAction("Index", "Home");
+            // return RedirectToAction("XacNhanDonHang", "GioHang");
         }
 
         public ActionResult XacNhanDonHang()

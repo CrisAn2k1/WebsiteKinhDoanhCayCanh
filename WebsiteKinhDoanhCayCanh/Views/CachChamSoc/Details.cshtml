@@ -1,0 +1,83 @@
+﻿@model WebsiteKinhDoanhCayCanh.Models.CachChamSoc
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4" style=" margin-top:20px;">
+
+            <h2>Thông tin chi tiết</h2>
+
+            <div>
+                <h4>Cách chăm sóc</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        Mã cách chăm sóc
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.id_CCS)
+                    </dd>
+
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>
+                        Tưới nước
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.tuoiNuoc)
+                    </dd>
+
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>
+                        Đất
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.dat)
+                    </dd>
+
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>
+                        Ánh sáng
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.anhSang)
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>
+                        Vị trí đặt cây
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.viTriDatCay)
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>
+                        Dưỡng chất
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.duongChat)
+                    </dd>
+
+                </dl>
+            </div>
+            <p>
+                @Html.ActionLink("Sửa", "Edit", new { id = Model.id_CCS }, new { @class = "btn btn-warning" }) |
+                <a class="btn btn-info" href='@Url.Action("Index", "CachChamSoc")' style="margin:10px 0px;">
+                    Trở về
+                </a>
+            </p>
+        </div>
+    </main>
+</div>

@@ -177,6 +177,8 @@ C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\Antlr3.Runtime.dll
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\EntityFramework.dll
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\EntityFramework.SqlServer.dll
+C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\GoogleRecaptcha.dll
+C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\GoogleRecaptchaMvc.dll
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\Microsoft.AspNet.Identity.Core.dll
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\Microsoft.AspNet.Identity.Owin.dll
@@ -196,6 +198,9 @@ C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\PagedList.dll
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\PagedList.Mvc.dll
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Net.Http.Formatting.dll
+C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Reactive.dll
+C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Threading.Tasks.Extensions.dll
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Web.Helpers.dll
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Web.Http.dll
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Web.Http.WebHost.dll
@@ -210,6 +215,9 @@ C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\EntityFramework.SqlServer.xml
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\PagedList.xml
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\PagedList.Mvc.xml
+C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Reactive.xml
+C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Threading.Tasks.Extensions.xml
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Web.Helpers.xml
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Web.Mvc.xml
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Web.Optimization.xml
@@ -235,8 +243,8 @@ C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\Microsoft.Owin.Security.OAuth.xml
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.csproj.AssemblyReference.cache
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.csproj.CoreCompileInputs.cache
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.csproj.CopyComplete
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.dll
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.pdb
+C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.csproj.AssemblyReference.cache
