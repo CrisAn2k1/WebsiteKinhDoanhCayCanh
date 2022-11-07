@@ -177,6 +177,8 @@ C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\Antlr3.Runtime.dll
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\EntityFramework.dll
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\EntityFramework.SqlServer.dll
+C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\GoogleRecaptcha.dll
+C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\GoogleRecaptchaMvc.dll
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\Microsoft.AspNet.Identity.Core.dll
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\Microsoft.AspNet.Identity.Owin.dll
@@ -246,5 +248,3 @@ C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.dll
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.pdb
 C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.csproj.AssemblyReference.cache
-C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\GoogleRecaptcha.dll
-C:\Users\WIN\Desktop\DACN\BK\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\GoogleRecaptchaMvc.dll
