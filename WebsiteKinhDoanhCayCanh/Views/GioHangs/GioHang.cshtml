@@ -59,14 +59,14 @@
                                                     @*<p>Far far away, behind the word mountains, far from the countries</p>*@
                                                 </td>
                                                 @*<td class="product-quantity">
-                                Còn lại: @db.SanPham.Where(p => p.id_SP == item.iIdSanPham).FirstOrDefault().soLuong
-                            </td>*@
+                                                        Còn lại: @db.SanPham.Where(p => p.id_SP == item.iIdSanPham).FirstOrDefault().soLuong
+                                                    </td>*@
 
                                                 <td class="price">@String.Format("{0:0,0}", item.dGia)&#8363;</td>
-                                                <td class="sale">@item.igiamGia %</td>
+                                                <td class="sale"> <strong>-@item.igiamGia%</strong></td>
                                                 <td class="quantity">
                                                     <div class="input-group mb-3">
-                                                        <input id="quantity-@item.iIdSanPham" type="number" name="quantity" class="quantity form-control input-number" value="@item.iSoLuong" min="1" max="100"
+                                                        <input id="quantity-@item.iIdSanPham" type="number" name="quantity" class="quantity form-control input-number" value="@item.iSoLuong" min="1" max="100" maxlength="3"
                                                                onchange="updateGioHang('target-form-@item.iIdSanPham', this.id ,this.value)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace('.','');" />
                                                     </div>
                                                 </td>
@@ -104,13 +104,17 @@
                                 <span> Tổng số lượng sản phẩm</span>
                                 <strong>@ViewBag.TongSoLuongSanPham</strong>
                             </p>
+                            <p class="d-flex">
+                                <span>Giảm giá:</span>
+                                <span style="color:red"><strong>-@String.Format("{0:0,0}", Model.Sum(p => (p.dGia * p.iSoLuong)) - ViewBag.TongTien)&#8363;</strong></span>
+                            </p>
                             <hr>
                             <p class="d-flex total-price">
-                                <span>Tổng tiền</span>
-                                <span style="color:red"><strong>@String.Format("{0:0,0}", ViewBag.TongTien)&#8363;</strong></span>
+                                <span style="font-weight:bold;font-size:18px">Tổng tiền</span>
+                                <span style="color:red; font-size:18px"><strong>@String.Format("{0:0,0}", ViewBag.TongTien)&#8363;</strong></span>
                             </p>
                         </div>
-                        <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Đặt hàng  <span class="icon-shopping_cart"></span></a></p>
+                        <p><a href="/GioHangs/DatHang" class="btn btn-primary py-3 px-4"><i class="icon-shopping_cart"></i> Đặt hàng  </a></p>
                     </div>
                 </div>
             </div>
@@ -118,28 +122,35 @@
     }
     else
     {
-        <h2 style="color:green; text-align:center"> GIỎ HÀNG ĐANG TRỐNG</h2>
-        <h3 style=" text-align:center"> Thêm sản phẩm vào giỏ</h3>
-        <div>
+        <div style="display: flex; flex-direction: column;align-items:center">
+            <br />
             <div>
-                <div class="" style="text-align:center">
-                    <a href="@Url.Action("Index", "Home")" class="btn btn-primary py-3 px-4">TIẾP TỤC MUA <span class="icon-shopping_cart"></span></a>
+                <img src="~/Template/img/icon-cart.png" alt="thumbnail" width="300" style="margin: auto" />
+            </div>
+            <h2 style="color: #d45353e8; font-weight: 600">Oops! Chưa có sản phầm nào!</h2>
+            <div style="margin: 20px 0 100px 0 ">
+                <div>
+                    <div>
+                        <div class="" style="text-align:center">
+                            <a href="@Url.Action("Index", "Home")" class="btn btn-primary py-3 px-4"><span class="icon-shopping_cart"></span>&nbsp; Mua sắm ngay thôi!!! </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <br />
-        <br />
     }
 
-<script>
-    function updateGioHang(idForm, idInput, val) {
-        if (val <= 0 || val == '') {
-            document.getElementById(idInput).value = 1;
+    <script>
+        function updateGioHang(idForm, idInput, val) {
+            if (val <= 0 || val == '') {
+                document.getElementById(idInput).value = 1;
+            }
+            if (val.length > 3) {
+                document.getElementById(idInput).value = 101;
+            }
             document.getElementById(idForm).submit();
         }
-        document.getElementById(idForm).submit();
-    }
-</script>
+    </script>
 </body>
 
 
