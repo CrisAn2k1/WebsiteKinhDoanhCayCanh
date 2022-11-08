@@ -13,45 +13,47 @@
             <h2>Thông tin chi tiết</h2>
 
             <div>
-                <h4>Nhóm sản phẩm</h4>
+                <h4 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen; text-transform: capitalize;">Nhóm sản phẩm</h4>
                 <hr />
-                <dl class="dl-horizontal">
-                    <dt>
-                        Mã nhóm
-                    </dt>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.id_Nhom)
-                    </dd>
+                    <dl class="dl-horizontal">
+                        <dt>
+                            Mã nhóm
+                        </dt>
 
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>
-                        Tên nhóm sản phẩm
-                    </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.id_Nhom)
+                        </dd>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.tenNhom)
-                    </dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>
+                            Tên nhóm sản phẩm
+                        </dt>
 
-                </dl>
-                <dl class="dl-horizontal">
-                    <dt>
-                        Mã nhóm cách chăm sóc
-                    </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.tenNhom)
+                        </dd>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.id_CCS)
-                    </dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>
+                            Mã nhóm cách chăm sóc
+                        </dt>
 
-                </dl>
+                        <dd>
+                            @Html.DisplayFor(model => model.id_CCS)
+                        </dd>
+
+                    </dl>
+                </div>
+                <p>
+                    @Html.ActionLink("Sửa", "Edit", new { id = Model.id_Nhom }, new { @class = "btn btn-warning" }) |
+                    <a class="btn btn-info" href='@Url.Action("Index", "NhomSP")' style="margin:10px 0px;">
+                        Trở về
+                    </a>
+                </p>
             </div>
-            <p>
-                @Html.ActionLink("Sửa", "Edit", new { id = Model.id_Nhom }, new { @class = "btn btn-warning" }) |
-                <a class="btn btn-info" href='@Url.Action("Index", "NhomSP")' style="margin:10px 0px;">
-                    Trở về
-                </a>
-            </p>
-        </div>
+
     </main>
 </div>

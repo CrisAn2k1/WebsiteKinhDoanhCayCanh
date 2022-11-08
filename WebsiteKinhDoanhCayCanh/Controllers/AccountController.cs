@@ -426,7 +426,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email , Address = model.Address, FullName = model.Name, PhoneNumber = model.PhoneNumber, LockoutEnabled = false };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

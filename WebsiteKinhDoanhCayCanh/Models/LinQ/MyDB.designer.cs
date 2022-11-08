@@ -11,6 +11,7 @@
 
 namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 {
+
     using System.Data.Linq;
     using System.Data.Linq.Mapping;
     using System.Data;
@@ -25,9 +26,7 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
     [global::System.Data.Linq.Mapping.DatabaseAttribute(Name = "QuanLyCayCanh")]
     public partial class MyDBDataContext : System.Data.Linq.DataContext
     {
-
         private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
-
         #region Extensibility Method Definitions
         partial void OnCreated();
         partial void Insert__MigrationHistory(__MigrationHistory instance);

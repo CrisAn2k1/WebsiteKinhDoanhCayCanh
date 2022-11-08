@@ -33,6 +33,9 @@
                         <th>
                             Mã cách chăm sóc
                         </th>
+                        <th>
+                            Tên cách chăm sóc
+                        </th>
                         <th class="text-center">Thao tác</th>
                     </tr>
                 </thead>
@@ -40,8 +43,11 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td class="col-lg-9">
+                            <td class="col-lg-3">
                                 @Html.DisplayFor(modelItem => item.id_CCS)
+                            </td>
+                             <td class="col-lg-4">
+                                @Html.DisplayFor(modelItem => item.tenCCS)
                             </td>
                             <td class="col-lg-3 text-center">
                                 @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.id_CCS }, new { @class = "btn btn-warning" }) |

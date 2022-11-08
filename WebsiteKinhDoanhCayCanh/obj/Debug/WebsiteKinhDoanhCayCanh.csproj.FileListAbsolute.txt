@@ -53,6 +53,8 @@ C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\roslyn\VB
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\Antlr3.Runtime.dll
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\EntityFramework.dll
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\EntityFramework.SqlServer.dll
+C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\GoogleRecaptcha.dll
+C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\GoogleRecaptchaMvc.dll
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\Microsoft.AspNet.Identity.Core.dll
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\Microsoft.AspNet.Identity.Owin.dll
@@ -72,6 +74,9 @@ C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\Owin.dll
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\PagedList.dll
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\PagedList.Mvc.dll
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Net.Http.Formatting.dll
+C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Reactive.dll
+C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Threading.Tasks.Extensions.dll
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Web.Helpers.dll
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Web.Http.dll
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Web.Http.WebHost.dll
@@ -86,6 +91,9 @@ C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\EntityFra
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\EntityFramework.SqlServer.xml
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\PagedList.xml
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\PagedList.Mvc.xml
+C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Reactive.xml
+C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Threading.Tasks.Extensions.xml
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Web.Helpers.xml
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Web.Mvc.xml
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Web.Optimization.xml
@@ -111,10 +119,12 @@ C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\Microsoft
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\Microsoft.Owin.Security.OAuth.xml
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.csproj.AssemblyReference.cache
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.csproj.CoreCompileInputs.cache
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.csproj.CopyComplete
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.dll
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.pdb
+
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\obj\Debug\WebsiteKinhDoanhCayCanh.csproj.AssemblyReference.cache
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Reactive.dll
 C:\DoAnChuyenNganh\WebsiteKinhDoanhCayCanh\WebsiteKinhDoanhCayCanh\bin\System.Runtime.CompilerServices.Unsafe.dll

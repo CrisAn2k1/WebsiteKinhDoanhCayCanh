@@ -51,7 +51,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         {
             if (!AuthAdmin())
                 return RedirectToAction("Error401", "Admin");
-            ViewBag.id_CachChamSoc = new SelectList(db.CachChamSoc, "id_CCS");
+            ViewBag.id_CachChamSoc = new SelectList(db.CachChamSoc, "id_CCS", "id_CCS ");
             return View();
         }
 
@@ -89,6 +89,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.id_CachChamSoc = new SelectList(db.CachChamSoc, "id_CCS", "id_CCS ");
             return View(nhomSP);
         }
 
@@ -107,6 +108,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.id_CachChamSoc = new SelectList(db.CachChamSoc, "id_CCS", nhomSP.id_CCS);
             return View(nhomSP);
         }
         // GET: /Delete

@@ -20,19 +20,22 @@ namespace WebsiteKinhDoanhCayCanh.Models
         [StringLength(10)]
         public string id_CCS { get; set; }
 
-        [Column(TypeName = "text")]
+        [StringLength(50)]
+        public string tenCCS { get; set; }
+
+        [Column(TypeName = "ntext")]
         public string tuoiNuoc { get; set; }
 
-        [Column(TypeName = "text")]
+        [Column(TypeName = "ntext")]
         public string dat { get; set; }
 
-        [Column(TypeName = "text")]
+        [Column(TypeName = "ntext")]
         public string anhSang { get; set; }
 
-        [Column(TypeName = "text")]
+        [Column(TypeName = "ntext")]
         public string viTriDatCay { get; set; }
 
-        [Column(TypeName = "text")]
+        [Column(TypeName = "ntext")]
         public string duongChat { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

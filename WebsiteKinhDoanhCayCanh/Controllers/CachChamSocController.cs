@@ -58,7 +58,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_CCS,tuoiNuoc,dat,anhSang,viTriDatCay,duongChat")] CachChamSoc cachChamSoc)
+        public ActionResult Create([Bind(Include = "id_CCS,tenCCS,tuoiNuoc,dat,anhSang,viTriDatCay,duongChat")] CachChamSoc cachChamSoc)
         {
             if (!AuthAdmin())
                 return RedirectToAction("Error401", "Admin");
@@ -94,7 +94,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id_CCS,tuoiNuoc,dat,anhSang,viTriDatCay,duongChat")] CachChamSoc cachChamSoc)
+        public ActionResult Edit([Bind(Include = "id_CCS,tenCCS,tuoiNuoc,dat,anhSang,viTriDatCay,duongChat")] CachChamSoc cachChamSoc)
         {
             if (!AuthAdmin())
                 return RedirectToAction("Error401", "Admin");

@@ -12,13 +12,18 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
     {
         // GET: Admin
         private ApplicationDbContext data = new ApplicationDbContext();
-        /*MyDBContextDataContext context = new MyDBContextDataContext();*/
+        MyDBDataContext context = new MyDBDataContext();
         public ActionResult Index()
         {
             if (!AuthAdmin())
                 return RedirectToAction("Error401", "Admin");
             //var kh = context.Users.ToList();
             return View();
+        }
+        public ActionResult tongsp()
+        {
+            var sp = context.SanPhams.ToList();
+            return View(sp);
         }
 
         public ActionResult Error401()
