@@ -10,9 +10,9 @@
 		<!-- For more information on Entity Framework configuration, visit http://go.microsoft.com/fwlink/?LinkID=237468 -->
 	</configSections>
 	<connectionStrings>
-		<add name="DefaultConnection" connectionString="Data Source=LAPTOP-2FT9H6RM\SQLEXPRESS;Initial Catalog=QuanLyCayCanh;Integrated Security=True" providerName="System.Data.SqlClient" />
-		<add name="QuanLyCayCanhConnectionString" connectionString="Data Source=LAPTOP-2FT9H6RM\SQLEXPRESS;Initial Catalog=QuanLyCayCanh;Integrated Security=True" providerName="System.Data.SqlClient" />
-		<add name="MyDataEF" connectionString="Data Source=LAPTOP-2FT9H6RM\SQLEXPRESS;Initial Catalog=QuanLyCayCanh;Integrated Security=True ;MultipleActiveResultSets=true" providerName="System.Data.SqlClient" />
+		<add name="DefaultConnection" connectionString="data source=CRIS-AN\SQLEXPRESS;Initial Catalog=QuanLyCayCanh;Persist Security Info=True;User ID=CrisDame;Password=123123" providerName="System.Data.SqlClient" />
+		<add name="QuanLyCayCanhConnectionString" connectionString="Data Source=CRIS-AN\SQLEXPRESS;Initial Catalog=QuanLyCayCanh;Persist Security Info=True;User ID=CrisDame;Password=123123" providerName="System.Data.SqlClient" />
+		<add name="MyDataEF" connectionString="data source=CRIS-AN\SQLEXPRESS;initial catalog=QuanLyCayCanh;persist security info=True;user id=CrisDame;password=123123;MultipleActiveResultSets=True;App=EntityFramework" providerName="System.Data.SqlClient" />
 	</connectionStrings>
 	<appSettings>
 		<add key="webpages:Version" value="3.0.0.0" />

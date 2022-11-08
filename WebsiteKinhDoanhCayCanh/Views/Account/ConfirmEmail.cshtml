@@ -1,10 +1,36 @@
-﻿@{
-    ViewBag.Title = "Confirm Email";
-}
+﻿@{ ViewBag.Title = "Confirm Email"; }
 
-<h2>@ViewBag.Title.</h2>
+<style>
+    .validation-summary-errors {
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+        .validation-summary-errors li {
+            list-style: none;
+        }
+</style>
+<script src='https://www.google.com/recaptcha/api.js' type="text/javascript"></script>
+<section>
+    <div style="font-family: 'Sans-serif'">
+        <div class="hero-wrap hero-bread" style="background-image: url('/Template/img/banner-img.jpg');opacity:0.9" ;>
+            <div>
+                <div class="container">
+                    <div class="row no-gutters slider-text align-items-center justify-content-center">
+                        <div class="col-md-9 ftco-animate text-center bg-text">
+                            <h1 class="mb-0 bread" style="color:antiquewhite">ĐĂNG NHẬP</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br />
+<h2 style="color:forestgreen; ">Xác nhận mail thành công</h2>
 <div>
     <p>
-        Thank you for confirming your email. Please @Html.ActionLink("Click here to Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+        Cảm ơn bạn đã xác nhận email của mình. Vui lòng @Html.ActionLink("Click để đăng nhập", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
     </p>
+    <br />
 </div>

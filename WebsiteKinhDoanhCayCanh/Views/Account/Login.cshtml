@@ -49,6 +49,12 @@
                         <img src="~/Template/img/bonsai1.png" width="250" height="250" ; />
                     </div>
                 </div>
+                <div class="col-md-offset-1 d-flex justify-content-center" style="width:500px;">                    
+                    <section id="socialLoginForm" class="zoom">
+                        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                        @*<p>Đăng nhập bằng google.</p>*@
+                    </section>
+                </div>
             </section>
         </div>
         <div class="col-lg-6  col-md-6">
@@ -56,7 +62,7 @@
                 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
-                    <h4 style="color:green;text-align:center" ;>Đăng Nhặp</h4>
+                    <h4 style="color:green;text-align:center" ;>Đăng nhập</h4>
                     <hr />
                     <div class="form-group">
                         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
@@ -78,15 +84,13 @@
                             <div class="checkbox">
                                 @Html.CheckBoxFor(m => m.RememberMe)
                                 @Html.LabelFor(m => m.RememberMe)
+                                <p>
+                                    @Html.ActionLink("Quên mật khẩu ?", "ForgotPassword")
+                                </p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="form-group" style="text-align:center">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Đăng nhập" class="btn btn-default" style="background-color: #7fad39;" />
-                        </div>
-                    </div>
                     <div class="form-group" style="text-align:center">
                         <div class="col-md-offset-2 col-md-10 d-flex justify-content-center">
                             <h6 style="color:red; text-align:center; padding-top: 20px">@ViewBag.Thongbao</h6>
@@ -97,13 +101,13 @@
                             <div>@Html.RecaptchaV2("6LeJ3jogAAAAAGmMJi3Bzqev9W5Nw_blm8_75lL6")</div>
                         </div>
                     </div>
-
+                    <div class="form-group" style="text-align:center">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Đăng nhập" class="btn btn-default" style="background-color: #7fad39;" />
+                        </div>
+                    </div>
                 }
-                <div class="col-md-offset-1 d-flex justify-content-center" style="width:500px;">
-                    <section id="socialLoginForm" class="zoom">
-                        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-                    </section>
-                </div>
+
             </section>
         </div>
     </div>
