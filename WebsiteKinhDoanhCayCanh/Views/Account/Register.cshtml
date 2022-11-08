@@ -29,49 +29,50 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6">
-                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <section id="socialLoginForm">
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
 
-                    <div class="form-group">
-                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Họ tên", @style = "height:40px" })
-                    </div>
-                    <div class="form-group">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email", @style = "height:40px" })
-                    </div>
-                    <div class="form-group">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Mật khẩu", @style = "height:40px" })
-                    </div>
-                    <div class="form-group">
-                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Nhập lại mật khẩu", @style = "height:40px" })
-                    </div>
-                    <div class="form-group">
-                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @placeholder = "Số điện thoại", @style = "height:40px" })
-                    </div>
-                    <div class="form-group">
-                        @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @placeholder = "Địa chỉ", @style = "height:40px" })
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10" style="text-align:center" ;>
-                            <input type="submit" class="btn btn-default" value="Đăng ký" style="background-color: #7fad39;" />
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Họ tên", @style = "height:40px" })
                         </div>
-                    </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email", @style = "height:40px" })
+                        </div>
+                        <div class="form-group">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Mật khẩu", @style = "height:40px" })
+                        </div>
+                        <div class="form-group">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Nhập lại mật khẩu", @style = "height:40px" })
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @placeholder = "Số điện thoại", @style = "height:40px" })
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @placeholder = "Địa chỉ", @style = "height:40px" })
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10" style="text-align:center" ;>
+                                <input type="submit" class="btn btn-default" value="Đăng ký" style="background-color: #7fad39;" />
+                            </div>
+                        </div>
+                    </section>
                 </div>
                 <div class="col-lg-6 col-md-6">
-
-                    <div class="form-group" style="text-align:center">
-                        <div style="text-align:center">
-                            <br />
-                            <h4 style="color:green"> AT-TREES Xin chào</h4>
-                            <p>Vui lòng đăng ký tài khoản để mua hàng !</p>
+                    <section id="loginForm">
+                        <div class="form-group" style="text-align:center">
+                            <div style="text-align:center">                                
+                                <h4 style="color:green"> AT-TREES Xin chào</h4>
+                                <p>Vui lòng đăng ký tài khoản để mua hàng !</p>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group" style="text-align:center">
-                        <div style="text-align:center">
-                            <img src="~/Template/img/bonsai2.png" width="350" height="350" ; />
+                        <div class="form-group" style="text-align:center">
+                            <div style="text-align:center">
+                                <img src="~/Template/img/bonsai3.png" width="350" height="350" ; />
+                            </div>
                         </div>
-                    </div>                 
-
+                    </section>
                 </div>
                 </div>
             </div>   

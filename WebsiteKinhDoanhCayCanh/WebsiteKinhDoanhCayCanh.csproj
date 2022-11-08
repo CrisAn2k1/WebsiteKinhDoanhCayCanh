@@ -495,6 +495,7 @@
     <Content Include="Template\img\banner4.png" />
     <Content Include="Template\img\bonsai1.png" />
     <Content Include="Template\img\bonsai2.png" />
+    <Content Include="Template\img\bonsai3.png" />
     <Content Include="Template\img\caycauvang.jpg" />
     <Content Include="Template\img\cayhongmon.jpg" />
     <Content Include="Template\img\cayluoiho.jpg" />
@@ -587,6 +588,8 @@
     <Content Include="Views\SanPhams\Edit.cshtml" />
     <Content Include="Views\SanPhams\Delete.cshtml" />
     <Content Include="Views\SanPhams\Create.cshtml" />
+    <Content Include="Views\Home\DetailsCCS.cshtml" />
+    <Content Include="Views\Admin\tongsp.cshtml" />
     <Content Include="Views\GioHangs\DatHang.cshtml" />
   </ItemGroup>
   <ItemGroup>

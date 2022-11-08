@@ -39,5 +39,11 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         {
             return View();
         }
+        public ActionResult DetailsCCS(string id)
+        {
+            /*var cach = db.CachChamSoc;*/
+            CachChamSoc ccs = db.CachChamSoc.Find(id);
+            return View(ccs);
+        }
     }
 }
