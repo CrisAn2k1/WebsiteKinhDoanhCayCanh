@@ -247,6 +247,7 @@
     <Compile Include="Models\ThongTinThemVeSP.cs" />
     <Compile Include="Models\UserVoucher.cs" />
     <Compile Include="Models\Voucher.cs" />
+    <Compile Include="Others\MailHelper.cs" />
     <Compile Include="Others\MailRegister.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -349,7 +350,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Others\AccountConfirmation.html" />
-    <Content Include="Others\MailRegister.html" />
+    <Content Include="Others\Checkout.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\assets\css\.DS_Store" />
@@ -501,6 +502,7 @@
     <Content Include="Template\img\cayngocngan.jpg" />
     <Content Include="Template\img\caytieutram.jpg" />
     <Content Include="Template\img\home.png" />
+    <Content Include="Template\img\icon-cart.png" />
     <Content Include="Template\img\icon-web.png" />
     <Content Include="Template\img\banner2.jpg" />
     <Content Include="Template\img\bonsai.jpg" />
@@ -588,6 +590,7 @@
     <Content Include="Views\SanPhams\Create.cshtml" />
     <Content Include="Views\Home\DetailsCCS.cshtml" />
     <Content Include="Views\Admin\tongsp.cshtml" />
+    <Content Include="Views\GioHangs\DatHang.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

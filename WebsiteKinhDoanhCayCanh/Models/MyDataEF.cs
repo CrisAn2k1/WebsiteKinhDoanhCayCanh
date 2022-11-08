@@ -79,11 +79,6 @@ namespace WebsiteKinhDoanhCayCanh.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<DonHang>()
-                .Property(e => e.trangThaiThanhToan)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<DonHang>()
                 .Property(e => e.trangThaiGiaoHang)
                 .IsFixedLength()
                 .IsUnicode(false);

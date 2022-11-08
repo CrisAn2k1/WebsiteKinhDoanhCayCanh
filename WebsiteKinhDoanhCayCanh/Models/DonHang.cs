@@ -22,8 +22,7 @@ namespace WebsiteKinhDoanhCayCanh.Models
 
         public DateTime? ngayGiao { get; set; }
 
-        [StringLength(1)]
-        public string trangThaiThanhToan { get; set; }
+        public bool? trangThaiThanhToan { get; set; }
 
         [StringLength(1)]
         public string trangThaiGiaoHang { get; set; }
