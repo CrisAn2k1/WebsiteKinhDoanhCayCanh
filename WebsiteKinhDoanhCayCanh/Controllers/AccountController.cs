@@ -383,7 +383,16 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    {
+                        var kh = context.Users.Where(p => p.Email == loginInfo.Email).FirstOrDefault();
+                        if (kh.LockoutEnabled == false)
+                        {
+                            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                            return View("Lockout");
+                        }
+                        Session["TaiKhoan"] = kh;
+                        return RedirectToLocal(returnUrl);
+                    }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
