@@ -25,7 +25,17 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             var sp = context.SanPhams.ToList();
             return View(sp);
         }
+        public ActionResult tongnhomsp()
+        {
+            var snsp = context.NhomSPs.ToList();
+            return View(snsp);
+        }
 
+        public ActionResult sodonhang()
+        {
+            var sdh = context.DonHangs.ToList();
+            return View(sdh);
+        }
         public ActionResult Error401()
         {
             return View();

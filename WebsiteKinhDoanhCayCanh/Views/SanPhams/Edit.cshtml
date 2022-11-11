@@ -87,15 +87,17 @@
                         <div class="form-group">
                             <strong class="control-label col-md-2">Cách trồng</strong>
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.ThongTinThemVeSP.cachTrong, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ThongTinThemVeSP.cachTrong, "", new { @class = "text-danger" })
+                                @*@Html.EditorFor(model => model.ThongTinThemVeSP.cachTrong, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ThongTinThemVeSP.cachTrong, "", new { @class = "text-danger" })*@
+                                <input type="text" name="cachTrong" class="form-control" value="@Model.ThongTinThemVeSP.cachTrong">
                             </div>
                         </div>
                         <div class="form-group">
                             <strong class="control-label col-md-2">Công dụng</strong>
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.ThongTinThemVeSP.congDung, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ThongTinThemVeSP.congDung, "", new { @class = "text-danger" })
+                                @*@Html.EditorFor(model => model.ThongTinThemVeSP.congDung, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ThongTinThemVeSP.congDung, "", new { @class = "text-danger" })*@
+                                <input type="text" name="congDung" class="form-control" value="@Model.ThongTinThemVeSP.congDung">
                             </div>
                         </div>
                         <div class="form-group">

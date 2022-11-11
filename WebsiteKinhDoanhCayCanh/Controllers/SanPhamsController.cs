@@ -219,14 +219,28 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         public ActionResult Create([Bind(Include = "id_SP,tenSP,mota,gia,soLuong,DVT,phanTramGiamGia,id_Nhom")] SanPham sanPham)
         {
             if (ModelState.IsValid)
-            {
+            {                       
+            ThongTinThemVeSP thongTinThemVeSP = new ThongTinThemVeSP();
+                    
                 db.SanPham.Add(sanPham);
                 db.SaveChanges();
-                return RedirectToAction("IndexAdmin");
+                if (Request["congDung"] != null && Request["cachTrong"] != null)
+                {
+                    string content1 = Request["congDung"].ToString() + " ";
+                    string content2 = Request["cachTrong"].ToString() + " ";
+                    if (content1 == " " || content2 == " ")
+                    {
+                        return RedirectToAction("Create");
+                    }
+                    thongTinThemVeSP.id_SP = sanPham.id_SP;
+                    thongTinThemVeSP.cachTrong = content2;
+                    thongTinThemVeSP.congDung = content1;
+                    /* addTTT.Create(content1, content2, id, thongTinThemVeSP);*/
+                    db.ThongTinThemVeSP.Add(thongTinThemVeSP);
+                    db.SaveChanges();
+                }
+                return RedirectToAction("Create");
             }
-
-            ViewBag.id_Nhom = new SelectList(db.NhomSP, "id_Nhom", "tenNhom", sanPham.id_Nhom);
-            ViewBag.id_SP = new SelectList(db.ThongTinThemVeSP, "id_SP", "congDung", sanPham.id_SP);
             return View(sanPham);
         }
 
@@ -252,14 +266,30 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id_SP,tenSP,mota,gia,soLuong,DVT,phanTramGiamGia,id_Nhom")] SanPham sanPham)
+        public ActionResult Edit( [Bind(Include = "id_SP,tenSP,mota,gia,soLuong,DVT,phanTramGiamGia,id_Nhom")] SanPham sanPham)
         {
+            ThongTinThemVeSP thongTinThemVeSP = db.ThongTinThemVeSP.Single(p => p.id_SP == sanPham.id_SP);
+            string content1 = Request["congDung"].ToString() + " ";
+            string content2 = Request["cachTrong"].ToString() + " ";
             if (ModelState.IsValid)
             {
                 db.Entry(sanPham).State = EntityState.Modified;
                 db.SaveChanges();
+                if (Request["congDung"] != null && Request["cachTrong"] != null)
+                {
+                    
+                    if (content1 == " " || content2 == " ")
+                    {
+                        return RedirectToAction("IndexAdmin");
+                    }
+                    thongTinThemVeSP.cachTrong = content2;
+                    thongTinThemVeSP.congDung = content1;
+                    /* addTTT.Create(content1, content2, id, thongTinThemVeSP);*/
+                    /*db.Entry(thongTinThemVeSP).State = EntityState.Modified;*/
+                    db.SaveChanges();
+                }
                 return RedirectToAction("IndexAdmin");
-            }
+            }          
             ViewBag.id_Nhom = new SelectList(db.NhomSP, "id_Nhom", "tenNhom", sanPham.id_Nhom);
             ViewBag.id_SP = new SelectList(db.ThongTinThemVeSP, "id_SP", "congDung", sanPham.id_SP);
             return View(sanPham);

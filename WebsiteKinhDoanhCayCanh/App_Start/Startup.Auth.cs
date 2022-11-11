@@ -60,8 +60,8 @@ namespace WebsiteKinhDoanhCayCanh
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "853606616692-erf1qle3li9d1qpgmdjqq3cij3qkiotj.apps.googleusercontent.com",
-                ClientSecret = "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"
+                ClientId = "853606616692-d82rjuifcr9kkq7mulsjidd1q5k6r1ik.apps.googleusercontent.com",
+                ClientSecret = "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"
             });
         }
     }
