@@ -12,11 +12,11 @@ namespace WebsiteKinhDoanhCayCanh.Others
     {
         public void sendMail(string toEmailAddress, string subject, string content)
         {
+            var smtpHost = ConfigurationManager.AppSettings["SMTPHost"].ToString();
+            var smtpPort = ConfigurationManager.AppSettings["SMTPPort"].ToString();
             var fromEmailAddress = ConfigurationManager.AppSettings["FromEmailAddress"].ToString();
             var fromEmailDisplayName = ConfigurationManager.AppSettings["FromEmailDisplayName"].ToString();
             var fromEmailPassword = ConfigurationManager.AppSettings["FromEmailPassword"].ToString();
-            var smtpHost = ConfigurationManager.AppSettings["SMTPHost"].ToString();
-            var smtpPort = ConfigurationManager.AppSettings["SMTPPort"].ToString();
 
             bool enabledSsl = bool.Parse(ConfigurationManager.AppSettings["EnabledSSL"].ToString());
 

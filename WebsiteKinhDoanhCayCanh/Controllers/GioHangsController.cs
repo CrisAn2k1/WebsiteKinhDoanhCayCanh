@@ -281,6 +281,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
 
             new MailHelper().sendMail(kh.Email, "Đơn hàng mới từ Cây Cảnh AT - Trees", content);
+
             Notification.set_flash("Đặt hàng thành công!", "success");
             //return RedirectToAction("XemDonHang", "GioHang");
             return RedirectToAction("Index", "Home");
@@ -291,6 +292,171 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         {
             Notification.set_flash("Đặt hàng thành công!", "success");
             return Redirect("/");
+        }
+
+        /*
+         * ================================================================================================================================
+            Thanh toan MOMO
+         */
+        public ActionResult ThanhToan(FormCollection collection)
+        {
+            if (TongTien() >= 45000000)
+            {
+                Notification.set_flash("Số tiền quá quá cao! Vui lòng chọn thanh toán khi nhận hàng!", "warning");
+                return RedirectToAction("DatHang", "GioHangs");
+            }
+
+            List<GioHang> gioHang = Session["GioHang"] as List<GioHang>;
+            string endpoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
+            string partnerCode = "MOMOOJOI20210710";
+            string accessKey = "iPXneGmrJH0G8FOP";
+            string serectKey = "sFcbSGRSJjwGxwhhcEktCHWYUuTuPNDB";
+            string orderInfo = "Đơn Hàng Từ Cây Cảnh AT-Trees";
+            string returnUrl = "https://localhost:44351/GioHangs/ReturnUrl";
+            string notifyurl = "http://ba1adf48beba.ngrok.io/GioHangs/NotifyUrl";
+
+            string amount = gioHang.Sum(n => n.dThanhTien).ToString();
+            string orderid = DateTime.Now.Ticks.ToString();
+            string requestId = DateTime.Now.Ticks.ToString();
+            string extraData = "";
+
+            string rawHash =
+                "partnerCode=" +
+                partnerCode + "&accessKey=" +
+                accessKey + "&requestId=" +
+                requestId + "&amount=" +
+                amount + "&orderId=" +
+                orderid + "&orderInfo=" +
+                orderInfo + "&returnUrl=" +
+                returnUrl + "&notifyUrl=" +
+                notifyurl + "&extraData=" +
+                extraData;
+
+            MoMoSecurity crypto = new MoMoSecurity();
+            string signature = crypto.signSHA256(rawHash, serectKey);
+            JObject message = new JObject
+            {
+                { "partnerCode", partnerCode },
+                { "accessKey", accessKey },
+                { "requestId", requestId },
+                { "amount", amount },
+                { "orderId", orderid },
+                { "orderInfo", orderInfo },
+                { "returnUrl", returnUrl },
+                { "notifyUrl", notifyurl },
+                { "extraData", extraData },
+                { "requestType", "captureMoMoWallet" },
+                { "signature", signature }
+            };
+            string responseFromMomo = PaymentRequest.sendPaymentRequest(endpoint, message.ToString());
+
+            JObject jmessage = JObject.Parse(responseFromMomo);
+
+            return Redirect(jmessage.GetValue("payUrl").ToString());
+        }
+
+        public ActionResult ReturnUrl(FormCollection collection)
+        {
+            string param = Request.QueryString.ToString().Substring(0, Request.QueryString.ToString().IndexOf("signature") - 1);
+            param = Server.UrlDecode(param);
+            MoMoSecurity crypto = new MoMoSecurity();
+            string serectkey = "sFcbSGRSJjwGxwhhcEktCHWYUuTuPNDB";
+            string signature = crypto.signSHA256(param, serectkey);
+            if (signature != Request["signature"].ToString())
+            {
+                ViewBag.message = "Thông tin Request không hợp lệ";
+                return View();
+            }
+            if (!Request.QueryString["errorCode"].Equals("0"))
+            {
+                ViewBag.message = "Thanh toán thất bại";
+            }
+            else
+            {
+                DonHang dh = new DonHang();
+                Models.LinQ.User kh = (Models.LinQ.User)Session["TaiKhoan"];
+                //SanPham s = new SanPham();
+                List<GioHang> gh = layGioHang();
+                var ngaygiao = String.Format("{0:MM/dd/yyyy}", collection["NgayGiao"]);
+                dh.id_User = kh.Id;
+                dh.ngayDat = DateTime.Now;
+                dh.ngayGiao = DateTime.Now;
+                dh.trangThaiGiaoHang = "0";
+                dh.trangThaiThanhToan = true;
+                dh.phuongThucThanhToan = "0";
+                dh.tongTien = (long?)TongTien();
+                if (dh.tongTien != 0)
+                {
+                    db.DonHang.Add(dh);
+                    db.SaveChanges();
+                }
+                foreach (var item in gh)
+                {
+                    CTDH ctdh = new CTDH();
+                    ctdh.id_DH = dh.id_DH;
+                    ctdh.id_SP = item.iIdSanPham;
+                    ctdh.soLuong = item.iSoLuong;
+                    ctdh.thanhTien = (long?)item.dThanhTien;
+                    SanPham sanPham = db.SanPham.Single(n => n.id_SP == item.iIdSanPham);
+                    sanPham.soLuong -= item.iSoLuong;
+                    db.SaveChanges();
+                    db.CTDH.Add(ctdh);
+                    db.SaveChanges();
+                }
+                Session["GioHang"] = null;
+                if (dh.tongTien != 0)
+                {
+                    String content = System.IO.File.ReadAllText(Server.MapPath("~/Others/Checkout.html"));
+                    content = content.Replace("{{CustomerName}}", kh.FullName);
+                    content = content.Replace("{{Phone}}", kh.PhoneNumber);
+                    content = content.Replace("{{Email}}", kh.Email);
+                    content = content.Replace("{{Address}}", dh.diaChiGiao);
+                    content = content.Replace("{{NgayDat}}", dh.ngayDat.ToString());
+                    content = content.Replace("{{NgayGiao}}", String.Format("{0:dd/MM/yyyy}", dh.ngayGiao).ToString());
+                    content = content.Replace("{{Total}}", String.Format("{0:0,0}", dh.tongTien).ToString());
+                    var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
+
+                    new MailHelper().sendMail(kh.Email, "Đơn hàng mới từ Cây Cảnh AT - Trees", content);
+                }
+                Notification.set_flash("Thanh toán thành công!", "success");
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("DatHang", "GioHangs");
+        }
+
+        [HttpPost]
+        public JsonResult NotifyUrl()
+        {
+            string param = "";
+            param =
+                "partner_code=" + Request["partner_code"] +
+                "&access_key=" + Request["access_key"] +
+                "&amount=" + Request["amount"] +
+                "&order_id=" + Request["order_id"] +
+                "&order_info=" + Request["order_info"] +
+                "&order_type=" + Request["order_type"] +
+                "&transaction_id=" + Request["transaction_id"] +
+                "&message=" + Request["message"] +
+                "&response_time=" + Request["response_time"] +
+                "&status_code=" + Request["status_code"];
+            param = Server.UrlDecode(param);
+            MoMoSecurity crypto = new MoMoSecurity();
+            string serectkey = ConfigurationManager.AppSettings["serectkey"].ToString();
+            string signature = crypto.signSHA256(param, serectkey);
+            if (signature != Request["signature"].ToString())
+            {
+
+            }
+            string status_code = Request["status_code"].ToString();
+            if ((status_code != "0"))
+            {
+
+            }
+            else
+            {
+
+            }
+            return Json("", JsonRequestBehavior.AllowGet);
         }
 
     }
