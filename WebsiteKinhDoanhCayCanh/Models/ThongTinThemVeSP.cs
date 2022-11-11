@@ -5,6 +5,7 @@ namespace WebsiteKinhDoanhCayCanh.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     [Table("ThongTinThemVeSP")]
     public partial class ThongTinThemVeSP
@@ -20,5 +21,10 @@ namespace WebsiteKinhDoanhCayCanh.Models
         public string cachTrong { get; set; }
 
         public virtual SanPham SanPham { get; set; }
+        public static List<ThongTinThemVeSP> getAll()
+        {
+            MyDataEF db = new MyDataEF();
+            return db.ThongTinThemVeSP.ToList();
+        }
     }
 }

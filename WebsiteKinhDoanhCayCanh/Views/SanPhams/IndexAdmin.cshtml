@@ -80,10 +80,11 @@
                                 <td style="vertical-align:middle">
                                     @Html.DisplayFor(modelItem => item.tenSP)
                                 </td>
+                                @if(item.HinhAnhSP.Where(p => p.id_SP == item.id_SP).FirstOrDefault() != null) { 
                                 <td style="vertical-align:middle">
                                     <img src="@item.HinhAnhSP.Where(p => p.id_SP == item.id_SP).FirstOrDefault().duongDan" alt="thumbnail" width="150" />
                                 </td>
-
+                                }
                                 <td style="vertical-align:middle">
                                     @Html.DisplayFor(modelItem => item.gia) 
                                 </td>

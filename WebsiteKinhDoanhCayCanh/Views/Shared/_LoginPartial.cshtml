@@ -15,7 +15,9 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li class="auth manage">
-                @Html.ActionLink(userLogin.FullName, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                @*@Html.ActionLink(userLogin.FullName, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
+                @*@Html.ActionLink(User.Identity.GetUserName(), "UserDetail", "Users")*@
+                @Html.ActionLink(userLogin.FullName, "UserDetail", "Users")
             </li>
             &emsp;
             <li class="auth logout"><a href="javascript:document.getElementById('logoutForm').submit()"> Đăng Xuất</a></li>

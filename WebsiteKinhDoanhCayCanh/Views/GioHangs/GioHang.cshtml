@@ -127,16 +127,25 @@
                 <img src="~/Template/img/icon-cart.png" alt="thumbnail" width="300" style="margin: auto" />
             </div>
             <h2 style="color: #d45353e8; font-weight: 600">Oops! Chưa có sản phầm nào!</h2>
+
+        </div>
             <div style="margin: 20px 0 100px 0 ">
-                <div>
-                    <div>
+                <div class="row">
+                    <div class="col-lg-6">
                         <div class="" style="text-align:center">
-                            <a href="@Url.Action("Index", "Home")" class="btn btn-primary py-3 px-4"><span class="icon-shopping_cart"></span>&nbsp; Mua sắm ngay thôi!!! </a>
+                            <a href="@Url.Action("XemDonMua", "DonHangs")" class="btn btn-primary py-3 px-5"><span class="icon-shopping_cart"></span>&nbsp; Xem sản phẩm đã mua </a>
                         </div>
                     </div>
+                    <div class="col-lg-6">
+                        <div class="" style="text-align:center">
+                            <a href="@Url.Action("Index", "Home")" class="btn btn-primary py-3 px-5"><span class="icon-shopping_cart"></span>&nbsp; Mua sắm ngay thôi! </a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-        </div>
+
+        
     }
 
     <script>

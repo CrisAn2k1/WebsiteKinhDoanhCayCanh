@@ -5,6 +5,7 @@ namespace WebsiteKinhDoanhCayCanh.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     [Table("DonHang")]
     public partial class DonHang
@@ -22,7 +23,7 @@ namespace WebsiteKinhDoanhCayCanh.Models
 
         public DateTime? ngayGiao { get; set; }
 
-        public bool? trangThaiThanhToan { get; set; }
+        public Boolean trangThaiThanhToan { get; set; }
 
         [StringLength(1)]
         public string trangThaiGiaoHang { get; set; }
@@ -45,5 +46,13 @@ namespace WebsiteKinhDoanhCayCanh.Models
         public virtual ICollection<CTDH> CTDH { get; set; }
 
         public virtual Voucher Voucher { get; set; }
+
+/*        public static List<DonHang> getAll(String keyWord)
+        {
+            MyDataEF db = new MyDataEF();
+            keyWord = keyWord + " ";
+            //List<ChiTietDonHang> list = db.ChiTietDonHang.Where(a => a.SanPham.Ten.Contains(keyWord) && a.Soluong > 0).ToList();
+            return db.DonHang.ToList();
+        }*/
     }
 }
