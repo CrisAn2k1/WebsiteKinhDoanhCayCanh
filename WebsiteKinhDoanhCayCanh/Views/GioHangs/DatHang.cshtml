@@ -50,16 +50,20 @@
             color: #2351cfd9;
         }
 </style>
-<div class="hero-wrap hero-bread" style="background-image: url('/Content/images/banner/laptop-tot-nhat-1638390226558.jpg'); ">
-    <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-            <div class="col-md-9 ftco-animate text-center">
-                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Đơn</a></span> <span>Hàng</span></p>
-                <h1 class="mb-0 bread">Chi tiết đơn hàng</h1>
+<div style="font-family: 'Sans-serif'">
+    <div class="hero-wrap hero-bread" style="background-image: url('/Template/img/banner-img.jpg');opacity:0.9" ;>
+        <div>
+            <div class="container">
+                <div class="row no-gutters slider-text align-items-center justify-content-center">
+                    <div class="col-md-9 ftco-animate text-center bg-text">
+                        <h1 class="mb-0 bread" style="color: antiquewhite; font-family: 'cursive', 'Amatic SC','Liberation Mono'; ">Chi Tiết Đơn Hàng</h1>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 <table class="table" style="margin: 50px 20px 0;font-size:16px;">
     <tr>
         <th>
@@ -175,7 +179,7 @@
                                     <h5>Ví Điện Tử</h5>
                                     <div style="display:flex;justify-content:center;">
                                         <div>
-                                            <a style="margin:10px;" class="primary-btn momo" href="@Url.Action("ThanhToan", "GioHang")"><img src="~/Content/img/momo.png" alt="Momo" width="20" /> Thanh toan MoMo</a>
+                                            <a style="margin:10px;" class="primary-btn momo" href="@Url.Action("ThanhToan", "GioHangs")"><img src="~/Content/img/momo.png" alt="Momo" width="20" /> Thanh toan MoMo</a>
                                         </div>
                                     </div>
                                 </div>
@@ -230,10 +234,10 @@
     });
 </script>
 @*<script>
-    function reload() {
-        document.getElementById("myForm").submit();
-    };
-</script>*@
+        function reload() {
+            document.getElementById("myForm").submit();
+        };
+    </script>*@
 
 
 

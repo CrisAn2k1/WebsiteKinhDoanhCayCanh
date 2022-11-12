@@ -5,29 +5,29 @@ namespace WebsiteKinhDoanhCayCanh.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Vui lòng nhập địa chỉ Email!")]
         [Display(Name = "Email")]
         public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Vui lòng nhập họ và tên!")]
         [Display(Name = "Name")]
         public string Name { get; set; }
 
-/*        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
+        /*        [Required]
+                [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+                [DataType(DataType.Password)]
+                [Display(Name = "Password")]
+                public string Password { get; set; }
 
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }*/
+                [DataType(DataType.Password)]
+                [Display(Name = "Confirm password")]
+                [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+                public string ConfirmPassword { get; set; }*/
 
-        [Required]
+        [Required(ErrorMessage = "Vui lòng nhập số điện thoại!")]
         [Display(Name = "Phone number")]
         public string PhoneNumber { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Vui lòng nhập địa chỉ!")]
         [Display(Name = "Address")]
         public string Address { get; set; }
     }
