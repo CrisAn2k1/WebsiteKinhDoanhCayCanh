@@ -114,7 +114,17 @@
     <tr style="font-weight:bold;text-align:right;font-size:18px;">
         <td colspan="2">Tổng số sản phẩm: <strong style="color: red;">&ensp; @ViewBag.TongSoSanPham</strong></td>
         <td colspan="2">Tổng Tiền: <strong style="color: red;">&ensp;@String.Format("{0:0,0}", @ViewBag.TongTien)&#8363;</strong> </td>
+        <td colspan="2">
+            <select id="Voucher" name="Voucher" onchange="apDungVoucher()">
+                @foreach (var item in lstVoucher)
+                {
+                    <option value="@item.id_voucher">@item.Voucher.tenVoucher</option>
+                }
+            </select>
+        </td>
+
     </tr>
+
 
 
     <tr style="font-weight:bold;color:yellow;text-align:right;">
@@ -233,11 +243,11 @@
         });
     });
 </script>
-@*<script>
-        function reload() {
-            document.getElementById("myForm").submit();
-        };
-    </script>*@
+<script>
+    function apDungVoucher() {
+        document.getElementById("myForm").submit();
+    };
+</script>
 
 
 

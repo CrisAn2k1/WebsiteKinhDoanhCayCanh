@@ -83,23 +83,25 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             return tsl;
         }
 
-        private double TongTien()
+        private long TongTien()
         {
-            double tt = 0;
+            long tt = 0;
             List<GioHang> lstGioHang = Session["GioHang"] as List<GioHang>;
             if (lstGioHang != null)
             {
-                tt = lstGioHang.Sum(n => n.dThanhTien);
+                tt = (long)lstGioHang.Sum(n => n.dThanhTien);
             }
             return tt;
         }
-        private double ApDungVoucher()
+        private long ApDungVoucher(string id_Voucber)
         {
-            double tt = 0;
+            long tt = 0;
             List<GioHang> lstGioHang = Session["GioHang"] as List<GioHang>;
+            var phamTramGiamGia = db.Voucher.Find(id_Voucber).phanTramGiamGia;
             if (lstGioHang != null)
             {
-                tt = lstGioHang.Sum(n => n.dThanhTien);
+                tt = (long)lstGioHang.Sum(n => n.dThanhTien);
+                tt -= (long)(tt * ((float)phamTramGiamGia) / 100);
             }
             return tt;
         }
@@ -119,19 +121,6 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             return PartialView();
         }
 
-        /*        public ActionResult XoaGioHang(string id)
-                {
-                    List<GioHang> lstGioHang = layGioHang();
-                    GioHang sanPham = lstGioHang.SingleOrDefault(n => n.iIdSanPham == id);
-                    if (sanPham != null)
-                    {
-                        lstGioHang.RemoveAll(n => n.iIdSanPham == id);
-                        //Notification.set_flash("Đã xoá sản phẩm khỏi giỏ hàng!", "success");
-                        //Notification.set_flash("Deleted form cart!", "success");
-                        return RedirectToAction("GioHang");
-                    }
-                    return RedirectToAction("GioHang");
-                }*/
         public ActionResult XoaGiohang(string iIdSanPham)
         {
 
@@ -251,7 +240,18 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             dh.trangThaiThanhToan = false;
             dh.phuongThucThanhToan = "0";
             dh.diaChiGiao = Request["txtAddress"].ToString() + "";
-            dh.tongTien = ((int)TongTien());
+            var diachi = collection["NgayGiao"];
+            var voucher = collection["Voucher"];
+            if (voucher == null)
+            {
+                Notification.set_flash("khong tin", "success");
+            }
+            else
+            {
+                Notification.set_flash(ApDungVoucher(voucher).ToString(), "success");
+            }
+            dh.tongTien = TongTien();
+            return View();
 
             db.DonHang.Add(dh);
             db.SaveChanges();
@@ -384,7 +384,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 dh.trangThaiGiaoHang = "0";
                 dh.trangThaiThanhToan = true;
                 dh.phuongThucThanhToan = "0";
-                dh.tongTien = (long?)TongTien();
+                dh.tongTien = TongTien();
                 if (dh.tongTien != 0)
                 {
                     db.DonHang.Add(dh);
