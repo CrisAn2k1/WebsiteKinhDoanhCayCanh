@@ -106,7 +106,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                     case SignInStatus.Success:
                         {
                             var kh = context.Users.Where(p => p.Email == model.Email).FirstOrDefault();
-                            if (kh.LockoutEnabled == false)
+                            if (kh.LockoutEnabled == true)
                             {
                                 AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
                                 return View("Lockout");
@@ -191,12 +191,12 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Address = model.Address, FullName = model.Name, PhoneNumber = model.PhoneNumber, LockoutEnabled = false };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Address = model.Address, FullName = model.Name, PhoneNumber = model.PhoneNumber };
                 ApplicationDbContext context = new ApplicationDbContext();
                 var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
                 if (!roleManager.RoleExists("User"))
                 {
-                    var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                    var role = new IdentityRole();
                     role.Name = "User";
                     roleManager.Create(role);
                 }
@@ -213,9 +213,10 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                     {
                         body = reader.ReadToEnd();
                     }
-                    body = body.Replace("{ConfirmationLink}", callbackUrl);
-                    body = body.Replace("{Name}", model.Name);
-                    bool IsSendEmail = MailRegister.SendMail(model.Email, "Xác Nhận Tài Khoản", body, true);
+                    body = body.Replace("{{ConfirmationLink}}", callbackUrl);
+                    body = body.Replace("{{Name}}", model.Name);
+                    bool IsSendEmail = MailRegister.SendMail(model.Email, "Xác Thực Tài Khoản", body, true);
+                    Notification.set_flash("Đăng Ký Tài Khoản Thành Công!\nVui lòng xác thực tài khoản trong email đã đăng ký!", "success");
                     if (IsSendEmail)
                         return RedirectToAction("Login", "Account");
                 }
@@ -267,11 +268,11 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                     {
                         string t = RandomString(8, false);
                         String content = System.IO.File.ReadAllText(Server.MapPath("~/Others/ForgotPassword.html"));
-                        content = content.Replace("{{CustomerName}}", kh.FullName);
+                        content = content.Replace("{{Name}}", kh.FullName);
                         content = content.Replace("{{Passcode}}", t);
-                        content = content.Replace("{{Emaill}}", kh.Email);
-                        new MailHelper().sendMail(kh.Email, "Xác nhận quên mật khẩu?", content);
-                        Notification.set_flash("Vui lòng kiểm tra mã xác nhận trong email!", "success");
+                        content = content.Replace("{{Request}}", "Reset Mật Khẩu");
+                        new MailHelper().sendMail(kh.Email, "Yêu cầu khôi phục mật khẩu?", content);
+                        Notification.set_flash("Vui lòng kiểm tra mã xác nhận trong email!", "info");
                         return RedirectToAction("ForgotPasswordConfirmation", new { @Emaill = kh.Email, @Passcode = t });
                     }
                     else
@@ -292,14 +293,18 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation(FormCollection collection, string Emaill, string Passcode)
         {
-            var passcodemail = collection["passcode"];
-            if (passcodemail == Passcode)
+            var passcodemail = collection["Passcodedd"];
+            if (passcodemail != null)
             {
-                return RedirectToAction("ResetPassword", new { @Emaill = Emaill });
-            }
-            else
-            {
-                Notification.set_flash("Mã xác nhận không chính xác!", "error");
+                if (passcodemail == Passcode)
+                {
+                    return RedirectToAction("ResetPassword", new { @Emaill = Emaill });
+                }
+                else
+                {
+                    Notification.set_flash("Mã xác nhận không chính xác!", "error");
+                    return View();
+                }
             }
             return View();
         }
@@ -325,7 +330,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         public ActionResult ResetPassword(FormCollection collection, string Emaill)
         {
             User kh = context.Users.SingleOrDefault(n => n.Email == Emaill);
-            if (kh != null)
+            if (kh != null && collection["pass"] != null)
             {
                 if (collection["pass"] == collection["repass"] && collection["pass"] != null)
                 {
@@ -336,11 +341,8 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                     Notification.set_flash("Đặt lại mật khẩu thành công!", "success");
                     return RedirectToAction("Login", "Account");
                 }
-                else
-                {
-                    Notification.set_flash("Mật khẩu không trùng khớp với nhau!", "error");
-                }
             }
+            ViewBag.Url = Emaill;
             return View();
         }
 
