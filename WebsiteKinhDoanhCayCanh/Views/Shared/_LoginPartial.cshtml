@@ -3,9 +3,7 @@
 @using Microsoft.AspNet.Identity
 @using Microsoft.AspNet.Identity.Owin
 @{
-
     ApplicationUser userLogin = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-
 }
 @if (Request.IsAuthenticated)
 {
@@ -17,7 +15,7 @@
             <li class="auth manage">
                 @*@Html.ActionLink(userLogin.FullName, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
                 @*@Html.ActionLink(User.Identity.GetUserName(), "UserDetail", "Users")*@
-                @Html.ActionLink(userLogin.FullName, "UserDetail", "Users")
+                @Html.ActionLink(userLogin.FullName, "userDetail", "Users")
             </li>
             &emsp;
             <li class="auth logout"><a href="javascript:document.getElementById('logoutForm').submit()"> Đăng Xuất</a></li>

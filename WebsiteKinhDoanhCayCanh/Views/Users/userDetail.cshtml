@@ -4,6 +4,68 @@
     ViewBag.Title = "userDetail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    .body {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        height: 650px;
+        padding-top: 70px;
+        background: rgb(219 204 143 / 0.42);
+    }
+
+    .form {
+        width: 70%;
+        background: white;
+        margin: 30px 0;
+        padding: 30px;
+    }
+
+    .r {
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .title {
+        display: flex;
+        width: 20%;
+        margin-right: 3%;
+        justify-content: right;
+    }
+
+    .content {
+        width: 77%;
+    }
+
+    input {
+        width: 50%;
+    }
+
+    .col-lg-4 {
+        border-left: 1px solid rgb(128 128 128 / 0.18);
+    }
+
+    button {
+        border: none;
+        border-radius: 30px;
+        background: #dbcc8f;
+    }
+
+    .change {
+        cursor: pointer;
+    }
+
+    .modal {
+        background: rgb(0 0 0 / 0.43);
+    }
+
+    .modal-body input {
+        width: 100%;
+    }
+</style>
 <div class="body" id="show-data">
     <div class="form">
 
@@ -13,14 +75,21 @@
                 <input type="hidden" id="idUserLogin" value="@ViewBag.idUser" />
                 <div class="r">
                     <div class="title">
-                        <label>Tên đăng nhập:</label>
+                        <label>Email:</label>
                     </div>
                     <div class="content">
                         <div style="width: 100vw;">
                             <label style="color: black; height: 100%;" id="userName"></label>
-
                         </div>
                     </div>
+                </div>
+                
+                <div class="r">
+                    <div class="title">
+                        <label>Mật khẩu:</label>
+                    </div>
+                    <div class="content" style="color: black;" id="vippassword">*********</div>
+                    <button class="change" data-toggle="modal" data-target="#modalChangePassword"><i class="fa fa-edit"></i></button>
                 </div>
                 <hr />
                 <div class="r">
@@ -28,16 +97,10 @@
                         <label>Tên:</label>
                     </div>
                     <div class="content" style="color: black;" id="name"></div>
-                    <button class="change" data-toggle="modal" data-target="#modalName"><i class="fa fa-edit"></i></button>
+                    <button class="change" data-toggle="modal" data-target="#modalName"><i class="fa-solid fa-pen-to-square"></i></button>
                 </div>
                 <hr />
-                <div class="r">
-                    <div class="title">
-                        <label>Email:</label>
-                    </div>
-                    <div class="content" style="color: black;" id="email"></div>
-                </div>
-                <hr />
+                
                 <div class="r">
                     <div class="title">
                         <label>Số điện thoại:</label>
@@ -125,68 +188,40 @@
         </div>
     </div>
 </div>
+<!-- Modal change password -->
+<div class="modal fade" id="modalChangePassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thay Đổi Mật Khẩu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label>Mật khẩu cũ</label>
+                <input type="text" id="oldPass" value="123asdA" placeholder="" />
+            </div>
+            <div class="modal-body">
+                <label>Mật khẩu mới</label>
+                <input type="text" id="newPass" placeholder="" value="asdasd1" onchange="checkPass()"/>
+                <label id="notification-1" style="color:red"></label>
+            </div>
+            <div class="modal-body">
+                <label>Nhập lại mật khẩu</label>
+                <input type="text" id="reNewPass" placeholder="" value="asdasd2" onchange="checkPass()"/>
+                <label id="notification-2" style="color:red"></label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button disabled id="submitChangePassword" >Lưu thay đổi</button>
+                @*<a href="@Url.Action("userDetail", "Users")" type="button" id="submitChangePassword" class="btn btn-primary">Lưu thay đổi</a>*@
+            </div>
+        </div>
+    </div>
+</div>
 
-<style>
-    .body {
-        display: flex;
-        justify-content: center;
-        align-content: center;
-        height: 650px;
-        padding-top: 70px;
-        background: rgb(219 204 143 / 0.42);
-    }
 
-    .form {
-        width: 70%;
-        background: white;
-        margin: 30px 0;
-        padding: 30px;
-    }
-
-    .r {
-        display: flex;
-        justify-content: left;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-
-    .title {
-        display: flex;
-        width: 20%;
-        margin-right: 3%;
-        justify-content: right;
-    }
-
-    .content {
-        width: 77%;
-    }
-
-    input {
-        width: 50%;
-    }
-
-    .col-lg-4 {
-        border-left: 1px solid rgb(128 128 128 / 0.18);
-    }
-
-    button {
-        border: none;
-        border-radius: 30px;
-        background: #dbcc8f;
-    }
-
-    .change {
-        cursor: pointer;
-    }
-
-    .modal {
-        background: rgb(0 0 0 / 0.43);
-    }
-
-    .modal-body input {
-        width: 100%;
-    }
-</style>
 
 <script>
     $(document).ready(function () {
@@ -259,6 +294,59 @@
 
     });
 
+    function checkPass() {
+        pass = document.getElementById('newPass').value;
+        repass = document.getElementById('reNewPass').value;
+        if (pass.length < 7) {
+            document.getElementById('submitChangePassword').setAttribute('Disabled', 'Disabled')
+            document.getElementById('notification-1').style.display = 'block'
+            document.getElementById('notification-1').innerHTML = 'Mật khẩu phải có ít nhất 7 ký tự !'
+        }
+        else {
+            document.getElementById('notification-1').style.display = 'none'
+            if (repass.length != 0) {
+                if (pass != repass) {
+                    document.getElementById('notification-2').style.display = 'block'
+                    document.getElementById('notification-2').innerHTML = 'Mật khẩu phải không trùng khớp!'
+                    document.getElementById('submitChangePassword').setAttribute('Disabled', 'Disabled')
+                }
+                else {
+                    document.getElementById('notification-2').style.display = 'none'
+                    document.getElementById('submitChangePassword').removeAttribute("Disabled");
+                }
+            }
+        }
+    }
+
+    $('#submitChangePassword').click(function () {
+        let idUserLogin = $('#idUserLogin').val().trim();
+        let oldPassword = $('#oldPass').val();
+        let newPassword = $('#newPass').val();
+        $.ajax({
+            url: '/Users/changePassword',
+            type: 'post',
+            data: {
+                id: idUserLogin,
+                oldPassword: oldPassword,
+                newPassword: newPassword,
+            },
+            success: function (data) {
+                if (data.code == 200 || data.code == 400) {
+                    Swal.fire(
+                        'Thông báo!',
+                        data.msg,
+                        data.typemsg).
+                        then(function () {
+                            document.location.assign("https://localhost:44351/Users/userDetail")
+                    })
+                } else {
+                    Swal.fire('Thông báo!', data.msg, data.typemsg)
+                }
+            }
+
+        });
+    });
+
     function loadUserDetail() {
         $.ajax({
             url: '/Users/getUserDetail',
@@ -267,17 +355,18 @@
                 if (data.code == 200) {
 
                     let userName = data.userLogin.Email;
-                    let name = data.userLogin.Name;
-                    let email = data.userLogin.Email;
+                    let pass = data.userLogin.PasswordHash;
+                    let name = data.userLogin.FullName;
                     let phoneNumber = data.userLogin.PhoneNumber;
                     let address = data.userLogin.Address;
 
-
                     $("#userName").append(userName);
+                    $("#vippassword").append(pass);
+
                     $("#name").append(name);
-                    $("#email").append(email);
                     $("#phoneNumber").append(phoneNumber);
                     $("#address").append(address);
+
                     $('#nameInput').val(name);
                     $('#phoneInput').val(phoneNumber);
                     $('#addressInput').val(address);
