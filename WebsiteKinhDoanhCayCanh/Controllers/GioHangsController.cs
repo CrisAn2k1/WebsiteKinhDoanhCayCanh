@@ -83,35 +83,44 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             return tsl;
         }
 
-        private long TongTien()
+        private long TongTien(string IdVoucher)
         {
             long tt = 0;
             List<GioHang> lstGioHang = Session["GioHang"] as List<GioHang>;
-            if (lstGioHang != null)
+            if (IdVoucher == null || IdVoucher == "")
             {
-                tt = (long)lstGioHang.Sum(n => n.dThanhTien);
+                if (lstGioHang != null)
+                    tt = (long)lstGioHang.Sum(n => n.dThanhTien);
+                return tt;
             }
-            return tt;
-        }
-        private long ApDungVoucher(string id_Voucber)
-        {
-            long tt = 0;
-            List<GioHang> lstGioHang = Session["GioHang"] as List<GioHang>;
-            var phamTramGiamGia = db.Voucher.Find(id_Voucber).phanTramGiamGia;
-            if (lstGioHang != null)
+            else
             {
-                tt = (long)lstGioHang.Sum(n => n.dThanhTien);
-                tt -= (long)(tt * ((float)phamTramGiamGia) / 100);
+                if (lstGioHang != null)
+                {
+                    var phamTramGiamGia = db.Voucher.Find(IdVoucher).phanTramGiamGia;
+                    tt = (long)lstGioHang.Sum(n => n.dThanhTien);
+                    tt -= (long)(tt * ((float)phamTramGiamGia) / 100);
+                }
+                return tt;
+
             }
-            return tt;
         }
 
-        public ActionResult GioHang()
+        public ActionResult GioHang(string IdVoucher)
         {
             List<GioHang> lstGioHang = layGioHang();
             ViewBag.TongSoLuongSanPham = TongSoLuongSanPham();
-            ViewBag.TongTien = TongTien();
+            ViewBag.TongTien = TongTien(IdVoucher);
             ViewBag.TongSoSanPham = TongSoSanPham();
+            if (IdVoucher != null)
+            {
+
+                ViewBag.Voucher = IdVoucher;
+            }
+            else
+            {
+                ViewBag.Voucher = "";
+            }
             return View(lstGioHang);
         }
 
@@ -195,9 +204,9 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
 
         //Dặt hàng
         [HttpGet]
-        public ActionResult DatHang()
+        public ActionResult DatHang(string IdVoucher)
         {
-            if (TongTien() == 0)
+            if (TongTien("") == 0)
             {
                 return RedirectToAction("GioHang");
             }
@@ -212,16 +221,10 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
 
             List<GioHang> lstGioHang = layGioHang();
             ViewBag.TongSoLuongSanPham = TongSoLuongSanPham();
-            ViewBag.TongTien = TongTien();
+            ViewBag.TongTien = TongTien(IdVoucher);
             ViewBag.TongSoSanPham = TongSoSanPham();
-            //try
-            //{
-            //    var a = Request["Voucher"].ToString() + "";
-            //}
-            //catch (Exception)
-            //{
-            //    return View(lstGioHang);
-            //}
+            ViewBag.Voucher = IdVoucher;
+
             return View(lstGioHang);
         }
 
@@ -239,19 +242,12 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             dh.trangThaiGiaoHang = "0";
             dh.trangThaiThanhToan = false;
             dh.phuongThucThanhToan = "0";
-            dh.diaChiGiao = Request["txtAddress"].ToString() + "";
+
             var diachi = collection["NgayGiao"];
             var voucher = collection["Voucher"];
-            if (voucher == null)
-            {
-                Notification.set_flash("khong tin", "success");
-            }
-            else
-            {
-                Notification.set_flash(ApDungVoucher(voucher).ToString(), "success");
-            }
-            dh.tongTien = TongTien();
-            return View();
+            dh.diaChiGiao = Request["txtAddress"].ToString() + "";
+            dh.tongTien = TongTien(voucher);
+            dh.id_Voucher = voucher;
 
             db.DonHang.Add(dh);
             db.SaveChanges();
@@ -300,7 +296,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
          */
         public ActionResult ThanhToan(FormCollection collection)
         {
-            if (TongTien() >= 45000000)
+            if (TongTien("") >= 45000000)
             {
                 Notification.set_flash("Số tiền quá quá cao! Vui lòng chọn thanh toán khi nhận hàng!", "warning");
                 return RedirectToAction("DatHang", "GioHangs");
@@ -384,7 +380,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 dh.trangThaiGiaoHang = "0";
                 dh.trangThaiThanhToan = true;
                 dh.phuongThucThanhToan = "0";
-                dh.tongTien = TongTien();
+                dh.tongTien = TongTien("");
                 if (dh.tongTien != 0)
                 {
                     db.DonHang.Add(dh);
