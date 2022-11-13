@@ -30,10 +30,11 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 return RedirectToAction("Error401", "Admin");
             var all_donHang = data.DonHangs.ToList();
             //ViewBag.Keyword = searchString;
+
             int pageSize = 10;
             int pageNum = page ?? 1;
             return View(all_donHang.OrderByDescending(p => p.ngayDat).ToPagedList(pageNum, pageSize));
-            
+
         }
 
         // GET: DonHangs/Details
@@ -180,22 +181,28 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             return View(all_donHang.ToPagedList(pageNum, pageSize));
         }
 
+
+
         public FileResult Export()
         {
             DataTable dt = new DataTable("Grib");
             dt.Columns.AddRange(new DataColumn[] {
+                new DataColumn("STT"),
                 new DataColumn("Ngày"),
-                new DataColumn("Tổng Doanh Thu")
-            });
-            var emps = data.DonHangs.Where(t => t.trangThaiThanhToan == true).GroupBy(p => p.ngayDat).Distinct().Select(g => new
+                new DataColumn("Doanh Thu"),
+            }); ;
+            var emps = data.DonHangs.Where(t => t.trangThaiThanhToan == true && t.trangThaiGiaoHang == '1').GroupBy(p => p.ngayDat).Distinct().Select(g => new
             {
-                Pla = g.Key,
+                Pla = String.Format("{0:dd/MM/yyyy}", g.Key).ToString(),
                 Total = g.Sum(t => t.tongTien)
             });
+            int i = 1;
             foreach (var emp in emps)
             {
-                dt.Rows.Add(emp.Pla, emp.Total);
+                dt.Rows.Add(i++, emp.Pla, String.Format("{0:0,0}", emp.Total) + " VNĐ");
             }
+            dt.Rows.Add();
+            dt.Rows.Add("", "Tổng Doanh Thu", String.Format("{0:0,0}", emps.Sum(p => p.Total)) + " VNĐ");
             using (XLWorkbook wb = new XLWorkbook())
             {
                 wb.Worksheets.Add(dt);
@@ -206,6 +213,9 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 }
             }
         }
+
+
+
 
         public bool AuthAdmin()
         {

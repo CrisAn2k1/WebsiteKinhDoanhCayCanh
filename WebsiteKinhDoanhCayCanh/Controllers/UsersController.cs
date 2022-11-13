@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using WebsiteKinhDoanhCayCanh.Models;
 
@@ -95,7 +96,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( [Bind(Include = "Id,FullName,Address,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
+        public ActionResult Edit([Bind(Include = "Id,FullName,Address,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
         {
             if (!AuthAdmin())
                 return RedirectToAction("Error401", "Admin");
@@ -166,6 +167,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             return true;
         }
 
+        [Authorize]
         public ActionResult userDetail()
         {
             ApplicationUser userLogin = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
@@ -237,6 +239,30 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             catch (Exception ex)
             {
                 return Json(new { code = 500, msg = "Cật nhật số điện thoại thất bại:" + ex.Message }, JsonRequestBehavior.AllowGet);
+
+            }
+        }
+        [HttpPost]
+        public JsonResult changePassword(string id, string oldPassword, string newPassword)
+        {
+            try
+            {
+                var user = db.Users.SingleOrDefault(x => x.Id == id);
+                if (Crypto.VerifyHashedPassword(user.PasswordHash, oldPassword))
+                {
+                    user.PasswordHash = Crypto.HashPassword(newPassword);
+                    db.SaveChanges();
+                    return Json(new { code = 200, msg = "Thay đổi mật khẩu thành công", typemsg = "success" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { code = 400, msg = "Mật khẩu cũ không chính xác !", typemsg = "error" }, JsonRequestBehavior.AllowGet);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { code = 500, msg = "Thay đổi mật khẩu  thất bại" + ex.Message, typemsg = "error" }, JsonRequestBehavior.AllowGet);
 
             }
         }

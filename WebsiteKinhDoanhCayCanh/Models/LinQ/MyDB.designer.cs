@@ -87,7 +87,7 @@ namespace WebsiteKinhDoanhCayCanh.Models.LinQ
 	#endregion
 		
 		public MyDBDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyCayCanhConnectionString1"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyCayCanhConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
