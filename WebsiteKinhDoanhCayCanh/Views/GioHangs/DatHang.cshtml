@@ -2,8 +2,7 @@
 @model IEnumerable<WebsiteKinhDoanhCayCanh.Models.GioHang>
 @using WebsiteKinhDoanhCayCanh.Models.LinQ;
 @using WebsiteKinhDoanhCayCanh.Models;
-@{
-    ViewBag.Title = "DatHang";
+@{ ViewBag.Title = "DatHang";
     Layout = "~/Views/Shared/_Layout.cshtml";
     User kh = (User)Session["TaiKhoan"];
     MyDataEF db = new MyDataEF();
@@ -66,6 +65,9 @@
 <table class="table" style="margin: 50px 20px 0;font-size:16px;">
     <tr>
         <th>
+            <strong>STT</strong>
+        </th>
+        <th>
             <strong>Tên SP</strong>
         </th>
         <th>
@@ -85,11 +87,15 @@
         </th>
         <th></th>
     </tr>
-
-    @foreach (var item in Model)
+    @{ 
+    int index = 0;
+    foreach (var item in Model)
     {
+        index++;
         <tr style="font-size:14px">
-
+            <td style="vertical-align: middle; font-weight: 600; font-size: 15px;">
+                @index
+            </td>
             <td style="vertical-align: middle; font-weight: 600; font-size: 15px;">
                 @Html.DisplayFor(modelItem => item.sTenSanPham)
             </td>

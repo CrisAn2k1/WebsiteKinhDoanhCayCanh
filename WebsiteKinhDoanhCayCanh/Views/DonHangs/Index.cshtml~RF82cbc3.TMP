@@ -54,43 +54,55 @@
                 <tbody class="table-light">
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td style="min-width:115px">
-                                @Convert.ToDateTime(item.ngayDat).ToString("dd-MM-yyyy")
-                            </td>
-                            <td style="min-width:115px">
-                                @Convert.ToDateTime(item.ngayGiao).ToString("dd-MM-yyyy")
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.User.FullName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.User.Address)
-                            </td>
-                            <td>
-                                @String.Format("{0:0,0}", item.tongTien) VNĐ
-                            </td>
-                            <td class="checkbox">
-                            @if (item.trangThaiGiaoHang.ToString() == "0"){
-                                <span style="color:orange;font-weight:bold">Đang giao</span> 
-                            }
-                            else{if (item.trangThaiGiaoHang.ToString() == "1"){
-                                    <span style="color:forestgreen;font-weight:bold">Đã giao</span> }
-                                else{<span style="color:red;font-weight:bold">Đã huỷ đơn</span>}
-                            }                             
-                             </td>
-                            <td class="checkbox">
-                            @if (item.trangThaiThanhToan == true){
-                                <span style="color:forestgreen;font-weight:bold">Đã thanh toán</span> }
-                            else{
-                                <span style="color:red;font-weight:bold">Chưa thanh toán</span>
-                                }
-                            </td>
-                            <td>
-                                @Html.ActionLink("Chỉnh Sửa", "Edit", new { id = item.id_DH }, new { @class = "btn btn-warning" })
-                                @Html.ActionLink("Chi tiết", "Details", new { id = item.id_DH }, new { @class = "btn btn-info", @style = "margin-left:5px" })
-                            </td>
-                        </tr>}
+        <tr>
+            <!--<td class="checkbox">
+    @Html.EditorFor(modelItem => item.trangThaiGiaoHang)-->
+            @*<a href="@Url.Action("Edit","DonHangs",new { @tt = Html.DisplayFor(modelItem => item.TrangThaiGiaoHang), @id = item.MaDH})">Cập nhật</a>*@
+            @*<input type="submit" id="cbTrangThai" name="cbTrangThai"  class="btn btn-danger" style="zoom: 0.8;" />*@
+
+            <td style="min-width:115px">
+                @Convert.ToDateTime(item.ngayDat).ToString("dd-MM-yyyy")
+            </td>
+            <td style="min-width:115px">
+                @Convert.ToDateTime(item.ngayGiao).ToString("dd-MM-yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Address)
+            </td>
+            <td>
+                @String.Format("{0:0,0}", item.tongTien) VNĐ
+            </td>
+            <td class="checkbox">
+                @if (item.trangThaiGiaoHang.ToString() == "0")
+                {
+        <span style="color:orange;font-weight:bold">Đang giao</span> }
+                        else
+                        {
+                            if (item.trangThaiGiaoHang.ToString() == "1")
+                            {
+        <span style="color:forestgreen;font-weight:bold">Đã giao</span> }
+                            else
+                            {
+        <span style="color:red;font-weight:bold">Đã huỷ đơn</span>}
+                        }
+                @*<input type="submit" value="Cập nhật" class="btn btn-success" />*@
+            </td>
+            <td class="checkbox">
+                @if (item.trangThaiThanhToan == true)
+                {
+        <span style="color:forestgreen;font-weight:bold">Đã thanh toán</span> }
+                        else
+                        {
+        <span style="color:red;font-weight:bold">Chưa thanh toán</span>}
+            </td>
+            <td>
+                @Html.ActionLink("Chỉnh Sửa", "Edit", new { id = item.id_DH }, new { @class = "btn btn-warning" })
+                @Html.ActionLink("Chi tiết", "Details", new { id = item.id_DH }, new { @class = "btn btn-info", @style = "margin-left:5px" })
+            </td>
+        </tr>}
                 </tbody>
             </table>
             <div style=" margin-bottom:50px;">

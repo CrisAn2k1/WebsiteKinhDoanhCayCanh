@@ -30,7 +30,7 @@
                 <div class="alert alert-success">
                     <strong>Success !</strong> @TempData["AlertMessage"]
                 </div>}
-            <table class="table table-bordered table-dark text-center">
+            <table class="table table-bordered table-success text-center">
                 <thead class="thead-dark">
                     <tr>
                         <th>
@@ -112,7 +112,7 @@
                 }
             </table>
             <div>
-                <div>
+                <div class="MenuTrang" style="display: flex; flex-direction: row; justify-content: center;">
                     Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
                 </div>
                 <div class="MenuTrang" style="display: flex; flex-direction: row; justify-content: center;">

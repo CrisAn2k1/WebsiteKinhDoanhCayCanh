@@ -29,6 +29,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             if (!AuthAdmin())
                 return RedirectToAction("Error401", "Admin");
             var all_donHang = data.DonHangs.ToList();
+            //ViewBag.Keyword = searchString;
 
             int pageSize = 10;
             int pageNum = page ?? 1;
