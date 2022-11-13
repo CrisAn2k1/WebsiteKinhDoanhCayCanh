@@ -15,16 +15,13 @@
             <li class="auth manage dropdown">
                 @*@Html.ActionLink(userLogin.FullName, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
                 @*@Html.ActionLink(User.Identity.GetUserName(), "UserDetail", "Users")*@
-<<<<<<< HEAD
                 @*@Html.ActionLink(userLogin.FullName, "UserDetail", "Users")*@
                 <a>@userLogin.FullName</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
                     <a class="dropdown-item" href="@Url.Action( "UserDetail", "Users")">Quản lý tài khoản</a>
                     <a class="dropdown-item" href="@Url.Action("XemDonMua", "DonHangs")">Đơn hàng đã mua</a>
                 </div>
-=======
-                @Html.ActionLink(userLogin.FullName, "userDetail", "Users")
->>>>>>> a504ec95a795e95da3fa801308f2ef09b3a3e6c1
+
             </li>
 
             &emsp;
