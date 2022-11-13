@@ -1,15 +1,29 @@
 ﻿
 
-@{
-    ViewBag.Title = "userDetail";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+@{ ViewBag.Title = "userDetail";
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<div style="font-family: 'Sans-serif'">
+    <div class="hero-wrap hero-bread" style="background-image: url('/Template/img/banner-img.jpg');opacity:0.9" ;>
+        <div>
+            <div class="container">
+                <div class="row no-gutters slider-text align-items-center justify-content-center">
+                    <div class="col-md-9 ftco-animate text-center bg-text">
+                        <h1 class="mb-0 bread" style="color:antiquewhite">QUẢN LÝ TÀI KHOẢN</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
 <div class="body" id="show-data">
     <div class="form">
 
         <div class="row">
             <div class="col-lg-12">
                 <h4 style="display: flex; flex-direction: row; justify-content: center; color: forestgreen;">Quản lý tài khoản</h4>
+                <hr />
                 <input type="hidden" id="idUserLogin" value="@ViewBag.idUser" />
                 <div class="r">
                     <div class="title">
@@ -267,7 +281,7 @@
                 if (data.code == 200) {
 
                     let userName = data.userLogin.Email;
-                    let name = data.userLogin.Name;
+                    let name = data.userLogin.FullName;
                     let email = data.userLogin.Email;
                     let phoneNumber = data.userLogin.PhoneNumber;
                     let address = data.userLogin.Address;

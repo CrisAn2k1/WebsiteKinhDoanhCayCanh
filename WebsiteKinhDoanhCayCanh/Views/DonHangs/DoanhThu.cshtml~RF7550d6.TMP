@@ -13,13 +13,15 @@
                 {
                     <input type="submit" value="Xuất Excel" class="btn btn-success">
                 }
-            <br />
-            <table class="table table-bordered table-success text-center">              
+            
+            <table class="table table-bordered table-success">
+
+                
 
                 <thead >
                     <tr>
                         <th>
-                            Ngày/Tháng/Năm
+                            Ngày/Tháng/năm
                         </th>
                         <th>
                             Doanh thu
@@ -45,10 +47,10 @@
                 </tbody>
             </table>
             <div style=" margin-bottom:50px;">
-                <div class="MenuTrang" style="display: flex; flex-direction: row; justify-content: center;">
+                <div>
                     Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
                 </div>
-                <div class="MenuTrang" style="display: flex; flex-direction: row; justify-content: center;">
+                <div class="MenuTrang">
                     @Html.PagedListPager(Model, page => Url.Action("DoanhThu", new { page = page }))
                 </div>
             </div>

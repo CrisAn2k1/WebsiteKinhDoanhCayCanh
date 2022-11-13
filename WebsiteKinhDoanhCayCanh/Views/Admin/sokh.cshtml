@@ -1,0 +1,8 @@
+﻿@model IEnumerable<WebsiteKinhDoanhCayCanh.Models.LinQ.User>
+@{
+    Layout = null;
+}
+<div class="card-body">Sớ lượng tài khoản</div>
+<div class="card-footer d-flex align-items-center justify-content-between">
+    <a class="small text-white stretched-link" href='@Url.Action("Index", "Users")'><strong style="font-size: 20px"> @Model.Count()</strong></a>
+</div>

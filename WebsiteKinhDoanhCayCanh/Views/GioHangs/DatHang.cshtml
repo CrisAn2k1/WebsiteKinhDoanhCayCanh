@@ -2,13 +2,11 @@
 @model IEnumerable<WebsiteKinhDoanhCayCanh.Models.GioHang>
 @using WebsiteKinhDoanhCayCanh.Models.LinQ;
 @using WebsiteKinhDoanhCayCanh.Models;
-@{
-    ViewBag.Title = "DatHang";
+@{ ViewBag.Title = "DatHang";
     Layout = "~/Views/Shared/_Layout.cshtml";
     User kh = (User)Session["TaiKhoan"];
     MyDataEF db = new MyDataEF();
-    var lstVoucher = db.UserVoucher.Where(p => p.id_User == kh.Id).ToList();
-}
+    var lstVoucher = db.UserVoucher.Where(p => p.id_User == kh.Id).ToList(); }
 
 <style>
     table tbody tr td.info-order {
@@ -50,18 +48,24 @@
             color: #2351cfd9;
         }
 </style>
-<div class="hero-wrap hero-bread" style="background-image: url('/Content/images/banner/laptop-tot-nhat-1638390226558.jpg'); ">
-    <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-            <div class="col-md-9 ftco-animate text-center">
-                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Đơn</a></span> <span>Hàng</span></p>
-                <h1 class="mb-0 bread">Chi tiết đơn hàng</h1>
+<div style="font-family: 'Sans-serif'">
+    <div class="hero-wrap hero-bread" style="background-image: url('/Template/img/banner-img.jpg');opacity:0.9" ;>
+        <div>
+            <div class="container">
+                <div class="row no-gutters slider-text align-items-center justify-content-center">
+                    <div class="col-md-9 ftco-animate text-center bg-text">
+                        <h1 class="mb-0 bread" style="color:antiquewhite">ĐẶT HÀNG</h1>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <table class="table" style="margin: 50px 20px 0;font-size:16px;">
     <tr>
+        <th>
+            <strong>STT</strong>
+        </th>
         <th>
             <strong>Tên SP</strong>
         </th>
@@ -82,11 +86,15 @@
         </th>
         <th></th>
     </tr>
-
-    @foreach (var item in Model)
+    @{ 
+    int index = 0;
+    foreach (var item in Model)
     {
+        index++;
         <tr style="font-size:14px">
-
+            <td style="vertical-align: middle; font-weight: 600; font-size: 15px;">
+                @index
+            </td>
             <td style="vertical-align: middle; font-weight: 600; font-size: 15px;">
                 @Html.DisplayFor(modelItem => item.sTenSanPham)
             </td>
@@ -105,16 +113,16 @@
             <td style="vertical-align: middle; color: red; font-weight: bold;font-size:15px;">
                 @String.Format("{0:0,0}", item.dThanhTien)&#8363;
             </td>
-        </tr>
-    }
-    <tr style="font-weight:bold;text-align:right;font-size:18px;">
-        <td colspan="2">Tổng số sản phẩm: <strong style="color: red;">&ensp; @ViewBag.TongSoSanPham</strong></td>
-        <td colspan="2">Tổng Tiền: <strong style="color: red;">&ensp;@String.Format("{0:0,0}", @ViewBag.TongTien)&#8363;</strong> </td>
+        </tr>}
+        }
+    <tr style="font-weight:bold;text-align:center;font-size:18px;">  
+        <td colspan="3">Tổng số sản phẩm: <strong style="color: red;">&ensp; @ViewBag.TongSoSanPham</strong></td>
+        <td colspan="3">Tổng Tiền: <strong style="color: red;">&ensp;@String.Format("{0:0,0}", @ViewBag.TongTien)&#8363;</strong> </td>
     </tr>
 
 
-    <tr style="font-weight:bold;color:yellow;text-align:right;">
-        <td colspan="6">
+    <tr style="font-weight:bold;color:yellow;text-align:center;">
+        <td colspan="7">
             <!-- Button trigger modal -->
             <button style="padding: 10px 15px" type="button" class="btn text-white btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
                 <i class="fa fa-money-bill"></i> Đặt hàng
@@ -179,8 +187,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        }
+                            </div>}
                         <div class="modal-footer">
 
                         </div>
@@ -230,10 +237,10 @@
     });
 </script>
 @*<script>
-    function reload() {
-        document.getElementById("myForm").submit();
-    };
-</script>*@
+        function reload() {
+            document.getElementById("myForm").submit();
+        };
+    </script>*@
 
 
 

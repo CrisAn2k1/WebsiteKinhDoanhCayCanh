@@ -36,6 +36,12 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             var sdh = context.DonHangs.ToList();
             return View(sdh);
         }
+
+        public ActionResult sokh()
+        {
+            var skh = context.Users.ToList();
+            return View(skh);
+        }
         public ActionResult Error401()
         {
             return View();

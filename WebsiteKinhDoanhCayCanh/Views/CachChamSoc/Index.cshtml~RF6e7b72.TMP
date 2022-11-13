@@ -27,7 +27,7 @@
             <a class="btn btn-success" href="@Url.Action("Create", "CachChamSoc")" style="margin:10px 0px;">
                 Thêm cách chăm sóc
             </a>
-            <table class="table table-bordered table-success ">
+            <table class="table table-bordered table-info">
                 <thead class="thead-dark">
                     <tr>
                         <th>
@@ -43,13 +43,13 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td class="col-lg-2">
+                            <td class="col-lg-3">
                                 @Html.DisplayFor(modelItem => item.id_CCS)
                             </td>
-                             <td class="col-lg-6">
+                             <td class="col-lg-4">
                                 @Html.DisplayFor(modelItem => item.tenCCS)
                             </td>
-                            <td class="col-lg-4 text-center">
+                            <td class="col-lg-3 text-center">
                                 @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.id_CCS }, new { @class = "btn btn-warning" }) |
                                 @Html.ActionLink("Chi tiết", "Details", new { id = item.id_CCS }, new { @class = "btn btn-info" }) |
                                 @Html.ActionLink("Xóa", "Delete", new { id = item.id_CCS }, new { @class = "btn btn-danger", @style = "margin-left:5px" })
@@ -59,10 +59,10 @@
                 </tbody>
             </table>
             <div style=" margin-bottom:50px;">
-                <div class="MenuTrang" style="display: flex; flex-direction: row; justify-content: center;">
+                <div>
                     Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
                 </div>
-                <div class="MenuTrang" style="display: flex; flex-direction: row; justify-content: center;">
+                <div class="MenuTrang">
                     @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
                 </div>
             </div>

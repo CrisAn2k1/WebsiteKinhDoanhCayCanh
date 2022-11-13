@@ -33,28 +33,28 @@
                             <table class="table">
                                 <thead class="thead-primary">
                                     <tr class="text-center">
-                                        <th></th>  
+                                        <th></th>
                                         <th>STT</th>
-                                        <th>Tên sản phẩm</th>                                        
+                                        <th>Tên sản phẩm</th>
+                                        @*<th>SL còn lại</th>*@
                                         <th>Hình ảnh</th>
                                         <th>Giá</th>
                                         <th>Giảm giá</th>
                                         <th>Số lượng</th>
                                         <th>Số tiền</th>
+
                                     </tr>
                                 </thead>
-                                @{
-                                int index = 0;
-                                foreach (var item in Model)
+                                @foreach (var item in Model)
                                 {
-                                    index ++;
-                                    <tbody>                                      
-                                        
+                                    <tbody>
+                                        var i = 0;
+                                        i++;
                                         @using (Html.BeginForm("CapNhatGioHang", "GioHangs", new { @id = item.iIdSanPham }, FormMethod.Post, new { @id = "target-form" + "-" + item.iIdSanPham }))
                                         {
                                             <tr class="text-center">
                                                 <td class="product-remove"><a href="@Url.Action("XoaGioHang", "GioHangs", new { @iIdSanPham = item.iIdSanPham })"> <i class="ion-ios-trash" style="color:red;font-size:20px;font-weight:bold"></i></a></td>                                                
-                                                <td>@index</td>
+                                                <td class="sale"> <strong>i</strong></td>
                                                 <td class="product-name">
                                                     <h3><a href="/SanPhams/Details/@item.iIdSanPham">@item.sTenSanPham</a></h3>
                                                     
@@ -75,7 +75,7 @@
                                             </tr><!-- END TR-->
                                         }
                                     </tbody>
-                                }}
+                                }
                             </table>
                         </div>
                     </div>

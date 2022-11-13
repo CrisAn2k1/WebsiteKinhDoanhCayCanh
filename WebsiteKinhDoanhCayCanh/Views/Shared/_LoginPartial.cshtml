@@ -14,11 +14,17 @@
         @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav navbar-right">
-            <li class="auth manage">
+            <li class="auth manage dropdown">
                 @*@Html.ActionLink(userLogin.FullName, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
                 @*@Html.ActionLink(User.Identity.GetUserName(), "UserDetail", "Users")*@
-                @Html.ActionLink(userLogin.FullName, "UserDetail", "Users")
+                @*@Html.ActionLink(userLogin.FullName, "UserDetail", "Users")*@
+                <a>@userLogin.FullName</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                    <a class="dropdown-item" href="@Url.Action( "UserDetail", "Users")">Quản lý tài khoản</a>
+                    <a class="dropdown-item" href="@Url.Action("XemDonMua", "DonHangs")">Đơn hàng đã mua</a>
+                </div>
             </li>
+
             &emsp;
             <li class="auth logout"><a href="javascript:document.getElementById('logoutForm').submit()"> Đăng Xuất</a></li>
         </ul>
