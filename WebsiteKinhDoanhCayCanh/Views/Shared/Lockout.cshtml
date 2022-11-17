@@ -1,10 +1,26 @@
 ﻿@model System.Web.Mvc.HandleErrorInfo
 
-@{
-    ViewBag.Title = "Locked Out";
-}
-
+@{ ViewBag.Title = "Locked Out"; }
+<section>
+    <div style="font-family: 'Sans-serif'">
+        <div class="hero-wrap hero-bread" style="background-image: url('/Template/img/banner-img.jpg');opacity:0.9" ;>
+            <div>
+                <div class="container">
+                    <div class="row no-gutters slider-text align-items-center justify-content-center">
+                        <div class="col-md-9 ftco-animate text-center bg-text">
+                            <h1 class="mb-0 bread" style="color:antiquewhite">ĐĂNG NHẬP</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br />
+<hr />
 <hgroup>
-    <h1 class="text-danger">Locked out.</h1>
-    <h2 class="text-danger">This account has been locked out, please try again later.</h2>
+    <h1 class="text-danger" style="text-align:center;">Tài khoản bị khóa</h1>
+    <h3 class="text-body">Tài khoản của bạn đã bị khóa, vui lòng thử lại sau.</h3>
+    <p>Có thể tài khoản đã vi phạm điều khoản của shop, hãy liên hệ với cửa hàng.</p>
+    <br />
 </hgroup>

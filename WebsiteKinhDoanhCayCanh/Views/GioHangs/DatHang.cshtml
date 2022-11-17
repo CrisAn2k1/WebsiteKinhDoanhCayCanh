@@ -8,6 +8,7 @@
     MyDataEF db = new MyDataEF();
     var lstVoucher = db.UserVoucher.Where(p => p.id_User == kh.Id).ToList();
 }
+
 <style>
     table tbody tr td.info-order {
         font-weight: normal;
@@ -39,7 +40,7 @@
 
     .btn-back-to-cart {
         background: #e4d6437a;
-        color: #f12121c7;
+        color: forestgreen;
         border-radius: 20px;
     }
 
@@ -87,50 +88,62 @@
         </th>
         <th></th>
     </tr>
-    @{ 
-    int index = 0;
+    @{ int index = 0;
     foreach (var item in Model)
     {
         index++;
-        <tr style="font-size:14px">
-            <td style="vertical-align: middle; font-weight: 600; font-size: 15px;">
-                @index
-            </td>
-            <td style="vertical-align: middle; font-weight: 600; font-size: 15px;">
-                @Html.DisplayFor(modelItem => item.sTenSanPham)
-            </td>
-            <td>
-                <img src="@item.sHinh" alt="Ảnh món ăn" width="40" />
-            </td>
-            <td style="vertical-align:middle;font-weight:600;font-size:15px;">
-                @String.Format("{0:0,0}", item.dGia)&#8363;
-            </td>
-            <td style="vertical-align: middle; font-weight: 600;font-size:15px;">
-                @Html.DisplayFor(modelItem => item.iSoLuong)
-            </td>
-            <td style="vertical-align: middle; font-weight: bold;font-size:15px;">
-                @String.Format("{0:0,0}", -item.igiamGia * item.iSoLuong * item.dGia / 100)&#8363;
-            </td>
-            <td style="vertical-align: middle; color: red; font-weight: bold;font-size:15px;">
-                @String.Format("{0:0,0}", item.dThanhTien)&#8363;
-            </td>
+            <tr style="font-size:14px">
+                <td style="vertical-align: middle; font-weight: 600; font-size: 15px;">
+                    @index
+                </td>
+                <td style="vertical-align: middle; font-weight: 600; font-size: 15px;">
+                    @Html.DisplayFor(modelItem => item.sTenSanPham)
+                </td>
+                <td>
+                    <img src="@item.sHinh" alt="Ảnh món ăn" width="40" />
+                </td>
+                <td style="vertical-align:middle;font-weight:600;font-size:15px;">
+                    @String.Format("{0:0,0}", item.dGia)&#8363;
+                </td>
+                <td style="vertical-align: middle; font-weight: 600;font-size:15px;">
+                    @Html.DisplayFor(modelItem => item.iSoLuong)
+                </td>
+                <td style="vertical-align: middle; font-weight: bold;font-size:15px;">
+                    @String.Format("{0:0,0}", -item.igiamGia * item.iSoLuong * item.dGia / 100)&#8363;
+                </td>
+                <td style="vertical-align: middle; color: red; font-weight: bold;font-size:15px;">
+                    @String.Format("{0:0,0}", item.dThanhTien)&#8363;
+                </td>
+            </tr> } 
+     }
+
+        <tr style="font-weight:bold;text-align:left;font-size:18px;">
+            <td></td>
+            <td></td>
+            <td colspan="2">Tổng số sản phẩm: <strong style="color: red;">&ensp; @ViewBag.TongSoSanPham</strong></td>
+            <td colspan="2">Tổng Tiền: <strong id="tongTien" style="color: red;">&ensp;@String.Format("{0:0,0}", @ViewBag.TongTien)&#8363;</strong> </td>
         </tr>
-    }
-    <tr style="font-weight:bold;text-align:right;font-size:18px;">
-        <td colspan="2">Tổng số sản phẩm: <strong style="color: red;">&ensp; @ViewBag.TongSoSanPham</strong></td>
-        <td colspan="2">Tổng Tiền: <strong id="tongTien" style="color: red;">&ensp;@String.Format("{0:0,0}", @ViewBag.TongTien)&#8363;</strong> </td>
-    </tr>
+</table>
+<br />
 
+    @*<tr style="font-weight:bold;color:yellow;text-align:right;">
+        <td colspan="8">*@
+            <div class="row">
+            <div class="col-lg-6" style="text-align:center">
+                @*<a href="/GioHangs/GioHang?IdVoucher=@ViewBag.Voucher" class="btn-back-to-cart py-3 px-4" style="text-decoration:none"><i class="fa fa-solid fa-bag-shopping"></i> Trở Về Giỏ Hàng</a>*@                
+                  <a href="/GioHangs/GioHang?IdVoucher=@ViewBag.Voucher" class="btn-back-to-cart py-3 px-4" style="text-decoration:none"><i class="fa fa-solid fa-bag-shopping"></i> Trở về giỏ hàng </a>
+            </div>
 
-
-    <tr style="font-weight:bold;color:yellow;text-align:right;">
-        <td colspan="6">
             <!-- Button trigger modal -->
-            <button style="padding: 10px 15px" type="button" class="btn text-white btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
-                <i class="fa fa-money-bill"></i> Đặt hàng
-            </button>
+            <div class="col-lg-6" style="text-align:center">
+                <button style="padding: 10px 15px" type="button" class="btn text-white btn-success" data-toggle="modal" data-target="#exampleModalCenter">
+                    <i class="icon-shopping_cart" ></i> Đặt hàng
+                </button>
+            </div>
+            </div>
 
             <!-- Modal -->
+        <div style="font-weight:bold;color:yellow;text-align:center;">
             <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content" style="min-width:30vw;color:black">
@@ -190,20 +203,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <input hidden id="input_Voucher" type="text" name="Voucher" maxlength="200" value="@ViewBag.Voucher" />
-                        }
+                                            <input hidden id="input_Voucher" type="text" name="Voucher" maxlength="200" value="@ViewBag.Voucher" />}
                         <div class="modal-footer">
 
                         </div>
                     </div>
                 </div>
             </div><br /><br />
-            <div>
-                <a href="/GioHangs/GioHang?IdVoucher=@ViewBag.Voucher" class="btn-back-to-cart py-3 px-4" style="text-decoration:none"><i class="fa fa-solid fa-bag-shopping"></i> Trở Về Giỏ Hàng</a>
-            </div>
-        </td>
-    </tr>
-</table>
+        @*</td>
+    </tr>*@
+    </div>
 <script>
     $(document).ready(function () {
         var date = new Date();
