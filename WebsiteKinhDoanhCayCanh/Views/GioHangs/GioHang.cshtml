@@ -53,32 +53,33 @@
                                         
                                         @using (Html.BeginForm("CapNhatGioHang", "GioHangs", new { @id = item.iIdSanPham }, FormMethod.Post, new { @id = "target-form" + "-" + item.iIdSanPham }))
                                         {
-                                        <tr class="text-center">
-                                            <td class="product-remove"><a href="@Url.Action("XoaGioHang", "GioHangs", new { @iIdSanPham = item.iIdSanPham })"> <i class="ion-ios-trash" style="color:red;font-size:20px;font-weight:bold"></i></a></td>
+                                            <tr class="text-center">
+                                                <td class="product-remove"><a href="@Url.Action("XoaGioHang", "GioHangs", new { @iIdSanPham = item.iIdSanPham })"> <i class="ion-ios-trash" style="color:red;font-size:20px;font-weight:bold"></i></a></td>
+                                                <td>@index</td>
+                                                <td class="product-name">
+                                                    <h3><a href="/SanPhams/Details/@item.iIdSanPham">@item.sTenSanPham</a></h3>
+                                                </td>
+                                                <td class="image-prod"><a href="/SanPhams/Details/@item.iIdSanPham"><div class="img" style="background-image:url('@item.sHinh');"></div></a> </td>
 
-                                            <td class="image-prod"><a href="/SanPhams/Details/@item.iIdSanPham"><div class="img" style="background-image:url('@item.sHinh');"></div></a> </td>
+                                                
 
-                                            <td class="product-name">
-                                                <h3><a href="/SanPhams/Details/@item.iIdSanPham">@item.sTenSanPham</a></h3>
-                                            </td>
+                                                <td class="price">@String.Format("{0:0,0}", item.dGia)&#8363;</td>
+                                                <td class="sale">
+                                                    @if (item.igiamGia > 0)
+                                                    {
+                                                        <strong>-@item.igiamGia%</strong>
+                                                    }
+                                                </td>
+                                                <td class="quantity">
+                                                    <div class="input-group mb-3">
+                                                        <input id="quantity-@item.iIdSanPham" type="number" name="quantity" class="quantity form-control input-number" value="@item.iSoLuong" min="1" max="100" maxlength="3"
+                                                               onchange="updateGioHang('target-form-@item.iIdSanPham', this.id ,this.value)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace('.','');" />
+                                                    </div>
+                                                </td>
 
-                                            <td class="price">@String.Format("{0:0,0}", item.dGia)&#8363;</td>
-                                            <td class="sale">
-                                                @if (item.igiamGia > 0)
-                                                {
-                                                    <strong>-@item.igiamGia%</strong>
-                                                }
-                                            </td>
-                                            <td class="quantity">
-                                                <div class="input-group mb-3">
-                                                    <input id="quantity-@item.iIdSanPham" type="number" name="quantity" class="quantity form-control input-number" value="@item.iSoLuong" min="1" max="100" maxlength="3"
-                                                           onchange="updateGioHang('target-form-@item.iIdSanPham', this.id ,this.value)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace('.','');" />
-                                                </div>
-                                            </td>
+                                                <td class="total-price" style="color:red"><strong>@String.Format("{0:0,0}", item.dThanhTien)&#8363;</strong> </td>
 
-                                            <td class="total-price" style="color:red"><strong>@String.Format("{0:0,0}", item.dThanhTien)&#8363;</strong> </td>
-
-                                        </tr><!-- END TR-->
+                                            </tr><!-- END TR-->
                                         }
                                     </tbody>
                                 }}
@@ -93,7 +94,7 @@
                     <div class="col-lg-6 mt-5 cart-wrap ftco-animate">
                         <hr />
                         <div>
-                            <p><a href="@Url.Action("Index", "Home")" class="btn btn-primary py-3 px-4 "><img src="~/Template/img/home.png" width="25" height="25" ; />&ensp; Quay lại trang chủ </a></p>
+                            <p><a href="@Url.Action("Index", "Home")" class="btn btn-light py-3 px-4 "><img src="~/Template/img/home.png" width="25" height="25" ; />&ensp; Quay lại trang chủ </a></p>
                         </div>
                     </div>
 
@@ -172,7 +173,7 @@
                 </div>
 
             </div>
-        </div>
+        
 
 
     }
