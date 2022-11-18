@@ -29,6 +29,17 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             int pageNum = page ?? 1;
             return View(ApplicationUser.getAll(searchString).ToPagedList(pageNum, pageSize));
         }
+        [Authorize]
+        public ActionResult IndexAdmin(int? page, string searchString)
+        {
+            if (!AuthAdmin())
+                return RedirectToAction("Error401", "Admin");
+            ViewBag.Keyword = searchString;
+            //var all_user = db.Users.Where(u => u.Roles.FirstOrDefault(r => r.UserId == u.Id).RoleId != "1").ToList();
+            int pageSize = 10;
+            int pageNum = page ?? 1;
+            return View(ApplicationUser.getAllAdmin(searchString).ToPagedList(pageNum, pageSize));
+        }
 
         // GET: Users/Details
         public ActionResult Details(string id)

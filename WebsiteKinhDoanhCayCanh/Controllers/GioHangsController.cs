@@ -235,7 +235,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             Models.LinQ.User kh = (Models.LinQ.User)Session["TaiKhoan"];
             //SanPham s = new SanPham();
             List<GioHang> gh = layGioHang();
-            var ngaygiao = String.Format("{0:dd/MM/yyyy hh:mm tt}", collection["NgayGiao"]);
+            var ngaygiao = String.Format("{0:dd/MM/yyyy}", collection["NgayGiao"]);
             dh.id_User = kh.Id;
             dh.ngayDat = DateTime.Now;
             dh.ngayGiao = DateTime.Parse(ngaygiao);

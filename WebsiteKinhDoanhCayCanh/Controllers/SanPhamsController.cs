@@ -19,6 +19,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         private MyDataEF db = new MyDataEF();
         ApplicationDbContext data = new ApplicationDbContext();
         // GET: SanPhams
+
         //user 
         public ActionResult Index(int? page, string id_Nhom, string searchString)
         {
@@ -177,6 +178,8 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
 
 
         // ADMIN
+
+        [Authorize]
         public ActionResult IndexAdmin(int? page, string searchString)
         {
             if (!AuthAdmin())
@@ -187,7 +190,9 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             int pageNum = page ?? 1;
             return View(SanPham.getAll(searchString).ToPagedList(pageNum, pageSize));
         }
+
         // GET: SanPhams/Details/5 Admin
+        [Authorize]
         public ActionResult DetailsAdmin(string id)
         {
             if (!AuthAdmin())
@@ -204,8 +209,12 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             return View(sanPham);
         }
         // GET: SanPhams/Create
+        [Authorize]
         public ActionResult Create()
         {
+            if (!AuthAdmin())
+                return RedirectToAction("Error401", "Admin");
+
             ViewBag.id_Nhom = new SelectList(db.NhomSP, "id_Nhom", "tenNhom");
             ViewBag.id_SP = new SelectList(db.ThongTinThemVeSP, "id_SP", "congDung");
             return View();
@@ -214,16 +223,20 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         // POST: SanPhams/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_SP,tenSP,mota,gia,soLuong,DVT,phanTramGiamGia,id_Nhom")] SanPham sanPham)
         {
-            if (ModelState.IsValid)
-            {                       
-            ThongTinThemVeSP thongTinThemVeSP = new ThongTinThemVeSP();
-                    
+            if (!AuthAdmin())
+                return RedirectToAction("Error401", "Admin");
+
+            var idUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
+
+            if (ModelState.IsValid && idUser != null)
+            {
                 db.SanPham.Add(sanPham);
-                db.SaveChanges();
+
                 if (Request["congDung"] != null && Request["cachTrong"] != null)
                 {
                     string content1 = Request["congDung"].ToString() + " ";
@@ -232,21 +245,39 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                     {
                         return RedirectToAction("Create");
                     }
+                    ThongTinThemVeSP thongTinThemVeSP = new ThongTinThemVeSP();
                     thongTinThemVeSP.id_SP = sanPham.id_SP;
                     thongTinThemVeSP.cachTrong = content2;
                     thongTinThemVeSP.congDung = content1;
-                    /* addTTT.Create(content1, content2, id, thongTinThemVeSP);*/
                     db.ThongTinThemVeSP.Add(thongTinThemVeSP);
-                    db.SaveChanges();
                 }
+
+                HinhAnhSP hinhAnhSP = new HinhAnhSP();
+                var srcImg = Request["Hinh"].ToString() + "";
+                hinhAnhSP.id_SP = sanPham.id_SP;
+                hinhAnhSP.duongDan = srcImg;
+                db.HinhAnhSP.Add(hinhAnhSP);
+
+                CTCapNhat ctCapNhat = new CTCapNhat();
+                ctCapNhat.id_User = idUser;
+                ctCapNhat.id_SP = sanPham.id_SP;
+                ctCapNhat.ngayCapNhat = DateTime.Now;
+                ctCapNhat.thaoTac = "Create";
+                db.CTCapNhat.Add(ctCapNhat);
+                db.SaveChanges();
+
+
                 return RedirectToAction("Create");
             }
             return View(sanPham);
         }
 
         // GET: SanPhams/Edit
+        [Authorize]
         public ActionResult Edit(string id)
         {
+            if (!AuthAdmin())
+                return RedirectToAction("Error401", "Admin");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -264,40 +295,52 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         // POST: Edit
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( [Bind(Include = "id_SP,tenSP,mota,gia,soLuong,DVT,phanTramGiamGia,id_Nhom")] SanPham sanPham)
+        public ActionResult Edit([Bind(Include = "id_SP,tenSP,mota,gia,soLuong,DVT,phanTramGiamGia,id_Nhom")] SanPham sanPham)
         {
-            ThongTinThemVeSP thongTinThemVeSP = db.ThongTinThemVeSP.Single(p => p.id_SP == sanPham.id_SP);
-            string content1 = Request["congDung"].ToString() + " ";
-            string content2 = Request["cachTrong"].ToString() + " ";
-            if (ModelState.IsValid)
+            if (!AuthAdmin())
+                return RedirectToAction("Error401", "Admin");
+            var idUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
+
+            if (ModelState.IsValid && idUser != null)
             {
                 db.Entry(sanPham).State = EntityState.Modified;
-                db.SaveChanges();
+
                 if (Request["congDung"] != null && Request["cachTrong"] != null)
                 {
-                    
+                    string content1 = Request["congDung"].ToString() + " ";
+                    string content2 = Request["cachTrong"].ToString() + " ";
                     if (content1 == " " || content2 == " ")
                     {
                         return RedirectToAction("IndexAdmin");
                     }
-                    thongTinThemVeSP.cachTrong = content2;
+                    ThongTinThemVeSP thongTinThemVeSP = db.ThongTinThemVeSP.Single(p => p.id_SP == sanPham.id_SP);
                     thongTinThemVeSP.congDung = content1;
-                    /* addTTT.Create(content1, content2, id, thongTinThemVeSP);*/
-                    /*db.Entry(thongTinThemVeSP).State = EntityState.Modified;*/
-                    db.SaveChanges();
+                    thongTinThemVeSP.cachTrong = content2;
                 }
+
+                CTCapNhat ctCapNhat = new CTCapNhat();
+                ctCapNhat.id_User = idUser;
+                ctCapNhat.id_SP = sanPham.id_SP;
+                ctCapNhat.ngayCapNhat = DateTime.Now;
+                ctCapNhat.thaoTac = "Update";
+                db.CTCapNhat.Add(ctCapNhat);
+                db.SaveChanges();
                 return RedirectToAction("IndexAdmin");
-            }          
+            }
             ViewBag.id_Nhom = new SelectList(db.NhomSP, "id_Nhom", "tenNhom", sanPham.id_Nhom);
             ViewBag.id_SP = new SelectList(db.ThongTinThemVeSP, "id_SP", "congDung", sanPham.id_SP);
             return View(sanPham);
         }
 
         // GET: SanPhams/Delete
+        [Authorize]
         public ActionResult Delete(string id)
         {
+            if (!AuthAdmin())
+                return RedirectToAction("Error401", "Admin");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -311,10 +354,13 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         }
 
         // POST: SanPhams/Delete
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
+            if (!AuthAdmin())
+                return RedirectToAction("Error401", "Admin");
             SanPham sanPham = db.SanPham.Find(id);
             db.SanPham.Remove(sanPham);
             db.SaveChanges();
@@ -328,6 +374,16 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public string ProcessUpload(HttpPostedFileBase file)
+        {
+            if (file == null)
+            {
+                return "";
+            }
+            file.SaveAs(Server.MapPath("~/Template/img/Product/" + file.FileName));
+            return "/Template/img/Product/" + file.FileName;
         }
         public bool AuthAdmin()
         {

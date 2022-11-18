@@ -224,20 +224,21 @@
         if (month < 10) month = "0" + month;
         if (day < 10) day = "0" + day;
 
-        var today = year + "-" + month + "-" + day;
+        var tomorow = year + "-" + month + "-" + day;
 
-        $("#setDay").attr("value", today);
+        $("#setDay").attr("value", tomorow);
 
         $('#setDay').change(function (e) {
             var startDate = new Date(document.getElementById('setDay').value);
             var setDay = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
 
             if (isNaN(startDate))
-                $("#setDay").val(today);
+                $("#setDay").val(tomorow);
 
-            if (startDate < setDay)
-                $("#setDay").val(today);
-            if (startDate.getDate() - date.getDate() > 7) {
+            if (startDate < setDay || startDate.getMonth() - date.getMonth() < 0 || startDate.getFullYear() - date.getFullYear() < 0)
+                $("#setDay").val(tomorow);
+
+            if (startDate.getDate() - date.getDate() > 7 || startDate.getMonth() - date.getMonth() > 0 || startDate.getFullYear() - date.getFullYear() > 0) {
                 Swal.fire(
                     'Thông báo!',
                     'Ngày giao hàng nhiều nhất là 7 ngày kể từ lúc đặt hàng!',

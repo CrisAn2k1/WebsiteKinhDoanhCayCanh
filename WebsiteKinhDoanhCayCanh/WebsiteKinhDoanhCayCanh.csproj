@@ -270,6 +270,7 @@
     <Compile Include="Controllers\DanhGiasController.cs" />
     <Compile Include="Controllers\DonHangsController.cs" />
     <Compile Include="Controllers\GioHangsController.cs" />
+    <Compile Include="Controllers\HinhAnhSPsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NhomSPController.cs" />
@@ -586,7 +587,9 @@
     <Content Include="Template\img\caytieutram.jpg" />
     <Content Include="Template\img\caytieutram2.jpg" />
     <Content Include="Template\img\caytieutram3.jpg" />
+    <Content Include="Template\img\default-thumbnail.jpg" />
     <Content Include="Template\img\home.png" />
+    <Content Include="Template\img\icon-add-img.png" />
     <Content Include="Template\img\icon-cart.png" />
     <Content Include="Template\img\icon-web.png" />
     <Content Include="Template\img\banner2.jpg" />
@@ -692,9 +695,16 @@
     <Content Include="Views\Users\Delete.cshtml" />
     <Content Include="Views\Users\userDetail.cshtml" />
     <Content Include="Views\Admin\sokh.cshtml" />
+    <Content Include="Views\Users\IndexAdmin.cshtml" />
+    <Content Include="Views\HinhAnhSPs\Create.cshtml" />
+    <Content Include="Views\HinhAnhSPs\Delete.cshtml" />
+    <Content Include="Views\HinhAnhSPs\Details.cshtml" />
+    <Content Include="Views\HinhAnhSPs\Edit.cshtml" />
+    <Content Include="Views\HinhAnhSPs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Template\img\Product\" />
     <Folder Include="Views\Report\" />
     <Folder Include="Views\ThongTinThemVeSP\" />
   </ItemGroup>

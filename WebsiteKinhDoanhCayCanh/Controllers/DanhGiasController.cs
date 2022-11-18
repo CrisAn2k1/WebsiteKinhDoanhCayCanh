@@ -33,6 +33,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         // POST: DanhGias/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(int numberStar, string id, [Bind(Include = "id_DanhGia,soSao,ngayDG,trangThai,id_User,id_SP")] DanhGia danhGia)
