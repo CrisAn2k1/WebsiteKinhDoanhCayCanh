@@ -24,6 +24,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         private MyDBDataContext data = new MyDBDataContext();
         private ApplicationDbContext dataUser = new ApplicationDbContext();
         // GET: DonHangs
+        [Authorize]
         public ActionResult Index(int? page)
         {
             if (!AuthAdmin())
@@ -89,7 +90,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
 
             return View(donHang);
         }
-
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (!AuthAdmin())
@@ -117,6 +118,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         // POST: DonHangs/Edit
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id_DH,ngayDat,ngayGiao,trangThaiThanhToan,trangThaiGiaoHang,phuongThucThanhToan,tongTien,diaChiGiao,id_User,id_Voucher")] Models.DonHang donHang)
@@ -171,6 +173,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             base.Dispose(disposing);
         }
 
+        [Authorize]
         public ActionResult DoanhThu(int? page)
         {
             if (!AuthAdmin())
@@ -181,8 +184,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             return View(all_donHang.ToPagedList(pageNum, pageSize));
         }
 
-
-
+        [Authorize]
         public FileResult Export()
         {
             DataTable dt = new DataTable("Grib");

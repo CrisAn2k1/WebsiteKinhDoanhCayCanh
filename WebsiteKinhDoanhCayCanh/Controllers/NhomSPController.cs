@@ -17,7 +17,9 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
     {
         private MyDataEF db = new MyDataEF();
         ApplicationDbContext data = new ApplicationDbContext();
+
         // GET: NhomSP
+        [Authorize]
         public ActionResult Index(int? page, string searchString)
         {
             if (!AuthAdmin())
@@ -30,6 +32,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         }
 
         // GET: Details
+        [Authorize]
         public ActionResult Details(string id)
         {
             if (!AuthAdmin())
@@ -47,6 +50,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         }
 
         // GET: Create
+        [Authorize]
         public ActionResult Create()
         {
             if (!AuthAdmin())
@@ -58,6 +62,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         // POST: Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_Nhom,tenNhom,id_CCS")] NhomSP nhomSP)
@@ -76,6 +81,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         }
 
         // GET: Edit
+        [Authorize]
         public ActionResult Edit(string id)
         {
             if (!AuthAdmin())
@@ -96,6 +102,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         // POST: Edit
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id_Nhom,tenNhom,id_CCS")] NhomSP nhomSP)
@@ -112,6 +119,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             return View(nhomSP);
         }
         // GET: /Delete
+        [Authorize]
         public ActionResult Delete(string id)
         {
             if (!AuthAdmin())
@@ -129,6 +137,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         }
 
         // POST: /Delete
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)

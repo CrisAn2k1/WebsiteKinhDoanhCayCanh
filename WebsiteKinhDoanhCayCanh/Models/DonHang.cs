@@ -19,8 +19,10 @@ namespace WebsiteKinhDoanhCayCanh.Models
         [Key]
         public int id_DH { get; set; }
 
+        [Column(TypeName = "date")]
         public DateTime? ngayDat { get; set; }
 
+        [Column(TypeName = "date")]
         public DateTime? ngayGiao { get; set; }
 
         public Boolean trangThaiThanhToan { get; set; }
@@ -48,13 +50,13 @@ namespace WebsiteKinhDoanhCayCanh.Models
         public virtual Voucher Voucher { get; set; }
         //public virtual ICollection<ApplicationUser> Users { get; set; }
 
-/*        public static List<DonHang> getAll(String searchKey)
-        {
-            MyDataEF db = new MyDataEF();
-            searchKey = searchKey + "";
-            //List<ChiTietDonHang> list = db.ChiTietDonHang.Where(a => a.SanPham.Ten.Contains(keyWord) && a.Soluong > 0).ToList();
-            //return db.DonHang.ToList();
-            return db.DonHang.Where(p => p.diaChiGiao.Contains(searchKey)).ToList();
-        }*/
+        /*        public static List<DonHang> getAll(String searchKey)
+                {
+                    MyDataEF db = new MyDataEF();
+                    searchKey = searchKey + "";
+                    //List<ChiTietDonHang> list = db.ChiTietDonHang.Where(a => a.SanPham.Ten.Contains(keyWord) && a.Soluong > 0).ToList();
+                    //return db.DonHang.ToList();
+                    return db.DonHang.Where(p => p.diaChiGiao.Contains(searchKey)).ToList();
+                }*/
     }
 }
