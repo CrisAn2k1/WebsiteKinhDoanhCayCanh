@@ -1,7 +1,10 @@
 ﻿@model WebsiteKinhDoanhCayCanh.Models.SanPham
-
+@using WebsiteKinhDoanhCayCanh.Models
+@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.Owin
 @{ ViewBag.Title = "DetailsAdmin";
-                Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ApplicationUser userLogin = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId()); }
 
 
 <style>
@@ -32,14 +35,26 @@
         <h2 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen;">Chi tiết sản phẩm</h2>
         <div class="container-fluid px-4" style=" margin-top:20px;">
             <div class="d-flex justify-content-center align-items-center flex-column">
-                
+
                 <dl class="dl-horizontal" style="display:flex;flex-wrap:wrap;justify-content:center ;width:65%">
                     <dt><hr /></dt>
                     <dd><hr /></dd>
-                    <dt class="col-md-2" >
+                    <dt class="col-md-2">
+                        Trạng thái sản phẩm:
+                    </dt>
+                    <dd class="col-md-10">
+                        @if (Model.trangThai == true)
+                        {
+                            <span style="color:limegreen;font-weight:500">Hiển thị sản phẩm</span>
+                            @Html.HiddenFor(model => model.trangThai) }
+                        else { 
+                            <span style="color:limegreen;font-weight:500">Ẩn sản phẩm</span>
+                            @Html.HiddenFor(model => model.trangThai) }
+                    </dd>
+                    <dt class="col-md-2">
                         Mã đơn hàng:
                     </dt>
-                    <dd class="col-md-10" >
+                    <dd class="col-md-10">
                         @Html.DisplayFor(model => model.id_SP)
                     </dd>
                     <dt class="col-md-2">
@@ -52,9 +67,13 @@
                     <dt class="col-md-2">
                         Hình:
                     </dt>
-                    <dd class="col-md-10" >
+
+                    <dd class="col-md-10">
                         <img src="@Model.HinhAnhSP.Where(p => p.id_SP == Model.id_SP).FirstOrDefault().duongDan" alt="thumbnail" width="150" />
+
                     </dd>
+                    <dt></dt>
+                    <dd>@Html.ActionLink("Xem thêm ảnh", "Index", "HinhAnhSPs", new { @id_SP = Model.id_SP }, new { @class = "btn btn-info" })</dd>
                     <dt class="col-md-2">
                         Mô tả:
                     </dt>
@@ -70,32 +89,32 @@
                     <dt class="col-md-2">
                         Đơn vị tính:
                     </dt>
-                    <dd class="col-md-10" >
+                    <dd class="col-md-10">
                         @Html.DisplayFor(model => model.DVT)
                     </dd>
                     <dt class="col-md-2">
                         Giá:
                     </dt>
-                    <dd class="col-md-10" >
+                    <dd class="col-md-10">
                         @String.Format("{0:0,0}", @Model.gia) VNĐ
                     </dd>
                     <dt class="col-md-2">
                         Phần trăm giảm giá:
                     </dt>
-                    <dd class="col-md-10" >
+                    <dd class="col-md-10">
                         @Html.DisplayFor(model => model.phanTramGiamGia) %
                     </dd>
 
                     <dt class="col-md-2">
                         Cách trồng:
                     </dt>
-                    <dd class="col-md-10" >
+                    <dd class="col-md-10">
                         @Html.DisplayFor(model => model.ThongTinThemVeSP.cachTrong)
                     </dd>
                     <dt class="col-md-2">
                         Công dụng:
                     </dt>
-                    <dd class="col-md-10" >
+                    <dd class="col-md-10">
                         @Html.DisplayFor(model => model.ThongTinThemVeSP.congDung)
                     </dd>
                     <dt><hr /></dt>
@@ -135,8 +154,8 @@
                                 </td>
 
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.id_User)
-                                    
+                                    @{userLogin = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(item.id_User); }
+                                    @userLogin.FullName
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.ngayCapNhat)
@@ -151,7 +170,7 @@
             </div>
             <p>
 
-                @Html.ActionLink("Sửa", "Edit", new { id = Model.id_SP }, new { @class = "btn btn-info" }) |
+                @Html.ActionLink("Sửa", "Edit", new { id = Model.id_SP }, new { @class = "btn btn-warning" }) |
                 <a class="btn btn-success" href='@Url.Action("IndexAdmin", "SanPhams")' style="margin:10px 0px;">
                     Trở về
                 </a>

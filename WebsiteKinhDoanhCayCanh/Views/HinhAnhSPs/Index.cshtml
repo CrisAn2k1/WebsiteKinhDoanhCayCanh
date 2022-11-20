@@ -50,6 +50,7 @@
 
                     index = 0;
                     <div class="row_product">
+                        
                         @foreach (var item in Model)
                         {
                             index++;
@@ -61,24 +62,30 @@
                                          onclick="currentSlide(@index)" />
                                 </div>
                                 <div style="margin-top:10px; display:flex;justify-content:center">
-                                    <button id="@item.id_Hinh" onclick="deleteImg(@item.id_Hinh)" class="btn btn-dark"><i class="fa fa-trash" style="color:red"></i> </button>
+                                    <button id="@item.id_Hinh" onclick="deleteImg(@item.id_Hinh)" class="btn btn-light"><i class="fa fa-trash" style="color:red"></i> </button>
                                 </div>
                             </div>
                         }
+                        <div class="column_product">
+                            @*<div style="margin: 10px 0">Thêm Ảnh</div>*@
+                            <div style="display: flex; justify-content: center">
+                                <img style="width: 80px !important;cursor:pointer" id="pictureUpload" src="~/Template/img/icon-add-img.png" width="100" alt="Hình Ảnh" onclick="choose()" />
+                            </div>
+                            <div style=" margin-top: 10px; display: flex; justify-content: center">
+                                <input type="text" name="Hinh" id="Hinh" value="" style="display:none;" />
+                                <input type="file" name="fileUpload" id="fileUpload" accept="image/*" style="display:none;" />
+                                <input type="button" id="btnUpload" value="Chọn" class="btn btn-success" style="display:none;" />
+                                <button disabled id="acceptImg" onclick="acceptImg()" class="btn btn-success">Thêm </button>
+                            </div>
+                        </div>
                     </div>
                 }
                 <hr />
-                <div class="column_product">
-                    <div style="margin: 10px 0">Thêm Ảnh</div>
-                    <div style="display: flex; justify-content: center">
-                        <img style="width: 80px !important;cursor:pointer" id="pictureUpload" src="~/Template/img/icon-add-img.png" width="100" alt="Hình Ảnh" onclick="choose()" />
-                    </div>
-                    <div style=" margin-top: 10px; display: flex; justify-content: center">
-                        <input type="text" name="Hinh" id="Hinh" value="" style="display:none;" />
-                        <input type="file" name="fileUpload" id="fileUpload" accept="image/*" style="display:none;" />
-                        <input type="button" id="btnUpload" value="Chọn" class="btn btn-success" style="display:none;" />
-                        <button disabled id="acceptImg" onclick="acceptImg()" class="btn btn-success">Thêm Ảnh</button>
-                    </div>
+                <div class="col-md-offset-2 col-md-10">
+                    
+                    <a class="btn btn-info" href='@Url.Action("IndexAdmin", "SanPhams")' style="margin:10px 0px;">
+                        Trở về
+                    </a>
                 </div>
             </div>
         </div>

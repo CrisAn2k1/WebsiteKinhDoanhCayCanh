@@ -30,6 +30,7 @@
             <table class="table table-bordered table-success ">
                 <thead class="thead-dark">
                     <tr>
+                        <th>STT</th>
                         <th>
                             Mã cách chăm sóc
                         </th>
@@ -40,9 +41,12 @@
                     </tr>
                 </thead>
                 <tbody class="table-light">
+                    @{ int i = 0;}
                     @foreach (var item in Model)
                     {
+                        i++;
                         <tr>
+                            <td><strong>@i</strong></td>
                             <td class="col-lg-2">
                                 @Html.DisplayFor(modelItem => item.id_CCS)
                             </td>

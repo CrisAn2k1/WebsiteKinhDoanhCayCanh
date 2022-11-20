@@ -26,6 +26,7 @@
             <table class="table table-bordered table-success text-center" >
                 <thead class="thead-dark">
                     <tr>
+                        <th>STT</th>
                         <th>
                             Họ tên
                         </th>
@@ -45,9 +46,12 @@
                     </tr>
                 </thead>
                 <tbody class="table-light" style="font-size: medium;">
+                    @{ int i = 0;}
                     @foreach (var item in Model)
                     {
+                        i++;
                         <tr>
+                            <td><strong>@i</strong></td>
                             <td style="vertical-align:middle">
                                 @Html.DisplayFor(modelItem => item.FullName)
                             </td>
@@ -63,11 +67,11 @@
                             <td style="vertical-align:middle">
                                 @if (!item.LockoutEnabled)
                                 {
-                                    <i class="fa fa-regular fa-lock-open" style="color:limegreen;font-weight:bold"></i>
+                                    <i class="fa-regular fa-lock" style="color:red;font-weight:bold;font-size:20px"></i>
                                 }
                                 else
                                 {
-                                    <i class="fa-regular fa-lock" style="color:red;font-weight:bold;font-size:20px"></i>
+                                    <i class="fa fa-regular fa-lock-open" style="color:limegreen;font-weight:bold"></i>
                                 }
                             </td>
 

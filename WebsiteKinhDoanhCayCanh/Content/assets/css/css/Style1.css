@@ -241,7 +241,7 @@ body {
 /* Container_product for image text */
 .caption-container_product {
     text-align: center;
-    background-color: #222;
+    background-color: yellowgreen;
     padding: 2px 16px;
     color: white;
 }

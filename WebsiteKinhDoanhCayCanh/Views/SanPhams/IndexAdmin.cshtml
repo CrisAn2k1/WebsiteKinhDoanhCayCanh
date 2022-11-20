@@ -50,17 +50,12 @@
                         </th>
                         <th>
                             Số lượng
-                        </th>
-                        @*<th>
-                                Đơn vị tính
-                            </th>
-                            <th>
-                                Giảm giá
-                            </th>*@
+                        </th>                       
 
                         <th>
                             Tên nhóm
                         </th>
+                        <th> Trạng thái</th>
                         <th>Thao tác</th>
                     </tr>
                 </thead>
@@ -68,9 +63,8 @@
                     <tbody class="table-light">
                         @foreach (var item in Model)
                         {
-                            stt += 1;
+                            stt ++;
                             <tr>
-
                                 <td style="vertical-align:middle">
                                     <strong> @stt</strong>
                                 </td>
@@ -85,7 +79,7 @@
                                     <td style="vertical-align:middle">
                                         <img src="@item.HinhAnhSP.Where(p => p.id_SP == item.id_SP).FirstOrDefault().duongDan" alt="thumbnail" width="150" />
                                         <br /><br />
-                                        @Html.ActionLink("Hình Ảnh", "Index", "HinhAnhSPs", new { @id_SP = item.id_SP }, new { @class = "btn btn-warning" })
+                                        @*@Html.ActionLink("Hình Ảnh", "Index", "HinhAnhSPs", new { @id_SP = item.id_SP }, new { @class = "btn btn-warning" })*@
 
                                     </td>
                                 }
@@ -95,20 +89,22 @@
                                 <td style="vertical-align:middle">
                                     @Html.DisplayFor(modelItem => item.soLuong)
                                 </td>
-                                @*<td style="vertical-align:middle">
-                                        @Html.DisplayFor(modelItem => item.DVT)
-                                    </td>
-                                    <td style="vertical-align:middle">
-                                        @Html.DisplayFor(modelItem => item.phanTramGiamGia) %
-                                    </td>*@
-
+                                
                                 <td style="vertical-align:middle">
                                     @Html.DisplayFor(modelItem => item.NhomSP.tenNhom)
                                 </td>
                                 <td style="vertical-align:middle">
+                                    @if (!item.trangThai)
+                                    {
+                                <i class="fa-regular fa-lock" style="color:red;font-weight:bold;font-size:20px"></i> }
+                                                else
+                                                {
+                                <i class="fa fa-regular fa-lock-open" style="color:limegreen;font-weight:bold"></i>}
+                                </td>
+                                <td style="vertical-align:middle">
                                     @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.id_SP }, new { @class = "btn btn-warning" })
                                     @Html.ActionLink("Chi tiết", "DetailsAdmin", new { id = item.id_SP }, new { @class = "btn btn-info", @style = "margin-left:5px" })
-                                    @Html.ActionLink("Xóa", "Delete", new { id = item.id_SP }, new { @class = "btn btn-danger", @style = "margin-left:5px" })
+                                    @*@Html.ActionLink("Ẩn", "AnSP", new { id = item.id_SP }, new { @class = "btn btn-danger", @style = "margin-left:5px" })*@
                                 </td>
                             </tr>
                         }
