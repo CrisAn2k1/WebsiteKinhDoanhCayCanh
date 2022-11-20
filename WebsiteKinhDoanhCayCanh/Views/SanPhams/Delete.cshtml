@@ -1,94 +1,123 @@
 ﻿@model WebsiteKinhDoanhCayCanh.Models.SanPham
-@{
-    ViewBag.Title = "Delete";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-}
+@using WebsiteKinhDoanhCayCanh.Models
+@{ ViewBag.Title = "Delete";
+                Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+
+<style>
+    dl dt {
+        padding-left: 10% !important;
+        text-align: start;
+        min-width: 40%;
+    }
+
+    dl dd {
+        text-align: start;
+        min-width: 50%;
+        max-width: 50% !important;
+    }
+
+    tr td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    tr th {
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
 <div id="layoutSidenav_content">
     <main>
+        <h2 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen;">Xóa sản phẩm</h2>
         <div class="container-fluid px-4">
-            <h2>Xóa sản phẩm</h2>
-
-            <h3>Bạn có chắc chắn muốn xóa?</h3>
-            <div>
-                <hr />
-                <dl class="dl-horizontal">
-                    <dt>
-                        Nhóm sản phẩm
+            <div>                
+                <dl class="dl-horizontal" style="display:flex;flex-wrap:wrap;justify-content:center ;width:85%">
+                    <dt><hr /></dt>
+                    <dd><hr /></dd>
+                    <dt class="col-md-2">
+                        Mã đơn hàng:
                     </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.NhomSP.tenNhom)
+                    <dd class="col-md-10">
+                        @Html.DisplayFor(model => model.id_SP)
                     </dd>
-
-                    <dt>
-                        Tên sản phẩm
+                    <dt class="col-md-2">
+                        Tên sản phẩm:
                     </dt>
-
-                    <dd>
+                    <dd class="col-md-10">
                         @Html.DisplayFor(model => model.tenSP)
                     </dd>
 
-                    <dt>
-                        Mô tả
+                    <dt class="col-md-2">
+                        Hình:
                     </dt>
 
-                    <dd>
+                    <dd class="col-md-10">
+                        <img src="@Model.HinhAnhSP.Where(p => p.id_SP == Model.id_SP).FirstOrDefault().duongDan" alt="thumbnail" width="150" />
+
+                    </dd>
+
+                    <dt class="col-md-2">
+                        Mô tả:
+                    </dt>
+                    <dd class="col-md-10">
                         @Html.DisplayFor(model => model.mota)
                     </dd>
-
-                    <dt>
-                        Giá
+                    <dt class="col-md-2">
+                        Số lượng:
                     </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.gia)
-                    </dd>
-
-                    <dt>
-                        Số lượng
-                    </dt>
-
-                    <dd>
+                    <dd class="col-md-10">
                         @Html.DisplayFor(model => model.soLuong)
                     </dd>
-
-                    <dt>
-                        Đơn vị tính
+                    <dt class="col-md-2">
+                        Đơn vị tính:
                     </dt>
-                    <dd>
+                    <dd class="col-md-10">
                         @Html.DisplayFor(model => model.DVT)
                     </dd>
-                    <dt>
-                        Giảm giá
+                    <dt class="col-md-2">
+                        Giá:
                     </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.phanTramGiamGia)
+                    <dd class="col-md-10">
+                        @String.Format("{0:0,0}", @Model.gia) VNĐ
                     </dd>
-                    @*
-        <dt>
-            Hình
-        </dt>
+                    <dt class="col-md-2">
+                        Phần trăm giảm giá:
+                    </dt>
+                    <dd class="col-md-10">
+                        @Html.DisplayFor(model => model.phanTramGiamGia) %
+                    </dd>
 
-        <dd>
-            <img src="" alt="thumbnail" width="250" />
-        </dd>*@
+                    <dt class="col-md-2">
+                        Cách trồng:
+                    </dt>
+                    <dd class="col-md-10">
+                        @Html.DisplayFor(model => model.ThongTinThemVeSP.cachTrong)
+                    </dd>
+                    <dt class="col-md-2">
+                        Công dụng:
+                    </dt>
+                    <dd class="col-md-10">
+                        @Html.DisplayFor(model => model.ThongTinThemVeSP.congDung)
+                    </dd>
+                    <dt><hr /></dt>
+                    <dd><hr /></dd>
 
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                                <div class="form-actions no-color">
+                                    <p>
+                                        <input type="submit" value="Xóa" class="btn btn-danger" /> |
+                                        <a class="btn btn-success" href='@Url.Action("IndexAdmin", "SanPhams")' style="margin:10px 0px;">
+                                            Trở về
+                                        </a>
+                                    </p>
+                                </div>
+}
                 </dl>
 
-                @using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
-
-                    <div class="form-actions no-color">
-                        <p>
-                            <input type="submit" value="Xóa" class="btn btn-danger" /> |
-                            <a class="btn btn-success" href='@Url.Action("IndexAdmin", "SanPhams")' style="margin:10px 0px;">
-                                Trở về
-                            </a>
-                        </p>
-                    </div>
-                 }
+                
             </div>
         </div>
     </main>

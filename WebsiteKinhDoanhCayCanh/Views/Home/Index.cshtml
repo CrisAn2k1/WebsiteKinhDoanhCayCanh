@@ -159,9 +159,10 @@
         <div class="row">
             @{ foreach (var item in Model)
                 {
+                    if (item.trangThai == true && item.soLuong > 0) {
                     <div class="col-md-6 col-lg-3 ftco-animate">
                         <div class="product">
-                            <a href="@Url.Action("Details","SanPhams", new { id = item.id_SP })" class="img-prod">
+                            <a href="@Url.Action("Details", "SanPhams", new { id = item.id_SP })" class="img-prod">
                                 <img class="img-fluid" src="@item.HinhAnhSP.Where(p => p.id_SP == item.id_SP).FirstOrDefault().duongDan" alt="Colorlib Template">
                                 @if (@item.phanTramGiamGia > 0)
                                 {
@@ -169,7 +170,7 @@
                                 <div class="overlay"></div>
                             </a>
                             <div class="text py-3 pb-4 px-3 text-center">
-                                <h3><a href="#">@item.tenSP</a></h3>
+                                <h3><a href="@Url.Action("Details", "SanPhams", new { id = item.id_SP })">@item.tenSP</a></h3>
                                 @if (@item.phanTramGiamGia > 0)
                                 {
                                     <div class="d-flex">
@@ -193,7 +194,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> } }
+                    </div> } } }
             <div class="container">
                 <div class="row justify-content-center mb-3 pb-3">
                     <div class="col-md-12 heading-section text-center ftco-animate">
@@ -204,43 +205,51 @@
                 </div>
             </div>
 
-          @{ foreach (var item in Model){
-                 if(@item.phanTramGiamGia > 0) { 
-                     <div class="col-md-6 col-lg-3 ftco-animate">
-                        <div class="product">
-                            <a href="@Url.Action("Details","SanPhams", new { id = item.id_SP })" class="img-prod">
-                                <img class="img-fluid" src="@item.HinhAnhSP.Where(p => p.id_SP == item.id_SP).FirstOrDefault().duongDan" alt="Colorlib Template">
-                                @if (@item.phanTramGiamGia > 0){
-                                    <span class="status">@item.phanTramGiamGia%</span>}
-                                <div class="overlay"></div>
-                            </a>
-                            <div class="text py-3 pb-4 px-3 text-center">
-                                <h3><a href="#">@item.tenSP</a></h3>
-                                @if (@item.phanTramGiamGia > 0){
-                                    <div class="d-flex">
-                                        <div class="pricing">
-                                            <p class="price"><span class="mr-2 price-dc">@String.Format("{0:0,0}", @item.gia)&#8363;</span><span class="price-sale">@String.Format("{0:0,0}", @item.gia - ((float)@item.phanTramGiamGia / 100) * @item.gia)&#8363; </span></p>
+          @{ foreach (var item in Model)
+              {
+                  if (item.trangThai == true && item.soLuong > 0)
+                  {
+                      if (@item.phanTramGiamGia > 0)
+                      {
+                         <div class="col-md-6 col-lg-3 ftco-animate">
+                            <div class="product">
+                                <a href="@Url.Action("Details", "SanPhams", new { id = item.id_SP })" class="img-prod">
+                                    <img class="img-fluid" src="@item.HinhAnhSP.Where(p => p.id_SP == item.id_SP).FirstOrDefault().duongDan" alt="Colorlib Template">
+                                    @if (@item.phanTramGiamGia > 0)
+                                    {
+                                        <span class="status">@item.phanTramGiamGia%</span>}
+                                    <div class="overlay"></div>
+                                </a>
+                                <div class="text py-3 pb-4 px-3 text-center">
+                                    <h3><a href="@Url.Action("Details", "SanPhams", new { id = item.id_SP })">@item.tenSP</a></h3>
+                                    @if (@item.phanTramGiamGia > 0)
+                                    {
+                                        <div class="d-flex">
+                                            <div class="pricing">
+                                                <p class="price"><span class="mr-2 price-dc">@String.Format("{0:0,0}", @item.gia)&#8363;</span><span class="price-sale">@String.Format("{0:0,0}", @item.gia - ((float)@item.phanTramGiamGia / 100) * @item.gia)&#8363; </span></p>
+                                            </div>
+                                        </div> 
+                                    }
+                                    else
+                                    {
+                                        <div class="d-flex">
+                                            <div class="pricing">
+                                                <p class="price"><span>@String.Format("{0:0,0}", @item.gia)&#8363;</span></p>
+                                            </div>
                                         </div>
-                                    </div> 
-                                 }
-                                else{
-                                    <div class="d-flex">
-                                        <div class="pricing">
-                                            <p class="price"><span>@String.Format("{0:0,0}", @item.gia)&#8363;</span></p>
+                                    }
+                                    <div class="bottom-area d-flex px-3">
+                                        <div class="m-auto d-flex">
+                                            <a href="@Url.Action("ThemGioHang", "GioHangs", new { @id = item.id_SP, @strURL = Request.Url.ToString(), @soLuong = 1 })" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                                <span><i class="ion-ios-cart"></i></span>
+                                            </a>
                                         </div>
-                                    </div>
-                                }
-                                <div class="bottom-area d-flex px-3">
-                                    <div class="m-auto d-flex">
-                                        <a href="@Url.Action("ThemGioHang", "GioHangs", new { @id = item.id_SP, @strURL = Request.Url.ToString(), @soLuong = 1 })" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                            <span><i class="ion-ios-cart"></i></span>
-                                        </a>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div> }                       
-                    }                    
+                        </div> }
+                      }
+                  }
               }
         </div>
     </div>

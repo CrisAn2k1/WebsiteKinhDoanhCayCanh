@@ -278,6 +278,7 @@
     <Compile Include="Controllers\SanPhamsController.cs" />
     <Compile Include="Controllers\ThongTinThemVeSPController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\VoucherController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -602,6 +603,7 @@
     <Content Include="Template\img\Cua-hang-cay-canh-ILG.jpg" />
     <Content Include="Template\img\login-google.jpg" />
     <Content Include="Template\img\luoihovang.jpg" />
+    <Content Include="Template\img\momo.png" />
     <Content Include="Template\img\senda.jpg" />
     <Content Include="Template\img\traubathanhxuan.jpg" />
     <Content Include="Template\img\xexanh.png" />
@@ -701,6 +703,10 @@
     <Content Include="Views\HinhAnhSPs\Details.cshtml" />
     <Content Include="Views\HinhAnhSPs\Edit.cshtml" />
     <Content Include="Views\HinhAnhSPs\Index.cshtml" />
+    <Content Include="Views\Voucher\Index.cshtml" />
+    <Content Include="Views\Voucher\Details.cshtml" />
+    <Content Include="Views\Voucher\Create.cshtml" />
+    <Content Include="Views\Voucher\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

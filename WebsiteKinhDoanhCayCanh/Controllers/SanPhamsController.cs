@@ -188,7 +188,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             //var all_sanPham = db.SanPham.ToList();
             int pageSize = 5;
             int pageNum = page ?? 1;
-            return View(SanPham.getAll(searchString).ToPagedList(pageNum, pageSize));
+            return View(SanPham.getAllAdmin(searchString).ToPagedList(pageNum, pageSize));
         }
 
         // GET: SanPhams/Details/5 Admin
@@ -226,7 +226,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_SP,tenSP,mota,gia,soLuong,DVT,phanTramGiamGia,id_Nhom")] SanPham sanPham)
+        public ActionResult Create([Bind(Include = "id_SP,tenSP,mota,gia,soLuong,DVT,phanTramGiamGia,id_Nhom,trangThai")] SanPham sanPham)
         {
             if (!AuthAdmin())
                 return RedirectToAction("Error401", "Admin");
@@ -264,6 +264,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 ctCapNhat.ngayCapNhat = DateTime.Now;
                 ctCapNhat.thaoTac = "Create";
                 db.CTCapNhat.Add(ctCapNhat);
+                sanPham.trangThai = true;
                 db.SaveChanges();
 
 
@@ -298,7 +299,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id_SP,tenSP,mota,gia,soLuong,DVT,phanTramGiamGia,id_Nhom")] SanPham sanPham)
+        public ActionResult Edit([Bind(Include = "id_SP,tenSP,mota,gia,soLuong,DVT,phanTramGiamGia,id_Nhom,trangThai")] SanPham sanPham)
         {
             if (!AuthAdmin())
                 return RedirectToAction("Error401", "Admin");
@@ -307,7 +308,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             if (ModelState.IsValid && idUser != null)
             {
                 db.Entry(sanPham).State = EntityState.Modified;
-
+                
                 if (Request["congDung"] != null && Request["cachTrong"] != null)
                 {
                     string content1 = Request["congDung"].ToString() + " ";

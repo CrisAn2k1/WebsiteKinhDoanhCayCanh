@@ -81,6 +81,11 @@
                     </div>
                     <span>Còn lại:<strong> @Model.SanPham.soLuong </strong></span>
                     <p class="price"><span style="display: flex; align-items: center;"><span style="font-size: 20px;padding-right:10px"> Giá:</span> <price style="font-weight:bold;color:red;"> @String.Format("{0:0,0}", @Model.SanPham.gia)&#8363; </price></span></p>
+                    <p>
+                        <strong>Mô tả:</strong><br />
+                        @Model.SanPham.mota
+                    </p>
+                    
                     @if (Model.SanPham.ThongTinThemVeSP != null)
                     {
                         <div class="custom-table">
@@ -99,11 +104,11 @@
                                 </tbody>
                             </table>
                         </div>
-                        <br />
+                        
                     }
                     <p>
-                        <strong>Mô tả:</strong><br />
-                        @Model.SanPham.mota
+                        <strong>Cách chăm sóc: <a href="/Home/CachChamSoc"> Xem tại đây</a></strong><br />
+                        
                     </p>
                     <div class="row mt-4">
                         <div class="w-100"></div>
@@ -126,8 +131,8 @@
                         <br />
                     </div>
                     <p>
-                        <a id="URL_SoLuong" href="@Url.Action("ThemGioHang", "GioHangs", new { @id = Model.SanPham.id_SP, @strURL = Request.Url.ToString(), @soLuong = 1 })" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                            <span><i class="ion-ios-cart"></i></span>
+                        <a id="URL_SoLuong" href="@Url.Action("ThemGioHang", "GioHangs", new { @id = Model.SanPham.id_SP, @strURL = Request.Url.ToString(), @soLuong = 1 })" class="btn btn-primary py-3 px-4">
+                            <span><i class="icon-shopping_cart"> </i> Thêm vào giỏ hàng</span>
                         </a>
                     </p>
                 </div>

@@ -78,7 +78,7 @@
                                     <div class="overlay"></div>
                                 </a>
                                 <div class="text py-3 pb-4 px-3 text-center">
-                                    <h3><a href="#">@item.tenSP</a></h3>
+                                    <h3><a href="@Url.Action("Details","SanPhams", new { id = item.id_SP })">@item.tenSP</a></h3>
                                     @if (@item.phanTramGiamGia > 0)
                                     {
                                         <div class="d-flex">
