@@ -1,4 +1,4 @@
-namespace WebsiteKinhDoanhCayCanh.Models
+﻿namespace WebsiteKinhDoanhCayCanh.Models
 {
     using System;
     using System.Collections.Generic;
@@ -44,6 +44,8 @@ namespace WebsiteKinhDoanhCayCanh.Models
         [StringLength(10)]
         public string id_Nhom { get; set; }
 
+        public Boolean trangThai { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BinhLuan> BinhLuan { get; set; }
 
@@ -63,6 +65,14 @@ namespace WebsiteKinhDoanhCayCanh.Models
 
         public virtual ThongTinThemVeSP ThongTinThemVeSP { get; set; }
 
+
+        /// lấy all sp bên addmin         
+        public static List<SanPham> getAllAdmin(string searchKey)
+        {
+            MyDataEF db = new MyDataEF();
+            searchKey = searchKey + "";
+            return db.SanPham.Where(p => p.tenSP.Contains(searchKey)).ToList();
+        }
         // Mot so chuc nang rieng biet
 
         public static List<SanPham> getAll(string searchKey)

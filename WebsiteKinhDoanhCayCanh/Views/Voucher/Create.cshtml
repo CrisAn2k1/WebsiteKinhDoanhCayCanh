@@ -1,0 +1,86 @@
+﻿@model WebsiteKinhDoanhCayCanh.Models.Voucher
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    .signup-form {
+        background-color: #f3efea;
+        padding: 10px 45px;
+        border-radius: 5px;
+        font-family: 'Raleway', sans-serif;
+    }
+
+    input.form-control {
+        background: #95f0eb2b !important;
+    }
+
+    .col-md-10 {
+        max-width: 100% !important;
+    }
+</style>
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+
+            <h2 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen; text-transform: capitalize;">Thêm voucher mới </h2>
+            <hr />
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div style="padding: 4vh 17vw">
+                    <div class="form-horizontal">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <strong class="control-label col-md-2">Mã Voucher</strong>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.id_voucher, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.id_voucher, "", new { @class = "text-danger" })
+                            </div>
+                            <strong class="control-label col-md-2">Tên Voucher</strong>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.tenVoucher, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.tenVoucher, "", new { @class = "text-danger" })
+                            </div>
+                            <strong class="control-label col-md-2">Nội dung</strong>
+                            <div class="col-md-10">
+
+                                @Html.EditorFor(model => model.noiDung, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.noiDung, "", new { @class = "text-danger" })
+                            </div>
+                            <strong class="control-label col-md-2">Phần trăm giảm giá</strong>
+                            <div class="col-md-10">
+
+                                @Html.EditorFor(model => model.phanTramGiamGia, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.phanTramGiamGia, "", new { @class = "text-danger" })
+                            </div>
+                            <strong class="control-label col-md-2">Thời gian bắt đầu</strong>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.thoiGianBatDau, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.thoiGianBatDau, "", new { @class = "text-danger" })
+                            </div>
+                            <strong class="control-label col-md-2">Thời gian kết thúc</strong>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.thoiGianKetThuc, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.thoiGianKetThuc, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Thêm" class="btn btn-success" />   |
+                                <a class="btn btn-info" href='@Url.Action("Index", "Voucher")' style="margin:10px 0px;">
+                                    Trở về
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>}
+        </div>
+    </main>
+</div>
+
+
+

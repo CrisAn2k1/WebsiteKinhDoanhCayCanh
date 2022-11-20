@@ -102,7 +102,8 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             Models.DonHang donHang = db.DonHang.Find(id);
 
             var user = data.Users.Where(p => p.Id == donHang.id_User).FirstOrDefault();
-
+            ViewBag.Email = user.Email;
+            ViewBag.SDT = user.PhoneNumber;
             ViewBag.TenKH = user.FullName;
             ViewBag.DiaChi = user.Address;
 
@@ -127,7 +128,11 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 return RedirectToAction("Error401", "Admin");
             if (ModelState.IsValid)
             {
-                db.Entry(donHang).State = EntityState.Modified;
+                var editdonHang = db.DonHang.Where(p => p.id_DH == donHang.id_DH).FirstOrDefault();
+                //.Entry(donHang).State = EntityState.Modified;
+                editdonHang.trangThaiGiaoHang = donHang.trangThaiGiaoHang;
+                editdonHang.trangThaiThanhToan = donHang.trangThaiThanhToan;
+                editdonHang.ngayGiao = donHang.ngayGiao;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

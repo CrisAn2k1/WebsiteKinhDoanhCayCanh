@@ -5,6 +5,7 @@ namespace WebsiteKinhDoanhCayCanh.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     [Table("Voucher")]
     public partial class Voucher
@@ -39,5 +40,12 @@ namespace WebsiteKinhDoanhCayCanh.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserVoucher> UserVoucher { get; set; }
+
+        public static List<Voucher> getAll(string searchKey)
+        {
+            MyDataEF db = new MyDataEF();
+            searchKey = searchKey + "";
+            return db.Voucher.Where(p => p.tenVoucher.Contains(searchKey)).ToList();
+        }
     }
 }

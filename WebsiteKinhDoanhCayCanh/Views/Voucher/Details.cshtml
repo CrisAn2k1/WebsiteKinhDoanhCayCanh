@@ -1,0 +1,87 @@
+﻿@model WebsiteKinhDoanhCayCanh.Models.Voucher
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4" style=" margin-top:20px;">            
+
+            <div>
+                <h3 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen; text-transform: capitalize;">Voucher</h3>
+                <hr />
+
+                <dl class="dl-horizontal">
+                    <dt>
+                        Mã voucher:
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.id_voucher)
+                    </dd>
+
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>
+                        Tên voucher:
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.tenVoucher)
+                    </dd>
+
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>
+                        Nội dung:
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.noiDung)
+                    </dd>
+
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>
+                        Phần trăm giảm giá:
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.phanTramGiamGia)
+                    </dd>
+
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>
+                        Ngày bắt đầu:
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.thoiGianBatDau)
+                    </dd>
+
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>
+                        Ngày kết thúc:
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.thoiGianKetThuc)
+                    </dd>
+
+                </dl>
+            </div>
+            <p>
+                @Html.ActionLink("Sửa", "Edit", new { id = Model.id_voucher }, new { @class = "btn btn-warning" }) |
+                <a class="btn btn-info" href='@Url.Action("Index", "Voucher")' style="margin:10px 0px;">
+                    Trở về
+                </a>
+            </p>
+        </div>
+
+    </main>
+</div>
+
+
