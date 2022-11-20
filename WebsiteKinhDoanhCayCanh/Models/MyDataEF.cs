@@ -29,11 +29,6 @@ namespace WebsiteKinhDoanhCayCanh.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BinhLuan>()
-                .Property(e => e.trangThai)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<BinhLuan>()
                 .Property(e => e.id_SP)
                 .IsUnicode(false);
 

@@ -4,20 +4,24 @@
 @model LoginViewModel
 @{ ViewBag.Title = "Log in"; }
 <br />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 <style>
     .validation-summary-errors {
         font-size: 16px;
         font-weight: 600;
     }
+
         .validation-summary-errors li {
             list-style: none;
         }
+
     .btn.btn-primary:hover {
         border: 1px solid #82ae46 !important;
         background: transparent !important;
         color: #82ae46 !important;
-
+    }
+    .show-btn:hover{
+        cursor:pointer
     }
     span i.hide-btn::before {
         content: "\f070";
@@ -58,7 +62,7 @@
                         <img src="~/Template/img/bonsai1.png" width="250" height="250" ; />
                     </div>
                 </div>
-                <div class="col-md-offset-1 d-flex justify-content-center" style="width:500px;">                    
+                <div class="col-md-offset-1 d-flex justify-content-center" style="width:500px;">
                     <section id="socialLoginForm" class="zoom">
                         @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
                         @*<p>Đăng nhập bằng google.</p>*@
@@ -81,12 +85,16 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        <div>
+                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        </div>
                         <div class=" col-md-10">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Mật khẩu" })
+                            <div style="position:relative">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Mật khẩu" })
+                                <span style="position: absolute; right: 15px; top: 28%;" class="show-btn"><i class="fas fa-eye hide-btn"></i> </span>
+                            </div>
                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                             <br />
-                            <span class="show-btn"><i class="fas fa-eye"> Hiển thị mật khẩu</i> </span>
                         </div>
                     </div>
                     @*<div class="form-group">
@@ -111,11 +119,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group" style="text-align:center">
-                        <div class="col-md-offset-2 col-md-10 d-flex justify-content-center">
-                            <h6 style="color:red; text-align:center; padding-top: 20px">@ViewBag.Thongbao</h6>
+                    if (ViewBag.Thongbao != null)
+                    {
+                        <div class="form-group" style="text-align:center">
+                            <h6 style="color:red; text-align:center; padding: 10px 0"></h6>
                         </div>
-                    </div>
+                    }
                     <div class="form-group" style="text-align:center">
                         <div class="col-md-offset-2 col-md-10 d-flex justify-content-center">
                             <div>@Html.RecaptchaV2("6LeJ3jogAAAAAGmMJi3Bzqev9W5Nw_blm8_75lL6")</div>
@@ -144,10 +153,10 @@
     showBtn.onclick = (() => {
         if (passField.type === "password") {
             passField.type = "text";
-            showBtn.classList.add("hide-btn");
+            showBtn.classList.remove("hide-btn");
         } else {
             passField.type = "password";
-            showBtn.classList.remove("hide-btn");
+            showBtn.classList.add("hide-btn");
         }
     });
 </script>

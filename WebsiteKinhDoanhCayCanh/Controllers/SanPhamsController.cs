@@ -85,21 +85,21 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             ApplicationUser userLogin = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
             if (userLogin != null)
             {
+                var getDH = db.DonHang.Where(p => p.id_User == userLogin.Id && p.trangThaiThanhToan == true).ToList();
+                foreach (var item in getDH)
+                {
+                    var getCTDH = item.CTDH.ToList();
+                    if (getCTDH.Where(p => p.id_SP == id).Count() > 0)
+                    {
+                        ViewBag.ttMuaHang = 1;
+                    }
+                }
                 if (db.DanhGia.Where(p => p.id_User == userLogin.Id && p.id_SP == id).Count() > 0)
                 {
                     ViewBag.ttDanhGia = 1;
                 }
                 else
                 {
-                    var getDH = db.DonHang.Where(p => p.id_User == userLogin.Id).ToList();
-                    foreach (var item in getDH)
-                    {
-                        var getCTDH = item.CTDH.ToList();
-                        if (getCTDH.Where(p => p.id_SP == id).Count() > 0)
-                        {
-                            ViewBag.ttMuaHang = 1;
-                        }
-                    }
                     ViewBag.ttDanhGia = 0;
                 }
             }
@@ -333,6 +333,13 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             ViewBag.id_Nhom = new SelectList(db.NhomSP, "id_Nhom", "tenNhom", sanPham.id_Nhom);
             ViewBag.id_SP = new SelectList(db.ThongTinThemVeSP, "id_SP", "congDung", sanPham.id_SP);
             return View(sanPham);
+        }
+
+        [Authorize]
+        public ActionResult Hidden(string id_SP)
+        {
+            var hiddenSP = db.SanPham.Find(id_SP);
+            return Redirect("/SanPhams/IndexAdmin");
         }
 
         // GET: SanPhams/Delete

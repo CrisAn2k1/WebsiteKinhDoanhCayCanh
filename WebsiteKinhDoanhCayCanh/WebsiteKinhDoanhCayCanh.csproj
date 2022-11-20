@@ -324,6 +324,7 @@
     <Content Include="Content\Admin\assets\demo\chart-bar-demo.js" />
     <Content Include="Content\Admin\assets\demo\chart-pie-demo.js" />
     <Content Include="Content\Admin\assets\demo\datatables-demo.js" />
+    <Content Include="Content\Admin\js\Datatables-cmt.js" />
     <Content Include="Content\Admin\js\datatables-simple-demo.js" />
     <Content Include="Content\Admin\js\scripts.js" />
     <Content Include="Content\assets\css\ajax-loader.gif" />

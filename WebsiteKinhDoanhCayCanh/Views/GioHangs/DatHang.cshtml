@@ -172,19 +172,23 @@
                                             &emsp; <input type="text" name="txtAddress" maxlength="200" value="@kh.Address" />
                                         </td>
                                     </tr>
-                                    <tr style-"height:40px">
+                                    <tr style="height:40px">
                                         <td class="info-order">Điện thoại: </td>
                                         <td class="detail-info" style="font-weight: bold">&emsp; @kh.PhoneNumber</td>
                                     </tr>
-                                    <tr style-"height:40px">
+                                    <tr style="height:40px">
                                         <td class="info-order">Ngày đặt: </td>
                                         <td class="detail-info">&emsp; @DateTime.Now.ToString("dd/MM/yyyy (hh:mm tt)")</td>
-                                    </tr>
+                                    </tr> 
                                     <tr style-"height: 40px">
-                                        <td class="info-order">Ngày giao: </td>
+                                        <td class="info-order">Ngày giao (dự kiến): </td>
                                         <td class="detail-info">
                                             &emsp;<input style="color:red;font-weight:600" type="date" id="setDay" name="NgayGiao" required value="@DateTime.Today.ToString("dd-MM-yyyy")" />
                                         </td>
+                                    </tr>
+                                    <tr style="height:40px; font-size:18px">
+                                        <td class="info-order"> Tổng tiền: </td>
+                                        <td class="detail-info">&emsp;<strong id="tongTien" style="color: red;">&ensp;@String.Format("{0:0,0}", @ViewBag.TongTien)&#8363;</strong></td>
                                     </tr>
                                 </table>
                             </div>

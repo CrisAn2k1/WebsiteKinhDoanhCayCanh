@@ -86,6 +86,8 @@
                                         <img src="@item.HinhAnhSP.Where(p => p.id_SP == item.id_SP).FirstOrDefault().duongDan" alt="thumbnail" width="150" />
                                         <br /><br />
                                         @Html.ActionLink("Hình Ảnh", "Index", "HinhAnhSPs", new { @id_SP = item.id_SP }, new { @class = "btn btn-warning" })
+                                        <br /><br />
+                                        @Html.ActionLink("Bình Luận", "Index", "BinhLuans", new { @id_SP = item.id_SP }, new { @class = "btn btn-warning" })
 
                                     </td>
                                 }
@@ -108,7 +110,7 @@
                                 <td style="vertical-align:middle">
                                     @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.id_SP }, new { @class = "btn btn-warning" })
                                     @Html.ActionLink("Chi tiết", "DetailsAdmin", new { id = item.id_SP }, new { @class = "btn btn-info", @style = "margin-left:5px" })
-                                    @Html.ActionLink("Xóa", "Delete", new { id = item.id_SP }, new { @class = "btn btn-danger", @style = "margin-left:5px" })
+                                    @Html.ActionLink("Ẩn", "Delete", new { id = item.id_SP }, new { @class = "btn btn-danger", @style = "margin-left:5px" })
                                 </td>
                             </tr>
                         }
