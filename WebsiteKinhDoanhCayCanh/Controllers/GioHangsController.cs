@@ -243,12 +243,20 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             dh.trangThaiThanhToan = false;
             dh.phuongThucThanhToan = "0";
 
-            var diachi = collection["NgayGiao"];
+            //  var diachi = collection["NgayGiao"];
             var voucher = collection["Voucher"];
             dh.diaChiGiao = Request["txtAddress"].ToString() + "";
             dh.tongTien = TongTien(voucher);
-            dh.id_Voucher = voucher;
+            if (voucher == "")
+            {
+                dh.id_Voucher = null;
 
+            }
+            else
+            {
+                dh.id_Voucher = voucher;
+
+            }
             db.DonHang.Add(dh);
             db.SaveChanges();
             foreach (var item in gh)

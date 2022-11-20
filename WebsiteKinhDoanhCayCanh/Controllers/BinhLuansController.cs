@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -17,33 +18,37 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         private MyDataEF db = new MyDataEF();
 
         // GET: BinhLuans
+        [Authorize]
         public ActionResult Index()
         {
-            var binhLuan = db.BinhLuan.Include(b => b.SanPham);
-            return View(binhLuan.ToList());
-        }
-
-        // GET: BinhLuans/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            BinhLuan binhLuan = db.BinhLuan.Find(id);
-            if (binhLuan == null)
-            {
-                return HttpNotFound();
-            }
+            //int pageSize = 12;
+            //int pageNum = page ?? 1;
+            //var binhLuan = db.BinhLuan.Where(p => p.id_SP == id_SP).ToList().ToPagedList(pageNum, pageSize);
+            var binhLuan = db.BinhLuan.ToList();
             return View(binhLuan);
         }
 
-        // GET: BinhLuans/Create
-        public ActionResult Create()
-        {
-            ViewBag.id_SP = new SelectList(db.SanPham, "id_SP", "tenSP");
-            return View();
-        }
+        //// GET: BinhLuans/Details/5
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    BinhLuan binhLuan = db.BinhLuan.Find(id);
+        //    if (binhLuan == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(binhLuan);
+        //}
+
+        //// GET: BinhLuans/Create
+        //public ActionResult Create()
+        //{
+        //    ViewBag.id_SP = new SelectList(db.SanPham, "id_SP", "tenSP");
+        //    return View();
+        //}
 
         // POST: BinhLuans/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
@@ -67,68 +72,24 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             binhLuan.id_SP = id;
             binhLuan.noiDung = content;
             binhLuan.ngayDangBinhLuan = DateTime.Now;
+            binhLuan.trangThai = true;
             db.BinhLuan.Add(binhLuan);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         // GET: BinhLuans/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Hidden(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             BinhLuan binhLuan = db.BinhLuan.Find(id);
             if (binhLuan == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.id_SP = new SelectList(db.SanPham, "id_SP", "tenSP", binhLuan.id_SP);
-            return View(binhLuan);
-        }
-
-        // POST: BinhLuans/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id_BinhLuan,ngayDangBinhLuan,noiDung,trangThai,id_User,id_SP")] BinhLuan binhLuan)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(binhLuan).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.id_SP = new SelectList(db.SanPham, "id_SP", "tenSP", binhLuan.id_SP);
-            return View(binhLuan);
-        }
-
-        // GET: BinhLuans/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            BinhLuan binhLuan = db.BinhLuan.Find(id);
-            if (binhLuan == null)
-            {
-                return HttpNotFound();
-            }
-            return View(binhLuan);
-        }
-
-        // POST: BinhLuans/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            BinhLuan binhLuan = db.BinhLuan.Find(id);
-            db.BinhLuan.Remove(binhLuan);
+            binhLuan.trangThai = !binhLuan.trangThai;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Redirect("/BinhLuans");
         }
 
         protected override void Dispose(bool disposing)

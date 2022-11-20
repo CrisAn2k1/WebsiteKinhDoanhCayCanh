@@ -139,36 +139,6 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             return View(donHang);
         }
 
-        // GET: DonHangs/Delete
-        public ActionResult Delete(int? id)
-        {
-            if (!AuthAdmin())
-                return RedirectToAction("Error401", "Admin");
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Models.LinQ.DonHang donHang = data.DonHangs.FirstOrDefault(d => d.id_DH == id);
-            if (donHang == null)
-            {
-                return HttpNotFound();
-            }
-            return View(donHang);
-        }
-
-        // POST: DonHangs/Delete
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            if (!AuthAdmin())
-                return RedirectToAction("Error401", "Admin");
-            Models.DonHang donHang = db.DonHang.Find(id);
-            db.DonHang.Remove(donHang);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

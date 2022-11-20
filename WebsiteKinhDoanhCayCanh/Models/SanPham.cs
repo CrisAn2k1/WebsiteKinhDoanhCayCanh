@@ -39,6 +39,8 @@
 
         public int? phanTramGiamGia { get; set; }
 
+        public Boolean trangThai { get; set; }
+
         [StringLength(10)]
         public string id_Nhom { get; set; }
 

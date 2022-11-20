@@ -62,7 +62,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         public ActionResult GetDataDoanhThu()
         {
             var data = context.DonHangs.Where(p => p.trangThaiThanhToan == true && p.trangThaiGiaoHang == '1')
-                .GroupBy(p => p.ngayDat)
+                .GroupBy(p => p.ngayGiao)
                 .Select(g => new { Ngay = DateTime.Parse(g.Key.ToString()).ToString("dd-MM-yyyy"), tongtien = g.Sum(n => n.tongTien) }).ToList();
             return Json(data, JsonRequestBehavior.AllowGet);
         }
