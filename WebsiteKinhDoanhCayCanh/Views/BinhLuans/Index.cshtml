@@ -8,6 +8,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     ApplicationUser userLogin;
+    int i=0;
 }
 
 <style>
@@ -81,27 +82,30 @@
                     <table id="datatablesSimple">
                         <thead>
                             <tr>
-                                <th>Tên SP
-                                <th>Ngày Đăng</th>
-                                <th>Nội Dung</th>
-                                <th>Tên KH</th>
-                                <th>Trạng Thái</th>
+                                <th class="text-center align-middle">STT</th>
+                                <th class="text-center align-middle">Tên SP
+                                <th class="text-center align-middle">Ngày Đăng</th>
+                                <th class="text-center align-middle">Nội Dung</th>
+                                <th class="text-center align-middle">Tên KH</th>
+                                <th class="text-center align-middle">Trạng Thái</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
+                            @foreach (var item in Model.OrderByDescending(p=>p.ngayDangBinhLuan))
                             {
+                                i++;
                                 <tr>
-                                    <td>@item.SanPham.tenSP</td>
-                                    <td>@item.ngayDangBinhLuan</td>
-                                    <td>@item.noiDung</td>
-                                    <td>
+                                    <td class="text-center align-middle"><strong>@i</strong></td>
+                                    <td class="align-middle">@item.SanPham.tenSP</td>
+                                    <td class="align-middle">@item.ngayDangBinhLuan</td>
+                                    <td class="align-middle">@item.noiDung</td>
+                                    <td class="align-middle">
                                         @{
                                             userLogin = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(HttpContext.Current.User.Identity.GetUserId());
                                         }
                                         @userLogin.FullName
                                     </td>
-                                    <td id="@item.id_BinhLuan" onclick="changeStatus(this.id,@item.trangThai)">
+                                    <td class="align-middle" id="@item.id_BinhLuan" onclick="changeStatus(this.id,@item.trangThai)">
                                         @if (item.trangThai == true)
                                         {
                                             <div style="color: #2fb92b">
@@ -171,6 +175,5 @@
                 }
             })
         }
-       
     }
 </script>

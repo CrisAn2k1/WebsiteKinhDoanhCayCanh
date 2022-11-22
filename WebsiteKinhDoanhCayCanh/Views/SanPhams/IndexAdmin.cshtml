@@ -30,40 +30,44 @@
                 <div class="alert alert-success">
                     <strong>Success !</strong> @TempData["AlertMessage"]
                 </div>}
-            <table class="table table-bordered table-success text-center">
+            <table id="datatablesSimple" class="table table-bordered table-success text-center">
                 <thead class="thead-dark">
                     <tr>
-                        <th>
+                        <th class="text-center align-middle">
                             STT
                         </th>
-                        <th>
+                        <th class="text-center align-middle">
                             Mã sản phẩm
                         </th>
-                        <th>
+                        <th class="text-center align-middle">
                             Tên sản phẩm
                         </th>
-                        <th>
+                        <th class="text-center align-middle">
                             Hình
                         </th>
-                        <th>
+                        <th class="text-center align-middle">
                             Giá
                         </th>
-                        <th>
+                        <th class="text-center align-middle">
                             Số lượng
-                        </th>                       
+                        </th>
 
-                        <th>
+                        <th class="text-center align-middle">
                             Tên nhóm
                         </th>
-                        <th> Trạng thái</th>
-                        <th>Thao tác</th>
+                        <th class="text-center align-middle"> 
+                            Trạng thái
+                        </th>
+                        <th class="text-center align-middle">
+                            Thao tác
+                        </th>
                     </tr>
                 </thead>
                 @{ int stt = 0;
                     <tbody class="table-light">
                         @foreach (var item in Model)
                         {
-                            stt ++;
+                            stt++;
                             <tr>
                                 <td style="vertical-align:middle">
                                     <strong> @stt</strong>
@@ -87,17 +91,19 @@
                                 <td style="vertical-align:middle">
                                     @Html.DisplayFor(modelItem => item.soLuong)
                                 </td>
-                                
+
                                 <td style="vertical-align:middle">
                                     @Html.DisplayFor(modelItem => item.NhomSP.tenNhom)
                                 </td>
                                 <td style="vertical-align:middle">
                                     @if (!item.trangThai)
                                     {
-                                <i class="fa-regular fa-lock" style="color:red;font-weight:bold;font-size:20px"></i> }
-                                                else
-                                                {
-                                <i class="fa fa-regular fa-lock-open" style="color:limegreen;font-weight:bold"></i>}
+                                        <i class="fa fa-eye-slash" style="color: red; font-weight: bold; font-size: 20px"></i> <spam hidden>2</spam>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-eye" style="color:limegreen;font-weight:bold;font-size:20px"></i> <spam hidden>1</spam>
+                                    }
                                 </td>
                                 <td style="vertical-align:middle">
                                     @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.id_SP }, new { @class = "btn btn-warning" })

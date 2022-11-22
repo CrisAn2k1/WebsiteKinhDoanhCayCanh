@@ -6,7 +6,7 @@
 }
 <style>
     dl dt {
-        padding-left: 17% !important;
+        padding-left: 15% !important;
         text-align: start;
         min-width: 40%;
     }
@@ -14,7 +14,7 @@
     dl dd {
         text-align: start;
         min-width: 50%;
-        max-width: 50% !important;
+        max-width: 60% !important;
     }
 
     tr td {
@@ -29,6 +29,11 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4" style=" margin-top:20px;">
+            <p style="position:fixed">
+                <a class="btn btn-info" href='@Url.Action("Index", "DonHangs")' style="margin:10px 0px;">
+                    Trở về
+                </a>
+            </p>
             <div class="d-flex justify-content-center align-items-center flex-column">
                 <h2 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen;">Thông Tin Đơn hàng</h2>
                 <hr />
@@ -92,6 +97,23 @@
                         {
                             <label class="list-box tri-state" id="TrangThaiThanhToan" name="TrangThaiThanhToan" style="font-weight:bold;color:red">
                                 <a style="font-weight:bold;color:red" value="true">Chưa thanh toán</a>
+                            </label>
+                        }
+                    </dd>
+                    <dt class="col-md-2">
+                        Phương thức thanh toán:
+                    </dt>
+                    <dd class="col-md-10">
+                        @if (Model.DonHang.phuongThucThanhToan == '0')
+                        {
+                            <label class="list-box tri-state" id="TrangThaiThanhToan" name="TrangThaiThanhToan">
+                                <a style="font-weight:bold; color:limegreen" value="true">Thanh toán khi nhận hàng</a>
+                            </label>
+                        }
+                        else
+                        {
+                            <label class="list-box tri-state" id="TrangThaiThanhToan" name="TrangThaiThanhToan" style="font-weight:bold;color:red">
+                                <a style="font-weight: bold; color: limegreen; " value="true">Thanh toán online</a>
                             </label>
                         }
                     </dd>
@@ -184,12 +206,7 @@
                     </tbody>
                 </table>
             </div>
-            <p>
-                @Html.ActionLink("Chỉnh Sửa", "Edit", new { id = Model.DonHang.id_DH }, new { @class = "btn btn-warning" })
-                <a class="btn btn-info" href='@Url.Action("Index", "DonHangs")' style="margin:10px 0px;">
-                    Trở về
-                </a>
-            </p>
+
         </div>
     </main>
 </div>

@@ -22,34 +22,34 @@
                     </div>
                 </form>
             </div>
-            <table class="table table-bordered table-success">
+            <table id="datatablesSimple" class="table table-bordered table-success">
                 <thead class="thead-dark">
                     <tr>
-                        <th width="20px">
+                        <th width="20px" class="text-center align-middle">
                             STT
                         </th>
-                        <th width="70px">
+                        <th width="40px" class="text-center align-middle">
                             Ngày đặt
                         </th>
-                        <th width="70px">
+                        <th width="30" class="text-center align-middle">
                             Ngày giao
                         </th>
-                        <th width="150px">
+                        <th width="150px" class="text-center align-middle">
                             Tên khách hàng
                         </th>
-                        <th >
+                        <th class="text-center align-middle">
                             Địa chỉ
                         </th>
-                        <th width="100px">
+                        <th width="140px" class="text-center align-middle">
                             Tổng tiền
                         </th>
-                        <th width="115px">
+                        <th width="100px" class="text-center align-middle">
                             Trạng thái giao hàng
                         </th>
-                        <th width="170px">
+                        <th width="100px" class="text-center align-middle">
                             Trạng thái thanh toán
                         </th>
-                        <th width="230px">
+                        <th width="170px" class="text-center align-middle">
                             Thao tác
                         </th>
                     </tr>
@@ -58,47 +58,60 @@
                     @{int index = 0;
                         foreach (var item in Model)
                         {
-                        index++;
-                        <tr>
-                            <td >
-                                @index
-                            </td>
-                            <td style="min-width:115px">
-                                @Convert.ToDateTime(item.ngayDat).ToString("dd-MM-yyyy")
-                            </td>
-                            <td style="min-width:115px">
-                                @Convert.ToDateTime(item.ngayGiao).ToString("dd-MM-yyyy")
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.User.FullName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.User.Address)
-                            </td>
-                            <td>
-                                @String.Format("{0:0,0}", item.tongTien) VNĐ
-                            </td>
-                            <td class="checkbox">
-                            @if (item.trangThaiGiaoHang.ToString() == "0") {
-                                <span style="color:orange;font-weight:bold">Đang giao</span> 
-                            }
-                            else { if (item.trangThaiGiaoHang.ToString() == "1") {
-                                    <span style="color:forestgreen;font-weight:bold">Đã giao</span> }
-                                else {<span style="color:red;font-weight:bold">Đã huỷ đơn</span>}
-                            }                             
-                             </td>
-                            <td class="checkbox">
-                            @if (item.trangThaiThanhToan == true) {
-                                <span style="color:forestgreen;font-weight:bold">Đã thanh toán</span> }
-                            else {
-                                <span style="color:red;font-weight:bold">Chưa thanh toán</span>
-                            }
-                            </td>
-                            <td>
-                                @Html.ActionLink("Chỉnh Sửa", "Edit", new { id = item.id_DH }, new { @class = "btn btn-warning" })
-                                @Html.ActionLink("Chi tiết", "Details", new { id = item.id_DH }, new { @class = "btn btn-info", @style = "margin-left:5px" })
-                            </td>
-                        </tr>}}
+                            index++;
+                            <tr>
+                                <td class="text-center align-middle">
+                                    @index
+                                </td>
+                                <td style="min-width:100px" class="text-center align-middle">
+                                    @Convert.ToDateTime(item.ngayDat).ToString("dd-MM-yyyy")
+                                </td>
+                                <td style="min-width:105px" class="text-center align-middle">
+                                    @Convert.ToDateTime(item.ngayGiao).ToString("dd-MM-yyyy")
+                                </td>
+                                <td class="text-center align-middle">
+                                    @Html.DisplayFor(modelItem => item.User.FullName)
+                                </td>
+                                <td class="align-middle">
+                                    @Html.DisplayFor(modelItem => item.User.Address)
+                                </td>
+                                <td class="text-center align-middle">
+                                    <strong style="color:red;font-weight:bold">
+                                        @String.Format("{0:0,0}", item.tongTien) VNĐ
+                                    </strong>
+                                </td>
+                                <td style="min-width:100px" class="checkbox text-center align-middle">
+                                    @if (item.trangThaiGiaoHang.ToString() == "0")
+                                    {
+                                        <span style="color:orange;font-weight:bold">Đang giao</span>
+                                    }
+                                    else
+                                    {
+                                        if (item.trangThaiGiaoHang.ToString() == "1")
+                                        {
+                                            <span style="color:forestgreen;font-weight:bold">Đã giao</span>
+                                        }
+                                        else
+                                        {
+                                            <span style="color:red;font-weight:bold">Đã huỷ đơn</span>
+                                        }
+                                    }
+                                </td>
+                                <td style="min-width:130px" class="checkbox text-center align-middle">
+                                    @if (item.trangThaiThanhToan == true)
+                                    {
+                                        <span style="color:forestgreen;font-weight:bold">Đã thanh toán</span> }
+                                    else
+                                    {
+                                        <span style="color:red;font-weight:bold">Chưa thanh toán</span>
+                                    }
+                                </td>
+                                <td class="text-center align-middle">
+                                    @Html.ActionLink("Chỉnh Sửa", "Edit", new { id = item.id_DH }, new { @class = "btn btn-warning" })
+                                    @Html.ActionLink("Chi tiết", "Details", new { id = item.id_DH }, new { @class = "btn btn-info", @style = "margin:5px" })
+                                </td>
+                            </tr>
+}}
                 </tbody>
             </table>
             <div style=" margin-bottom:50px;">

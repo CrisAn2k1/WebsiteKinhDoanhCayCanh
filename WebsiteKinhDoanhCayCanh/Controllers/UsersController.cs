@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using WebsiteKinhDoanhCayCanh.Message;
 using WebsiteKinhDoanhCayCanh.Models;
 
 namespace WebsiteKinhDoanhCayCanh.Controllers
@@ -16,6 +17,60 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
     {
         // GET: Users
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        [Authorize]
+        //Get: getvoucher
+        public ActionResult XemVoucher()
+        {
+            MyDataEF myData = new MyDataEF();
+            var id_currentUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
+
+            return View(myData.UserVoucher.Where(p => p.id_User == id_currentUser).ToList());
+        }
+
+
+        //Get : addvoucher
+        public string SaveVoucher(string id_Voucher)
+        {
+            try
+            {
+                var id_currentUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
+                UserVoucher addUserVoucher = new UserVoucher();
+                addUserVoucher.id_User = id_currentUser;
+                addUserVoucher.id_voucher = id_Voucher;
+                addUserVoucher.soLuotConLai = 1;
+                MyDataEF myData = new MyDataEF();
+                myData.UserVoucher.Add(addUserVoucher);
+                myData.SaveChanges();
+                return id_Voucher;
+            }
+            catch (Exception)
+            {
+                return "Error";
+            }
+
+        }
+
+        public ActionResult ChangeStatusAccount(string id_User)
+        {
+            if (System.Web.HttpContext.Current.User.Identity.GetUserId() == id_User)
+            {
+                Notification.set_flash("Không thể khóa tài khoản đang đăng nhập", "error");
+                return Redirect("/Users/IndexAdmin");
+            }
+            var user = db.Users.Find(id_User);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            user.LockoutEnabled = !user.LockoutEnabled;
+            db.SaveChanges();
+            if (user.Roles.Where(p => p.RoleId == "1").FirstOrDefault() != null)
+            {
+                return Redirect("/Users/IndexAdmin");
+            }
+            return Redirect("/Users");
+        }
 
         // GET: Users
         [Authorize]
@@ -86,6 +141,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         }
 
         // GET: Users/Edit
+        [Authorize]
         public ActionResult Edit(string id)
         {
             if (!AuthAdmin())

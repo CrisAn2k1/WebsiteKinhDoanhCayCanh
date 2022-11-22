@@ -23,26 +23,26 @@
                     </form>
                 </div>
             </div>
-            <table class="table table-bordered table-success text-center" >
+            <table  id="datatablesSimple" class="table table-bordered table-success" >
                 <thead class="thead-dark">
                     <tr>
-                        <th>STT</th>
-                        <th>
+                        <th class="text-center align-middle">STT</th>
+                        <th class="text-center align-middle">
                             Họ tên
                         </th>
-                        <th>
+                        <th class="text-center align-middle">
                             Địa chỉ
                         </th>
-                        <th>
+                        <th class="text-center align-middle">
                             Email
                         </th>
-                        <th>
+                        <th class="text-center align-middle">
                             Số điện thoại
                         </th>
-                        <th>
-                            Kích hoạt
+                        <th class="text-center align-middle">
+                            Trạng Thái
                         </th>
-                        <th class="text-center">Thao tác</th>
+                        <th class="text-center align-middle">Thao tác</th>
                     </tr>
                 </thead>
                 <tbody class="table-light" style="font-size: medium;">
@@ -51,7 +51,7 @@
                     {
                         i++;
                         <tr>
-                            <td><strong>@i</strong></td>
+                            <td style="vertical-align:middle;text-align:center"><strong>@i</strong></td>
                             <td style="vertical-align:middle">
                                 @Html.DisplayFor(modelItem => item.FullName)
                             </td>
@@ -64,19 +64,18 @@
                             <td style="vertical-align:middle">
                                 @Html.DisplayFor(modelItem => item.PhoneNumber)
                             </td>
-                            <td style="vertical-align:middle">
+                            <td style="vertical-align:middle;text-align:center">
                                 @if (!item.LockoutEnabled)
                                 {
-                                    <i class="fa-regular fa-lock" style="color:red;font-weight:bold;font-size:20px"></i>
+                                    <i id="@item.Id" onclick="changeStatus(this.id,@item.LockoutEnabled)" class="fa fa-regular fa-lock-open" style="color:limegreen;font-weight:bold;cursor:pointer"></i>
                                 }
                                 else
                                 {
-                                    <i class="fa fa-regular fa-lock-open" style="color:limegreen;font-weight:bold"></i>
+                                    <i id="@item.Id" onclick="changeStatus(this.id,@item.LockoutEnabled)" class="fa-regular fa-lock" style="color:red;font-weight:bold;font-size:20px;cursor:pointer"></i>
                                 }
                             </td>
 
                             <td>
-                                @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
                                 @Html.ActionLink("Chi tiết", "Details", new { id = item.Id }, new { @class = "btn btn-info", @style = "margin-left:5px" })
                             </td>
                         </tr>
@@ -95,3 +94,37 @@
         </div>
     </main>
 </div>
+<script>
+    function changeStatus(id_User, trangThai) {
+        if (trangThai == undefined) {
+            Swal.fire({
+                title: 'Khóa Tài Khoản?',
+                text: "Bạn có chắc chắn muốn khóa tài khoản này??",
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#3085d6',
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'Có, hãy khóa tài khoản này!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.assign("https://localhost:44351/Users/ChangeStatusAccount?id_User=" + id_User)
+                }
+            })
+        }
+        else {
+            Swal.fire({
+                title: 'Mở Khóa Tài Khoản?',
+                text: "Bạn có chắc chắn muốn mở khóa tài khoản này??",
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#3085d6',
+                confirmButtonColor: 'rgb(31 187 21)',
+                confirmButtonText: 'Có, hãy mở khóa tài khoản này!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.assign("https://localhost:44351/Users/ChangeStatusAccount?id_User=" + id_User)
+                }
+            })
+        }
+    }
+</script>
