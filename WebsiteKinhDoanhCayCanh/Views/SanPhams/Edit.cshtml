@@ -25,6 +25,11 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4">
+            <p style="position:fixed">
+                <a class="btn btn-success" href='@Url.Action("IndexAdmin", "SanPhams")' style="margin: 30px 0;">
+                    Trở về
+                </a>
+            </p>
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
@@ -88,7 +93,7 @@
                             <strong class="control-label col-md-2">Cách trồng</strong>
                             <div class="col-md-10">
                                 @*@Html.EditorFor(model => model.ThongTinThemVeSP.cachTrong, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ThongTinThemVeSP.cachTrong, "", new { @class = "text-danger" })*@
+                            @Html.ValidationMessageFor(model => model.ThongTinThemVeSP.cachTrong, "", new { @class = "text-danger" })*@
                                 <input type="text" name="cachTrong" class="form-control" value="@Model.ThongTinThemVeSP.cachTrong">
                             </div>
                         </div>
@@ -96,7 +101,7 @@
                             <strong class="control-label col-md-2">Công dụng</strong>
                             <div class="col-md-10">
                                 @*@Html.EditorFor(model => model.ThongTinThemVeSP.congDung, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ThongTinThemVeSP.congDung, "", new { @class = "text-danger" })*@
+                            @Html.ValidationMessageFor(model => model.ThongTinThemVeSP.congDung, "", new { @class = "text-danger" })*@
                                 <input type="text" name="congDung" class="form-control" value="@Model.ThongTinThemVeSP.congDung">
                             </div>
                         </div>
@@ -111,23 +116,37 @@
                             <strong class="control-label col-md-2">Trạng thái</strong>
                             <div class="col-md-10">
                                 <div class="checkbox">
-                                    
-                                    <div>
+                                    @if (Model.trangThai == true)
+                                    {
                                         <div>
-                                            <input checked name="TrangThai" id="yes" value="true" type="radio" />&nbsp;<label for="yes">Hiện sản phẩm</label>
+                                            <div>
+                                                <input checked name="TrangThai" id="yes" value="true" type="radio" />&nbsp;<label for="yes">Hiện sản phẩm</label>
+                                            </div>
+                                            <div>
+                                                <input name="TrangThai" id="no" value="false" type="radio" />&nbsp;<label for="no">Ẩn sản phẩm</label>
+                                            </div>
                                         </div>
+                                    }
+                                    else
+                                    {
+
                                         <div>
-                                            <input  name="TrangThai" id="no" value="false" type="radio" />&nbsp;<label for="no">Ẩn sản phẩm</label>
+                                            <div>
+                                                <input name="TrangThai" id="yes" value="true" type="radio" />&nbsp;<label for="yes">Hiện sản phẩm</label>
+                                            </div>
+                                            <div>
+                                                <input checked name="TrangThai" id="no" value="false" type="radio" />&nbsp;<label for="no">Ẩn sản phẩm</label>
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
                                     @Html.ValidationMessageFor(model => model.trangThai, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                         <div class="form-group">
+                        <div class="form-group">
                             <strong class="control-label col-md-2">Hình</strong>
                             <div class="col-md-10">
-                               @if (Model.HinhAnhSP.Where(p => p.id_SP == Model.id_SP).FirstOrDefault() != null)
+                                @if (Model.HinhAnhSP.Where(p => p.id_SP == Model.id_SP).FirstOrDefault() != null)
                                 {
                                     <td style="vertical-align:middle">
                                         <img src="@Model.HinhAnhSP.Where(p => p.id_SP == Model.id_SP).FirstOrDefault().duongDan" alt="thumbnail" width="150" />
@@ -142,10 +161,8 @@
                         <hr />
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Lưu" class="btn btn-info" /> |
-                                <a class="btn btn-success" href='@Url.Action("IndexAdmin", "SanPhams")' style="margin: 30px 0;">
-                                    Trở về
-                                </a>
+                                <input type="submit" value="Lưu" class="btn btn-info" />
+                                
                             </div>
                         </div>
                     </div>

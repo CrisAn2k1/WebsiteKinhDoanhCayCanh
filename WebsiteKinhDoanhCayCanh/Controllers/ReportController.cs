@@ -22,8 +22,9 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SanPham sanPham = db.SanPham.Find(id);
-            if (sanPham == null)
+            DonHang sanPham = db.DonHang.Find(id);
+            var listCTDH = sanPham.CTDH.ToList();
+            if (listCTDH == null)
             {
                 return HttpNotFound();
             }

@@ -44,8 +44,6 @@
         [StringLength(10)]
         public string id_Nhom { get; set; }
 
-        public Boolean trangThai { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BinhLuan> BinhLuan { get; set; }
 

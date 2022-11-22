@@ -80,12 +80,28 @@
                         </p>
                     </div>
                     <span>Còn lại:<strong> @Model.SanPham.soLuong </strong></span>
-                    <p class="price"><span style="display: flex; align-items: center;"><span style="font-size: 20px;padding-right:10px"> Giá:</span> <price style="font-weight:bold;color:red;"> @String.Format("{0:0,0}", @Model.SanPham.gia)&#8363; </price></span></p>
+                    @if (Model.SanPham.phanTramGiamGia == 0)
+                    {
+                        <p class="price"><span style="display: flex; align-items: center;"><span style="font-size: 20px;padding-right:10px"> Giá:</span> <price style="font-weight:bold;color:red;"> @String.Format("{0:0,0}", @Model.SanPham.gia)&#8363; </price></span></p>
+
+                    }
+                    else
+                    {
+                        <div>
+                            <p class="price">
+                                <div style="font-size: 20px;"> Giá Gốc: @String.Format("{0:0,0}", Model.SanPham.gia)&#8363; &ensp;(<strong>-@Model.SanPham.phanTramGiamGia%</strong>)</div>
+                                <span class="price-sale" style="font-weight:bold;color:red;font-size:22px;font-weight:bold"> Còn:  @String.Format("{0:0,0}", Model.SanPham.gia - ((float)Model.SanPham.phanTramGiamGia / 100) * Model.SanPham.gia)&#8363; </span>
+                            </p>
+
+                        </div>
+                        @*<p class="price"><span style="display: flex; align-items: center;"> <price style="font-weight:bold;color:red;"> @String.Format("{0:0,0}", @Model.SanPham.gia)&#8363; </price></span></p>*@
+
+                    }
                     <p>
                         <strong>Mô tả:</strong><br />
                         @Model.SanPham.mota
                     </p>
-                    
+
                     @if (Model.SanPham.ThongTinThemVeSP != null)
                     {
                         <div class="custom-table">
@@ -104,11 +120,11 @@
                                 </tbody>
                             </table>
                         </div>
-                        
+
                     }
                     <p>
                         <strong>Cách chăm sóc: <a href="/Home/CachChamSoc"> Xem tại đây</a></strong><br />
-                        
+
                     </p>
                     <div class="row mt-4">
                         <div class="w-100"></div>
@@ -119,7 +135,7 @@
                                 </button>
                             </span>
 
-                            <input type="text" id="quantity_product" name="quantity_product" class="form-control input-number" value="1" min="1" max="100" maxlength="4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace('.','');"/>
+                            <input type="text" id="quantity_product" name="quantity_product" class="form-control input-number" value="1" min="1" max="100" maxlength="4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace('.','');" />
 
                             <span class="input-group-btn ml-2">
                                 <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">

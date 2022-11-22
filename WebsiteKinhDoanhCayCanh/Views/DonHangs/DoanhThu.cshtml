@@ -14,33 +14,37 @@
                     <input type="submit" value="Xuất Excel" class="btn btn-success">
                 }
             <br />
-            <table class="table table-bordered table-success text-center">              
+            <table  id="datatablesSimple" class="table table-bordered table-success text-center">              
 
                 <thead >
                     <tr>
-                        <th>
-                            Ngày/Tháng/Năm
+                        <th class="text-center">STT</th>
+                        <th class="text-center">
+                            Ngày
                         </th>
-                        <th>
-                            Doanh thu
+                        <th class="text-center">
+                            Doanh Thu
                         </th>
                     </tr>
                 </thead>
                 <tbody class="table-light">
-                    @foreach (var item in Model.GroupBy(y => y.ngayDat).Distinct().Select(g => new
-                    {
-                        Pla = g.Key,
-                        Total = g.Sum(t => t.tongTien)
-                    }))
-                    {
-                        <tr>
-                            <td>
-                                @String.Format("{0:dd/MM/yyyy}", item.Pla)
-                            </td>
-                            <td>
-                                @String.Format("{0:0,0}", item.Total)
-                            </td>
-                        </tr>
+                    @{
+                        int i = 0;
+                        foreach (var item in Model.GroupBy(y => y.ngayDat).Distinct().Select(g => new { Pla = g.Key, Total = g.Sum(t => t.tongTien) }))
+                        {
+                            i++;
+                            <tr>
+                                <td>
+                                    @i
+                                </td>
+                                <td>
+                                    @String.Format("{0:dd/MM/yyyy}", item.Pla)
+                                </td>
+                                <td>
+                                    <strong style="color:red;font-weight:bold">@String.Format("{0:0,0}", item.Total) VNĐ</strong>
+                                </td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>

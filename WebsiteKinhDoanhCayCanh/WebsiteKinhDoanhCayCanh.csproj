@@ -708,6 +708,7 @@
     <Content Include="Views\Voucher\Details.cshtml" />
     <Content Include="Views\Voucher\Create.cshtml" />
     <Content Include="Views\Voucher\Edit.cshtml" />
+    <Content Include="Views\Users\XemVoucher.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

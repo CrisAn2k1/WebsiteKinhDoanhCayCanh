@@ -39,8 +39,11 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
 
         public ActionResult sokh()
         {
-            var skh = context.Users.ToList();
-            return View(skh);
+            var countAdmin = context.UserRoles.Where(p => p.RoleId == "1").Count();
+            var countKH = context.Users.Count() - countAdmin;
+            ViewBag.SoKH = countKH;
+            return View();
+
         }
         public ActionResult Error401()
         {

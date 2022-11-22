@@ -45,44 +45,44 @@
                                     </tr>
                                 </thead>
                                 @{
-                                int index = 0;
-                                foreach (var item in Model)
-                                {
-                                    index ++;
-                                    <tbody>                                      
-                                        
-                                        @using (Html.BeginForm("CapNhatGioHang", "GioHangs", new { @id = item.iIdSanPham }, FormMethod.Post, new { @id = "target-form" + "-" + item.iIdSanPham }))
-                                        {
-                                            <tr class="text-center">
-                                                <td class="product-remove"><a href="@Url.Action("XoaGioHang", "GioHangs", new { @iIdSanPham = item.iIdSanPham })"> <i class="ion-ios-trash" style="color:red;font-size:20px;font-weight:bold"></i></a></td>
-                                                <td>@index</td>
-                                                <td class="product-name">
-                                                    <h3><a href="/SanPhams/Details/@item.iIdSanPham">@item.sTenSanPham</a></h3>
-                                                </td>
-                                                <td class="image-prod"><a href="/SanPhams/Details/@item.iIdSanPham"><div class="img" style="background-image:url('@item.sHinh');"></div></a> </td>
+                                    int index = 0;
+                                    foreach (var item in Model)
+                                    {
+                                        index++;
+                                        <tbody>
 
-                                                
+                                            @using (Html.BeginForm("CapNhatGioHang", "GioHangs", new { @id = item.iIdSanPham }, FormMethod.Post, new { @id = "target-form" + "-" + item.iIdSanPham }))
+                                            {
+                                                <tr class="text-center">
+                                                    <td class="product-remove"><a href="@Url.Action("XoaGioHang", "GioHangs", new { @iIdSanPham = item.iIdSanPham })"> <i class="ion-ios-trash" style="color:red;font-size:20px;font-weight:bold"></i></a></td>
+                                                    <td>@index</td>
+                                                    <td class="product-name">
+                                                        <h3><a href="/SanPhams/Details/@item.iIdSanPham">@item.sTenSanPham</a></h3>
+                                                    </td>
+                                                    <td class="image-prod"><a href="/SanPhams/Details/@item.iIdSanPham"><div class="img" style="background-image:url('@item.sHinh');"></div></a> </td>
 
-                                                <td class="price">@String.Format("{0:0,0}", item.dGia)&#8363;</td>
-                                                <td class="sale">
-                                                    @if (item.igiamGia > 0)
-                                                    {
-                                                        <strong>-@item.igiamGia%</strong>
-                                                    }
-                                                </td>
-                                                <td class="quantity">
-                                                    <div class="input-group mb-3">
-                                                        <input id="quantity-@item.iIdSanPham" type="number" name="quantity" class="quantity form-control input-number" value="@item.iSoLuong" min="1" max="100" maxlength="3"
-                                                               onchange="updateGioHang('target-form-@item.iIdSanPham', this.id ,this.value)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace('.','');" />
-                                                    </div>
-                                                </td>
 
-                                                <td class="total-price" style="color:red"><strong>@String.Format("{0:0,0}", item.dThanhTien)&#8363;</strong> </td>
 
-                                            </tr><!-- END TR-->
-                                        }
-                                    </tbody>
-                                }}
+                                                    <td class="price">@String.Format("{0:0,0}", item.dGia)&#8363;</td>
+                                                    <td class="sale">
+                                                        @if (item.igiamGia > 0)
+                                                        {
+                                                            <strong>-@item.igiamGia%</strong>
+                                                        }
+                                                    </td>
+                                                    <td class="quantity">
+                                                        <div class="input-group mb-3">
+                                                            <input id="quantity-@item.iIdSanPham" type="number" name="quantity" class="quantity form-control input-number" value="@item.iSoLuong" min="1" max="100" maxlength="3"
+                                                                   onchange="updateGioHang('target-form-@item.iIdSanPham', this.id ,this.value)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace('.','');" />
+                                                        </div>
+                                                    </td>
+
+                                                    <td class="total-price" style="color:red"><strong>@String.Format("{0:0,0}", item.dThanhTien)&#8363;</strong> </td>
+
+                                                </tr><!-- END TR-->
+                                            }
+                                        </tbody>
+                                    }}
                             </table>
                         </div>
                     </div>
@@ -116,25 +116,43 @@
                             </p>
                             @if (userLogin != null)
                             {
+                                int flag = 0;
                                 MyDataEF db = new MyDataEF();
-                                var lstVoucher = db.UserVoucher.Where(p => p.id_User == userLogin.Id).ToList();
-                                <p class="d-flex">
-                                    <span>Voucher:</span>
-                                    <select id="Voucher" name="Voucher" onchange="apDungVoucher(this.value)">
-                                        <option selected value="">Không áp dụng</option>
-                                        @foreach (var item in lstVoucher)
-                                        {
-                                            if (item.id_voucher == ViewBag.Voucher)
+                                DateTime currentDate = DateTime.Today;
+                                var lstVoucher = db.UserVoucher.Where(p => p.id_User == userLogin.Id & p.soLuotConLai > 0 & p.Voucher.thoiGianBatDau <= currentDate & p.Voucher.thoiGianKetThuc >= currentDate).ToList();
+                                if (lstVoucher.Count > 0)
+                                {
+                                    <p class="d-flex">
+                                        <span>Voucher:</span>
+                                        <select id="Voucher" name="Voucher" onchange="apDungVoucher(this.value)">
+                                            <option selected value="">Không áp dụng</option>
+                                            @foreach (var item in lstVoucher)
                                             {
-                                                <option selected value="@item.id_voucher">(Giảm @item.Voucher.phanTramGiamGia%) - @item.Voucher.tenVoucher</option>
+
+                                                if (item.id_voucher == ViewBag.Voucher)
+                                                {
+                                                    <option selected value="@item.id_voucher">(Giảm @item.Voucher.phanTramGiamGia%) - @item.Voucher.tenVoucher</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.id_voucher">(Giảm @item.Voucher.phanTramGiamGia%) - @item.Voucher.tenVoucher</option>
+                                                }
+
                                             }
-                                            else
-                                            {
-                                                <option value="@item.id_voucher">(Giảm @item.Voucher.phanTramGiamGia%) - @item.Voucher.tenVoucher</option>
-                                            }
-                                        }
-                                    </select>
-                                </p>
+
+                                        </select>
+                                    </p>
+                                }
+                                else
+                                {
+                                    <p class="d-flex">
+                                        <span>Voucher:</span>
+                                        <select id="Voucher" name="Voucher" onchange="apDungVoucher(this.value)">
+                                            <option selected value="">Hiện bạn chưa có voucher nào!</option>
+                                        </select>
+                                    </p>
+
+                                }
                             }
                             <hr>
                             <p class="d-flex total-price">

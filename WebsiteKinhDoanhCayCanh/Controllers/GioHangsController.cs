@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Newtonsoft.Json.Linq;
 using WebsiteKinhDoanhCayCanh.Message;
 using WebsiteKinhDoanhCayCanh.Models;
@@ -258,7 +259,9 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
 
             }
             db.DonHang.Add(dh);
-            db.SaveChanges();
+            var id_curentUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            UserVoucher updateVC = db.UserVoucher.Where(p => p.id_User == id_curentUser & p.id_voucher == voucher).FirstOrDefault();
+            updateVC.soLuotConLai = 0;
             foreach (var item in gh)
             {
                 CTDH ctdh = new CTDH();
@@ -268,10 +271,9 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 ctdh.thanhTien = ((long)item.dThanhTien);
                 SanPham sanPham = db.SanPham.Single(n => n.id_SP == item.iIdSanPham);
                 sanPham.soLuong -= item.iSoLuong;
-                db.SaveChanges();
                 db.CTDH.Add(ctdh);
-                db.SaveChanges();
             }
+            db.SaveChanges();
             Session["GioHang"] = null;
 
             String content = System.IO.File.ReadAllText(Server.MapPath("~/Others/Checkout.html"));

@@ -29,12 +29,76 @@
         text-align: center;
         vertical-align: middle;
     }
+
+    /* Css for table*/
+    table.dataTable thead .sorting:after,
+    table.dataTable thead .sorting:before,
+    table.dataTable thead .sorting_asc:after,
+    table.dataTable thead .sorting_asc:before,
+    table.dataTable thead .sorting_asc_disabled:after,
+    table.dataTable thead .sorting_asc_disabled:before,
+    table.dataTable thead .sorting_desc:after,
+    table.dataTable thead .sorting_desc:before,
+    table.dataTable thead .sorting_desc_disabled:after,
+    table.dataTable thead .sorting_desc_disabled:before {
+        bottom: .5em;
+    }
+
+    div.dataTables_length label {
+        width: 460px;
+        float: left;
+        text-align: left;
+    }
+
+    div.dataTables_length select {
+        width: 75px;
+    }
+
+    div.dataTables_filter label {
+        float: right;
+        width: 460px;
+    }
+
+    div.dataTables_info {
+        padding-top: 8px;
+    }
+
+    div.dataTables_paginate {
+        float: right;
+        margin: 0;
+    }
+
+    table {
+        margin: 1em 0;
+        clear: both;
+    }
+
+        table thead tr th:last-child {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        table tbody tr td:last-child {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+            table tbody tr td:last-child:hover {
+                cursor: pointer
+            }
 </style>
 <div id="layoutSidenav_content">
     <main>
-        <h2 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen;">Chi tiết sản phẩm</h2>
         <div class="container-fluid px-4" style=" margin-top:20px;">
+            <p style="position:fixed">
+                <a class="btn btn-info" href='@Url.Action("IndexAdmin", "SanPhams")' style="margin:10px 0px;">
+                    Trở về
+                </a>
+                @Html.ActionLink("Chỉnh Sửa", "Edit", new { id = Model.id_SP }, new { @class = "btn btn-warning" })
+
+            </p>
             <div class="d-flex justify-content-center align-items-center flex-column">
+                <h2 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen;">Chi tiết sản phẩm</h2>
 
                 <dl class="dl-horizontal" style="display:flex;flex-wrap:wrap;justify-content:center ;width:65%">
                     <dt><hr /></dt>
@@ -47,9 +111,10 @@
                         {
                             <span style="color:limegreen;font-weight:500">Hiển thị sản phẩm</span>
                             @Html.HiddenFor(model => model.trangThai) }
-                        else { 
+                        else
+                        {
                             <span style="color:limegreen;font-weight:500">Ẩn sản phẩm</span>
-                            @Html.HiddenFor(model => model.trangThai) }
+                            @Html.HiddenFor(model => model.trangThai)}
                     </dd>
                     <dt class="col-md-2">
                         Mã đơn hàng:
@@ -126,7 +191,7 @@
 
                 <hr />
                 <p><strong>Chi tiết cập nhật</strong></p>
-                <table class="table table-bordered table-success">
+                <table id="datatablesSimple" class="table table-bordered table-success">
                     <thead class="thead-dark">
                         <tr>
                             <th>
@@ -146,7 +211,7 @@
                         </tr>
                     </thead>
                     <tbody class="table-light">
-                        @foreach (var item in Model.CTCapNhat)
+                        @foreach (var item in Model.CTCapNhat.OrderByDescending(p => p.ngayCapNhat))
                         {
                             <tr>
                                 <td>
@@ -161,21 +226,21 @@
                                     @Html.DisplayFor(modelItem => item.ngayCapNhat)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.thaoTac)
+                                    @if (item.thaoTac == "Update")
+                                    {
+                                        <strong style="color:orange">@item.thaoTac</strong>
+                                    }
+                                    else
+                                    {
+                                        <strong style="color:limegreen">@item.thaoTac</strong>
+
+                                    }
                                 </td>
                             </tr>
-}
+                        }
                     </tbody>
                 </table>
-            </div>
-            <p>
-
-                @Html.ActionLink("Sửa", "Edit", new { id = Model.id_SP }, new { @class = "btn btn-warning" }) |
-                <a class="btn btn-success" href='@Url.Action("IndexAdmin", "SanPhams")' style="margin:10px 0px;">
-                    Trở về
-                </a>
-
-            </p>
+            </div>            
         </div>
     </main>
 </div>

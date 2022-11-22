@@ -60,8 +60,8 @@
                         @Convert.ToDateTime(Model.ngayGiao).ToString("dd-MM-yyyy")
                     </dd>
                     <dt>Tổng tiền: </dt>
-                    <dd style="font-weight:bold">
-                        @Html.DisplayFor(model => model.tongTien) VNĐ
+                    <dd style="font-weight:bold;color:red">
+                        @String.Format("{0:0,0}",Model.tongTien) VNĐ
                     </dd>
 
                     <dt><hr /></dt>
