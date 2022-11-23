@@ -234,7 +234,6 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
 
             DonHang dh = new DonHang();
             Models.LinQ.User kh = (Models.LinQ.User)Session["TaiKhoan"];
-            //SanPham s = new SanPham();
             List<GioHang> gh = layGioHang();
             var ngaygiao = String.Format("{0:dd/MM/yyyy}", collection["NgayGiao"]);
             dh.id_User = kh.Id;
@@ -244,24 +243,23 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             dh.trangThaiThanhToan = false;
             dh.phuongThucThanhToan = "0";
 
-            //  var diachi = collection["NgayGiao"];
             var voucher = collection["Voucher"];
             dh.diaChiGiao = Request["txtAddress"].ToString() + "";
-            dh.tongTien = TongTien(voucher);
-            if (voucher == "")
+            if (voucher == "" || voucher == null)
             {
                 dh.id_Voucher = null;
-
+                dh.tongTien = TongTien("");
             }
             else
             {
                 dh.id_Voucher = voucher;
+                dh.tongTien = TongTien(voucher);
 
+                var id_curentUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
+                UserVoucher updateVC = db.UserVoucher.Where(p => p.id_User == id_curentUser & p.id_voucher == voucher).FirstOrDefault();
+                updateVC.soLuotConLai = 0;
             }
             db.DonHang.Add(dh);
-            var id_curentUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            UserVoucher updateVC = db.UserVoucher.Where(p => p.id_User == id_curentUser & p.id_voucher == voucher).FirstOrDefault();
-            updateVC.soLuotConLai = 0;
             foreach (var item in gh)
             {
                 CTDH ctdh = new CTDH();
@@ -304,9 +302,16 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
          * ================================================================================================================================
             Thanh toan MOMO
          */
-        public ActionResult ThanhToan(FormCollection collection)
+        public static DateTime ngayGiaoHang;
+        public static string diaChiGiaohang;
+        public static string id_Voucher;
+        public ActionResult ThanhToan(string ngayGiao, string diaChi, string voucher)
         {
-            if (TongTien("") >= 45000000)
+            ngayGiaoHang = Convert.ToDateTime(ngayGiao);
+            diaChiGiaohang = diaChi;
+            id_Voucher = voucher;
+
+            if (TongTien(id_Voucher) >= 45000000 || TongTien("") >= 45000000)
             {
                 Notification.set_flash("Số tiền quá quá cao! Vui lòng chọn thanh toán khi nhận hàng!", "warning");
                 return RedirectToAction("DatHang", "GioHangs");
@@ -321,7 +326,15 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             string returnUrl = "https://localhost:44351/GioHangs/ReturnUrl";
             string notifyurl = "http://ba1adf48beba.ngrok.io/GioHangs/NotifyUrl";
 
-            string amount = gioHang.Sum(n => n.dThanhTien).ToString();
+            string amount;
+            if (id_Voucher != null && id_Voucher != "")
+            {
+                amount = TongTien(id_Voucher).ToString();
+            }
+            else
+            {
+                amount = TongTien("").ToString();
+            }
             string orderid = DateTime.Now.Ticks.ToString();
             string requestId = DateTime.Now.Ticks.ToString();
             string extraData = "";
@@ -373,28 +386,42 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 ViewBag.message = "Thông tin Request không hợp lệ";
                 return View();
             }
+
             if (!Request.QueryString["errorCode"].Equals("0"))
             {
-                ViewBag.message = "Thanh toán thất bại";
+                Notification.set_flash("Thanh toán thát bại!", "success");
             }
             else
             {
                 DonHang dh = new DonHang();
                 Models.LinQ.User kh = (Models.LinQ.User)Session["TaiKhoan"];
-                //SanPham s = new SanPham();
+
                 List<GioHang> gh = layGioHang();
-                var ngaygiao = String.Format("{0:MM/dd/yyyy}", collection["NgayGiao"]);
                 dh.id_User = kh.Id;
                 dh.ngayDat = DateTime.Now;
-                dh.ngayGiao = DateTime.Now;
+                dh.ngayGiao = ngayGiaoHang;
+                dh.diaChiGiao = diaChiGiaohang;
                 dh.trangThaiGiaoHang = "0";
                 dh.trangThaiThanhToan = true;
-                dh.phuongThucThanhToan = "0";
-                dh.tongTien = TongTien("");
+                dh.phuongThucThanhToan = "1";
+                if (id_Voucher != null && id_Voucher != "")
+                {
+                    dh.id_Voucher = id_Voucher;
+                    dh.tongTien = TongTien(id_Voucher);
+
+                    var id_curentUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
+                    UserVoucher updateVC = db.UserVoucher.Where(p => p.id_User == id_curentUser & p.id_voucher == id_Voucher).FirstOrDefault();
+                    updateVC.soLuotConLai = 0;
+                }
+                else
+                {
+                    dh.id_Voucher = null;
+                    dh.tongTien = TongTien("");
+                }
+
                 if (dh.tongTien != 0)
                 {
                     db.DonHang.Add(dh);
-                    db.SaveChanges();
                 }
                 foreach (var item in gh)
                 {
@@ -405,7 +432,6 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                     ctdh.thanhTien = (long?)item.dThanhTien;
                     SanPham sanPham = db.SanPham.Single(n => n.id_SP == item.iIdSanPham);
                     sanPham.soLuong -= item.iSoLuong;
-                    db.SaveChanges();
                     db.CTDH.Add(ctdh);
                     db.SaveChanges();
                 }
@@ -429,41 +455,5 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             }
             return RedirectToAction("DatHang", "GioHangs");
         }
-
-        [HttpPost]
-        public JsonResult NotifyUrl()
-        {
-            string param = "";
-            param =
-                "partner_code=" + Request["partner_code"] +
-                "&access_key=" + Request["access_key"] +
-                "&amount=" + Request["amount"] +
-                "&order_id=" + Request["order_id"] +
-                "&order_info=" + Request["order_info"] +
-                "&order_type=" + Request["order_type"] +
-                "&transaction_id=" + Request["transaction_id"] +
-                "&message=" + Request["message"] +
-                "&response_time=" + Request["response_time"] +
-                "&status_code=" + Request["status_code"];
-            param = Server.UrlDecode(param);
-            MoMoSecurity crypto = new MoMoSecurity();
-            string serectkey = ConfigurationManager.AppSettings["serectkey"].ToString();
-            string signature = crypto.signSHA256(param, serectkey);
-            if (signature != Request["signature"].ToString())
-            {
-
-            }
-            string status_code = Request["status_code"].ToString();
-            if ((status_code != "0"))
-            {
-
-            }
-            else
-            {
-
-            }
-            return Json("", JsonRequestBehavior.AllowGet);
-        }
-
     }
 }

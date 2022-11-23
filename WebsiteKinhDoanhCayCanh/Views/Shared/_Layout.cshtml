@@ -73,7 +73,7 @@
             @{
                 MyDataEF db = new MyDataEF();
                 <div class="collapse navbar-collapse" id="ftco-nav">
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ml-auto" style="margin:auto">
                         <li class="nav-item"><a href="/Home/Index" class="nav-link">Trang chủ</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="/SanPhams" id="dropdown04" aria-haspopup="true" aria-expanded="false">Sản Phẩm</a>
@@ -98,7 +98,7 @@
                         </li>
                         <li class="nav-item"><a href="/Home/Contact" class="nav-link">Liên hệ</a></li>
                         @Html.Action("GiohangPartial", "GioHangs")
-                        <li style="display:flex;flex-direction:column;justify-content:center"> @Html.Partial("_LoginPartial") </li>
+                        <li style="display:flex;flex-direction:column;justify-content:center; margin-left:auto"> @Html.Partial("_LoginPartial") </li>
                     </ul>
 
                 </div>
