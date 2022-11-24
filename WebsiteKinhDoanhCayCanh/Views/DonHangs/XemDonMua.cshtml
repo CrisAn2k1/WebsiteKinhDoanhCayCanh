@@ -147,15 +147,15 @@
                             <p style="color: black; padding-left: 10px;">Mã đơn hàng: @item.id_DH</p>
                             @if (item.trangThaiGiaoHang.ToString() == "1")
                             {
-                                <h5 style="border-left: solid 1px; padding-left: 15px; ">Đã giao</h5>
+                                <h5 style="border-left: solid 1px; padding-left: 15px;font-weight:bold;color:#449744 ; ">Đã giao</h5>
                             }
                             else if (item.trangThaiGiaoHang.ToString() == "2")
                             {
-                                <h5 style="border-left: solid 1px; padding-left: 15px; ">Đơn bị hủy</h5>
+                                <h5 style="border-left: solid 1px; padding-left: 15px;font-weight:bold;color:red ">Đơn bị hủy</h5>
                             }
                             else
                             {
-                                <h5 style="border-left: solid 1px; padding-left: 15px; ">Đang giao</h5>
+                                <h5 style="border-left: solid 1px; padding-left: 15px;font-weight:bold;color:orange; ">Đang giao</h5>
                             }
                         </div>
                         <hr />
@@ -223,7 +223,7 @@
                     <div class="table-order">
                         <div class="header-order">
                             <p style="color: black; padding-left: 10px;">Mã đơn hàng: @item.id_DH</p>
-                            <h5 style="border-left: solid 1px; padding-left: 15px; ">Đã giao</h5>
+                            <h5 style="border-left: solid 1px; padding-left: 15px;font-weight:bold;color:#449744; ">Đã giao</h5>
                         </div>
                         <hr />
                         <table style="width: 100%;">
@@ -284,7 +284,7 @@
                     <div class="table-order">
                         <div class="header-order">
                             <p style="color: black; padding-left: 10px;">Mã đơn hàng: @item.id_DH</p>
-                            <h5 style="border-left: solid 1px; padding-left: 15px; ">Đang giao</h5>
+                            <h5 style="border-left: solid 1px; padding-left: 15px;font-weight:bold;color:orange; ">Đang giao</h5>
                         </div>
                         <hr />
                         <table style="width: 100%;">
@@ -345,7 +345,7 @@
                     <div class="table-order">
                         <div class="header-order">
                             <p style="color: black; padding-left: 10px;">Mã đơn hàng: @item.id_DH</p>
-                            <h5 style="border-left: solid 1px; padding-left: 15px; ">Đơn bị hủy</h5>
+                            <h5 style="border-left: solid 1px; padding-left: 15px;font-weight:bold;color:red ">Đơn bị hủy</h5>
                         </div>
                         <hr />
                         <table style="width: 100%;">

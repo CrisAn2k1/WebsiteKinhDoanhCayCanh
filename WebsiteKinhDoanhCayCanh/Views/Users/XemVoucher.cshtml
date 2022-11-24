@@ -175,7 +175,7 @@
             <div class="container">
                 <div class="row no-gutters slider-text align-items-center justify-content-center">
                     <div class="col-md-9 ftco-animate text-center bg-text">
-                        <h1 class="mb-0 bread" style="color:antiquewhite">QUẢN LÝ TÀI KHOẢN</h1>
+                        <h1 class="mb-0 bread" style=" color: antiquewhite; font-family: 'Amatic SC', cursive;">QUẢN LÝ TÀI KHOẢN</h1>
                     </div>
                 </div>
             </div>
@@ -192,18 +192,22 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row">
-                        @foreach (var item in Model)
+                        @foreach (var item in Model.Where(p=>p.soLuotConLai>0))
                         {
-                            <div class="voucher">
-                                <div class="body_voucher">
-                                    <div><strong style="font-size: 16px">@item.Voucher.tenVoucher</strong> </div>
-                                    <hr />
-                                    <div class="content_voucher">@item.Voucher.noiDung</div>
-                                    <div style="font-size:11px" class="content_voucher">Áp dụng từ ngày: <strong> @Convert.ToDateTime(item.Voucher.thoiGianBatDau).ToString("dd/MM/yyyy") - @Convert.ToDateTime(item.Voucher.thoiGianKetThuc).ToString("dd/MM/yyyy")</strong></div>
-                                </div>
-                                <!-- Trigger the modal with a button -->
-                                <a style="cursor:pointer;color:red" data-toggle="modal" data-target="#myModal_@item.Voucher.id_voucher"> Chi tiết </a>
+                        <div class="voucher">
+                            <div class="body_voucher">
+                                <div><strong style="font-size: 16px">@item.Voucher.tenVoucher</strong> </div>
+                                <hr />
+                                <div class="content_voucher">@item.Voucher.noiDung</div>
+                                <div style="font-size:11px" class="content_voucher">Áp dụng từ ngày: <strong> @Convert.ToDateTime(item.Voucher.thoiGianBatDau).ToString("dd/MM/yyyy") - @Convert.ToDateTime(item.Voucher.thoiGianKetThuc).ToString("dd/MM/yyyy")</strong></div>
                             </div>
+                            <!-- Trigger the modal with a button -->
+                            <a style="cursor:pointer;color:red" data-toggle="modal" data-target="#myModal_@item.Voucher.id_voucher"> Chi tiết </a>
+                            @if (item.Voucher.thoiGianKetThuc <= DateTime.Today)
+                            {
+                        <p style="color: #d61b1b; font-weight: bold; position: absolute; top: 5px; right: 10px;">Hết hạn</p>
+                            }
+                        </div>
                             <!-- Modal -->
                             <div class="modal fade" id="myModal_@item.Voucher.id_voucher" role="dialog">
                                 <div class="modal-dialog">
