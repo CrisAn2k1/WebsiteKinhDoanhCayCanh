@@ -180,24 +180,15 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         // ADMIN
 
         [Authorize]
-        /*        public ActionResult IndexAdmin(int? page, string searchString)
-                {
-                    if (!AuthAdmin())
-                        return RedirectToAction("Error401", "Admin");
-                    ViewBag.Keyword = searchString;
-                    //var all_sanPham = db.SanPham.ToList();
-                    int pageSize = 10;
-                    int pageNum = page ?? 1;
-                    return View(SanPham.getAllAdmin(searchString).ToPagedList(pageNum, pageSize));
-                }*/
-        public ActionResult IndexAdmin(string searchString)
+        public ActionResult IndexAdmin(int? page, string searchString)
         {
             if (!AuthAdmin())
                 return RedirectToAction("Error401", "Admin");
-
-            //var all_sanPham = db.SanPham.ToList();
             ViewBag.Keyword = searchString;
-            return View(SanPham.getAllAdmin(searchString));
+            //var all_sanPham = db.SanPham.ToList();
+            int pageSize = 5;
+            int pageNum = page ?? 1;
+            return View(SanPham.getAllAdmin(searchString).ToPagedList(pageNum, pageSize));
         }
 
         // GET: SanPhams/Details/5 Admin

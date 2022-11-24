@@ -14,7 +14,15 @@
             <div>
                 <div>
                     <h2 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen; text-transform: capitalize;">Danh sách cách chăm sóc</h2>
-                </div>                
+                </div>
+                @*<div style="display:flex;justify-content:right;margin:10px">
+                <form>
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="Tìm kiếm theo tên..." aria-label="Tìm kiếm theo tên..." value="@ViewBag.Keyword" name="searchString" aria-describedby="btnNavbarSearch" />
+                        <button class="btn btn-primary" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
+                    </div>
+                </form>
+            </div>*@
                 <br />
 
             </div>
@@ -61,7 +69,15 @@
                             </tr>}
                     </tbody>
                 </table>
-                </div>            
+                </div>
+            @*<div style=" margin-bottom:20px;">
+                <div class="MenuTrang" style="display: flex; flex-direction: row; justify-content: center;">
+                    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                </div>
+                <div class="MenuTrang" style="display: flex; flex-direction: row; justify-content: center;">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+                </div>
+            </div>*@
             </div>
 </main>
 </div>

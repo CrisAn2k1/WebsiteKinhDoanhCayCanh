@@ -1,10 +1,8 @@
-﻿
-@model PagedList.PagedList<WebsiteKinhDoanhCayCanh.Models.Voucher>
-@using PagedList.Mvc;
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-}
+﻿@*@model PagedList.PagedList<WebsiteKinhDoanhCayCanh.Models.Voucher>
+    @using PagedList.Mvc;*@
+@model IEnumerable<WebsiteKinhDoanhCayCanh.Models.Voucher>
+@{ ViewBag.Title = "Index";
+                Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
 
 @Html.Partial("_MessageAlert")
 <style>
@@ -20,79 +18,78 @@
             <div>
                 <div>
                     <h2 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen; text-transform: capitalize;">Danh Sách Voucher</h2>
-                </div>
-                <div style="display:flex;justify-content:right;margin:10px">
-                    <form>
-                        <div class="input-group">
-                            <input class="form-control" type="text" placeholder="Tìm kiếm theo tên..." aria-label="Tìm kiếm theo tên..." value="@ViewBag.Keyword" name="searchString" aria-describedby="btnNavbarSearch" />
-                            <button class="btn btn-primary" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
-                        </div>
-                    </form>
-                </div>
+                </div>                
+                <br />
 
             </div>
             <a class="btn btn-success" href="@Url.Action("Create", "Voucher")" style="margin:10px 0px;">
                 Thêm Voucher
             </a>
-            <table id="datatablesSimple" class="table table-bordered table-success ">
-                <thead class="thead-dark">
-                    <tr>
-                        <th class="thead_table">STT</th>
-                        <th class="thead_table">
-                            Mã voucher
-                        </th>
-                        <th class="thead_table">
-                            Tên voucher
-                        </th>
-                        <th class="thead_table">
-                            Nội dung
-                        </th>
-                        <th class="thead_table">
-                            Phần trăm giảm giá
-                        </th>
-                        <th class="thead_table">
-                            Ngày bắt đầu
-                        </th>
-                        <th class="thead_table">
-                            Ngày kết thúc
-                        </th>
-                        <th class="thead_table">Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody class="table-light">
-                    @{ int i = 0;
-                        foreach (var item in Model)
-                        {
-                            i++;
-                            <tr>
-                                <td class="tbody_table"><strong>@i</strong></td>
-                                <td class="tbody_table col-lg-1">
-                                    @Html.DisplayFor(modelItem => item.id_voucher)
-                                </td>
-                                <td class="tbody_table col-lg-2">
-                                    @Html.DisplayFor(modelItem => item.tenVoucher)
-                                </td>
-                                <td class="tbody_table col-lg-3" style="max-width: 150px; text-overflow: ellipsis; overflow: hidden; ">
-                                    <span style="white-space:nowrap;">@item.noiDung</span>
-                                </td>
-                                <td class="tbody_table">
-                                    <strong>
-                                        @Html.DisplayFor(modelItem => item.phanTramGiamGia)%
-                                    </strong>
-                                </td>
-                                <td class="tbody_table">
-                                    @Convert.ToDateTime(item.thoiGianBatDau).ToString("dd-MM-yyyy")
-                                </td>
-                                <td class="tbody_table">
-                                    @Convert.ToDateTime(item.thoiGianKetThuc).ToString("dd-MM-yyyy")
-                                </td>
-                                <td class="col-lg-2 text-center">
-                                    @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.id_voucher }, new { @class = "btn btn-warning" , @style = "margin:5px" }) 
-                                    <a class="btn btn-info" style="cursor:pointer;" data-toggle="modal" data-target="#myModal_@item.id_voucher"> Chi tiết </a>
-                                    @*@Html.ActionLink("Xóa", "Delete", new { id = item.id_voucher }, new { @class = "btn btn-danger", @style = "margin-left:5px" })*@
-                                </td>
-                            </tr>
-                            <!-- Modal -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Bảng thông tin voucher
+                </div>
+                <br />
+                <table id="datatablesSimple" class="table table-bordered table-success ">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th class="thead_table">STT</th>
+                            <th class="thead_table">
+                                Mã voucher
+                            </th>
+                            <th class="thead_table">
+                                Tên voucher
+                            </th>
+                            <th class="thead_table">
+                                Nội dung
+                            </th>
+                            <th class="thead_table">
+                                Phần trăm giảm giá
+                            </th>
+                            <th class="thead_table">
+                                Ngày bắt đầu
+                            </th>
+                            <th class="thead_table">
+                                Ngày kết thúc
+                            </th>
+                            <th class="thead_table">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-light">
+                        @{ int i = 0;
+                            foreach (var item in Model)
+                            {
+                                i++;
+                <tr>
+                    <td class="tbody_table"><strong>@i</strong></td>
+                    <td class="tbody_table col-lg-1">
+                        @Html.DisplayFor(modelItem => item.id_voucher)
+                    </td>
+                    <td class="tbody_table col-lg-2">
+                        @Html.DisplayFor(modelItem => item.tenVoucher)
+                    </td>
+                    <td class="tbody_table col-lg-3" style="max-width: 150px; text-overflow: ellipsis; overflow: hidden; ">
+                        <span style="white-space:nowrap;">@item.noiDung</span>
+                    </td>
+                    <td class="tbody_table">
+                        <strong>
+                            @Html.DisplayFor(modelItem => item.phanTramGiamGia)%
+                        </strong>
+                    </td>
+                    <td class="tbody_table">
+                        @Convert.ToDateTime(item.thoiGianBatDau).ToString("dd-MM-yyyy")
+                    </td>
+                    <td class="tbody_table">
+                        @Convert.ToDateTime(item.thoiGianKetThuc).ToString("dd-MM-yyyy")
+                    </td>
+                    <td class="col-lg-2 text-center">
+                        @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.id_voucher }, new { @class = "btn btn-warning", @style = "margin:5px" })
+                        <a class="btn btn-info" style="cursor:pointer;" data-toggle="modal" data-target="#myModal_@item.id_voucher"> Chi tiết </a>
+                        @*@Html.ActionLink("Xóa", "Delete", new { id = item.id_voucher }, new { @class = "btn btn-danger", @style = "margin-left:5px" })*@
+                    </td>
+                </tr>
+                     <!-- Modal -->
                             <div class="modal fade" id="myModal_@item.id_voucher" role="dialog">
                                 <div class="modal-dialog">
                                     <!-- Modal content-->
@@ -105,26 +102,22 @@
                                             <p style="word-break:break-all">@item.noiDung</p>
                                             <br />
                                             <hr />
-                                            <div style="font-size:16px" class="content_voucher">Áp dụng từ ngày: <strong> @Convert.ToDateTime(item.thoiGianBatDau).ToString("dd/MM/yyyy") - @Convert.ToDateTime(item.thoiGianKetThuc).ToString("dd/MM/yyyy")</strong></div>
+                                            <p>Phần trăm giảm giá: <strong>@item.phanTramGiamGia %</strong></p>
+                                            @*<p style="word-break:break-all">@item.phanTramGiamGia</p>*@
+                                            <hr />
+                                            <div style="font-size:16px" class="content_voucher">Thời gian áp dụng: <strong> @Convert.ToDateTime(item.thoiGianBatDau).ToString("dd/MM/yyyy") - @Convert.ToDateTime(item.thoiGianKetThuc).ToString("dd/MM/yyyy")</strong></div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                            <button type="button" class="btn btn-success" data-dismiss="modal">
                                                 Đóng
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        }}
-                </tbody>
-            </table>
-            <div style=" margin-bottom:50px;">
-                <div class="MenuTrang" style="display: flex; flex-direction: row; justify-content: center;">
-                    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
-                </div>
-                <div class="MenuTrang" style="display: flex; flex-direction: row; justify-content: center;">
-                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
-                </div>
+                            }}
+                    </tbody>
+                </table>
             </div>
         </div>
     </main>
