@@ -18,7 +18,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         private MyDataEF db = new MyDataEF();
         ApplicationDbContext data = new ApplicationDbContext();
 
-        public ActionResult Index(int? page, string searchString)
+        /*public ActionResult Index(int? page, string searchString)
         {
             if (!AuthAdmin())
                 return RedirectToAction("Error401", "Admin");
@@ -26,8 +26,15 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             int pageSize = 10;
             int pageNum = page ?? 1;
             return View(CachChamSoc.getAll(searchString).ToPagedList(pageNum, pageSize));
-        }
+        }*/
 
+        public ActionResult Index(string searchString)
+        {
+            if (!AuthAdmin())
+                return RedirectToAction("Error401", "Admin");
+            ViewBag.Keyword = searchString;            
+            return View(CachChamSoc.getAll(searchString));
+        }
         // GET: Details
         public ActionResult Details(string id)
         {

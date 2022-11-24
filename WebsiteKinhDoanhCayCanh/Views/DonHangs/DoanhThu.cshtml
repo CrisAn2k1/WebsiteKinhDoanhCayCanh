@@ -1,35 +1,119 @@
-﻿﻿@model PagedList.PagedList<WebsiteKinhDoanhCayCanh.Models.LinQ.DonHang>
-@using PagedList.Mvc;
+﻿@*﻿@model PagedList.PagedList<WebsiteKinhDoanhCayCanh.Models.LinQ.DonHang>
+@using PagedList.Mvc;*@
+@model IEnumerable<WebsiteKinhDoanhCayCanh.Models.LinQ.DonHang>
 @{
     ViewBag.Title = "DoanhThu";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+<style>
+    dl dt {
+        padding-left: 10% !important;
+        text-align: start;
+        min-width: 40%;
+    }
 
+    dl dd {
+        text-align: start;
+        min-width: 50%;
+        max-width: 50% !important;
+    }
+
+    tr td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    tr th {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    /* Css for table*/
+    table.dataTable thead .sorting:after,
+    table.dataTable thead .sorting:before,
+    table.dataTable thead .sorting_asc:after,
+    table.dataTable thead .sorting_asc:before,
+    table.dataTable thead .sorting_asc_disabled:after,
+    table.dataTable thead .sorting_asc_disabled:before,
+    table.dataTable thead .sorting_desc:after,
+    table.dataTable thead .sorting_desc:before,
+    table.dataTable thead .sorting_desc_disabled:after,
+    table.dataTable thead .sorting_desc_disabled:before {
+        bottom: .5em;
+    }
+
+    div.dataTables_length label {
+        width: 460px;
+        float: left;
+        text-align: left;
+    }
+
+    div.dataTables_length select {
+        width: 75px;
+    }
+
+    div.dataTables_filter label {
+        float: right;
+        width: 460px;
+    }
+
+    div.dataTables_info {
+        padding-top: 8px;
+    }
+
+    div.dataTables_paginate {
+        float: right;
+        margin: 0;
+    }
+
+    table {
+        margin: 1em 0;
+        clear: both;
+    }
+
+        table thead tr th:last-child {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        table tbody tr td:last-child {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+            table tbody tr td:last-child:hover {
+                cursor: pointer
+            }
+</style>
 <div id="layoutSidenav_content">
     <main>
         <h2 style="margin: 10px; text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen;text-transform:capitalize">Doanh thu theo ngày</h2>
+        <br />
         <div class="container-fluid px-4">
             @using (Html.BeginForm("Export", "DonHangs", FormMethod.Post))
-                {
-                    <input type="submit" value="Xuất Excel" class="btn btn-success">
-                }
+            {
+        <input type="submit" value="Xuất Excel" class="btn btn-success">}
             <br />
-            <table  id="datatablesSimple" class="table table-bordered table-success text-center">              
-
-                <thead >
-                    <tr>
-                        <th class="text-center">STT</th>
-                        <th class="text-center">
-                            Ngày
-                        </th>
-                        <th class="text-center">
-                            Doanh Thu
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="table-light">
-                    @{
-                        int i = 0;
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Bảng thông tin thống kê doanh thu
+                </div>
+                <br />
+                <table id="datatablesSimple" class="table table-bordered table-success">
+                    <thead>
+                        <tr>
+                            <th class="text-center">STT</th>
+                            <th class="text-center">
+                                Ngày
+                            </th>
+                            <th class="text-center">
+                                Doanh Thu
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-light">
+                        @{ int i = 0;
                         foreach (var item in Model.GroupBy(y => y.ngayDat).Distinct().Select(g => new { Pla = g.Key, Total = g.Sum(t => t.tongTien) }))
                         {
                             i++;
@@ -43,20 +127,11 @@
                                 <td>
                                     <strong style="color:red;font-weight:bold">@String.Format("{0:0,0}", item.Total) VNĐ</strong>
                                 </td>
-                            </tr>
-                        }
-                    }
-                </tbody>
-            </table>
-            <div style=" margin-bottom:50px;">
-                <div class="MenuTrang" style="display: flex; flex-direction: row; justify-content: center;">
-                    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
-                </div>
-                <div class="MenuTrang" style="display: flex; flex-direction: row; justify-content: center;">
-                    @Html.PagedListPager(Model, page => Url.Action("DoanhThu", new { page = page }))
-                </div>
+                            </tr> } }
+                    </tbody>
+                </table>
+                </div>            
             </div>
-        </div>
-    </main>
+</main>
 </div>
 

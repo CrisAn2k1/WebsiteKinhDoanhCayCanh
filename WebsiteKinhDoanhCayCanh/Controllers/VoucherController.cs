@@ -19,7 +19,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
 
         
         [Authorize]
-        public ActionResult Index(int? page, string searchString)
+        /*public ActionResult Index(int? page, string searchString)
         {
             if (!AuthAdmin())
                 return RedirectToAction("Error401", "Admin");
@@ -28,8 +28,17 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             int pageSize = 10;
             int pageNum = page ?? 1;
             return View(Voucher.getAll(searchString).ToPagedList(pageNum, pageSize));
-        }
+        }*/
 
+
+        public ActionResult Index(string searchString)
+        {
+            if (!AuthAdmin())
+                return RedirectToAction("Error401", "Admin");
+            ViewBag.Keyword = searchString;
+            //var all_loaiSP = db.LoaiSP.ToList();            
+            return View(Voucher.getAll(searchString));
+        }
         // GET: Details
         [Authorize]
         public ActionResult Details(string id)

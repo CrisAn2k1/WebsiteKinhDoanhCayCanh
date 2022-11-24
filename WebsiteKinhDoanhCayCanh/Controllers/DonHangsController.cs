@@ -25,16 +25,26 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         private ApplicationDbContext dataUser = new ApplicationDbContext();
         // GET: DonHangs
         [Authorize]
-        public ActionResult Index(int? page)
+        /*        public ActionResult Index(int? page)
+                {
+                    if (!AuthAdmin())
+                        return RedirectToAction("Error401", "Admin");
+                    var all_donHang = data.DonHangs.ToList();
+                    //ViewBag.Keyword = searchString;
+
+                    int pageSize = 10;
+                    int pageNum = page ?? 1;
+                    return View(all_donHang.OrderByDescending(p => p.ngayDat).ToPagedList(pageNum, pageSize));
+
+                }*/
+
+        public ActionResult Index()
         {
             if (!AuthAdmin())
                 return RedirectToAction("Error401", "Admin");
             var all_donHang = data.DonHangs.ToList();
             //ViewBag.Keyword = searchString;
-
-            int pageSize = 10;
-            int pageNum = page ?? 1;
-            return View(all_donHang.OrderByDescending(p => p.ngayDat).ToPagedList(pageNum, pageSize));
+            return View(all_donHang.OrderByDescending(p => p.ngayDat));
 
         }
 
@@ -148,7 +158,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             base.Dispose(disposing);
         }
 
-        [Authorize]
+        /*[Authorize]
         public ActionResult DoanhThu(int? page)
         {
             if (!AuthAdmin())
@@ -157,8 +167,16 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             int pageSize = 7;
             int pageNum = page ?? 1;
             return View(all_donHang.ToPagedList(pageNum, pageSize));
+        }*/
+        [Authorize]
+        public ActionResult DoanhThu()
+        {
+            if (!AuthAdmin())
+                return RedirectToAction("Error401", "Admin");
+            var all_donHang = data.DonHangs.Where(t => t.trangThaiThanhToan == true && t.trangThaiGiaoHang.ToString() == "1").ToList();
+            
+            return View(all_donHang);
         }
-
         [Authorize]
         public FileResult Export()
         {

@@ -1,5 +1,6 @@
-﻿@*    @model PagedList.PagedList<WebsiteKinhDoanhCayCanh.Models.SanPham>*@
-@model IEnumerable<WebsiteKinhDoanhCayCanh.Models.SanPham>
+﻿
+    @model PagedList.PagedList<WebsiteKinhDoanhCayCanh.Models.SanPham>
+
 @using PagedList.Mvc;
 @{ ViewBag.Title = "IndexAdmin";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
@@ -92,7 +93,14 @@
                 <div>
                     <h2 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen; text-transform: capitalize;">Danh sách sản phẩm</h2>
                 </div>
-
+                @*<div style="display:flex;justify-content:right;margin:10px">
+                        <form>
+                            <div class="input-group">
+                                <input class="form-control" type="text" placeholder="Tìm kiếm theo tên..." aria-label="Tìm kiếm theo tên..." value="@ViewBag.Keyword" name="searchString" aria-describedby="btnNavbarSearch" />
+                                <button class="btn btn-primary" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
+                            </div>
+                        </form>
+                    </div>*@
                 <br />
             </div>
             <a class="btn btn-success" href='@Url.Action("Create", "SanPhams")' style="margin:10px 0px;">
@@ -106,9 +114,9 @@
                 <br />
                 @if (TempData["AlertMessage"] != null)
                 {
-    <div class="alert alert-success">
-        <strong>Success !</strong> @TempData["AlertMessage"]
-    </div>}
+                <div class="alert alert-success">
+                    <strong>Success !</strong> @TempData["AlertMessage"]
+                </div>}
                 <table id="datatablesSimple" class="table table-bordered table-success text-center">
                     <thead class="thead-dark">
                         <tr>
@@ -144,53 +152,50 @@
                     </thead>
                     @{ int stt = 0;
             <tbody class="table-light">
-                    @foreach (var item in Model)
-                      {
-                        stt++;
-                        <tr>
-                            <td style="vertical-align:middle">
-                                <strong> @stt</strong>
-                            </td>
-                            <td style="vertical-align:middle">
-                                @Html.DisplayFor(modelItem => item.id_SP)
-                            </td>
-                            <td style="vertical-align:middle">
-                                @Html.DisplayFor(modelItem => item.tenSP)
-                            </td>
-                            @if (item.HinhAnhSP.Where(p => p.id_SP == item.id_SP).FirstOrDefault() != null)
-                            {
-                            <td style="vertical-align:middle">
-                                <img src="@item.HinhAnhSP.Where(p => p.id_SP == item.id_SP).FirstOrDefault().duongDan" alt="thumbnail" width="150" />
-                                <br /><br />
-                            </td>
-                                }
-                            <td style="vertical-align:middle">
-                                @Html.DisplayFor(modelItem => item.gia)
-                            </td>
-                            <td style="vertical-align:middle">
-                                @Html.DisplayFor(modelItem => item.soLuong)
-                            </td>
+                @foreach (var item in Model)
+                {
+                    stt++;
+    <tr>
+        <td style="vertical-align:middle">
+            <strong> @stt</strong>
+        </td>
+        <td style="vertical-align:middle">
+            @Html.DisplayFor(modelItem => item.id_SP)
+        </td>
+        <td style="vertical-align:middle">
+            @Html.DisplayFor(modelItem => item.tenSP)
+        </td>
+        @if (item.HinhAnhSP.Where(p => p.id_SP == item.id_SP).FirstOrDefault() != null)
+        {
+<td style="vertical-align:middle">
+    <img src="@item.HinhAnhSP.Where(p => p.id_SP == item.id_SP).FirstOrDefault().duongDan" alt="thumbnail" width="150" />
+    <br /><br />
+</td>}
+        <td style="vertical-align:middle">
+            @Html.DisplayFor(modelItem => item.gia)
+        </td>
+        <td style="vertical-align:middle">
+            @Html.DisplayFor(modelItem => item.soLuong)
+        </td>
 
-                            <td style="vertical-align:middle">
-                                @Html.DisplayFor(modelItem => item.NhomSP.tenNhom)
-                            </td>
-                            <td style="vertical-align:middle">
-                                @if (!item.trangThai)
-                                {
-                        <i class="fa fa-eye-slash" style="color: red; font-weight: bold; font-size: 20px"></i> <spam hidden>2</spam> }
-                        else
-                        {
-                        <i class="fa fa-eye" style="color:limegreen;font-weight:bold;font-size:20px"></i> <spam hidden>1</spam>}
-                                </td>
-                        <td style="vertical-align:middle">
-                            @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.id_SP }, new { @class = "btn btn-warning" })
-                            @Html.ActionLink("Chi tiết", "DetailsAdmin", new { id = item.id_SP }, new { @class = "btn btn-info", @style = "margin-left:5px" })
-                            @*@Html.ActionLink("Ẩn", "Delete", new { id = item.id_SP }, new { @class = "btn btn-danger", @style = "margin-left:5px" })*@
-                        </td>
-                            </tr>
-                        }
-                </tbody>
-                    }
+        <td style="vertical-align:middle">
+            @Html.DisplayFor(modelItem => item.NhomSP.tenNhom)
+        </td>
+        <td style="vertical-align:middle">
+            @if (!item.trangThai)
+            {
+<i class="fa fa-eye-slash" style="color: red; font-weight: bold; font-size: 20px"></i> <spam hidden>2</spam> }
+else
+{
+<i class="fa fa-eye" style="color:limegreen;font-weight:bold;font-size:20px"></i> <spam hidden>1</spam>}
+        </td>
+        <td style="vertical-align:middle">
+            @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.id_SP }, new { @class = "btn btn-warning" })
+            @Html.ActionLink("Chi tiết", "DetailsAdmin", new { id = item.id_SP }, new { @class = "btn btn-info", @style = "margin-left:5px" })
+            @*@Html.ActionLink("Ẩn", "Delete", new { id = item.id_SP }, new { @class = "btn btn-danger", @style = "margin-left:5px" })*@
+        </td>
+    </tr>}
+            </tbody> }
                 </table>
             </div>
             @*<div>
