@@ -8,7 +8,7 @@
 
 <div id="layoutSidenav_content">
     <main>
-        <div class="container-fluid px-4">
+        <div class="container-fluid px-4" style="margin-bottom: 75px;">
             <div>
                 <div>
                     <h2 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen; text-transform: capitalize;">
@@ -66,7 +66,7 @@
                                     @Html.DisplayFor(modelItem => item.PhoneNumber)
                                 </td>
                                 <td style="vertical-align:middle;text-align:center">
-                                    @if (!item.LockoutEnabled)
+                                    @if (item.LockoutEnabled)
                                     {
                                         <i id="@item.Id" onclick="changeStatus(this.id,@item.LockoutEnabled)" class="fa-regular fa-lock" style="color:red;font-weight:bold;font-size:20px;cursor:pointer"></i> }
                                     else
@@ -89,7 +89,7 @@
 
 <script>
     function changeStatus(id_User, trangThai) {
-        if (trangThai != undefined) {
+        if (trangThai == undefined) {
             Swal.fire({
                 title: 'Khóa Tài Khoản?',
                 text: "Bạn có chắc chắn muốn khóa tài khoản này??",

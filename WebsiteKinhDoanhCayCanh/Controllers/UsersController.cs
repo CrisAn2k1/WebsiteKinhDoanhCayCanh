@@ -28,7 +28,6 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             return View(myData.UserVoucher.Where(p => p.id_User == id_currentUser).ToList());
         }
 
-
         //Get : addvoucher
         public string SaveVoucher(string id_Voucher)
         {
@@ -50,13 +49,13 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             }
 
         }
-
+        [Authorize]
         public ActionResult ChangeStatusAccount(string id_User)
         {
             if (System.Web.HttpContext.Current.User.Identity.GetUserId() == id_User)
             {
-                Notification.set_flash("Không thể khóa tài khoản đang đăng nhập", "error");
-                return Redirect("/Users/IndexAdmin");
+                Notification.set_flash("Không thể khóa tài khoản đang đăng nhập!", "error");
+                return RedirectToAction("IndexAdmin", "Users");
             }
             var user = db.Users.Find(id_User);
             if (user == null)
@@ -67,9 +66,9 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             db.SaveChanges();
             if (user.Roles.Where(p => p.RoleId == "1").FirstOrDefault() != null)
             {
-                return Redirect("/Users/IndexAdmin");
+                return RedirectToAction("IndexAdmin", "Users");
             }
-            return Redirect("/Users");
+            return RedirectToAction("Index", "Users");
         }
 
         // GET: Users
@@ -86,13 +85,13 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         }*/
 
         [Authorize]
-        public ActionResult Index( string searchString)
+        public ActionResult Index(string searchString)
         {
             if (!AuthAdmin())
                 return RedirectToAction("Error401", "Admin");
             ViewBag.Keyword = searchString;
             //var all_user = db.Users.Where(u => u.Roles.FirstOrDefault(r => r.UserId == u.Id).RoleId != "1").ToList();
-            
+
             return View(ApplicationUser.getAll(searchString));
         }
         /*[Authorize]
@@ -108,12 +107,12 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         }*/
 
         [Authorize]
-        public ActionResult IndexAdmin( string searchString)
+        public ActionResult IndexAdmin(string searchString)
         {
             if (!AuthAdmin())
                 return RedirectToAction("Error401", "Admin");
             ViewBag.Keyword = searchString;
-            
+
             return View(ApplicationUser.getAllAdmin(searchString));
         }
         // GET: Users/Details
