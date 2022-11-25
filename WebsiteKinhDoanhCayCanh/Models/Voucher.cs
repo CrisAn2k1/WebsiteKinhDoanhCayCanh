@@ -1,4 +1,4 @@
-namespace WebsiteKinhDoanhCayCanh.Models
+﻿namespace WebsiteKinhDoanhCayCanh.Models
 {
     using System;
     using System.Collections.Generic;
@@ -18,21 +18,27 @@ namespace WebsiteKinhDoanhCayCanh.Models
         }
 
         [Key]
-        [StringLength(10)]
+        [StringLength(10, ErrorMessage = "Số ký tự tối đa là 10!")]
+        [Required(ErrorMessage = "Nhập mã voucher!")]
         public string id_voucher { get; set; }
 
         [StringLength(50)]
+        [Required(ErrorMessage = "Nhập thiếu!")]
         public string tenVoucher { get; set; }
 
         [StringLength(250)]
+        [Required(ErrorMessage = "Nhập thiếu!")]
         public string noiDung { get; set; }
 
+        [Required(ErrorMessage = "Nhập thiếu!")]
         public int? phanTramGiamGia { get; set; }
 
         [Column(TypeName = "smalldatetime")]
+        [Required(ErrorMessage = "Nhập thiếu!")]
         public DateTime? thoiGianBatDau { get; set; }
 
         [Column(TypeName = "smalldatetime")]
+        [Required(ErrorMessage = "Nhập thiếu!")]
         public DateTime? thoiGianKetThuc { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

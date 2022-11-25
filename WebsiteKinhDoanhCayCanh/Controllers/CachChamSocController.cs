@@ -71,11 +71,20 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 return RedirectToAction("Error401", "Admin");
             if (ModelState.IsValid)
             {
-                db.CachChamSoc.Add(cachChamSoc);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (db.CachChamSoc.Where(p => p.id_CCS == cachChamSoc.id_CCS).FirstOrDefault() != null)
+                {
+                    Notification.set_flash("Đã tồn tại!", "error");
+                    return RedirectToAction("Create", "CachChamSoc");
+                }
+                else
+                {
+                    db.CachChamSoc.Add(cachChamSoc);
+                    db.SaveChanges();
+                    Notification.set_flash("Thêm thành công", "success");
+                    return RedirectToAction("Index");
+                }
+                
             }
-
             return View(cachChamSoc);
         }
 

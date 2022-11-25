@@ -1,7 +1,8 @@
-namespace WebsiteKinhDoanhCayCanh.Models
+﻿namespace WebsiteKinhDoanhCayCanh.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -18,9 +19,12 @@ namespace WebsiteKinhDoanhCayCanh.Models
 
         [Key]
         [StringLength(10)]
+        [Required(ErrorMessage = "Chưa nhập mã nhóm!")]
         public string id_Nhom { get; set; }
 
         [StringLength(50)]
+        [DisplayName("Tên nhóm")]
+        [Required(ErrorMessage = "Chưa nhập tên nhóm!")]
         public string tenNhom { get; set; }
 
         [StringLength(10)]

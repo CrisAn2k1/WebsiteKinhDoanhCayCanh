@@ -1,4 +1,4 @@
-namespace WebsiteKinhDoanhCayCanh.Models
+﻿namespace WebsiteKinhDoanhCayCanh.Models
 {
     using System;
     using System.Collections.Generic;
@@ -12,12 +12,15 @@ namespace WebsiteKinhDoanhCayCanh.Models
     {
         [Key]
         [StringLength(10)]
+
         public string id_SP { get; set; }
 
         [StringLength(255)]
+        [Required(ErrorMessage = "Nhập thiếu!")]
         public string congDung { get; set; }
 
         [StringLength(255)]
+        [Required(ErrorMessage = "Nhập thiếu!")]
         public string cachTrong { get; set; }
 
         public virtual SanPham SanPham { get; set; }

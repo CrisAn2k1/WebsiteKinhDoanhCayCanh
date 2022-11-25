@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using WebsiteKinhDoanhCayCanh.Message;
 using WebsiteKinhDoanhCayCanh.Models;
 using WebsiteKinhDoanhCayCanh.Models.OtherModels;
 
@@ -179,6 +180,11 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
 
         // ADMIN
 
+        public void SetViewBag(string selectedId = null)
+        {
+            var dao = new NSPListView();
+            ViewBag.id_Nhom = new SelectList(dao.listAll(), "id_Nhom", "tenNhom", selectedId);
+        }
         [Authorize]
         /*        public ActionResult IndexAdmin(int? page, string searchString)
                 {
@@ -224,7 +230,8 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             if (!AuthAdmin())
                 return RedirectToAction("Error401", "Admin");
 
-            ViewBag.id_Nhom = new SelectList(db.NhomSP, "id_Nhom", "tenNhom");
+            //ViewBag.id_Nhom = new SelectList(db.NhomSP, "id_Nhom", "tenNhom");
+            SetViewBag();
             ViewBag.id_SP = new SelectList(db.ThongTinThemVeSP, "id_SP", "congDung");
             return View();
         }
@@ -244,41 +251,50 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
 
             if (ModelState.IsValid && idUser != null)
             {
-                db.SanPham.Add(sanPham);
-
-                if (Request["congDung"] != null && Request["cachTrong"] != null)
+                if (db.SanPham.Where(p => p.id_SP == sanPham.id_SP).FirstOrDefault() != null)
                 {
-                    string content1 = Request["congDung"].ToString() + " ";
-                    string content2 = Request["cachTrong"].ToString() + " ";
-                    if (content1 == " " || content2 == " ")
-                    {
-                        return RedirectToAction("Create");
-                    }
-                    ThongTinThemVeSP thongTinThemVeSP = new ThongTinThemVeSP();
-                    thongTinThemVeSP.id_SP = sanPham.id_SP;
-                    thongTinThemVeSP.cachTrong = content2;
-                    thongTinThemVeSP.congDung = content1;
-                    db.ThongTinThemVeSP.Add(thongTinThemVeSP);
+                    Notification.set_flash("Đã tồn tại!", "error");
+                    return RedirectToAction("Create", "SanPhams");
                 }
+                else
+                {
+                    db.SanPham.Add(sanPham);
 
-                HinhAnhSP hinhAnhSP = new HinhAnhSP();
-                var srcImg = Request["Hinh"].ToString() + "";
-                hinhAnhSP.id_SP = sanPham.id_SP;
-                hinhAnhSP.duongDan = srcImg;
-                db.HinhAnhSP.Add(hinhAnhSP);
+                    if (Request["congDung"] != null && Request["cachTrong"] != null)
+                    {
+                        string content1 = Request["congDung"].ToString() + " ";
+                        string content2 = Request["cachTrong"].ToString() + " ";
+                        if (content1 == " " || content2 == " ")
+                        {
+                            return RedirectToAction("Create");
+                        }
+                        ThongTinThemVeSP thongTinThemVeSP = new ThongTinThemVeSP();
+                        thongTinThemVeSP.id_SP = sanPham.id_SP;
+                        thongTinThemVeSP.cachTrong = content2;
+                        thongTinThemVeSP.congDung = content1;
+                        db.ThongTinThemVeSP.Add(thongTinThemVeSP);
+                    }
 
-                CTCapNhat ctCapNhat = new CTCapNhat();
-                ctCapNhat.id_User = idUser;
-                ctCapNhat.id_SP = sanPham.id_SP;
-                ctCapNhat.ngayCapNhat = DateTime.Now;
-                ctCapNhat.thaoTac = "Create";
-                db.CTCapNhat.Add(ctCapNhat);
-                sanPham.trangThai = true;
-                db.SaveChanges();
+                    HinhAnhSP hinhAnhSP = new HinhAnhSP();
+                    var srcImg = Request["Hinh"].ToString() + "";
+                    hinhAnhSP.id_SP = sanPham.id_SP;
+                    hinhAnhSP.duongDan = srcImg;
+                    db.HinhAnhSP.Add(hinhAnhSP);
 
-
-                return RedirectToAction("Create");
+                    CTCapNhat ctCapNhat = new CTCapNhat();
+                    ctCapNhat.id_User = idUser;
+                    ctCapNhat.id_SP = sanPham.id_SP;
+                    ctCapNhat.ngayCapNhat = DateTime.Now;
+                    ctCapNhat.thaoTac = "Create";
+                    db.CTCapNhat.Add(ctCapNhat);
+                    sanPham.trangThai = true;
+                    db.SaveChanges();
+                    Notification.set_flash("Thêm thành công", "success");
+                    return RedirectToAction("Create");
+                }              
+                
             }
+            SetViewBag();
             return View(sanPham);
         }
 
