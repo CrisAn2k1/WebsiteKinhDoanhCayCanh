@@ -305,8 +305,10 @@
     <Compile Include="Models\NhomSP.cs" />
     <Compile Include="Models\OtherModels\DonHangViewList.cs" />
     <Compile Include="Models\OtherModels\DonHangViewModel.cs" />
+    <Compile Include="Models\OtherModels\CCSListView.cs" />
     <Compile Include="Models\OtherModels\Product-Details.cs" />
     <Compile Include="Models\OtherModels\Product-Index.cs" />
+    <Compile Include="Models\OtherModels\NSPListView.cs" />
     <Compile Include="Models\SanPham.cs" />
     <Compile Include="Models\ThongTinThemVeSP.cs" />
     <Compile Include="Models\UserVoucher.cs" />

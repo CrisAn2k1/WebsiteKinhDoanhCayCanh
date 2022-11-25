@@ -21,22 +21,30 @@
         }
 
         [Key]
-        [StringLength(10)]
+        [StringLength(10, ErrorMessage = "Số ký tự tối đa là 10!")]
+        [Required(ErrorMessage = "Nhập mã sản phẩm!")]
         public string id_SP { get; set; }
 
         [StringLength(50)]
+        [Required(ErrorMessage = "Nhập thiếu!")]
         public string tenSP { get; set; }
 
         [StringLength(250)]
+        [Required(ErrorMessage = "Nhập thiếu!")]
         public string mota { get; set; }
 
+        [Required(ErrorMessage = "Nhập thiếu!")]
         public long? gia { get; set; }
 
+        [Required(ErrorMessage = "Nhập thiếu!")]
+        [Range( 0, Int32.MaxValue, ErrorMessage = "Nhập số!")]
         public int? soLuong { get; set; }
 
-        [StringLength(10)]
+        [StringLength(10, ErrorMessage = "Số ký tự tối đa là 10!")]
+        [Required(ErrorMessage = "Nhập thiếu!")]
         public string DVT { get; set; }
 
+        [Required(ErrorMessage = "Nhập thiếu!")]
         public int? phanTramGiamGia { get; set; }
 
         public Boolean trangThai { get; set; }

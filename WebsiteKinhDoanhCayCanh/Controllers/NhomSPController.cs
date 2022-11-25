@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using WebsiteKinhDoanhCayCanh.Message;
 using WebsiteKinhDoanhCayCanh.Models;
 using WebsiteKinhDoanhCayCanh.Models.LinQ;
+using WebsiteKinhDoanhCayCanh.Models.OtherModels;
 using NhomSP = WebsiteKinhDoanhCayCanh.Models.NhomSP;
 
 namespace WebsiteKinhDoanhCayCanh.Controllers
@@ -18,6 +19,11 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         private MyDataEF db = new MyDataEF();
         ApplicationDbContext data = new ApplicationDbContext();
 
+        public void SetViewBag(string selectedId = null)
+        {
+            var dao = new CCSListView();
+            ViewBag.id_CCS = new SelectList(dao.listAll(), "id_CCS", "tenCCS", selectedId);
+        }
         // GET: NhomSP
         [Authorize]
         /*public ActionResult Index(int? page, string searchString)
@@ -63,7 +69,8 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         {
             if (!AuthAdmin())
                 return RedirectToAction("Error401", "Admin");
-            ViewBag.id_CachChamSoc = new SelectList(db.CachChamSoc, "id_CCS", "id_CCS ");
+            //ViewBag.id_CachChamSoc = new SelectList(db.CachChamSoc, "id_CCS", "tenCCS ");
+            SetViewBag();
             return View();
         }
 
@@ -79,12 +86,21 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 return RedirectToAction("Error401", "Admin");
             if (ModelState.IsValid)
             {
-                db.NhomSP.Add(nhomSP);
-                db.SaveChanges();
-                Notification.set_flash("Thêm thành công", "success");
-                return RedirectToAction("Index");
+                if(db.NhomSP.Where(p => p.id_Nhom == nhomSP.id_Nhom).FirstOrDefault() != null)
+                {
+                        Notification.set_flash("Đã tồn tại!", "error");
+                        return RedirectToAction("Create", "NhomSP");
+                }
+                else {
+                    db.NhomSP.Add(nhomSP);
+                    db.SaveChanges();
+                    Notification.set_flash("Thêm thành công", "success");
+                    return RedirectToAction("Index");
+                }
+                
             }
-            ViewBag.id_CachChamSoc = new SelectList(db.CachChamSoc, "id_CCS", nhomSP.id_CCS);
+            //ViewBag.id_CachChamSoc = new SelectList(db.CachChamSoc, "id_CCS", nhomSP.id_CCS);
+            SetViewBag();
             return View(nhomSP);
         }
 
@@ -103,7 +119,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.id_CachChamSoc = new SelectList(db.CachChamSoc, "id_CCS", "id_CCS ");
+            ViewBag.id_CachChamSoc = new SelectList(db.CachChamSoc, "id_CCS", "tenCCS");
             return View(nhomSP);
         }
 

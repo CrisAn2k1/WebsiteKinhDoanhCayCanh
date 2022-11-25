@@ -79,11 +79,21 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 return RedirectToAction("Error401", "Admin");
             if (ModelState.IsValid)
             {
-                db.Voucher.Add(voucher);
-                db.SaveChanges();
-                Notification.set_flash("Thêm thành công", "success");
-                return RedirectToAction("Index");
+                if (db.Voucher.Where(p => p.id_voucher == voucher.id_voucher).FirstOrDefault() != null)
+                {
+                    Notification.set_flash("Đã tồn tại!", "error");
+                    return RedirectToAction("Create", "Voucher");
+                }
+                else
+                {
+                    db.Voucher.Add(voucher);
+                    db.SaveChanges();
+                    Notification.set_flash("Thêm thành công", "success");
+                    return RedirectToAction("Index");
+                }
+                
             }
+
             //ViewBag.id_CachChamSoc = new SelectList(db.CachChamSoc, "id_CCS", nhomSP.id_CCS);
             return View(voucher);
         }
