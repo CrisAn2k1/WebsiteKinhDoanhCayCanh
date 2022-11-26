@@ -192,22 +192,22 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row">
-                        @foreach (var item in Model.Where(p=>p.soLuotConLai>0))
+                        @foreach (var item in Model.Where(p => p.soLuotConLai > 0))
                         {
-                        <div class="voucher">
-                            <div class="body_voucher">
-                                <div><strong style="font-size: 16px">@item.Voucher.tenVoucher</strong> </div>
-                                <hr />
-                                <div class="content_voucher">@item.Voucher.noiDung</div>
-                                <div style="font-size:11px" class="content_voucher">Áp dụng từ ngày: <strong> @Convert.ToDateTime(item.Voucher.thoiGianBatDau).ToString("dd/MM/yyyy") - @Convert.ToDateTime(item.Voucher.thoiGianKetThuc).ToString("dd/MM/yyyy")</strong></div>
+                            <div class="voucher">
+                                <div class="body_voucher">
+                                    <div><strong style="font-size: 16px">@item.Voucher.tenVoucher</strong> </div>
+                                    <hr />
+                                    <div class="content_voucher">@item.Voucher.noiDung</div>
+                                    <div style="font-size:11px" class="content_voucher">Áp dụng từ ngày: <strong> @Convert.ToDateTime(item.Voucher.thoiGianBatDau).ToString("dd/MM/yyyy") - @Convert.ToDateTime(item.Voucher.thoiGianKetThuc).ToString("dd/MM/yyyy")</strong></div>
+                                </div>
+                                <!-- Trigger the modal with a button -->
+                                <a style="cursor:pointer;color:red" data-toggle="modal" data-target="#myModal_@item.Voucher.id_voucher"> Chi tiết </a>
+                                @if (item.Voucher.thoiGianKetThuc < DateTime.Today)
+                                {
+                                    <p style="color: #d61b1b; font-weight: bold; position: absolute; top: 5px; right: 10px;">Hết hạn</p>
+                                }
                             </div>
-                            <!-- Trigger the modal with a button -->
-                            <a style="cursor:pointer;color:red" data-toggle="modal" data-target="#myModal_@item.Voucher.id_voucher"> Chi tiết </a>
-                            @if (item.Voucher.thoiGianKetThuc <= DateTime.Today)
-                            {
-                        <p style="color: #d61b1b; font-weight: bold; position: absolute; top: 5px; right: 10px;">Hết hạn</p>
-                            }
-                        </div>
                             <!-- Modal -->
                             <div class="modal fade" id="myModal_@item.Voucher.id_voucher" role="dialog">
                                 <div class="modal-dialog">
@@ -243,7 +243,7 @@
                 <div style="text-align:center;margin-bottom:100px">
                     <a href="/Home" class="btn-back-to-cart py-3 px-4" style="text-decoration:none"><i class="fa fa-solid fa-bag-shopping"></i> Trở Về Trang Chủ </a>
                 </div>
-               
+
             </div>
         }
     </div>

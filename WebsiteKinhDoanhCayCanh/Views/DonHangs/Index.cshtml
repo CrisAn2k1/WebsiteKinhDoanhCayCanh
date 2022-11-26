@@ -11,7 +11,7 @@
 </style>
 <div id="layoutSidenav_content">
     <main>
-        <div class="container-fluid px-4">
+        <div class="container-fluid px-4" style="margin-bottom: 75px; ">
             <h2 style=" text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen; text-transform: capitalize;">Danh sách đơn hàng</h2>
             
             <br />
@@ -37,7 +37,7 @@
                                 Tên khách hàng
                             </th>
                             <th class="text-center align-middle">
-                                Địa chỉ
+                                Địa chỉ giao hàng
                             </th>
                             <th width="140px" class="text-center align-middle">
                                 Tổng tiền
@@ -72,7 +72,7 @@
                                         @Html.DisplayFor(modelItem => item.User.FullName)
                                     </td>
                                     <td class="align-middle">
-                                        @Html.DisplayFor(modelItem => item.User.Address)
+                                        @Html.DisplayFor(modelItem => item.diaChiGiao)
                                     </td>
                                     <td class="text-center align-middle">
                                         <strong style="color:red;font-weight:bold">
