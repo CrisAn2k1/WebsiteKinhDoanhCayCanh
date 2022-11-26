@@ -418,7 +418,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 case SignInStatus.Success:
                     {
                         var kh = context.Users.Where(p => p.Email == loginInfo.Email).FirstOrDefault();
-                        if (kh.LockoutEnabled == false)
+                        if (kh.LockoutEnabled == true)
                         {
                             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
                             return View("Lockout");
