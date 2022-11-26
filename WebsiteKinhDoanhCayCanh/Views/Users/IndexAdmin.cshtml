@@ -1,0 +1,124 @@
+﻿@*@model PagedList.PagedList<WebsiteKinhDoanhCayCanh.Models.ApplicationUser>
+@using PagedList.Mvc;
+*@
+@model IEnumerable<WebsiteKinhDoanhCayCanh.Models.ApplicationUser>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@Html.Partial("_MessageAlert")
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4" style="margin-bottom: 75px;">
+            <div>
+                <div>
+                    <h2 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen; text-transform: capitalize;">
+                        Danh Sách Tài Khoản Admin
+                    </h2>
+                </div>                
+                <br />
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Bảng thông tin admin
+                </div>
+                <br />
+                <table id="datatablesSimple" class="table table-bordered table-success">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th class="text-center align-middle">STT</th>
+                            <th class="text-center align-middle col-2">
+                                Họ tên
+                            </th>
+                            <th class="text-center align-middle">
+                                Địa chỉ
+                            </th>
+                            <th class="text-center align-middle">
+                                Email
+                            </th>
+                            <th class="text-center align-middle">
+                                Số điện thoại
+                            </th>
+                            <th class="text-center align-middle">
+                                Trạng Thái
+                            </th>
+                            <th class="text-center align-middle">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-light" style="font-size: medium;">
+                        @{ int i = 0;}
+                        @foreach (var item in Model)
+                        {
+                            i++;
+                            <tr>
+                                <td style="vertical-align:middle;text-align:center"><strong>@i</strong></td>
+                                <td style="vertical-align:middle">
+                                    @Html.DisplayFor(modelItem => item.FullName)
+                                </td>
+                                <td style="vertical-align:middle">
+                                    @Html.DisplayFor(modelItem => item.Address)
+                                </td>
+                                <td style="vertical-align:middle">
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td style="vertical-align:middle">
+                                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                </td>
+                                <td style="vertical-align:middle; text-align:center">
+                                    @if (item.LockoutEnabled)
+                                    {
+                                        <i id="@item.Id" onclick="changeStatus(this.id,@item.LockoutEnabled)" class="fa-regular fa-lock" style="color:red;font-weight:bold;font-size:20px;cursor:pointer"></i>
+                                    }
+                                    else
+                                    {
+                                        <i id="@item.Id" onclick="changeStatus(this.id,@item.LockoutEnabled)" class="fa fa-regular fa-lock-open" style="color:limegreen;font-weight:bold;cursor:pointer"></i>}
+
+                                </td>
+
+                                <td class="text-center align-middle">
+                                    @Html.ActionLink("Chi tiết", "Details", new { id = item.Id }, new { @class = "btn btn-info", @style = "margin-left:5px" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>            
+        </div>
+    </main>
+</div>
+
+<script>
+    function changeStatus(id_User, trangThai) {
+        if (trangThai == undefined) {
+            Swal.fire({
+                title: 'Khóa Tài Khoản?',
+                text: "Bạn có chắc chắn muốn khóa tài khoản này??",
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#3085d6',
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'Có, hãy khóa tài khoản này!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.assign("https://localhost:44351/Users/ChangeStatusAccount?id_User=" + id_User)
+                }
+            })
+        }
+        else {
+            Swal.fire({
+                title: 'Mở Khóa Tài Khoản?',
+                text: "Bạn có chắc chắn muốn mở khóa tài khoản này??",
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#3085d6',
+                confirmButtonColor: 'rgb(31 187 21)',
+                confirmButtonText: 'Có, hãy mở khóa tài khoản này!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.assign("https://localhost:44351/Users/ChangeStatusAccount?id_User=" + id_User)
+                }
+            })
+        }
+    }
+</script>

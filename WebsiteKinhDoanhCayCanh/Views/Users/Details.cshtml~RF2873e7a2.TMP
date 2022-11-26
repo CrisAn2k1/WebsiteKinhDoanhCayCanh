@@ -1,0 +1,139 @@
+﻿@model WebsiteKinhDoanhCayCanh.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    dl dt {
+        @*padding-left: 15% !important;*@
+        padding-right: 15% !important;
+        text-align: right;
+        min-width: 5%;
+    }
+
+    dl dd {
+        text-align: left;
+        min-width: 50%;
+        max-width: 60% !important;
+    }
+
+    tr td {
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    tr th {
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h2 style="color:forestgreen; text-align:center">Thông tin chi tiết</h2>
+
+            <div >
+                <h4>Thông tin khách hàng</h4>
+                <hr />
+                @*<dl class="dl-horizontal">
+                    <dt>
+                        Họ tên
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.FullName)
+                    </dd>
+
+                    <dt>
+                        Địa chỉ
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Address)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+
+                    <dt>
+                        Số điện thoại
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.PhoneNumber)
+                    </dd>
+
+                    <dt>
+                        Tên đăng nhập
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.UserName)
+                    </dd>
+
+                    <dt>
+                        Kích hoạt
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.LockoutEnabled)
+                    </dd>
+
+                    
+                </dl>*@
+                <dl class="dl-horizontal" style="display:flex;flex-wrap:wrap;justify-content:center ;width:100%">
+                    <dt class="col-md-6">
+                        Họ tên:
+                    </dt>
+                    <dd class="col-md-6" >
+                        @Html.DisplayFor(model => model.FullName)
+                    </dd>
+                    <dt class="col-md-6">
+                        Địa chỉ:
+                    </dt>
+                    <dd class="col-md-6" >
+                        @Html.DisplayFor(model => model.Address)
+                    </dd>
+
+                    <dt class="col-md-6">
+                        Email:
+                    </dt>
+                    <dd class="col-md-6" >
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+                    <dt class="col-md-6">
+                        Số điện thoại:
+                    </dt>
+                    <dd class="col-md-6" >
+                        @Html.DisplayFor(model => model.PhoneNumber)
+                    </dd>
+                    <dt class="col-md-6">
+                        Số điện thoại:
+                    </dt>
+                    <dd class="col-md-6" >
+                        @Html.DisplayFor(model => model.UserName)
+                    </dd>
+                    <dt class="col-md-6">
+                        Kích hoạt:
+                    </dt>
+                    <dd class="col-md-6" >
+                        @Html.DisplayFor(model => model.LockoutEnabled)
+                    </dd>
+                    </dl>
+            </div>
+            <p>
+                @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" }) |
+                <a class="btn btn-info" href='@Url.Action("Index", "Users")' style="margin:10px 0px;">
+                    Trở về
+                </a>
+            </p>
+        </div>
+    </main>
+</div>

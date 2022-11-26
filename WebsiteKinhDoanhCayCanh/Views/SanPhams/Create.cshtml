@@ -3,6 +3,7 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+@Html.Partial("_MessageAlert")
 <style>
     .signup-form {
         background-color: #f3efea;
@@ -29,6 +30,7 @@
                 </div>}
             @using (Html.BeginForm())
             {
+                @Html.ValidationSummary(true)
                 @Html.AntiForgeryToken()
                 <div style="padding: 4vh 17vw">
                     <div class="signup-form">
@@ -37,13 +39,20 @@
                         <hr />
                         <div class="form-group">
                             <strong class="control-label col-md-2">Nhóm sản phẩm</strong>
-                            <div class="col-md-3">
-                                @Html.DropDownList("id_Nhom", null, htmlAttributes: new { @class = "form-control", @style = "min-width:120px" })
+                            <div class="col-md-5">
+                                @*@Html.DropDownList("id_Nhom", null, htmlAttributes: new { @class = "form-control", @style = "min-width:120px" })*@
+                                @Html.DropDownListFor(model => model.id_Nhom, null, htmlAttributes: new { @class = "form-control", @style = "min-width:120px" })
                                 @Html.ValidationMessageFor(model => model.id_Nhom, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
-
+                        <div class="form-group">
+                            <strong class="control-label col-md-2">Mã sản phẩm</strong>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.id_SP, new { htmlAttributes = new { @class = "form-control", @style = "min-width:120px;width:100%" } })
+                                @Html.ValidationMessageFor(model => model.id_SP, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
                         <div class="form-group">
                             <strong class="control-label col-md-2">Tên sản phẩm</strong>
                             <div class="col-md-10">
@@ -86,12 +95,27 @@
                                 @Html.ValidationMessageFor(model => model.phanTramGiamGia, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
+                        <div class="form-group">
+                            <strong class="control-label col-md-2">Công dụng</strong>
+                            <div class="col-md-10">
+                                @*@Html.EditorFor(model => model.phanTramGiamGia, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.phanTramGiamGia, "", new { @class = "text-danger" })*@
+                                <input type="text" name="congDung" class="form-control" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <strong class="control-label col-md-2">Cách trồng</strong>
+                            <div class="col-md-10">
+                                @*@Html.EditorFor(model => model.phanTramGiamGia, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.phanTramGiamGia, "", new { @class = "text-danger" })*@
+                                <input type="text" name="cachTrong" class="form-control" value="">
+                            </div>
+                        </div>
                         <div class="form-group">
                             <strong class="control-label col-md-2">Hình ảnh</strong>
                             <div class="col-md-10">
-@*                                @Html.EditorFor(model => model.Hinh, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Hinh, "", new { @class = "text-danger" })*@
+                                <img id="pictureUpload" src="~/Template/img/default-thumbnail.jpg" width="100" alt="Hình Ảnh" />
+                                <input type="text" name="Hinh" id="Hinh" accept="image/*" style="display:none;" />
                                 <input type="file" name="fileUpload" id="fileUpload" accept="image/*" style="display:none;" />
                                 <input type="button" id="btnUpload" value="Chọn" class="btn btn-success" />
                             </div>
@@ -111,37 +135,43 @@
             }
             @section upload
             {
-                <script>
-                    $(function () {
-                        $('#btnUpload').click(function () {
-                            $('#fileUpload').trigger('click');
-                        });
+            <script>
+                $(function () {
+                    $('#btnUpload').click(function () {
+                        $('#fileUpload').trigger('click');
                     });
-                    $('#fileUpload').change(function () {
-                        if (window.FormData !== undefined) {
-                            var fileUpload = $('#fileUpload').get(0);
-                            var files = fileUpload.files;
-                            var formData = new FormData();
-                            formData.append('file', files[0]);
+                });
+                $('#fileUpload').change(function (event) {
+                    if (window.FormData !== undefined) {
+                        var fileUpload = $('#fileUpload').get(0);
+                        var files = fileUpload.files;
+                        var formData = new FormData();
+                        formData.append('file', files[0]);
 
-                            $.ajax(
-                                {
-                                    type: 'POST',
-                                    url: '/SanPhams/ProcessUpload',
-                                    contentType: false,
-                                    processData: false,
-                                    data: formData,
-                                    success: function (urlImage) {
+                        $.ajax(
+                            {
+                                type: 'POST',
+                                url: '/SanPhams/ProcessUpload',
+                                contentType: false,
+                                processData: false,
+                                data: formData,
+                                success: function (urlImage) {
 
-                                        $('#pictureUpload').attr('src', urlImage);
-                                        $('#Hinh').val(urlImage);
-                                    },
-                                    error: function (err) {
-                                        alert('Error ', err.statusText);
+                                    $('#pictureUpload').attr('src', urlImage);
+                                    $('#Hinh').val(urlImage);
+
+                                    var output = document.getElementById('pictureUpload');
+                                    output.src = URL.createObjectURL(event.target.files[0]);
+                                    output.onload = function () {
+                                        URL.revokeObjectURL(output.src)
                                     }
-                                });
-                        }
-                    });</script>
+                                },
+                                error: function (err) {
+                                    alert('Error ', err.statusText);
+                                }
+                            });
+                    }
+                });</script>
             }
         </div>
     </main>

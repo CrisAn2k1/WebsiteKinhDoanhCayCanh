@@ -21,14 +21,17 @@
     </div>
 </section>
 <br />
+<hr />
 <section>
     <h3 style="color: forestgreen" ;>Cách chăm sóc</h3>
     <div class="row">
+        @using WebsiteKinhDoanhCayCanh.Models;
+        @{MyDataEF db = new MyDataEF();
         <div class="col-lg-9 col-md-7">
             <p><strong>Cách chăm sóc cây cảnh.</strong></p>
             <p>Trước tiên thay mặt đội ngũ công ty TA-TREES nói riêng và cộng đồng nói chung, cám ơn bạn đã góp phần làm xanh không gian. Để giúp quá trình phát triển cây cảnh tốt hơn dưới đây Shop xin chia sẻ một số kinh nghiệm chăm sóc.</p>
             <p>Hãy click vào loại cây mà bạn muốn chăm sóc:</p>
-            <p>
+@*            <p>
                 <strong>
                     <a href="">&#8211 Chăm sóc cây cảnh văn phòng (Cây trong nhà)</a><br />
                 </strong>
@@ -42,24 +45,32 @@
                 <strong>
                     <a href="">&#8211 Chăm sóc sen đá</a><br />
                 </strong>
-            </p>
+            </p>*@
+                @foreach (var item in db.CachChamSoc.ToList())
+                {
+                   <p>
+                       <strong><a href="@Url.Action("DetailsCCS", "Home", new { @id = item.id_CCS })">&#8211 @item.tenCCS</a></strong>
+                    </p> 
+                }
 
         </div>
+        }
         <div class="col-lg-3 col-md-5 cart-wrap ftco-animate">
             
             <div class="cart-total mb-3">
                 <h3><b>Các loại cây cảnh</b></h3>
                 <hr />
-                <p><a href=" ">Cây trong nhà</a></p>
-                <p><a href=" ">Cây văn phòng</a></p>
-                <p><a href=" ">Cây thủy sinh</a></p>
-                <p><a href=" ">Cây để bàn</a></p>
-                <p><a href=" ">Cây sen đá</a></p>
+                <p><a href="/SanPhams?id_Nhom=CTN">Cây trong nhà</a></p>
+                <p><a href="/SanPhams?id_Nhom=CVP">Cây văn phòng</a></p>
+                <p><a href="/SanPhams?id_Nhom=CTS">Cây thủy sinh</a></p>
+                <p><a href="/SanPhams?id_Nhom=CDB">Cây để bàn</a></p>
+                <p><a href="/SanPhams?id_Nhom=CSD">Cây sen đá</a></p>
+
             </div>
                 
            
         </div>
+                
     </div>
-
     <br />
 </section>

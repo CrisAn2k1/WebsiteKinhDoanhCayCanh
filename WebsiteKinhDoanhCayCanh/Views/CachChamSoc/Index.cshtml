@@ -1,5 +1,6 @@
-﻿
-@model PagedList.PagedList<WebsiteKinhDoanhCayCanh.Models.CachChamSoc>
+﻿@*
+@model PagedList.PagedList<WebsiteKinhDoanhCayCanh.Models.CachChamSoc>*@
+@model IEnumerable<WebsiteKinhDoanhCayCanh.Models.CachChamSoc>
 @using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
@@ -9,59 +10,60 @@
 @Html.Partial("_MessageAlert")
 <div id="layoutSidenav_content">
     <main>
-        <div class="container-fluid px-4">
+        <div class="container-fluid px-4" style="margin-bottom: 75px;">
             <div>
                 <div>
                     <h2 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen; text-transform: capitalize;">Danh sách cách chăm sóc</h2>
-                </div>
-                <div style="display:flex;justify-content:right;margin:10px">
-                    <form>
-                        <div class="input-group">
-                            <input class="form-control" type="text" placeholder="Tìm kiếm theo tên..." aria-label="Tìm kiếm theo tên..." value="@ViewBag.Keyword" name="searchString" aria-describedby="btnNavbarSearch" />
-                            <button class="btn btn-primary" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
-                        </div>
-                    </form>
-                </div>
+                </div>                
+                <br />
 
             </div>
             <a class="btn btn-success" href="@Url.Action("Create", "CachChamSoc")" style="margin:10px 0px;">
                 Thêm cách chăm sóc
             </a>
-            <table class="table table-bordered table-dark">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>
-                            Mã cách chăm sóc
-                        </th>
-                        <th class="text-center">Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody class="table-light">
-                    @foreach (var item in Model)
-                    {
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Bảng thông tin cách chăm sóc
+                </div>
+                <br />
+                <table id="datatablesSimple" class="table table-bordered table-success ">
+                    <thead class="thead-dark">
                         <tr>
-                            <td class="col-lg-9">
-                                @Html.DisplayFor(modelItem => item.id_CCS)
-                            </td>
-                            <td class="col-lg-3 text-center">
-                                @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.id_CCS }, new { @class = "btn btn-warning" }) |
-                                @Html.ActionLink("Chi tiết", "Details", new { id = item.id_CCS }, new { @class = "btn btn-default" }) |
-                                @Html.ActionLink("Xóa", "Delete", new { id = item.id_CCS }, new { @class = "btn btn-danger", @style = "margin-left:5px" })
-                            </td>
+                            <th class="text-center align-middle">STT</th>
+                            <th class="text-center align-middle">
+                                Mã cách chăm sóc
+                            </th>
+                            <th>
+                                Tên cách chăm sóc
+                            </th>
+                            <th class="text-center">Thao tác</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
-            <div style=" margin-bottom:50px;">
-                <div>
-                    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
-                </div>
-                <div class="MenuTrang">
-                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
-                </div>
+                    </thead>
+                    <tbody class="table-light">
+                        @{ int i = 0;}
+                        @foreach (var item in Model)
+                        {
+                            i++;
+                            <tr>
+                                <td class="text-center align-middle"><strong>@i</strong></td>
+                                <td class="col-lg-2 text-center align-middle">
+                                    @Html.DisplayFor(modelItem => item.id_CCS)
+                                </td>
+                                <td class="col-lg-6 align-middle">
+                                    @Html.DisplayFor(modelItem => item.tenCCS)
+                                </td>
+                                <td class="col-lg-4 text-center align-middle">
+                                    @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.id_CCS }, new { @class = "btn btn-warning", @style = "margin:5px" })
+                                    @Html.ActionLink("Chi tiết", "Details", new { id = item.id_CCS }, new { @class = "btn btn-info", @style = "margin:5px" })
+                                    @Html.ActionLink("Xóa", "Delete", new { id = item.id_CCS }, new { @class = "btn btn-danger", @style = "margin:5px" })
+                                </td>
+                            </tr>}
+                    </tbody>
+                </table>
+                </div>            
             </div>
-        </div>
-    </main>
+</main>
 </div>
 
 

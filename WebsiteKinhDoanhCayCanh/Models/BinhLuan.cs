@@ -17,8 +17,7 @@ namespace WebsiteKinhDoanhCayCanh.Models
         [StringLength(250)]
         public string noiDung { get; set; }
 
-        [StringLength(10)]
-        public string trangThai { get; set; }
+        public Boolean trangThai { get; set; }
 
         [StringLength(128)]
         public string id_User { get; set; }

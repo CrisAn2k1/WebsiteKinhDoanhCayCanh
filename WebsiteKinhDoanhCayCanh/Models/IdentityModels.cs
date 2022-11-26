@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -12,6 +14,18 @@ namespace WebsiteKinhDoanhCayCanh.Models
 
         public string FullName { get; set; }
         public string Address { get; set; }
+        public static List<ApplicationUser> getAll(string searchKey)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            searchKey = searchKey + "";
+            return db.Users.Where(p => p.Email.Contains(searchKey) && p.Roles.FirstOrDefault(r => r.UserId == p.Id).RoleId != "1").ToList();
+        }
+        public static List<ApplicationUser> getAllAdmin(string searchKey)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            searchKey = searchKey + "";
+            return db.Users.Where(p => p.Email.Contains(searchKey) && p.Roles.FirstOrDefault(r => r.UserId == p.Id).RoleId == "1").ToList();
+        }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -43,5 +57,6 @@ namespace WebsiteKinhDoanhCayCanh.Models
         {
             return new ApplicationDbContext();
         }
+
     }
 }

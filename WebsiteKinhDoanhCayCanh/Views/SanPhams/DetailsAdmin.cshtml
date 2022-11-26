@@ -1,121 +1,246 @@
 ﻿@model WebsiteKinhDoanhCayCanh.Models.SanPham
-
-@{
-    ViewBag.Title = "DetailsAdmin";
+@using WebsiteKinhDoanhCayCanh.Models
+@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.Owin
+@{ ViewBag.Title = "DetailsAdmin";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-}
+    ApplicationUser userLogin = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId()); }
+
+
 <style>
-    .signup-form {
-        background-color: #f3efea;
-        padding: 10px 100px;
-        border-radius: 5px;
-        font-family: 'Raleway', sans-serif;
+    dl dt {
+        padding-left: 10% !important;
+        text-align: start;
+        min-width: 40%;
     }
 
-    input.form-control {
-        background: #95f0eb2b !important;
+    dl dd {
+        text-align: start;
+        min-width: 50%;
+        max-width: 50% !important;
     }
 
-    .col-md-10 {
-        max-width: 100% !important;
+    tr td {
+        text-align: center;
+        vertical-align: middle;
     }
+
+    tr th {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    /* Css for table*/
+    table.dataTable thead .sorting:after,
+    table.dataTable thead .sorting:before,
+    table.dataTable thead .sorting_asc:after,
+    table.dataTable thead .sorting_asc:before,
+    table.dataTable thead .sorting_asc_disabled:after,
+    table.dataTable thead .sorting_asc_disabled:before,
+    table.dataTable thead .sorting_desc:after,
+    table.dataTable thead .sorting_desc:before,
+    table.dataTable thead .sorting_desc_disabled:after,
+    table.dataTable thead .sorting_desc_disabled:before {
+        bottom: .5em;
+    }
+
+    div.dataTables_length label {
+        width: 460px;
+        float: left;
+        text-align: left;
+    }
+
+    div.dataTables_length select {
+        width: 75px;
+    }
+
+    div.dataTables_filter label {
+        float: right;
+        width: 460px;
+    }
+
+    div.dataTables_info {
+        padding-top: 8px;
+    }
+
+    div.dataTables_paginate {
+        float: right;
+        margin: 0;
+    }
+
+    table {
+        margin: 1em 0;
+        clear: both;
+    }
+
+        table thead tr th:last-child {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        table tbody tr td:last-child {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+            table tbody tr td:last-child:hover {
+                cursor: pointer
+            }
 </style>
 <div id="layoutSidenav_content">
     <main>
-        <div class="container-fluid px-4">
-            <div style="padding: 4vh 20vw">
-                <div class="signup-form">
-                    <h3 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen;">Chi Tiết Sản Phẩm</h3>
-                    <hr />
-                    <dl class="dl-horizontal" style="margin-left:20px">
-                        <dt>
-                            Nhóm sản phẩm
-                        </dt>
+        <div class="container-fluid px-4" style=" margin-top:20px;">
+            <p style="position:fixed">
+                <a class="btn btn-info" href='@Url.Action("IndexAdmin", "SanPhams")' style="margin:10px 0px;">
+                    Trở về
+                </a>
+                @Html.ActionLink("Chỉnh Sửa", "Edit", new { id = Model.id_SP }, new { @class = "btn btn-warning" })
 
-                        <dd>
-                            @Html.DisplayFor(model => model.NhomSP.tenNhom)
-                        </dd>
-                        <dt>
-                            Tên sản phẩm
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(model => model.tenSP)
-                        </dd>
-                        <dt>
-                            Hình sản phẩm
-                        </dt>
-                        <dd>
-                            <img src="" alt="thumbnail" width="150" />
-                        </dd>
-                        <dt>
-                            Mô tả
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(model => model.mota)
-                        </dd>
-                        <dt>
-                            Số lượng
-                        </dt>
+            </p>
+            <div class="d-flex justify-content-center align-items-center flex-column">
+                <h2 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen;">Chi tiết sản phẩm</h2>
 
-                        <dd>
-                            @Html.DisplayFor(model => model.soLuong)
-                        </dd>
+                <dl class="dl-horizontal" style="display:flex;flex-wrap:wrap;justify-content:center ;width:65%">
+                    <dt><hr /></dt>
+                    <dd><hr /></dd>
+                    <dt class="col-md-2">
+                        Trạng thái sản phẩm:
+                    </dt>
+                    <dd class="col-md-10">
+                        @if (Model.trangThai == true)
+                        {
+                            <span style="color:limegreen;font-weight:500">Hiển thị sản phẩm</span>
+                            @Html.HiddenFor(model => model.trangThai) }
+                        else
+                        {
+                            <span style="color:limegreen;font-weight:500">Ẩn sản phẩm</span>
+                            @Html.HiddenFor(model => model.trangThai)}
+                    </dd>
+                    <dt class="col-md-2">
+                        Mã đơn hàng:
+                    </dt>
+                    <dd class="col-md-10">
+                        @Html.DisplayFor(model => model.id_SP)
+                    </dd>
+                    <dt class="col-md-2">
+                        Tên sản phẩm:
+                    </dt>
+                    <dd class="col-md-10">
+                        @Html.DisplayFor(model => model.tenSP)
+                    </dd>
 
-                        <dt>
-                            Đơn vị tính
-                        </dt>
+                    <dt class="col-md-2">
+                        Hình:
+                    </dt>
 
-                        <dd>
-                            @Html.DisplayFor(model => model.DVT)
-                        </dd>
+                    <dd class="col-md-10">
+                        <img src="@Model.HinhAnhSP.Where(p => p.id_SP == Model.id_SP).FirstOrDefault().duongDan" alt="thumbnail" width="150" />
 
-                        <dt>
-                            Giá
-                        </dt>
+                    </dd>
+                    <dt></dt>
+                    <dd>@Html.ActionLink("Xem thêm ảnh", "Index", "HinhAnhSPs", new { @id_SP = Model.id_SP }, new { @class = "btn btn-info" })</dd>
+                    <dt class="col-md-2">
+                        Mô tả:
+                    </dt>
+                    <dd class="col-md-10">
+                        @Html.DisplayFor(model => model.mota)
+                    </dd>
+                    <dt class="col-md-2">
+                        Số lượng:
+                    </dt>
+                    <dd class="col-md-10">
+                        @Html.DisplayFor(model => model.soLuong)
+                    </dd>
+                    <dt class="col-md-2">
+                        Đơn vị tính:
+                    </dt>
+                    <dd class="col-md-10">
+                        @Html.DisplayFor(model => model.DVT)
+                    </dd>
+                    <dt class="col-md-2">
+                        Giá:
+                    </dt>
+                    <dd class="col-md-10">
+                        @String.Format("{0:0,0}", @Model.gia) VNĐ
+                    </dd>
+                    <dt class="col-md-2">
+                        Phần trăm giảm giá:
+                    </dt>
+                    <dd class="col-md-10">
+                        @Html.DisplayFor(model => model.phanTramGiamGia) %
+                    </dd>
 
-                        <dd>
-                            @String.Format("{0:0,0}", @Model.gia) VNĐ
-                        </dd>
+                    <dt class="col-md-2">
+                        Cách trồng:
+                    </dt>
+                    <dd class="col-md-10">
+                        @Html.DisplayFor(model => model.ThongTinThemVeSP.cachTrong)
+                    </dd>
+                    <dt class="col-md-2">
+                        Công dụng:
+                    </dt>
+                    <dd class="col-md-10">
+                        @Html.DisplayFor(model => model.ThongTinThemVeSP.congDung)
+                    </dd>
+                    <dt><hr /></dt>
+                    <dd><hr /></dd>
 
-                        <dt>
-                            Phần trăm giảm giá
-                        </dt>
-
-                        <dd>
-                            @Html.DisplayFor(model => model.phanTramGiamGia) %
-                        </dd>
-                        <dt>
-                            Thông tin thêm:
-                        </dt>
-                        <dt>
-                            Cách trồng
-                        </dt>
-
-                        <dd>
-                            @Html.DisplayFor(model => model.ThongTinThemVeSP.cachTrong)
-                        </dd>
-
-                        <dt>
-                            Công dụng
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(model => model.ThongTinThemVeSP.congDung)
-                        </dd>
-
-                    </dl>
-
-                    <br />
-                    <hr />
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            @Html.ActionLink("Sửa", "Edit", new { id = Model.id_SP }, new { @class = "btn btn-info" }) |
-                            <a class="btn btn-success" href='@Url.Action("IndexAdmin", "SanPhams")' style="margin:10px 0px;">
-                                Trở về
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                </dl>
             </div>
+            <div>
+
+                <hr />
+                <p><strong>Chi tiết cập nhật</strong></p>
+                <table id="datatablesSimple" class="table table-bordered table-success">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>
+                                Tên sản phẩm
+                            </th>
+
+                            <th>
+                                Người cập nhật
+                            </th>
+                            <th>
+                                Ngày cập nhật
+                            </th>
+                            <th>
+                                Thao tác
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody class="table-light">
+                        @foreach (var item in Model.CTCapNhat.OrderByDescending(p => p.ngayCapNhat))
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SanPham.tenSP)
+                                </td>
+
+                                <td>
+                                    @{userLogin = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(item.id_User); }
+                                    @userLogin.FullName
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ngayCapNhat)
+                                </td>
+                                <td>
+                                    @if (item.thaoTac == "Update")
+                                    {
+                                        <strong style="color:orange">@item.thaoTac</strong>
+                                    }
+                                    else
+                                    {
+                                        <strong style="color:limegreen">@item.thaoTac</strong>
+
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>            
         </div>
     </main>
 </div>

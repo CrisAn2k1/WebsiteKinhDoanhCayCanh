@@ -1,4 +1,4 @@
-namespace WebsiteKinhDoanhCayCanh.Models
+﻿namespace WebsiteKinhDoanhCayCanh.Models
 {
     using System;
     using System.Collections.Generic;
@@ -17,23 +17,34 @@ namespace WebsiteKinhDoanhCayCanh.Models
         }
 
         [Key]
-        [StringLength(10)]
+        [StringLength(10, ErrorMessage = "Số ký tự tối đa là 10!")]
+        [Required(ErrorMessage = "Chưa nhập mã cách chăm sóc!")]
         public string id_CCS { get; set; }
 
-        [Column(TypeName = "text")]
+        [StringLength(50)]
+        [Required(ErrorMessage = "Chưa nhập tên cách chăm sóc!")]
+        public string tenCCS { get; set; }
+
+        
+        [Column(TypeName = "ntext")]
+        [Required(ErrorMessage = "Nhập thiếu!")]
         public string tuoiNuoc { get; set; }
 
-        [Column(TypeName = "text")]
+        [Column(TypeName = "ntext")]
+        [Required(ErrorMessage = "Nhập thiếu!")]
         public string dat { get; set; }
 
-        [Column(TypeName = "text")]
+        [Column(TypeName = "ntext")]
+        [Required(ErrorMessage = "Nhập thiếu!")]
         public string anhSang { get; set; }
 
-        [Column(TypeName = "text")]
+        [Column(TypeName = "ntext")]
+        [Required(ErrorMessage = "Nhập thiếu!")]
         public string viTriDatCay { get; set; }
 
-        [Column(TypeName = "text")]
-        public string duongChat { get; set; }
+        [Column(TypeName = "ntext")]
+        [Required(ErrorMessage = "Nhập thiếu!")]
+        public string duongChat { get; set; }        
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NhomSP> NhomSP { get; set; }

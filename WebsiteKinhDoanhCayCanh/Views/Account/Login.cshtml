@@ -4,15 +4,28 @@
 @model LoginViewModel
 @{ ViewBag.Title = "Log in"; }
 <br />
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 <style>
     .validation-summary-errors {
         font-size: 16px;
         font-weight: 600;
     }
+
         .validation-summary-errors li {
             list-style: none;
         }
+
+    .btn.btn-primary:hover {
+        border: 1px solid #82ae46 !important;
+        background: transparent !important;
+        color: #82ae46 !important;
+    }
+    .show-btn:hover{
+        cursor:pointer
+    }
+    span i.hide-btn::before {
+        content: "\f070";
+    }
 </style>
 <script src='https://www.google.com/recaptcha/api.js' type="text/javascript"></script>
 <section>
@@ -49,6 +62,12 @@
                         <img src="~/Template/img/bonsai1.png" width="250" height="250" ; />
                     </div>
                 </div>
+                <div class="col-md-offset-1 d-flex justify-content-center" style="width:500px;">
+                    <section id="socialLoginForm" class="zoom">
+                        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                        @*<p>Đăng nhập bằng google.</p>*@
+                    </section>
+                </div>
             </section>
         </div>
         <div class="col-lg-6  col-md-6">
@@ -56,7 +75,7 @@
                 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
-                    <h4 style="color:green;text-align:center" ;>Đăng Nhặp</h4>
+                    <h4 style="color:green;text-align:center" ;>Đăng nhập</h4>
                     <hr />
                     <div class="form-group">
                         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
@@ -66,44 +85,59 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Mật khẩu" })
+                        <div>
+                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        </div>
+                        <div class=" col-md-10">
+                            <div style="position:relative">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Mật khẩu" })
+                                <span style="position: absolute; right: 15px; top: 28%;" class="show-btn"><i class="fas fa-eye hide-btn"></i> </span>
+                            </div>
                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            <br />
                         </div>
                     </div>
+                    @*<div class="form-group">
+
+                <div class="col-md-10">
+                    <input type="password" placeholder="Nhập Mật Khẩu" required>
+                    <span class="show-btn"><i class="fas fa-eye"></i></span>
+                </div>
+            </div>*@
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <div class="checkbox">
-                                @Html.CheckBoxFor(m => m.RememberMe)
-                                @Html.LabelFor(m => m.RememberMe)
+                            <div class="d-flex justify-content-between">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(m => m.RememberMe)
+                                    @Html.LabelFor(m => m.RememberMe)
+
+                                </div>
+                                <div>
+                                    @Html.ActionLink("Quên mật khẩu ?", "ForgotPassword")
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="form-group" style="text-align:center">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Đăng nhập" class="btn btn-default" style="background-color: #7fad39;" />
+                    if (ViewBag.Thongbao != null)
+                    {
+                        <div class="form-group" style="text-align:center">
+                            <h6 style="color:red; text-align:center; padding: 10px 0">@ViewBag.Thongbao</h6>
                         </div>
-                    </div>
-                    <div class="form-group" style="text-align:center">
-                        <div class="col-md-offset-2 col-md-10 d-flex justify-content-center">
-                            <h6 style="color:red; text-align:center; padding-top: 20px">@ViewBag.Thongbao</h6>
-                        </div>
-                    </div>
+                    }
                     <div class="form-group" style="text-align:center">
                         <div class="col-md-offset-2 col-md-10 d-flex justify-content-center">
                             <div>@Html.RecaptchaV2("6LeJ3jogAAAAAGmMJi3Bzqev9W5Nw_blm8_75lL6")</div>
                         </div>
                     </div>
+                    <div class="form-group" style="text-align:center">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Đăng nhập" class="btn btn-primary py-3 px-4" style="background-color: #7fad39;" />
+                        </div>
+                    </div>
 
                 }
-                <div class="col-md-offset-1 d-flex justify-content-center" style="width:500px;">
-                    <section id="socialLoginForm" class="zoom">
-                        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-                    </section>
-                </div>
+
             </section>
         </div>
     </div>
@@ -112,3 +146,17 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script>
+
+    const passField = document.querySelector("input#Password");
+    const showBtn = document.querySelector("span i");
+    showBtn.onclick = (() => {
+        if (passField.type === "password") {
+            passField.type = "text";
+            showBtn.classList.remove("hide-btn");
+        } else {
+            passField.type = "password";
+            showBtn.classList.add("hide-btn");
+        }
+    });
+</script>

@@ -1,58 +1,179 @@
 ﻿@model IEnumerable<WebsiteKinhDoanhCayCanh.Models.BinhLuan>
+@using WebsiteKinhDoanhCayCanh.Models;
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.Owin
+
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ApplicationUser userLogin;
+    int i=0;
 }
 
-<h2>Index</h2>
+<style>
+    table.dataTable thead .sorting:after,
+    table.dataTable thead .sorting:before,
+    table.dataTable thead .sorting_asc:after,
+    table.dataTable thead .sorting_asc:before,
+    table.dataTable thead .sorting_asc_disabled:after,
+    table.dataTable thead .sorting_asc_disabled:before,
+    table.dataTable thead .sorting_desc:after,
+    table.dataTable thead .sorting_desc:before,
+    table.dataTable thead .sorting_desc_disabled:after,
+    table.dataTable thead .sorting_desc_disabled:before {
+        bottom: .5em;
+    }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.SanPham.tenSP)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ngayDangBinhLuan)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.noiDung)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.trangThai)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.id_User)
-        </th>
-        <th></th>
-    </tr>
+    div.dataTables_length label {
+        width: 460px;
+        float: left;
+        text-align: left;
+    }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.SanPham.tenSP)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ngayDangBinhLuan)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.noiDung)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.trangThai)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.id_User)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_BinhLuan }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_BinhLuan }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_BinhLuan })
-        </td>
-    </tr>
-}
+    div.dataTables_length select {
+        width: 75px;
+    }
 
-</table>
+    div.dataTables_filter label {
+        float: right;
+        width: 460px;
+    }
+
+    div.dataTables_info {
+        padding-top: 8px;
+    }
+
+    div.dataTables_paginate {
+        float: right;
+        margin: 0;
+    }
+
+    table {
+        margin: 1em 0;
+        clear: both;
+    }
+
+        table thead tr th:last-child {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        table tbody tr td:last-child {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+            table tbody tr td:last-child:hover {
+                cursor: pointer
+            }
+</style>
+
+<div id="layoutSidenav_content">
+    <main>
+        <h2 style="margin: 10px; text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen;text-transform:capitalize">Quản Lý Bình Luận</h2>
+        <div class="container-fluid px-4" style="margin-bottom: 75px;">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Bảng thông tin bình luận khách hàng
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple" >
+                        <thead class="table table-bordered table-success">
+                            <tr>
+                                <th class="text-center align-middle">STT</th>
+                                <th class="text-center align-middle">Tên SP
+                                <th class="text-center align-middle">Ngày Đăng</th>
+                                <th class="text-center align-middle">Nội Dung</th>
+                                <th class="text-center align-middle">Tên KH</th>
+                                <th class="text-center align-middle">Trạng Thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.OrderByDescending(p=>p.ngayDangBinhLuan))
+                            {
+                                i++;
+                                <tr>
+                                    <td class="text-center align-middle"><strong>@i</strong></td>
+                                    <td class="align-middle">@item.SanPham.tenSP</td>
+                                    <td class="align-middle">@item.ngayDangBinhLuan</td>
+                                    <td class="align-middle">@item.noiDung</td>
+                                    <td class="align-middle">
+                                        @{
+                                            userLogin = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(HttpContext.Current.User.Identity.GetUserId());
+                                        }
+                                        @userLogin.FullName
+                                    </td>
+                                    <td class="align-middle" id="@item.id_BinhLuan" onclick="changeStatus(this.id,@item.trangThai)">
+                                        @if (item.trangThai == true)
+                                        {
+                                            <div style="color: #2fb92b">
+                                                <i class="fa fa-eye"></i> <div hidden>Hiện</div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div style="color:darkred">
+                                                <i class="fa fa-eye-slash"></i> <div hidden>Ẩn</div>
+                                            </div>
+                                        }
+
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Tên SP
+                                <th>Ngày Đăng</th>
+                                <th>Nội Dung</th>
+                                <th>Tên KH</th>
+                                <th>Trạng Thái</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+
+    function changeStatus(id_BinhLuan,trangThai) {
+        if (trangThai != undefined) {
+            Swal.fire({
+                title: 'Ẩn Bình Luận?',
+                text: "Bạn có chắc chắn muốn ẩn bình luận này??",
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#3085d6',
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'Có, hãy ẩn bình luận này!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.assign("https://localhost:44351/BinhLuans/Hidden?id=" + id_BinhLuan)
+                }
+            })
+        }
+        else {
+            Swal.fire({
+                title: 'Hiển Thị Bình Luận?',
+                text: "Bạn có chắc chắn muốn hiển thị bình luận này??",
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#3085d6',
+                confirmButtonColor: 'rgb(31 187 21)',
+                confirmButtonText: 'Có, hãy hiển thị bình luận này!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.assign("https://localhost:44351/BinhLuans/Hidden?id=" + id_BinhLuan)
+                }
+            })
+        }
+    }
+</script>

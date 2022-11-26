@@ -1,0 +1,197 @@
+﻿@model IEnumerable<WebsiteKinhDoanhCayCanh.Models.HinhAnhSP>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@Html.Partial("_MessageAlert")
+<link href="/Content/assets/css/css/Style1.css" rel="stylesheet" />
+<style>
+    .image-popup {
+        cursor: -webkit-zoom-in;
+        cursor: -moz-zoom-in;
+        cursor: zoom-in;
+    }
+</style>
+<div id="layoutSidenav_content">
+    <main>
+        <div>
+            <div>
+                <h2 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen; text-transform: capitalize;">Hình Ảnh Sản Phẩm: @ViewBag.TenSP</h2>
+            </div>
+        </div>
+        <hr />
+        <div class="container-fluid px-4 d-flex justify-content-center">
+
+            <div class="col-lg-6 mb-5 ftco-animate">
+                @{
+                    int index = 0;
+                    <div class="container_product">
+                        @foreach (var item in Model)
+                        {
+                            index++;
+                            <div class="mySlides_product">
+                                <a href="@item.duongDan" class="image-popup">
+                                    <img src="@item.duongDan" style="width: 100%;position:relative" />
+                                </a>
+                                <div class="caption-container_product">
+                                    <div id="caption" style="margin:0.5em 0;height:100%;width:100%">
+                                        @index/@Model.Count()
+                                    </div>
+                                </div>
+                                <!--  -->
+                                <a class="prev" onclick="plusSlides(-1)">❮</a>
+                                <a class="next" onclick="plusSlides(1)">❯</a>
+                                <!--  -->
+                            </div>
+                        }
+                    </div>
+                    <br />
+
+                    index = 0;
+                    <div class="row_product">
+                        
+                        @foreach (var item in Model)
+                        {
+                            index++;
+                            <div class="column_product">
+                                <div style="display: flex; justify-content: center">
+                                    <img style=" width: 80px !important"
+                                         class="miniImg cursor"
+                                         src="@item.duongDan"
+                                         onclick="currentSlide(@index)" />
+                                </div>
+                                <div style="margin-top:10px; display:flex;justify-content:center">
+                                    <button id="@item.id_Hinh" onclick="deleteImg(@item.id_Hinh)" class="btn btn-light"><i class="fa fa-trash" style="color:red"></i> </button>
+                                </div>
+                            </div>
+                        }
+                        <div class="column_product">
+                            @*<div style="margin: 10px 0">Thêm Ảnh</div>*@
+                            <div style="display: flex; justify-content: center">
+                                <img style="width: 80px !important;cursor:pointer" id="pictureUpload" src="~/Template/img/icon-add-img.png" width="100" alt="Hình Ảnh" onclick="choose()" />
+                            </div>
+                            <div style=" margin-top: 10px; display: flex; justify-content: center">
+                                <input type="text" name="Hinh" id="Hinh" value="" style="display:none;" />
+                                <input type="file" name="fileUpload" id="fileUpload" accept="image/*" style="display:none;" />
+                                <input type="button" id="btnUpload" value="Chọn" class="btn btn-success" style="display:none;" />
+                                <button disabled id="acceptImg" onclick="acceptImg()" class="btn btn-success">Thêm </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <hr />
+                <div class="col-md-offset-2 col-md-10">
+                    
+                    <a class="btn btn-info" href='@Url.Action("IndexAdmin", "SanPhams")' style="margin:10px 0px;">
+                        Trở về
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+
+<script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides((slideIndex += n));
+    }
+
+    function currentSlide(n) {
+        showSlides((slideIndex = n));
+    }
+
+    function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("mySlides_product");
+        let dots = document.getElementsByClassName("miniImg");
+        if (n > slides.length) {
+            slideIndex = 1;
+        }
+        if (n < 1) {
+            slideIndex = slides.length;
+        }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+    }
+
+    function deleteImg(id_Hinh) {
+        Swal.fire({
+            title: 'Delete?',
+            text: "Bạn có chắc chắn xóa ảnh này?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Có, hãy xóa ảnh này!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = "https://localhost:44351/HinhAnhSPs/Delete/" + id_Hinh
+            }
+        })
+    }
+
+</script>
+<script>
+
+    function choose() {
+        var getBtn = document.getElementById('btnUpload')
+        getBtn.click()
+    }
+
+    function acceptImg() {
+        var src = document.getElementById('Hinh').value
+        location.href = "https://localhost:44351/HinhAnhSPs/Create?id_SP=" + '@Model.First().id_SP' +'&duongDan=' + src
+
+    }
+
+    $(function () {
+        $('#btnUpload').click(function () {
+            $('#fileUpload').trigger('click');
+        });
+    });
+
+    $('#fileUpload').change(function (event) {
+        $('#acceptImg').removeAttr("Disabled")
+        if (window.FormData !== undefined) {
+            var fileUpload = $('#fileUpload').get(0);
+            var files = fileUpload.files;
+            var formData = new FormData();
+            formData.append('file', files[0]);
+
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: '/HinhAnhSPs/ProcessUpload',
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    success: function (urlImage) {
+
+                        $('#pictureUpload').attr('src', urlImage);
+                        $('#Hinh').val(urlImage);
+
+                        var output = document.getElementById('pictureUpload');
+                        output.src = URL.createObjectURL(event.target.files[0]);
+                        output.onload = function () {
+                            URL.revokeObjectURL(output.src)
+                        }
+                    },
+                    error: function (err) {
+                        alert('Error ', err.statusText);
+                    }
+                });
+        }
+    });
+
+</script>

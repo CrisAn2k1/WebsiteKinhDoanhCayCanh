@@ -70,20 +70,22 @@
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
-
         <!-- Navbar-->
-        <ul class="navbar-nav ms-auto me-0 me-md-3 my-2 my-md-0 d-none d-md-inline-block">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">@userLogin.FullName &nbsp;<i class="fas fa-user fa-fw"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <li><a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất</a></li>
-                    }
-                </ul>
-            </li>
-        </ul>
+        @if (userLogin != null)
+        {
+            <ul class="navbar-nav ms-auto me-0 me-md-3 my-2 my-md-0 d-none d-md-inline-block">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">@userLogin.FullName &nbsp;<i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <li><a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất</a></li>
+                        }
+                    </ul>
+                </li>
+            </ul>
+        }
     </nav>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
@@ -97,39 +99,40 @@
                         </a>
                         <a class="nav-link" href='@Url.Action("Index", "DonHangs")'>
                             <div class="sb-nav-link-icon"><i class="fa fa-solid fa-cart-arrow-down"></i></div>
-                            Đơn hàng
+                            Đơn Hàng
                         </a>
                         <a class="nav-link" href='@Url.Action("IndexAdmin", "SanPhams")'>
                             <div class="sb-nav-link-icon"><i class="fa fa-duotone fa-laptop"></i></div>
-                            Sản phẩm
+                            Sản Phẩm
                         </a>
-@*                        <a class="nav-link" href='@Url.Action("Index", "LoaiSPs")'>
-                            <div class="sb-nav-link-icon"><i class="fa fa-light fa-table-list"></i></div>
-                            Loại sản phẩm
-                        </a>*@
                         <a class="nav-link" href='@Url.Action("Index", "NhomSP")'>
                             <div class="sb-nav-link-icon"><i class="fa fa-light fa-table-list"></i></div>
-                            Nhóm cây
+                            Nhóm Cây
                         </a>
                         <a class="nav-link" href='@Url.Action("Index", "CachChamSoc")'>
                             <div class="sb-nav-link-icon"><i class="fa fa-duotone fa-building-columns"></i></div>
-                            Cách chăm sóc
+                            Cách Chăm sóc
                         </a>
-                        <a class="nav-link" href='@Url.Action("Index", "BinhLuans")'>
-                            <div class="sb-nav-link-icon"><i class="fa fa-light fa-comment-dots"></i></div>
-                            Bình luận
-                        </a>
-                        <a class="nav-link" href='@Url.Action("DoanhThu", "DonHangs")'>
-                            <div class="sb-nav-link-icon"><i class="fa fa-light fa-sack-dollar"></i></div>
-                            Doanh thu
+                        <a class="nav-link" href='@Url.Action("Index", "Voucher")'>
+                            <div class="sb-nav-link-icon"><i class="fa fa-duotone fa-laptop"></i></div>
+                            Voucher
                         </a>
                         <a class="nav-link" href='@Url.Action("Index", "Users")'>
                             <div class="sb-nav-link-icon"><i class="fa fa-duotone fa-user"></i></div>
-                            Khách hàng
+                            Khách Hàng
                         </a>
-                        <a class="nav-link" href='@Url.Action("LienHeAdmin", "LienHes")'>
-                            <div class="sb-nav-link-icon"><i class="fa fa-duotone fa-headphones-simple"></i></div>
-                            Liên Hệ KH
+                        <a class="nav-link" href='@Url.Action("Index", "BinhLuans")'>
+                            <div class="sb-nav-link-icon"><i class="fa fa-duotone fa-user"></i></div>
+                            Quản lý Bình Luận
+                        </a>
+                        <hr />
+                        <a class="nav-link" href='@Url.Action("DoanhThu", "DonHangs")'>
+                            <div class="sb-nav-link-icon"><i class="fa fa-light fa-sack-dollar"></i></div>
+                            Doanh Thu
+                        </a>
+                        <a class="nav-link" href='@Url.Action("IndexAdmin", "Users")'>
+                            <div class="sb-nav-link-icon"><i class="fa fa-duotone fa-user"></i></div>
+                            Quản lý Admin
                         </a>
                     </div>
                     <script>
@@ -149,7 +152,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="~/Content/admin/assets/demo/chart-area-demo.js"></script>
     <script src="~/Content/admin/assets/demo/chart-bar-demo.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+    <script src="~/Content/Admin/js/Datatables-cmt.js"></script>
     <script src="~/Content/admin/js/datatables-simple-demo.js"></script>
     <script src="~/Content/admin/assets/demo/chart-pie-demo.js"></script>
 

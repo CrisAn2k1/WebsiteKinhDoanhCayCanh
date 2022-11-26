@@ -1,0 +1,97 @@
+﻿@model WebsiteKinhDoanhCayCanh.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    dl dt {
+        padding-left: 40% !important;
+        @*padding-right: 5% !important;*@
+        text-align: left;
+        min-width: 10%;
+    }
+
+    dl dd {
+        text-align: left;
+        min-width: 50%;
+        max-width: 60% !important;
+    }
+
+    tr td {
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    tr th {
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h2 style="color:forestgreen; text-align:center">Thông tin chi tiết</h2>
+            <br />
+            <div >
+                <h4 style="text-align:center">Thông tin tài khoản</h4>
+               
+                <dl class="dl-horizontal" style="display:flex;flex-wrap:wrap;justify-content:center ;width:100%">
+                    <dt style="padding-left: 0% !important;">
+                        <hr />
+                    </dt>
+
+                    <dd>
+                        <hr />
+                    </dd>
+                    <dt class="col-md-6">
+                        Họ tên:
+                    </dt>
+                    <dd class="col-md-6" >
+                        @Html.DisplayFor(model => model.FullName)
+                    </dd>
+                    <dt class="col-md-6">
+                        Địa chỉ:
+                    </dt>
+                    <dd class="col-md-6" >
+                        @Html.DisplayFor(model => model.Address)
+                    </dd>
+
+                    <dt class="col-md-6">
+                        Email:
+                    </dt>
+                    <dd class="col-md-6" >
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+                    <dt class="col-md-6">
+                        Số điện thoại:
+                    </dt>
+                    <dd class="col-md-6" >
+                        @Html.DisplayFor(model => model.PhoneNumber)
+                    </dd>
+                    <dt class="col-md-6">
+                        Tên tài khoản:
+                    </dt>
+                    <dd class="col-md-6" >
+                        @Html.DisplayFor(model => model.UserName)
+                    </dd>
+                    <dt class="col-md-6">
+                        Kích hoạt:
+                    </dt>
+                    <dd class="col-md-6" >
+                        @Html.DisplayFor(model => model.LockoutEnabled)
+                    </dd>
+                    </dl>
+            </div>
+            <div style="text-align:center">
+                <p>
+                    @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" }) |
+                    <a class="btn btn-info" href='@Url.Action("Index", "Users")' style="margin:10px 0px;">
+                        Trở về
+                    </a>
+                </p>
+            </div>
+        </div>
+    </main>
+</div>

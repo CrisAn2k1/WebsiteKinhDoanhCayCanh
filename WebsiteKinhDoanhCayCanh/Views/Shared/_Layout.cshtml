@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <title>AT-TREES Cây cảnh đẹp</title>
+    <title>TA-TREES Cây cảnh đẹp</title>
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet" />
@@ -52,7 +52,7 @@
                         </div>
                         <div class="col-md pr-4 d-flex topper align-items-center">
                             <div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
-                            <span class="text">duongquocan222@gmail.com</span>
+                            <span class="text">duongquocan2k1@gmail.com</span>
                         </div>
                         <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
                             <span class="text">Giao hàng nhanh chóng chỉ từ <strong> 3 -> 5 ngày.</strong></span>
@@ -65,7 +65,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar" @*style="background-color: #b3bc744f !important;"*@>
         <div class="container">
-            <a class="navbar-brand" href="/Home/Index" style="font-family:  'Lora', Georgia, serif;"><img src="~/Template/img/bonsai1.png" width="60" />AT-TREES</a>
+            <a class="navbar-brand" href="/Home/Index" style="font-family:  'Lora', Georgia, serif;"><img src="~/Template/img/bonsai1.png" width="60" />TA-TREES</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="oi oi-menu"></span> Menu
             </button>
@@ -73,49 +73,55 @@
             @{
                 MyDataEF db = new MyDataEF();
                 <div class="collapse navbar-collapse" id="ftco-nav">
-                                <ul class="navbar-nav ml-auto">
-                                    <li class="nav-item"><a href="/Home" class="nav-link">Trang chủ</a></li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="/SanPhams" id="dropdown04" aria-haspopup="true" aria-expanded="false">Sản Phẩm</a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdown04">
-                                            @foreach (var item in db.NhomSP.ToList())
-                                            {
-                                                <a class="dropdown-item" href="@Url.Action("Index", "SanPhams", new { @id_Nhom = item.id_Nhom })">@item.tenNhom</a>
-                                            }
+                    <ul class="navbar-nav ml-auto" style="margin:auto">
+                        <li class="nav-item"><a href="/Home/Index" class="nav-link">Trang chủ</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="/SanPhams" id="dropdown04" aria-haspopup="true" aria-expanded="false">Sản Phẩm</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown04">
+                                @foreach (var item in db.NhomSP.ToList())
+                                {
+                                    <a class="dropdown-item" href="@Url.Action("Index", "SanPhams", new { @id_Nhom = item.id_Nhom })">@item.tenNhom</a>
+                                }
 
-                                        </div>
-                                    </li>
-                                    <li class="nav-item"><a href="/Home/About" class="nav-link">Giới thiệu</a></li>
-@*                                    <li class="nav-item"><a href="/Home/ChinhSachMuaHang" class="nav-link">Chính sách</a></li>
-                                    <li class="nav-item"><a href="/Home/CachChamSoc" class="nav-link">Cách chăm sóc</a></li>*@
-                                    <li class="nav-item dropdown">
-                                      <a class="nav-link dropdown-toggle" href="#" id="dropdown04"  aria-haspopup="true" aria-expanded="false">Dịch vụ khác</a>
-                                      <div class="dropdown-menu" aria-labelledby="dropdown04">
-                                          <a class="dropdown-item" href="/Home/ChinhSachMuaHang">Chính sách mua hàng</a>
-                                          <a class="dropdown-item" href="/Home/ChinhSachBaoHanh">Chính sách bảo hành</a>
-                                          <a class="dropdown-item" href="/Home/CachChamSoc">Cách chăm sóc</a>
-                                      </div>
-                                    </li>
-                                    <li class="nav-item"><a href="/Home/Contact" class="nav-link">Liên hệ</a></li>
-                                    @Html.Action("GiohangPartial", "GioHangs")
-                                    <li style="display:flex;flex-direction:column;justify-content:center"> @Html.Partial("_LoginPartial") </li>
-                                </ul>
-                    <script>
-                        Array.from($('.nav-link')).forEach(function (item) {
-                            if (location.href.split('/')[3].includes(item.href.split('/')[3]) && item.href.split('/')[4] == window.location.href.split('/')[4]) {
-                                item.style = 'color: #28a53f;transform: translateY(-3px);font-size: 13px;background: #00ff6b17;'
-                            }
-                            else
-                                item.style.color = 'black';
-                        })</script>
+                            </div>
+                        </li>
+                        <li class="nav-item"><a href="/Home/About" class="nav-link">Giới thiệu</a></li>
+                        @*                                    <li class="nav-item"><a href="/Home/ChinhSachMuaHang" class="nav-link">Chính sách</a></li>
+                            <li class="nav-item"><a href="/Home/CachChamSoc" class="nav-link">Cách chăm sóc</a></li>*@
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="dropdown04" aria-haspopup="true" aria-expanded="false">Dịch vụ khác</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown04">
+                                <a class="dropdown-item" href="/Home/ChinhSachMuaHang">Chính sách mua hàng</a>
+                                <a class="dropdown-item" href="/Home/ChinhSachBaoHanh">Chính sách bảo hành</a>
+                                <a class="dropdown-item" href="/Home/CachChamSoc">Cách chăm sóc</a>
+                            </div>
+                        </li>
+                        <li class="nav-item"><a href="/Home/Contact" class="nav-link">Liên hệ</a></li>
+                        @Html.Action("GiohangPartial", "GioHangs")
+                        <li style="display:flex;flex-direction:column;justify-content:center; margin-left:auto"> @Html.Partial("_LoginPartial") </li>
+                    </ul>
+
                 </div>
             }
+            <script>
+                    console.log(window.location.href.split('/')[4]);
+                Array.from($('.nav-link')).forEach(function (item) {
+                    console.log(item.href.split('/')[4]);
+                    if (location.href.split('/')[3].includes( item.href.split('/')[3]) &&  window.location.href.split('/')[4] == item.href.split('/')[4] ) {
+                        item.style = 'color: #28a53f;transform: translateY(-3px);font-size: 13px;background: #00ff6b17;'
+                    }
+                   else {
+                    item.style.color = 'black';
+                    }
+               });
+            </script>
         </div>
     </nav>
 
     <div class="container body-content">
         @RenderBody()
     </div>
+    <hr />
     <footer class="ftco-footer ftco-section">
         <div class="container">
             <div class="row">
@@ -150,37 +156,34 @@
                     <div class="ftco-footer-widget mb-4 ml-md-5">
                         <h2 class="ftco-heading-2">Menu</h2>
                         <ul class="list-unstyled">
-                            <li><a href="/SanPhams" class="py-2 d-block">Shop</a></li>
-                            <li><a href="/Home/About" class="py-2 d-block">About</a></li>
-                           @* <li><a href="#" class="py-2 d-block">Journal</a></li>*@
-                            <li><a href="/Home/Contact" class="py-2 d-block">Contact Us</a></li>
+                            <li><a href="/SanPhams" class="py-2 d-block">Sản phẩm</a></li>
+                            <li><a href="/Home/About" class="py-2 d-block">Giới thiệu</a></li>
+                            <li><a href="/Home/Contact" class="py-2 d-block">Liên hệ</a></li>
+                            <li><a href="/Home/ChinhSachMuaHang" class="py-2 d-block">Chính sách mua hàng</a></li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md">
                     <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2">Help</h2>
+                        <h2 class="ftco-heading-2">Danh mục sản phẩm</h2>
                         <div class="d-flex">
                             <ul class="list-unstyled mr-l-5 pr-l-3 mr-4">
-                                <li><a href="#" class="py-2 d-block">Shipping Information</a></li>
-                                <li><a href="#" class="py-2 d-block">Returns &amp; Exchange</a></li>
-                                <li><a href="#" class="py-2 d-block">Terms &amp; Conditions</a></li>
-                                <li><a href="#" class="py-2 d-block">Privacy Policy</a></li>
+                                <li><a href="/SanPhams?id_Nhom=CTN" class="py-2 d-block">Cây trong nhà</a></li>
+                                <li><a href="/SanPhams?id_Nhom=CDB" class="py-2 d-block">Cây để bàn</a></li>
+                                <li><a href="/SanPhams?id_Nhom=CTS" class="py-2 d-block">Cây thủy sinh</a></li>
+                                <li><a href="/SanPhams?id_Nhom=CSD" class="py-2 d-block">Sen đá</a></li>
                             </ul>
-                            <ul class="list-unstyled">
-                                <li><a href="#" class="py-2 d-block">FAQs</a></li>
-                                <li><a href="#" class="py-2 d-block">Contact</a></li>
-                            </ul>
+
                         </div>
                     </div>
                 </div>
                 <div class="col-md">
                     <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2">Have a Questions?</h2>
+                        <h2 class="ftco-heading-2">Thông tin shop</h2>
                         <div class="block-23 mb-3">
                             <ul>
                                 <li>
-                                    <span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span>
+                                    <span class="icon icon-map-marker"></span><span class="text">VQ4P+249, Phường Tân Phú, Quận 9, Thành phố Hồ Chí Minh.</span>
                                 </li>
                                 <li>
                                     <a href="#">

@@ -12,20 +12,21 @@ namespace WebsiteKinhDoanhCayCanh.Others
             bool status = false;
             try
             {
-                string HostAddress = ConfigurationManager.AppSettings["SMTPHost"].ToString();
+                string smtpPort = ConfigurationManager.AppSettings["SMTPPort"].ToString();
+                string smtpHost = ConfigurationManager.AppSettings["SMTPHost"].ToString();
                 string FormEmailId = ConfigurationManager.AppSettings["FromEmailAddress"].ToString();
                 string Password = ConfigurationManager.AppSettings["FromEmailPassWord"].ToString();
-                string Port = ConfigurationManager.AppSettings["SMTPPort"].ToString();
+                var EmailDisplayName = ConfigurationManager.AppSettings["FromEmailDisplayName"].ToString();
 
                 MailMessage mailMessage = new MailMessage();
-                mailMessage.From = new MailAddress(FormEmailId);
+                mailMessage.From = new MailAddress(FormEmailId, EmailDisplayName);
                 mailMessage.Subject = Subject;
                 mailMessage.Body = Message;
                 mailMessage.IsBodyHtml = IsBodyHtml;
                 mailMessage.To.Add(new MailAddress(SenderEmail));
 
                 SmtpClient smtp = new SmtpClient();
-                smtp.Host = HostAddress;
+                smtp.Host = smtpHost;
                 smtp.EnableSsl = true;
 
                 NetworkCredential networkCredential = new NetworkCredential();
@@ -33,14 +34,13 @@ namespace WebsiteKinhDoanhCayCanh.Others
                 networkCredential.Password = Password;
                 smtp.UseDefaultCredentials = true;
                 smtp.Credentials = networkCredential;
-                smtp.Port = Convert.ToInt32(Port);
+                smtp.Port = Convert.ToInt32(smtpPort);
                 smtp.Send(mailMessage);
                 status = true;
                 return status;
             }
             catch (Exception e)
             {
-                Console.WriteLine("da co loi: " + e.ToString());
                 return status;
             }
         }

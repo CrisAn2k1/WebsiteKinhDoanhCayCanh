@@ -1,0 +1,214 @@
+﻿@model WebsiteKinhDoanhCayCanh.Models.OtherModels.DonHangViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    dl dt {
+        padding-left: 15% !important;
+        text-align: start;
+        min-width: 40%;
+    }
+
+    dl dd {
+        text-align: start;
+        min-width: 50%;
+        max-width: 60% !important;
+    }
+
+    tr td {
+        text-align: center;
+        vertical-align:middle;
+    }
+    tr th {
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4" style=" margin-top:20px;">
+            <p style="position:fixed">
+                <a class="btn btn-info" href='@Url.Action("Index", "DonHangs")' style="margin:10px 0px;">
+                    Trở về
+                </a>
+            </p>
+            <div class="d-flex justify-content-center align-items-center flex-column">
+                <h2 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen;">Thông Tin Đơn hàng</h2>
+                <hr />
+                <dl class="dl-horizontal" style="display:flex;flex-wrap:wrap;justify-content:center ;width:65%">
+                    <dt class="col-md-2">
+                        Mã đơn hàng:
+                    </dt>
+                    <dd class="col-md-10" style="font-weight:bold">
+                        @Html.DisplayFor(model => model.DonHang.id_DH)
+                    </dd>
+                    <dt class="col-md-2">
+                        Ngày đặt:
+                    </dt>
+                    <dd class="col-md-10" style="font-weight:bold">
+                        @Convert.ToDateTime(Model.DonHang.ngayDat).ToString("dd-MM-yyyy")
+                    </dd>
+
+                    <dt class="col-md-2">
+                        Ngày giao:
+                    </dt>
+                    <dd class="col-md-10" style="font-weight:bold">
+                        @Convert.ToDateTime(Model.DonHang.ngayGiao).ToString("dd-MM-yyyy")
+                    </dd>
+                    <dt class="col-md-2">
+                        Địa chỉ giao hàng:
+                    </dt>
+                    <dd class="col-md-10" style="font-weight:bold">
+                        @Html.DisplayFor(model => model.DonHang.diaChiGiao)
+                    </dd>
+                    <dt class="col-md-2">
+                        Trạng thái giao hàng:
+                    </dt>
+                    <dd class="col-md-10">
+                        @if (Model.DonHang.trangThaiGiaoHang.ToString() == "0")
+                        {
+                            <span style="color:orange;font-weight:bold">Đang giao</span>
+                        }
+                        else
+                        {
+                            if (Model.DonHang.trangThaiGiaoHang.ToString() == "1")
+                            {
+                                <span style="color:limegreen;font-weight:bold">Đã giao</span>
+                            }
+                            else
+                            {
+                                <span style="color:red;font-weight:bold">Đã hủy đơn</span>
+                            }
+                        }
+                    </dd>
+                    <dt class="col-md-2">
+                        Trạng thái thanh toán:
+                    </dt>
+                    <dd class="col-md-10">
+                        @if (Model.DonHang.trangThaiThanhToan == true)
+                        {
+                            <label class="list-box tri-state" id="TrangThaiThanhToan" name="TrangThaiThanhToan">
+                                <a style="font-weight:bold;color:limegreen" value="true">Đã thanh toán</a>
+                            </label>
+                        }
+                        else
+                        {
+                            <label class="list-box tri-state" id="TrangThaiThanhToan" name="TrangThaiThanhToan" style="font-weight:bold;color:red">
+                                <a style="font-weight:bold;color:red" value="true">Chưa thanh toán</a>
+                            </label>
+                        }
+                    </dd>
+                    <dt class="col-md-2">
+                        Phương thức thanh toán:
+                    </dt>
+                    <dd class="col-md-10">
+                        @if (Model.DonHang.phuongThucThanhToan == '0')
+                        {
+                            <label class="list-box tri-state" id="TrangThaiThanhToan" name="TrangThaiThanhToan">
+                                <a style="font-weight:bold; color:limegreen" value="true">Thanh toán khi nhận hàng</a>
+                            </label>
+                        }
+                        else
+                        {
+                            <label class="list-box tri-state" id="TrangThaiThanhToan" name="TrangThaiThanhToan" style="font-weight:bold;color:red">
+                                <a style="font-weight: bold; color: limegreen; " value="true">Thanh toán online</a>
+                            </label>
+                        }
+                    </dd>
+                    <dt class="col-md-2">
+                        Tổng tiền:
+                    </dt>
+                    <dd class="col-md-10" style="color:red;font-weight:bold">
+                        @String.Format("{0:0,0}", Model.DonHang.tongTien) VNĐ
+                    </dd>
+
+                    <dt><hr /></dt>
+                    <dd><hr /></dd>
+                    <dt class="col-md-2">
+                        Tên KH:
+                    </dt>
+                    <dd class="col-md-10">
+                        @Html.DisplayFor(model => model.DonHang.User.FullName)
+                    </dd>
+                    <dt class="col-md-2">
+                        Email:
+                    </dt>
+                    <dd class="col-md-10">
+                        @Html.DisplayFor(model => model.DonHang.User.Email)
+                    </dd>
+
+                    <dt class="col-md-2">
+                        Số điện thoại:
+                    </dt>
+                    <dd class="col-md-10">
+                        @Html.DisplayFor(model => model.DonHang.User.PhoneNumber)
+                    </dd>
+
+                    <dt class="col-md-2">
+                        Địa chỉ:
+                    </dt>
+                    <dd class="col-md-10">
+                        @Html.DisplayFor(model => model.DonHang.User.Address)
+                    </dd>
+
+
+                </dl>
+            </div>
+            <div>
+                @Html.ActionLink("Xuất hóa đơn", "Index", "Report", new { id = Model.DonHang.id_DH }, new { @class = "btn btn-success" })
+                <hr />
+                <table class="table table-bordered table-success">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>
+                                Tên sản phẩm
+                            </th>
+                            <th>
+                                Hình ảnh
+                            </th>
+                            <th>
+                                Số lượng
+                            </th>
+                            <th>
+                                Đơn giá
+                            </th>
+                            <th>
+                                Giảm giá
+                            </th>
+                            <th>
+                                Thành tiền
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-light">
+                        @foreach (var item in Model.CTDH)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SanPham.tenSP)
+                                </td>
+
+                                <td>
+                                    <img src="@item.SanPham.HinhAnhSP.Where(p => p.id_SP == item.id_SP).FirstOrDefault().duongDan" alt="Alternate Text" width="100" />
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.soLuong)
+                                </td>
+                                <td><strong>@String.Format("{0:0,0}", item.SanPham.gia) VNĐ</strong> </td>
+                                <td><strong>@String.Format("{0:0,0}", item.SanPham.phanTramGiamGia) %</strong> </td>
+                                <td>
+                                    <strong style="color:red"> @String.Format("{0:0,0}", item.thanhTien) VNĐ</strong>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+

@@ -1,0 +1,83 @@
+﻿@model WebsiteKinhDoanhCayCanh.Models.CachChamSoc
+@{
+    ViewBag.Title = "DetailsCCS";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/assets/css/css/Style1.css" rel="stylesheet" />
+<section>
+    <div style="font-family: 'Sans-serif'">
+        <div class="hero-wrap hero-bread" style="background-image: url('/Template/img/banner-img.jpg');opacity:0.9" ;>
+            <div>
+                <div class="container">
+                    <div class="row no-gutters slider-text align-items-center justify-content-center">
+                        <div class="col-md-9 ftco-animate text-center bg-text">
+                            <h1 class="mb-0 bread" style="color:antiquewhite">CÁCH CHĂM SÓC</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br />
+<hr />
+<section>
+    <h2 style="color: forestgreen" ;>Cách chăm sóc </h2>
+
+    <div>
+        <strong> <p>@Html.DisplayFor(model => model.tenCCS)</p></strong>
+
+        <dl class="dl-horizontal">
+            <dt>
+                Tưới nước
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tuoiNuoc)
+            </dd>
+        </dl>
+
+        <dl class="dl-horizontal">
+            <dt>
+                Đất
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.dat)
+            </dd>
+
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>
+                Ánh sáng
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.anhSang)
+            </dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>
+                Vị trí đặt cây
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.viTriDatCay)
+            </dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>
+                Dưỡng chất
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.duongChat)
+            </dd>
+
+        </dl>
+    </div>     
+    <br />
+</section>
+

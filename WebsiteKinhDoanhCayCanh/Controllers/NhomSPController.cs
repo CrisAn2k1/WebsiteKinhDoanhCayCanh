@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using WebsiteKinhDoanhCayCanh.Message;
 using WebsiteKinhDoanhCayCanh.Models;
 using WebsiteKinhDoanhCayCanh.Models.LinQ;
+using WebsiteKinhDoanhCayCanh.Models.OtherModels;
 using NhomSP = WebsiteKinhDoanhCayCanh.Models.NhomSP;
 
 namespace WebsiteKinhDoanhCayCanh.Controllers
@@ -17,8 +18,15 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
     {
         private MyDataEF db = new MyDataEF();
         ApplicationDbContext data = new ApplicationDbContext();
+
+        public void SetViewBag(string selectedId = null)
+        {
+            var dao = new CCSListView();
+            ViewBag.id_CCS = new SelectList(dao.listAll(), "id_CCS", "tenCCS", selectedId);
+        }
         // GET: NhomSP
-        public ActionResult Index(int? page, string searchString)
+        [Authorize]
+        /*public ActionResult Index(int? page, string searchString)
         {
             if (!AuthAdmin())
                 return RedirectToAction("Error401", "Admin");
@@ -27,9 +35,18 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             int pageSize = 10;
             int pageNum = page ?? 1;
             return View(NhomSP.getAll(searchString).ToPagedList(pageNum, pageSize));
+        }*/
+        public ActionResult Index( string searchString)
+        {
+            if (!AuthAdmin())
+                return RedirectToAction("Error401", "Admin");
+            ViewBag.Keyword = searchString;
+            //var all_loaiSP = db.LoaiSP.ToList();            
+            return View(NhomSP.getAll(searchString));
         }
 
         // GET: Details
+        [Authorize]
         public ActionResult Details(string id)
         {
             if (!AuthAdmin())
@@ -47,17 +64,20 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         }
 
         // GET: Create
+        [Authorize]
         public ActionResult Create()
         {
             if (!AuthAdmin())
                 return RedirectToAction("Error401", "Admin");
-            ViewBag.id_CachChamSoc = new SelectList(db.CachChamSoc, "id_CCS");
+            //ViewBag.id_CachChamSoc = new SelectList(db.CachChamSoc, "id_CCS", "tenCCS ");
+            SetViewBag();
             return View();
         }
 
         // POST: Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_Nhom,tenNhom,id_CCS")] NhomSP nhomSP)
@@ -66,16 +86,26 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 return RedirectToAction("Error401", "Admin");
             if (ModelState.IsValid)
             {
-                db.NhomSP.Add(nhomSP);
-                db.SaveChanges();
-                Notification.set_flash("Thêm thành công", "success");
-                return RedirectToAction("Index");
+                if(db.NhomSP.Where(p => p.id_Nhom == nhomSP.id_Nhom).FirstOrDefault() != null)
+                {
+                        Notification.set_flash("Đã tồn tại!", "error");
+                        return RedirectToAction("Create", "NhomSP");
+                }
+                else {
+                    db.NhomSP.Add(nhomSP);
+                    db.SaveChanges();
+                    Notification.set_flash("Thêm thành công", "success");
+                    return RedirectToAction("Index");
+                }
+                
             }
-            ViewBag.id_CachChamSoc = new SelectList(db.CachChamSoc, "id_CCS", nhomSP.id_CCS);
+            //ViewBag.id_CachChamSoc = new SelectList(db.CachChamSoc, "id_CCS", nhomSP.id_CCS);
+            SetViewBag();
             return View(nhomSP);
         }
 
         // GET: Edit
+        [Authorize]
         public ActionResult Edit(string id)
         {
             if (!AuthAdmin())
@@ -89,12 +119,14 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.id_CachChamSoc = new SelectList(db.CachChamSoc, "id_CCS", "tenCCS");
             return View(nhomSP);
         }
 
         // POST: Edit
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id_Nhom,tenNhom,id_CCS")] NhomSP nhomSP)
@@ -107,9 +139,11 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.id_CachChamSoc = new SelectList(db.CachChamSoc, "id_CCS", nhomSP.id_CCS);
             return View(nhomSP);
         }
         // GET: /Delete
+        [Authorize]
         public ActionResult Delete(string id)
         {
             if (!AuthAdmin())
@@ -127,6 +161,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         }
 
         // POST: /Delete
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)

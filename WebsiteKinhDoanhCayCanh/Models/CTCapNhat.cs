@@ -26,5 +26,6 @@
         public string thaoTac { get; set; }
 
         public virtual SanPham SanPham { get; set; }
+        
     }
 }

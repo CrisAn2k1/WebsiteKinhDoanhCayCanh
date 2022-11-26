@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using WebsiteKinhDoanhCayCanh.Message;
 using WebsiteKinhDoanhCayCanh.Models;
 using WebsiteKinhDoanhCayCanh.Models.OtherModels;
 
@@ -19,6 +20,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         private MyDataEF db = new MyDataEF();
         ApplicationDbContext data = new ApplicationDbContext();
         // GET: SanPhams
+
         //user 
         public ActionResult Index(int? page, string id_Nhom, string searchString)
         {
@@ -84,21 +86,21 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             ApplicationUser userLogin = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
             if (userLogin != null)
             {
+                var getDH = db.DonHang.Where(p => p.id_User == userLogin.Id && p.trangThaiThanhToan == true).ToList();
+                foreach (var item in getDH)
+                {
+                    var getCTDH = item.CTDH.ToList();
+                    if (getCTDH.Where(p => p.id_SP == id).Count() > 0)
+                    {
+                        ViewBag.ttMuaHang = 1;
+                    }
+                }
                 if (db.DanhGia.Where(p => p.id_User == userLogin.Id && p.id_SP == id).Count() > 0)
                 {
                     ViewBag.ttDanhGia = 1;
                 }
                 else
                 {
-                    var getDH = db.DonHang.Where(p => p.id_User == userLogin.Id).ToList();
-                    foreach (var item in getDH)
-                    {
-                        var getCTDH = item.CTDH.ToList();
-                        if (getCTDH.Where(p => p.id_SP == id).Count() > 0)
-                        {
-                            ViewBag.ttMuaHang = 1;
-                        }
-                    }
                     ViewBag.ttDanhGia = 0;
                 }
             }
@@ -177,17 +179,35 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
 
 
         // ADMIN
-        public ActionResult IndexAdmin(int? page, string searchString)
+
+        public void SetViewBag(string selectedId = null)
+        {
+            var dao = new NSPListView();
+            ViewBag.id_Nhom = new SelectList(dao.listAll(), "id_Nhom", "tenNhom", selectedId);
+        }
+        [Authorize]
+        /*        public ActionResult IndexAdmin(int? page, string searchString)
+                {
+                    if (!AuthAdmin())
+                        return RedirectToAction("Error401", "Admin");
+                    ViewBag.Keyword = searchString;
+                    //var all_sanPham = db.SanPham.ToList();
+                    int pageSize = 10;
+                    int pageNum = page ?? 1;
+                    return View(SanPham.getAllAdmin(searchString).ToPagedList(pageNum, pageSize));
+                }*/
+        public ActionResult IndexAdmin(string searchString)
         {
             if (!AuthAdmin())
                 return RedirectToAction("Error401", "Admin");
-            ViewBag.Keyword = searchString;
+
             //var all_sanPham = db.SanPham.ToList();
-            int pageSize = 5;
-            int pageNum = page ?? 1;
-            return View(SanPham.getAll(searchString).ToPagedList(pageNum, pageSize));
+            ViewBag.Keyword = searchString;
+            return View(SanPham.getAllAdmin(searchString));
         }
+
         // GET: SanPhams/Details/5 Admin
+        [Authorize]
         public ActionResult DetailsAdmin(string id)
         {
             if (!AuthAdmin())
@@ -204,9 +224,14 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             return View(sanPham);
         }
         // GET: SanPhams/Create
+        [Authorize]
         public ActionResult Create()
         {
-            ViewBag.id_Nhom = new SelectList(db.NhomSP, "id_Nhom", "tenNhom");
+            if (!AuthAdmin())
+                return RedirectToAction("Error401", "Admin");
+
+            //ViewBag.id_Nhom = new SelectList(db.NhomSP, "id_Nhom", "tenNhom");
+            SetViewBag();
             ViewBag.id_SP = new SelectList(db.ThongTinThemVeSP, "id_SP", "congDung");
             return View();
         }
@@ -214,25 +239,71 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         // POST: SanPhams/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_SP,tenSP,mota,gia,soLuong,DVT,phanTramGiamGia,id_Nhom")] SanPham sanPham)
+        public ActionResult Create([Bind(Include = "id_SP,tenSP,mota,gia,soLuong,DVT,phanTramGiamGia,id_Nhom,trangThai")] SanPham sanPham)
         {
-            if (ModelState.IsValid)
-            {
-                db.SanPham.Add(sanPham);
-                db.SaveChanges();
-                return RedirectToAction("IndexAdmin");
-            }
+            if (!AuthAdmin())
+                return RedirectToAction("Error401", "Admin");
 
-            ViewBag.id_Nhom = new SelectList(db.NhomSP, "id_Nhom", "tenNhom", sanPham.id_Nhom);
-            ViewBag.id_SP = new SelectList(db.ThongTinThemVeSP, "id_SP", "congDung", sanPham.id_SP);
+            var idUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
+
+            if (ModelState.IsValid && idUser != null)
+            {
+                if (db.SanPham.Where(p => p.id_SP == sanPham.id_SP).FirstOrDefault() != null)
+                {
+                    Notification.set_flash("Đã tồn tại!", "error");
+                    return RedirectToAction("Create", "SanPhams");
+                }
+                else
+                {
+                    db.SanPham.Add(sanPham);
+
+                    if (Request["congDung"] != null && Request["cachTrong"] != null)
+                    {
+                        string content1 = Request["congDung"].ToString() + " ";
+                        string content2 = Request["cachTrong"].ToString() + " ";
+                        if (content1 == " " || content2 == " ")
+                        {
+                            return RedirectToAction("Create");
+                        }
+                        ThongTinThemVeSP thongTinThemVeSP = new ThongTinThemVeSP();
+                        thongTinThemVeSP.id_SP = sanPham.id_SP;
+                        thongTinThemVeSP.cachTrong = content2;
+                        thongTinThemVeSP.congDung = content1;
+                        db.ThongTinThemVeSP.Add(thongTinThemVeSP);
+                    }
+
+                    HinhAnhSP hinhAnhSP = new HinhAnhSP();
+                    var srcImg = Request["Hinh"].ToString() + "";
+                    hinhAnhSP.id_SP = sanPham.id_SP;
+                    hinhAnhSP.duongDan = srcImg;
+                    db.HinhAnhSP.Add(hinhAnhSP);
+
+                    CTCapNhat ctCapNhat = new CTCapNhat();
+                    ctCapNhat.id_User = idUser;
+                    ctCapNhat.id_SP = sanPham.id_SP;
+                    ctCapNhat.ngayCapNhat = DateTime.Now;
+                    ctCapNhat.thaoTac = "Create";
+                    db.CTCapNhat.Add(ctCapNhat);
+                    sanPham.trangThai = true;
+                    db.SaveChanges();
+                    Notification.set_flash("Thêm thành công", "success");
+                    return RedirectToAction("Create");
+                }              
+                
+            }
+            SetViewBag();
             return View(sanPham);
         }
 
         // GET: SanPhams/Edit
+        [Authorize]
         public ActionResult Edit(string id)
         {
+            if (!AuthAdmin())
+                return RedirectToAction("Error401", "Admin");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -250,13 +321,38 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         // POST: Edit
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id_SP,tenSP,mota,gia,soLuong,DVT,phanTramGiamGia,id_Nhom")] SanPham sanPham)
+        public ActionResult Edit([Bind(Include = "id_SP,tenSP,mota,gia,soLuong,DVT,phanTramGiamGia,id_Nhom,trangThai")] SanPham sanPham)
         {
-            if (ModelState.IsValid)
+            if (!AuthAdmin())
+                return RedirectToAction("Error401", "Admin");
+            var idUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
+
+            if (ModelState.IsValid && idUser != null)
             {
                 db.Entry(sanPham).State = EntityState.Modified;
+                
+                if (Request["congDung"] != null && Request["cachTrong"] != null)
+                {
+                    string content1 = Request["congDung"].ToString() + " ";
+                    string content2 = Request["cachTrong"].ToString() + " ";
+                    if (content1 == " " || content2 == " ")
+                    {
+                        return RedirectToAction("IndexAdmin");
+                    }
+                    ThongTinThemVeSP thongTinThemVeSP = db.ThongTinThemVeSP.Single(p => p.id_SP == sanPham.id_SP);
+                    thongTinThemVeSP.congDung = content1;
+                    thongTinThemVeSP.cachTrong = content2;
+                }
+
+                CTCapNhat ctCapNhat = new CTCapNhat();
+                ctCapNhat.id_User = idUser;
+                ctCapNhat.id_SP = sanPham.id_SP;
+                ctCapNhat.ngayCapNhat = DateTime.Now;
+                ctCapNhat.thaoTac = "Update";
+                db.CTCapNhat.Add(ctCapNhat);
                 db.SaveChanges();
                 return RedirectToAction("IndexAdmin");
             }
@@ -265,9 +361,19 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             return View(sanPham);
         }
 
+        [Authorize]
+        public ActionResult Hidden(string id_SP)
+        {
+            var hiddenSP = db.SanPham.Find(id_SP);
+            return Redirect("/SanPhams/IndexAdmin");
+        }
+
         // GET: SanPhams/Delete
+        [Authorize]
         public ActionResult Delete(string id)
         {
+            if (!AuthAdmin())
+                return RedirectToAction("Error401", "Admin");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -281,10 +387,13 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         }
 
         // POST: SanPhams/Delete
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
+            if (!AuthAdmin())
+                return RedirectToAction("Error401", "Admin");
             SanPham sanPham = db.SanPham.Find(id);
             db.SanPham.Remove(sanPham);
             db.SaveChanges();
@@ -298,6 +407,16 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public string ProcessUpload(HttpPostedFileBase file)
+        {
+            if (file == null)
+            {
+                return "";
+            }
+            file.SaveAs(Server.MapPath("~/Template/img/Product/" + file.FileName));
+            return "/Template/img/Product/" + file.FileName;
         }
         public bool AuthAdmin()
         {

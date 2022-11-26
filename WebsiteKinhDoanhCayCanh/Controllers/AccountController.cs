@@ -14,6 +14,9 @@ using Microsoft.Owin.Security;
 using WebsiteKinhDoanhCayCanh.Models;
 using WebsiteKinhDoanhCayCanh.Others;
 using WebsiteKinhDoanhCayCanh.Models.LinQ;
+using System.Text;
+using System.Web.Helpers;
+using WebsiteKinhDoanhCayCanh.Message;
 
 namespace WebsiteKinhDoanhCayCanh.Controllers
 {
@@ -103,7 +106,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                     case SignInStatus.Success:
                         {
                             var kh = context.Users.Where(p => p.Email == model.Email).FirstOrDefault();
-                            if (kh.LockoutEnabled == false)
+                            if (kh.LockoutEnabled == true)
                             {
                                 AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
                                 return View("Lockout");
@@ -123,7 +126,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             }
             else
             {
-                ViewBag.Thongbao = "Vui lòng xác nhận bạn không phải robot !!!!";
+                ViewBag.Thongbao = "Vui lòng xác nhận bạn không phải là robot !!!!";
             }
             return View();
         }
@@ -188,12 +191,12 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Address = model.Address, FullName = model.Name, PhoneNumber = model.PhoneNumber, LockoutEnabled = false };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Address = model.Address, FullName = model.Name, PhoneNumber = model.PhoneNumber };
                 ApplicationDbContext context = new ApplicationDbContext();
                 var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
                 if (!roleManager.RoleExists("User"))
                 {
-                    var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                    var role = new IdentityRole();
                     role.Name = "User";
                     roleManager.Create(role);
                 }
@@ -210,9 +213,10 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                     {
                         body = reader.ReadToEnd();
                     }
-                    body = body.Replace("{ConfirmationLink}", callbackUrl);
-                    body = body.Replace("{Name}", model.Name);
-                    bool IsSendEmail = MailRegister.SendMail(model.Email, "Xác Nhận Tài Khoản", body, true);
+                    body = body.Replace("{{ConfirmationLink}}", callbackUrl);
+                    body = body.Replace("{{Name}}", model.Name);
+                    bool IsSendEmail = MailRegister.SendMail(model.Email, "Xác Thực Tài Khoản", body, true);
+                    Notification.set_flash("Đăng Ký Tài Khoản Thành Công!\nVui lòng xác thực tài khoản trong email đã đăng ký!", "success");
                     if (IsSendEmail)
                         return RedirectToAction("Login", "Account");
                 }
@@ -248,68 +252,97 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        public ActionResult ForgotPassword(FormCollection collection)
         {
-            if (ModelState.IsValid)
+            IRecaptcha<RecaptchaV2Result> recaptcha = new RecaptchaV2(new RecaptchaV2Data() { Secret = "6LeJ3jogAAAAAKLVqcCKaEQVTYj5QGVQWFjWp2hO" });
+
+            // Verify the captcha
+            var resultx = recaptcha.Verify();
+            if (resultx.Success) // Success!!!
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                var Email = collection["Email"];
+                User kh = context.Users.SingleOrDefault(n => n.Email == Email);
+                if (ModelState.IsValid)
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return View("ForgotPasswordConfirmation");
+                    if (kh != null)
+                    {
+                        string t = RandomString(8, false);
+                        String content = System.IO.File.ReadAllText(Server.MapPath("~/Others/ForgotPassword.html"));
+                        content = content.Replace("{{Name}}", kh.FullName);
+                        content = content.Replace("{{Passcode}}", t);
+                        content = content.Replace("{{Request}}", "Reset Mật Khẩu");
+                        new MailHelper().sendMail(kh.Email, "Yêu cầu khôi phục mật khẩu?", content);
+                        Notification.set_flash("Vui lòng kiểm tra mã xác nhận trong email!", "info");
+                        return RedirectToAction("ForgotPasswordConfirmation", new { @Emaill = kh.Email, @Passcode = t });
+                    }
+                    else
+                    {
+                        ViewBag.ThongBao = "Email không tồn tại!";
+                    }
                 }
-
-                // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            else
+            {
+                ViewBag.Thongbao = "Vui lòng xác nhận bạn không phải là robot !!!!";
+            }
+            return View();
         }
 
         //
         // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
-        public ActionResult ForgotPasswordConfirmation()
+        public ActionResult ForgotPasswordConfirmation(FormCollection collection, string Emaill, string Passcode)
         {
+            var passcodemail = collection["Passcodedd"];
+            if (passcodemail != null)
+            {
+                if (passcodemail == Passcode)
+                {
+                    return RedirectToAction("ResetPassword", new { @Emaill = Emaill });
+                }
+                else
+                {
+                    Notification.set_flash("Mã xác nhận không chính xác!", "error");
+                    return View();
+                }
+            }
             return View();
+        }
+
+        private string RandomString(int size, bool lowerCase)
+        {
+            StringBuilder sb = new StringBuilder();
+            char c;
+            Random rand = new Random();
+            for (int i = 0; i < size; i++)
+            {
+                c = Convert.ToChar(Convert.ToInt32(rand.Next(65, 87)));
+                sb.Append(c);
+            }
+            if (lowerCase)
+                return sb.ToString().ToLower();
+            return sb.ToString();
         }
 
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        public ActionResult ResetPassword(FormCollection collection, string Emaill)
         {
-            return code == null ? View("Error") : View();
-        }
-
-        //
-        // POST: /Account/ResetPassword
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
-        {
-            if (!ModelState.IsValid)
+            User kh = context.Users.SingleOrDefault(n => n.Email == Emaill);
+            if (kh != null && collection["pass"] != null)
             {
-                return View(model);
+                if (collection["pass"] == collection["repass"] && collection["pass"] != null)
+                {
+                    string pass = collection["pass"];
+                    kh.PasswordHash = Crypto.HashPassword(pass);
+                    UpdateModel(kh);
+                    context.SubmitChanges();
+                    Notification.set_flash("Đặt lại mật khẩu thành công!", "success");
+                    return RedirectToAction("Login", "Account");
+                }
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
-            if (user == null)
-            {
-                // Don't reveal that the user does not exist
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
-            }
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-            if (result.Succeeded)
-            {
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
-            }
-            AddErrors(result);
+            ViewBag.Url = Emaill;
             return View();
         }
 
@@ -383,7 +416,16 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    {
+                        var kh = context.Users.Where(p => p.Email == loginInfo.Email).FirstOrDefault();
+                        if (kh.LockoutEnabled == true)
+                        {
+                            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                            return View("Lockout");
+                        }
+                        Session["TaiKhoan"] = kh;
+                        return RedirectToLocal(returnUrl);
+                    }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -417,7 +459,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Address = model.Address, FullName = model.Name, PhoneNumber = model.PhoneNumber, LockoutEnabled = false };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -425,6 +467,8 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        var kh = context.Users.Where(p => p.Email == user.Email).FirstOrDefault();
+                        Session["TaiKhoan"] = kh;
                         return RedirectToLocal(returnUrl);
                     }
                 }
@@ -442,7 +486,8 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            Session["TaiKhoan"] = null;
+            return RedirectToAction("Login", "Account");
         }
 
         //

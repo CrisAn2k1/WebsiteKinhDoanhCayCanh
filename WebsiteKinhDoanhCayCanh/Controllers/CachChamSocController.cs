@@ -18,7 +18,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         private MyDataEF db = new MyDataEF();
         ApplicationDbContext data = new ApplicationDbContext();
 
-        public ActionResult Index(int? page, string searchString)
+        /*public ActionResult Index(int? page, string searchString)
         {
             if (!AuthAdmin())
                 return RedirectToAction("Error401", "Admin");
@@ -26,8 +26,15 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             int pageSize = 10;
             int pageNum = page ?? 1;
             return View(CachChamSoc.getAll(searchString).ToPagedList(pageNum, pageSize));
-        }
+        }*/
 
+        public ActionResult Index(string searchString)
+        {
+            if (!AuthAdmin())
+                return RedirectToAction("Error401", "Admin");
+            ViewBag.Keyword = searchString;            
+            return View(CachChamSoc.getAll(searchString));
+        }
         // GET: Details
         public ActionResult Details(string id)
         {
@@ -58,17 +65,26 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_CCS,tuoiNuoc,dat,anhSang,viTriDatCay,duongChat")] CachChamSoc cachChamSoc)
+        public ActionResult Create([Bind(Include = "id_CCS,tenCCS,tuoiNuoc,dat,anhSang,viTriDatCay,duongChat")] CachChamSoc cachChamSoc)
         {
             if (!AuthAdmin())
                 return RedirectToAction("Error401", "Admin");
             if (ModelState.IsValid)
             {
-                db.CachChamSoc.Add(cachChamSoc);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (db.CachChamSoc.Where(p => p.id_CCS == cachChamSoc.id_CCS).FirstOrDefault() != null)
+                {
+                    Notification.set_flash("Đã tồn tại!", "error");
+                    return RedirectToAction("Create", "CachChamSoc");
+                }
+                else
+                {
+                    db.CachChamSoc.Add(cachChamSoc);
+                    db.SaveChanges();
+                    Notification.set_flash("Thêm thành công", "success");
+                    return RedirectToAction("Index");
+                }
+                
             }
-
             return View(cachChamSoc);
         }
 
@@ -94,7 +110,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id_CCS,tuoiNuoc,dat,anhSang,viTriDatCay,duongChat")] CachChamSoc cachChamSoc)
+        public ActionResult Edit([Bind(Include = "id_CCS,tenCCS,tuoiNuoc,dat,anhSang,viTriDatCay,duongChat")] CachChamSoc cachChamSoc)
         {
             if (!AuthAdmin())
                 return RedirectToAction("Error401", "Admin");

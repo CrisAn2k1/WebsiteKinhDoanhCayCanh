@@ -1,9 +1,11 @@
 ﻿
-@using WebsiteKinhDoanhCayCanh.Models;
 @model IEnumerable<WebsiteKinhDoanhCayCanh.Models.GioHang>
+@using WebsiteKinhDoanhCayCanh.Models;
+@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.Owin
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    MyDataEF db = new MyDataEF();
+    ApplicationUser userLogin = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
 }
 
 <body>
@@ -13,14 +15,13 @@
                 <div class="container">
                     <div class="row no-gutters slider-text align-items-center justify-content-center">
                         <div class="col-md-9 ftco-animate text-center bg-text">
-                            <h1 class="mb-0 bread" style="color:antiquewhite">GIỎ HÀNG</h1>
+                            <h1 class="mb-0 bread" style="color: antiquewhite; font-family: 'cursive', 'Amatic SC','Liberation Mono'; ">GIỎ HÀNG</h1>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     @if (Model.Count() != 0)
     {
         <section class="ftco-section ftco-cart">
@@ -34,49 +35,54 @@
                                 <thead class="thead-primary">
                                     <tr class="text-center">
                                         <th></th>
-                                        <th></th>
+                                        <th>STT</th>
                                         <th>Tên sản phẩm</th>
-                                        @*<th>SL còn lại</th>*@
+                                        <th>Hình ảnh</th>
                                         <th>Giá</th>
                                         <th>Giảm giá</th>
                                         <th>Số lượng</th>
                                         <th>Số tiền</th>
-
                                     </tr>
                                 </thead>
-                                @foreach (var item in Model)
-                                {
-                                    <tbody>
-                                        @using (Html.BeginForm("CapNhatGioHang", "GioHangs", new { @id = item.iIdSanPham }, FormMethod.Post, new { @id = "target-form" + "-" + item.iIdSanPham }))
-                                        {
-                                            <tr class="text-center">
-                                                <td class="product-remove"><a href="@Url.Action("XoaGioHang", "GioHangs", new { @iIdSanPham = item.iIdSanPham })"> <i class="ion-ios-trash" style="color:red;font-size:20px;font-weight:bold"></i></a></td>
+                                @{
+                                    int index = 0;
+                                    foreach (var item in Model)
+                                    {
+                                        index++;
+                                        <tbody>
 
-                                                <td class="image-prod"><a href="/SanPhams/Details/@item.iIdSanPham"><div class="img" style="background-image:url('@item.sHinh');"></div></a> </td>
+                                            @using (Html.BeginForm("CapNhatGioHang", "GioHangs", new { @id = item.iIdSanPham }, FormMethod.Post, new { @id = "target-form" + "-" + item.iIdSanPham }))
+                                            {
+                                                <tr class="text-center">
+                                                    <td class="product-remove"><a href="@Url.Action("XoaGioHang", "GioHangs", new { @iIdSanPham = item.iIdSanPham })"> <i class="ion-ios-trash" style="color:red;font-size:20px;font-weight:bold"></i></a></td>
+                                                    <td>@index</td>
+                                                    <td class="product-name">
+                                                        <h3><a href="/SanPhams/Details/@item.iIdSanPham">@item.sTenSanPham</a></h3>
+                                                    </td>
+                                                    <td class="image-prod"><a href="/SanPhams/Details/@item.iIdSanPham"><div class="img" style="background-image:url('@item.sHinh');"></div></a> </td>
 
-                                                <td class="product-name">
-                                                    <h3><a href="/SanPhams/Details/@item.iIdSanPham">@item.sTenSanPham</a></h3>
-                                                    @*<p>Far far away, behind the word mountains, far from the countries</p>*@
-                                                </td>
-                                                @*<td class="product-quantity">
-                                                        Còn lại: @db.SanPham.Where(p => p.id_SP == item.iIdSanPham).FirstOrDefault().soLuong
-                                                    </td>*@
 
-                                                <td class="price">@String.Format("{0:0,0}", item.dGia)&#8363;</td>
-                                                <td class="sale"> <strong>-@item.igiamGia%</strong></td>
-                                                <td class="quantity">
-                                                    <div class="input-group mb-3">
-                                                        <input id="quantity-@item.iIdSanPham" type="number" name="quantity" class="quantity form-control input-number" value="@item.iSoLuong" min="1" max="100" maxlength="3"
-                                                               onchange="updateGioHang('target-form-@item.iIdSanPham', this.id ,this.value)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace('.','');" />
-                                                    </div>
-                                                </td>
 
-                                                <td class="total-price" style="color:red"><strong>@String.Format("{0:0,0}", item.dThanhTien)&#8363;</strong> </td>
+                                                    <td class="price">@String.Format("{0:0,0}", item.dGia)&#8363;</td>
+                                                    <td class="sale">
+                                                        @if (item.igiamGia > 0)
+                                                        {
+                                                            <strong>-@item.igiamGia%</strong>
+                                                        }
+                                                    </td>
+                                                    <td class="quantity">
+                                                        <div class="input-group mb-3">
+                                                            <input id="quantity-@item.iIdSanPham" type="number" name="quantity" class="quantity form-control input-number" value="@item.iSoLuong" min="1" max="100" maxlength="3"
+                                                                   onchange="updateGioHang('target-form-@item.iIdSanPham', this.id ,this.value)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace('.','');" />
+                                                        </div>
+                                                    </td>
 
-                                            </tr><!-- END TR-->
-                                        }
-                                    </tbody>
-                                }
+                                                    <td class="total-price" style="color:red"><strong>@String.Format("{0:0,0}", item.dThanhTien)&#8363;</strong> </td>
+
+                                                </tr><!-- END TR-->
+                                            }
+                                        </tbody>
+                                    }}
                             </table>
                         </div>
                     </div>
@@ -88,7 +94,7 @@
                     <div class="col-lg-6 mt-5 cart-wrap ftco-animate">
                         <hr />
                         <div>
-                            <p><a href="@Url.Action("Index", "Home")" class="btn btn-primary py-3 px-4 "><img src="~/Template/img/home.png" width="25" height="25" ; />&ensp; Quay lại trang chủ </a></p>
+                            <p><a href="@Url.Action("Index", "Home")" class="btn btn-light py-3 px-4 "><img src="~/Template/img/home.png" width="25" height="25" ; />&ensp; Quay lại trang chủ </a></p>
                         </div>
                     </div>
 
@@ -108,13 +114,53 @@
                                 <span>Giảm giá:</span>
                                 <span style="color:red"><strong>-@String.Format("{0:0,0}", Model.Sum(p => (p.dGia * p.iSoLuong)) - ViewBag.TongTien)&#8363;</strong></span>
                             </p>
+                            @if (userLogin != null)
+                            {
+                                int flag = 0;
+                                MyDataEF db = new MyDataEF();
+                                DateTime currentDate = DateTime.Today;
+                                var lstVoucher = db.UserVoucher.Where(p => p.id_User == userLogin.Id & p.soLuotConLai > 0 & p.Voucher.thoiGianBatDau <= currentDate & currentDate <= p.Voucher.thoiGianKetThuc).ToList();
+                                if (lstVoucher.Count > 0)
+                                {
+                                    <p class="d-flex">
+                                        <span>Voucher:</span>
+                                        <select id="Voucher" name="Voucher" onchange="apDungVoucher(this.value)">
+                                            <option selected value="">Không áp dụng</option>
+                                            @foreach (var item in lstVoucher)
+                                            {
+
+                                                if (item.id_voucher == ViewBag.Voucher)
+                                                {
+                                                    <option selected value="@item.id_voucher">(Giảm @item.Voucher.phanTramGiamGia%) - @item.Voucher.tenVoucher</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.id_voucher">(Giảm @item.Voucher.phanTramGiamGia%) - @item.Voucher.tenVoucher</option>
+                                                }
+
+                                            }
+
+                                        </select>
+                                    </p>
+                                }
+                                else
+                                {
+                                    <p class="d-flex">
+                                        <span>Voucher:</span>
+                                        <select id="Voucher" name="Voucher" onchange="apDungVoucher(this.value)">
+                                            <option selected value="">Hiện bạn chưa có voucher nào!</option>
+                                        </select>
+                                    </p>
+
+                                }
+                            }
                             <hr>
                             <p class="d-flex total-price">
                                 <span style="font-weight:bold;font-size:18px">Tổng tiền</span>
                                 <span style="color:red; font-size:18px"><strong>@String.Format("{0:0,0}", ViewBag.TongTien)&#8363;</strong></span>
                             </p>
                         </div>
-                        <p><a href="/GioHangs/DatHang" class="btn btn-primary py-3 px-4"><i class="icon-shopping_cart"></i> Đặt hàng  </a></p>
+                        <p><a href="@Url.Action("DatHang","GioHangs",new { @IdVoucher = ViewBag.Voucher })" class="btn btn-primary py-3 px-4"><i class="icon-shopping_cart"></i> Đặt hàng  </a></p>
                     </div>
                 </div>
             </div>
@@ -128,12 +174,13 @@
                 <img src="~/Template/img/icon-cart.png" alt="thumbnail" width="300" style="margin: auto" />
             </div>
             <h2 style="color: #d45353e8; font-weight: 600">Oops! Chưa có sản phầm nào!</h2>
-            <div style="margin: 20px 0 100px 0 ">
-                <div>
-                    <div>
-                        <div class="" style="text-align:center">
-                            <a href="@Url.Action("Index", "Home")" class="btn btn-primary py-3 px-4"><span class="icon-shopping_cart"></span>&nbsp; Mua sắm ngay thôi!!! </a>
-                        </div>
+
+        </div>
+        <div style="margin: 20px 0 100px 0 ">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="" style="text-align:center">
+                        <a href="@Url.Action("Index", "Home")" class="btn btn-primary py-3 px-5"><span class="icon-shopping_cart"></span>&nbsp; Mua sắm ngay thôi! </a>
                     </div>
                 </div>
             </div>
@@ -150,6 +197,10 @@
             }
             document.getElementById(idForm).submit();
         }
+
+        function apDungVoucher(val) {
+            window.location.assign('https://localhost:44351/GioHangs/GioHang?IdVoucher=' + val)
+        };
     </script>
 </body>
 

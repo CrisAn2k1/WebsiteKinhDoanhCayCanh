@@ -7,61 +7,70 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4">
-            <h2 style=" margin-top:20px;">Chỉnh sửa cách chăm sóc cây </h2>
-            @using (Html.BeginForm())
-            {
-                @Html.AntiForgeryToken()
+            <h2 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen; text-transform: capitalize;">Chỉnh sửa chăm sóc cây </h2>
+            <div style="padding: 4vh 17vw">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
 
-                <div class="form-horizontal">
-                    <hr />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @Html.HiddenFor(model => model.id_CCS)
+                    <div class="form-horizontal">
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.id_CCS)
 
-                    <div class="form-group">
-                        <strong class="control-label col-md-2">Tưới nước </strong>
-                        <div class="col-md-6">
-                            @Html.EditorFor(model => model.tuoiNuoc, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.tuoiNuoc, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <strong class="control-label col-md-2">Tên cách chăm sóc </strong>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.tenCCS, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.tenCCS, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <strong class="control-label col-md-2">Đất </strong>
-                        <div class="col-md-6">
-                            @Html.EditorFor(model => model.dat, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.dat, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <strong class="control-label col-md-2">Tưới nước </strong>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.tuoiNuoc, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.tuoiNuoc, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <strong class="control-label col-md-2">Ánh sáng </strong>
-                        <div class="col-md-6">
-                            @Html.EditorFor(model => model.anhSang, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.anhSang, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <strong class="control-label col-md-2">Đất </strong>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.dat, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.dat, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <strong class="control-label col-md-2">Vị trí đặt cây </strong>
-                        <div class="col-md-6">
-                            @Html.EditorFor(model => model.viTriDatCay, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.viTriDatCay, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <strong class="control-label col-md-2">Ánh sáng </strong>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.anhSang, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.anhSang, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <strong class="control-label col-md-2">Dưỡng chất </strong>
-                        <div class="col-md-6">
-                            @Html.EditorFor(model => model.duongChat, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.duongChat, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <strong class="control-label col-md-2">Vị trí đặt cây </strong>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.viTriDatCay, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.viTriDatCay, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <strong class="control-label col-md-2">Dưỡng chất </strong>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.duongChat, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.duongChat, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Lưu" class="btn btn-success" /> |
-                        <a class="btn btn-info" href='@Url.Action("Index", "CachChamSoc")' style="margin:10px 0px;">
-                            Trở về
-                        </a>
-                    </div>
+                        <div class="col-md-offset-2 col-md-12">
+                            <input type="submit" value="Lưu" class="btn btn-success" /> |
+                            <a class="btn btn-info" href='@Url.Action("Index", "CachChamSoc")' style="margin:10px 0px;">
+                                Trở về
+                            </a>
+                        </div>
 
 
-                </div>}
+                    </div>}
+                </div>
         </div>
     </main>
 </div>

@@ -3,22 +3,27 @@
 @using Microsoft.AspNet.Identity
 @using Microsoft.AspNet.Identity.Owin
 @{
-
     ApplicationUser userLogin = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-
 }
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
         <ul class="nav navbar-nav navbar-right">
-            <li class="auth manage">
-                @Html.ActionLink(userLogin.FullName, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            <li class="auth manage dropdown">
+                @if (userLogin != null)
+                {
+                    <a href="#"><i class="fa fa-user"></i> &ensp;@userLogin.FullName</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown04">
+                        <a class="dropdown-item" href="@Url.Action( "UserDetail", "Users")"><i class="fa fa-user"></i> &ensp;Tài khoản</a>
+                        <a class="dropdown-item" href="@Url.Action("XemDonMua", "DonHangs")"><i class="fa fa-cart-shopping"></i> &ensp;Lịch sử mua hàng</a>
+                        <a class="dropdown-item" href="@Url.Action("XemVoucher", "Users")"><i class="fa fa-ticket"></i> &ensp;Voucher của tôi</a>
+                        <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i> &ensp;Đăng Xuất</a>
+                    </div>
+                }
             </li>
-            &emsp;
-            <li class="auth logout"><a href="javascript:document.getElementById('logoutForm').submit()"> Đăng Xuất</a></li>
         </ul>
     }
 }

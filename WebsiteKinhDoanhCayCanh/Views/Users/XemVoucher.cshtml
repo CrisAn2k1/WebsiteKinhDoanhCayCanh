@@ -1,0 +1,251 @@
+﻿@model IEnumerable<WebsiteKinhDoanhCayCanh.Models.UserVoucher>
+@{
+    ViewBag.Title = "XemVoucher";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .voucher {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px #32cd32 solid;
+        border-radius: 10px;
+        width: 350px;
+        padding: 5px;
+        padding-right: 10px;
+        height: 120px;
+        margin: 10px;
+        background: #12e82433;
+        position: relative;
+    }
+
+        .voucher a {
+            position: absolute;
+            bottom: 5px;
+            right: 10px;
+            font-size: 12px;
+        }
+
+    .body_voucher {
+        padding: 10px;
+        width: 100%;
+    }
+
+    .save_voucher {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-left: 1px #32cd32 solid;
+        width: 25%;
+        padding: 5px;
+        height: 100%;
+    }
+
+        .save_voucher button.save, .save_voucher button.saved {
+            cursor: pointer;
+            border-radius: 10px;
+            padding: 1px 11px;
+            border: 0.5px orange solid;
+            transition: 0.5s;
+        }
+
+            .save_voucher button.save:hover {
+                transition: 0.5s;
+                background: #fdf59a;
+                transform: scale(1.05);
+            }
+
+    .content_voucher {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        margin-bottom: 3px
+    }
+
+    hr {
+        margin: 10px 0;
+    }
+
+    /* Body form */
+    .body {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        height: 650px;
+        background: rgb(219 204 143 / 0.42);
+    }
+
+    .form {
+        width: 95%;
+        background: white;
+        margin: 30px 0;
+        padding: 30px;
+    }
+
+    .r {
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .title {
+        display: flex;
+        width: 20%;
+        margin-right: 3%;
+        justify-content: right;
+    }
+
+    .content {
+        width: 77%;
+    }
+
+    input {
+        width: 50%;
+    }
+
+    .col-lg-4 {
+        border-left: 1px solid rgb(128 128 128 / 0.18);
+    }
+
+    button {
+        border: none;
+        border-radius: 30px;
+        background: #dbcc8f;
+    }
+
+    .change {
+        cursor: pointer;
+    }
+
+    .modal {
+        background: rgb(0 0 0 / 0.43);
+    }
+
+    .modal-body input {
+        width: 100%;
+    }
+
+
+    /* Button */
+    table tbody tr td.info-order {
+        font-weight: normal;
+        min-width: 150px;
+        text-align: right !important;
+    }
+
+    table tbody tr td.detail-info {
+        max-width: 500px;
+        font-weight: bold;
+        text-align: left !important;
+    }
+
+    .modal-body table tbody tr td {
+        padding: 10px;
+    }
+
+    .momo {
+        color: #af2070
+    }
+
+        .momo:hover {
+            color: #dbcc8f
+        }
+
+    h5 {
+        font-weight: 500;
+    }
+
+    .btn-back-to-cart {
+        background: #e4d6437a;
+        color: forestgreen;
+        border-radius: 20px;
+    }
+
+        .btn-back-to-cart:hover {
+            background: #ead820c7;
+            color: #2351cfd9;
+        }
+</style>
+</style>
+
+<div style="font-family: 'Sans-serif'">
+    <div class="hero-wrap hero-bread" style="background-image: url('/Template/img/banner-img.jpg');opacity:0.9" ;>
+        <div>
+            <div class="container">
+                <div class="row no-gutters slider-text align-items-center justify-content-center">
+                    <div class="col-md-9 ftco-animate text-center bg-text">
+                        <h1 class="mb-0 bread" style=" color: antiquewhite; font-family: 'Amatic SC', cursive;">QUẢN LÝ TÀI KHOẢN</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<div class="body" id="show-data">
+    <div class="form">
+
+        <h4 style="display: flex; flex-direction: row; justify-content: center; color: forestgreen;">Voucher Của Tôi</h4>
+        @if (Model.Count() > 0)
+        {
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        @foreach (var item in Model.Where(p => p.soLuotConLai > 0))
+                        {
+                            <div class="voucher">
+                                <div class="body_voucher">
+                                    <div><strong style="font-size: 16px">@item.Voucher.tenVoucher</strong> </div>
+                                    <hr />
+                                    <div class="content_voucher">@item.Voucher.noiDung</div>
+                                    <div style="font-size:11px" class="content_voucher">Áp dụng từ ngày: <strong> @Convert.ToDateTime(item.Voucher.thoiGianBatDau).ToString("dd/MM/yyyy") - @Convert.ToDateTime(item.Voucher.thoiGianKetThuc).ToString("dd/MM/yyyy")</strong></div>
+                                </div>
+                                <!-- Trigger the modal with a button -->
+                                <a style="cursor:pointer;color:red" data-toggle="modal" data-target="#myModal_@item.Voucher.id_voucher"> Chi tiết </a>
+                                @if (item.Voucher.thoiGianKetThuc < DateTime.Today)
+                                {
+                                    <p style="color: #d61b1b; font-weight: bold; position: absolute; top: 5px; right: 10px;">Hết hạn</p>
+                                }
+                            </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModal_@item.Voucher.id_voucher" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header justify-content-center">
+                                            <h4 class="modal-title text-center"> <strong style="color: #00be00; font-size: 30px; "> @item.Voucher.tenVoucher</strong></h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p style="word-break:break-all">@item.Voucher.noiDung</p>
+                                            <hr />
+                                            <div style="font-size:16px" class="content_voucher">Áp dụng từ ngày: <strong> @Convert.ToDateTime(item.Voucher.thoiGianBatDau).ToString("dd/MM/yyyy") - @Convert.ToDateTime(item.Voucher.thoiGianKetThuc).ToString("dd/MM/yyyy")</strong></div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                Đóng
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div style="display: flex; height: 100%; align-items: center; justify-content: center; flex-direction: column;">
+                <h1 style="font-family: 'Lora', Georgia, serif; font-style: italic; color: #82ae46;">Bạn chưa có voucher nào!</h1>
+
+                <br />
+                <div style="text-align:center;margin-bottom:100px">
+                    <a href="/Home" class="btn-back-to-cart py-3 px-4" style="text-decoration:none"><i class="fa fa-solid fa-bag-shopping"></i> Trở Về Trang Chủ </a>
+                </div>
+
+            </div>
+        }
+    </div>
+</div>
+

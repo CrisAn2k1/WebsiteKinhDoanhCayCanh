@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    MyDataEF db = new MyDataEF();
 }
 <div style="font-family: 'Sans-serif'">
     <div class="hero-wrap hero-bread" style="background-image: url('/Template/img/banner-img.jpg');opacity:0.9" ;>
@@ -80,7 +81,28 @@
                         </p>
                     </div>
                     <span>Còn lại:<strong> @Model.SanPham.soLuong </strong></span>
-                    <p class="price"><span style="display: flex; align-items: center;"><span style="font-size: 20px;padding-right:10px"> Giá:</span> <price style="font-weight:bold;color:red;"> @String.Format("{0:0,0}", @Model.SanPham.gia)&#8363; </price></span></p>
+                    @if (Model.SanPham.phanTramGiamGia == 0)
+                    {
+                        <p class="price"><span style="display: flex; align-items: center;"><span style="font-size: 20px;padding-right:10px"> Giá:</span> <price style="font-weight:bold;color:red;"> @String.Format("{0:0,0}", @Model.SanPham.gia)&#8363; </price></span></p>
+
+                    }
+                    else
+                    {
+                        <div>
+                            <p class="price">
+                                <div style="font-size: 20px;"> Giá Gốc: @String.Format("{0:0,0}", Model.SanPham.gia)&#8363; &ensp;(<strong>-@Model.SanPham.phanTramGiamGia%</strong>)</div>
+                                <span class="price-sale" style="font-weight:bold;color:red;font-size:22px;font-weight:bold"> Còn:  @String.Format("{0:0,0}", Model.SanPham.gia - ((float)Model.SanPham.phanTramGiamGia / 100) * Model.SanPham.gia)&#8363; </span>
+                            </p>
+
+                        </div>
+                        @*<p class="price"><span style="display: flex; align-items: center;"> <price style="font-weight:bold;color:red;"> @String.Format("{0:0,0}", @Model.SanPham.gia)&#8363; </price></span></p>*@
+
+                    }
+                    <p>
+                        <strong>Mô tả:</strong><br />
+                        @Model.SanPham.mota
+                    </p>
+
                     @if (Model.SanPham.ThongTinThemVeSP != null)
                     {
                         <div class="custom-table">
@@ -99,11 +121,11 @@
                                 </tbody>
                             </table>
                         </div>
-                        <br />
+
                     }
                     <p>
-                        <strong>Mô tả:</strong><br />
-                        @Model.SanPham.mota
+                        <strong>Cách chăm sóc: <a href="/Home/CachChamSoc"> Xem tại đây</a></strong><br />
+
                     </p>
                     <div class="row mt-4">
                         <div class="w-100"></div>
@@ -114,7 +136,7 @@
                                 </button>
                             </span>
 
-                            <input type="text" id="quantity_product" name="quantity_product" class="form-control input-number" value="1" min="1" max="100" maxlength="4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace('.','');"/>
+                            <input type="text" id="quantity_product" name="quantity_product" class="form-control input-number" value="1" min="1" max="100" maxlength="4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace('.','');" />
 
                             <span class="input-group-btn ml-2">
                                 <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
@@ -126,8 +148,8 @@
                         <br />
                     </div>
                     <p>
-                        <a id="URL_SoLuong" href="@Url.Action("ThemGioHang", "GioHangs", new { @id = Model.SanPham.id_SP, @strURL = Request.Url.ToString(), @soLuong = 1 })" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                            <span><i class="ion-ios-cart"></i></span>
+                        <a id="URL_SoLuong" href="@Url.Action("ThemGioHang", "GioHangs", new { @id = Model.SanPham.id_SP, @strURL = Request.Url.ToString(), @soLuong = 1 })" class="btn btn-primary py-3 px-4">
+                            <span><i class="icon-shopping_cart"> </i> Thêm vào giỏ hàng</span>
                         </a>
                     </p>
                 </div>
@@ -135,139 +157,67 @@
         </div>
     </section>
 
-    <section class="ftco-section">
-        <div class="container">
-            <div class="row justify-content-center mb-3 pb-3">
-                <div class="col-md-12 heading-section text-center ftco-animate">
-                    <span style="font-size:26px" class="subheading">Sản Phẩm Tương Tự</span>
-                    <p>Dưới đây là một số sản phẩm tương tự mà bạn có thể thích!</p>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="product">
-                        <a href="#" class="img-prod">
-                            <img class="img-fluid" src="" alt="Colorlib Template">
-                            <span class="status">30%</span>
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="#">Bell Pepper</a></h3>
-                            <div class="d-flex">
-                                <div class="pricing">
-                                    <p class="price"><span class="mr-2 price-dc">$120.00</span><span class="price-sale">$80.00</span></p>
-                                </div>
-                            </div>
-                            <div class="bottom-area d-flex px-3">
-                                <div class="m-auto d-flex">
-                                    <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                        <span><i class="ion-ios-menu"></i></span>
-                                    </a>
-                                    <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                        <span><i class="ion-ios-cart"></i></span>
-                                    </a>
-                                    <a href="#" class="heart d-flex justify-content-center align-items-center ">
-                                        <span><i class="ion-ios-heart"></i></span>
-                                    </a>
-                                </div>
-                            </div>
+    @{
+        var lstSP = db.SanPham.Where(p => p.id_Nhom == Model.SanPham.id_Nhom & p.soLuong>0 & p.id_SP != Model.SanPham.id_SP).ToList();
+        if (lstSP.Count() > 0)
+        {
+            <section class="ftco-section">
+                <div class="container">
+                    <div class="row justify-content-center mb-3 pb-3">
+                        <div class="col-md-12 heading-section text-center ftco-animate">
+                            <span style="font-size:26px" class="subheading">Sản Phẩm Tương Tự</span>
+                            <p>Dưới đây là một số sản phẩm tương tự mà bạn có thể thích!</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="product">
-                        <a href="#" class="img-prod">
-                            <img class="img-fluid" src="" alt="Colorlib Template">
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="#">Strawberry</a></h3>
-                            <div class="d-flex">
-                                <div class="pricing">
-                                    <p class="price"><span>$120.00</span></p>
-                                </div>
-                            </div>
-                            <div class="bottom-area d-flex px-3">
-                                <div class="m-auto d-flex">
-                                    <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                        <span><i class="ion-ios-menu"></i></span>
+                <div class="container">
+                    <div class="row">
+                        @foreach (var item in lstSP)
+                        {
+                            <div class="col-md-6 col-lg-3 ftco-animate">
+                                <div class="product">
+                                    <a href="@Url.Action("Details", "SanPhams", new { id = item.id_SP })" class="img-prod">
+                                        <img class="img-fluid" src="@item.HinhAnhSP.Where(p => p.id_SP == item.id_SP).FirstOrDefault().duongDan" alt="Colorlib Template">
+                                        @if (@item.phanTramGiamGia > 0)
+                                        {
+                                            <span class="status">@item.phanTramGiamGia%</span>}
+                                        <div class="overlay"></div>
                                     </a>
-                                    <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                        <span><i class="ion-ios-cart"></i></span>
-                                    </a>
-                                    <a href="#" class="heart d-flex justify-content-center align-items-center ">
-                                        <span><i class="ion-ios-heart"></i></span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="product">
-                        <a href="#" class="img-prod">
-                            <img class="img-fluid" src="" alt="Colorlib Template">
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="#">Green Beans</a></h3>
-                            <div class="d-flex">
-                                <div class="pricing">
-                                    <p class="price"><span>$120.00</span></p>
-                                </div>
-                            </div>
-                            <div class="bottom-area d-flex px-3">
-                                <div class="m-auto d-flex">
-                                    <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                        <span><i class="ion-ios-menu"></i></span>
-                                    </a>
-                                    <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                        <span><i class="ion-ios-cart"></i></span>
-                                    </a>
-                                    <a href="#" class="heart d-flex justify-content-center align-items-center ">
-                                        <span><i class="ion-ios-heart"></i></span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="product">
-                        <a href="#" class="img-prod">
-                            <img class="img-fluid" src="" alt="Colorlib Template">
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="#">Purple Cabbage</a></h3>
-                            <div class="d-flex">
-                                <div class="pricing">
-                                    <p class="price"><span>$120.00</span></p>
-                                </div>
-                            </div>
-                            <div class="bottom-area d-flex px-3">
-                                <div class="m-auto d-flex">
-                                    <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                        <span><i class="ion-ios-menu"></i></span>
-                                    </a>
-                                    <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                        <span><i class="ion-ios-cart"></i></span>
-                                    </a>
-                                    <a href="#" class="heart d-flex justify-content-center align-items-center ">
-                                        <span><i class="ion-ios-heart"></i></span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                                    <div class="text py-3 pb-4 px-3 text-center">
+                                        <h3><a href="@Url.Action("Details", "SanPhams", new { id = item.id_SP })">@item.tenSP</a></h3>
+                                        @if (@item.phanTramGiamGia > 0)
+                                        {
+                                            <div class="d-flex">
+                                                <div class="pricing">
 
-<script>
+                                                    <p class="price"><span class="mr-2 price-dc">@String.Format("{0:0,0}", @item.gia)&#8363;</span><span class="price-sale">@String.Format("{0:0,0}", @item.gia - ((float)@item.phanTramGiamGia / 100) * @item.gia)&#8363; </span></p>
+                                                </div>
+                                            </div> }
+                                        else
+                                        {
+                                            <div class="d-flex">
+                                                <div class="pricing">
+                                                    <p class="price"><span>@String.Format("{0:0,0}", @item.gia)&#8363;</span></p>
+                                                </div>
+                                            </div>}
+                                        <div class="bottom-area d-flex px-3">
+                                            <div class="m-auto d-flex">
+                                                <a href="@Url.Action("ThemGioHang", "GioHangs", new { @id = item.id_SP, @strURL = Request.Url.ToString(), @soLuong = 1 })" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                                    <span><i class="ion-ios-cart"></i></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </section>
+            }
+        }
+
+        <script>
         $(document).ready(function () {
 
             var quantitiy = 0;
@@ -379,264 +329,268 @@
 
 
         });
-</script>
-</div>
+        </script>
+    </div>
 
-<!-- Comment & đánh giá -->
-<div class="col-lg-12" style="background: rgb(71 198 92 / 13%); margin: 40px 0; ">
-    <div class="row">
-        <div class="col-lg-6" style="padding: 30px 20px;">
-            @using (Html.BeginForm())
-            {
-                @Html.AntiForgeryToken()
-                if (HttpContext.Current.User.Identity.IsAuthenticated == true && @ViewBag.ttMuaHang == 1)
+    <!-- Comment & đánh giá -->
+    <div class="col-lg-12" style="background: rgb(71 198 92 / 13%); margin: 40px 0; ">
+        <div class="row">
+            <div class="col-lg-6" style="padding: 30px 20px;">
+                @using (Html.BeginForm())
                 {
-                    <div class="form-horizontal" style="margin-bottom: 10px;">
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div style="margin-bottom: 10px;"> <strong style="font-size:20px">Bình Luận(@Model.SanPham.BinhLuan.Count())</strong></div>
-                        <div>
-                            <textarea name="txtContent" rows="3" style="resize:none;border:none;font-size:14px; width:100%; padding: 10px;" placeholder="Hãy để lại cảm nghĩ của bạn về sản phẩm này nhé!"></textarea>
-                        </div>
-                        <div style=" display:flex; flex-direction: row; justify-content: right;">
-                            <input type="submit" value="Send" class="btn btn-warning pull-right" />
-                        </div>
-                    </div>
-                }
-                else
-                {
-                    <div class="form-horizontal" style="margin-bottom: 10px;">
-                        <div>
-                            <p style="font-weight: bold; color: #cd9932; font-size: 18px">Hãy để lại bình luận sau khi nhận hàng nhé!</p>
-                        </div>
-                    </div>
-                }
-
-
-            }
-            <hr />
-            @foreach (var item in Model.BinhLuan)
-            {
-                <div class="card p-3" style="margin-bottom: 20px;">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="user d-flex flex-row align-items-center">
-                            <img src="https://i.imgur.com/hczKIze.jpg" width="30" class="user-img rounded-circle mr-2">
-                            <span>
-                                <small style="font-size: 16px;" class="font-weight-bold text-primary">@item.hoTen</small>
-                            </span>
-                        </div> <small style="font-size: 14px;"> @Html.DisplayFor(ngaytao => item.ngayDangBinhLuan)</small>
-                    </div>
-                    <div class="action d-flex justify-content-between mt-2 align-items-center">
-                        <div class="reply px-4" style="font-size: 16px;min-width:100vw;">@Html.DisplayFor(noidung => item.noiDung)</div>
-                    </div>
-                </div>
-            }
-            <div class="col text-center">
-                <div class="block-27">
-                    Trang @(Model.BinhLuan.PageCount < Model.BinhLuan.PageNumber ? 0 : Model.BinhLuan.PageNumber) / @Model.BinhLuan.PageCount
-                    <div style="display:flex;justify-content:center">
-                        @Html.PagedListPager(Model.BinhLuan, page => Url.Action("Details", new { page = page }))
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="col-lg-6" style="padding: 30px 20px;">
-            <div class="Te9Tpc">
-                <div>
-                    @if (@Model.SanPham.DanhGia.Count() == 0)
+                    @Html.AntiForgeryToken()
+                    if (HttpContext.Current.User.Identity.IsAuthenticated == true && @ViewBag.ttMuaHang == 1)
                     {
-                        <div class="jILTFe">0/5</div>
+                        <div class="form-horizontal" style="margin-bottom: 10px;">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div style="margin-bottom: 10px;"> <strong style="font-size:20px">Bình Luận(@Model.SanPham.BinhLuan.Count())</strong></div>
+                            <div>
+                                <textarea name="txtContent" rows="3" style="resize:none;border:none;font-size:14px; width:100%; padding: 10px;" placeholder="Hãy để lại cảm nghĩ của bạn về sản phẩm này nhé!"></textarea>
+                            </div>
+                            <div style=" display:flex; flex-direction: row; justify-content: right;">
+                                <input type="submit" value="Send" class="btn btn-warning pull-right" />
+                            </div>
+                        </div>
                     }
                     else
                     {
-                        <div class="jILTFe">@ViewBag.updateStar/5</div>
+                        <div class="form-horizontal" style="margin-bottom: 10px;">
+                            <div>
+                                <p style="font-weight: bold; color: #cd9932; font-size: 18px">Hãy để lại bình luận sau khi nhận hàng nhé!</p>
+                            </div>
+                        </div>
                     }
-                    <div role="img" class="I26one" style="display: inline-block;">
-                        <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="1" ssk="1#1">
-                            <span class="Z1Dz7b" aria-hidden="true">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M0 0h24v24H0z" fill="none"></path>
-                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
-                                </svg>
-                            </span>
-                        </span>
-                        <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="2" ssk="1#2">
-                            <span class="Z1Dz7b" aria-hidden="true">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M0 0h24v24H0z" fill="none"></path>
-                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
-                                </svg>
-                            </span>
-                        </span>
-                        <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="3" ssk="1#3">
-                            <span class="Z1Dz7b" aria-hidden="true">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M0 0h24v24H0z" fill="none"></path>
-                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
-                                </svg>
-                            </span>
-                        </span>
-                        <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="4" ssk="1#4">
-                            <span class="Z1Dz7b" aria-hidden="true">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M0 0h24v24H0z" fill="none"></path>
-                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
-                                </svg>
-                            </span>
-                        </span>
-                        <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="5" ssk="1#5">
-                            <span class="" aria-hidden="true">
-                                <svg class="xdPrrd" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="url(#lAhE9)">
-                                    <defs>
-                                        <linearGradient id="lAhE9">
-                                            <stop stop-opacity="1" offset="50%" class="Z1Dz7b"></stop>
-                                            <stop stop-opacity="1" offset="50%" class="Wi7KIe"></stop>
-                                        </linearGradient>
-                                    </defs>
-                                    <path d="M0 0h24v24H0z" fill="none"></path>
-                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
-                                </svg>
-                            </span>
-                        </span>
+
+
+                }
+                <hr />
+                @foreach (var item in Model.BinhLuan)
+                {
+                    if (item.trangThai == true)
+                    {
+                        <div class="card p-3" style="margin-bottom: 20px;">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="user d-flex flex-row align-items-center">
+                                    <img src="https://i.imgur.com/hczKIze.jpg" width="30" class="user-img rounded-circle mr-2">
+                                    <span>
+                                        <small style="font-size: 16px;" class="font-weight-bold text-primary">@item.hoTen</small>
+                                    </span>
+                                </div> <small style="font-size: 14px;"> @Html.DisplayFor(ngaytao => item.ngayDangBinhLuan)</small>
+                            </div>
+                            <div class="action d-flex justify-content-between mt-2 align-items-center">
+                                <div class="reply px-4" style="font-size: 16px;min-width:100vw;">@Html.DisplayFor(noidung => item.noiDung)</div>
+                            </div>
+                        </div>
+                    }
+
+                }
+                <div class="col text-center">
+                    <div class="block-27">
+                        Trang @(Model.BinhLuan.PageCount < Model.BinhLuan.PageNumber ? 0 : Model.BinhLuan.PageNumber) / @Model.BinhLuan.PageCount
+                        <div style="display:flex;justify-content:center">
+                            @Html.PagedListPager(Model.BinhLuan, page => Url.Action("Details", new { page = page }))
+                        </div>
                     </div>
-                    <div class="EHUI5b">@Model.SanPham.DanhGia.Count() &nbsp;đánh giá</div>
                 </div>
-                @if (@Model.SanPham.DanhGia.Count() == 0)
+
+            </div>
+
+            <div class="col-lg-6" style="padding: 30px 20px;">
+                <div class="Te9Tpc">
+                    <div>
+                        @if (@Model.SanPham.DanhGia.Count() == 0)
+                        {
+                            <div class="jILTFe">0/5</div>
+                        }
+                        else
+                        {
+                            <div class="jILTFe">@ViewBag.updateStar/5</div>
+                        }
+                        <div role="img" class="I26one" style="display: inline-block;">
+                            <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="1" ssk="1#1">
+                                <span class="Z1Dz7b" aria-hidden="true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                                    </svg>
+                                </span>
+                            </span>
+                            <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="2" ssk="1#2">
+                                <span class="Z1Dz7b" aria-hidden="true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                                    </svg>
+                                </span>
+                            </span>
+                            <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="3" ssk="1#3">
+                                <span class="Z1Dz7b" aria-hidden="true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                                    </svg>
+                                </span>
+                            </span>
+                            <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="4" ssk="1#4">
+                                <span class="Z1Dz7b" aria-hidden="true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                                    </svg>
+                                </span>
+                            </span>
+                            <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="5" ssk="1#5">
+                                <span class="" aria-hidden="true">
+                                    <svg class="xdPrrd" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="url(#lAhE9)">
+                                        <defs>
+                                            <linearGradient id="lAhE9">
+                                                <stop stop-opacity="1" offset="50%" class="Z1Dz7b"></stop>
+                                                <stop stop-opacity="1" offset="50%" class="Wi7KIe"></stop>
+                                            </linearGradient>
+                                        </defs>
+                                        <path d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                                    </svg>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="EHUI5b">@Model.SanPham.DanhGia.Count() &nbsp;đánh giá</div>
+                    </div>
+                    @if (@Model.SanPham.DanhGia.Count() == 0)
+                    {
+                        <div>
+                            <div class="JzwBgb" role="img">
+                                <div aria-hidden="true" class="Qjdn7d">5</div>
+                                <div aria-hidden="true" class="RJfYGf">
+                                    <div class="RutFAf wcB8se" style="width: 0"></div>
+                                </div>
+                            </div>
+                            <div class="JzwBgb" role="img">
+                                <div aria-hidden="true" class="Qjdn7d">4</div>
+                                <div aria-hidden="true" class="RJfYGf">
+                                    <div class="RutFAf wcB8se" style="width: 0"></div>
+                                </div>
+                            </div>
+                            <div class="JzwBgb" role="img">
+                                <div aria-hidden="true" class="Qjdn7d">3</div>
+                                <div aria-hidden="true" class="RJfYGf">
+                                    <div class="RutFAf wcB8se" style="width: 0"></div>
+                                </div>
+                            </div>
+                            <div class="JzwBgb" role="img">
+                                <div aria-hidden="true" class="Qjdn7d">2</div>
+                                <div aria-hidden="true" class="RJfYGf">
+                                    <div class="RutFAf wcB8se" style="width: 0"></div>
+                                </div>
+                            </div>
+                            <div class="JzwBgb" role="img">
+                                <div aria-hidden="true" class="Qjdn7d">1</div>
+                                <div aria-hidden="true" class="RJfYGf">
+                                    <div class="RutFAf wcB8se" style="width: 0"></div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            <div class="JzwBgb" role="img">
+                                <div aria-hidden="true" class="Qjdn7d">5</div>
+                                <div aria-hidden="true" class="RJfYGf">
+                                    <div class="RutFAf wcB8se" style="width: @ViewBag.namSao"></div>
+                                </div>
+                            </div>
+                            <div class="JzwBgb" role="img">
+                                <div aria-hidden="true" class="Qjdn7d">4</div>
+                                <div aria-hidden="true" class="RJfYGf">
+                                    <div class="RutFAf wcB8se" style="width: @ViewBag.bonSao%"></div>
+                                </div>
+                            </div>
+                            <div class="JzwBgb" role="img">
+                                <div aria-hidden="true" class="Qjdn7d">3</div>
+                                <div aria-hidden="true" class="RJfYGf">
+                                    <div class="RutFAf wcB8se" style="width: @ViewBag.baSao%"></div>
+                                </div>
+                            </div>
+                            <div class="JzwBgb" role="img">
+                                <div aria-hidden="true" class="Qjdn7d">2</div>
+                                <div aria-hidden="true" class="RJfYGf">
+                                    <div class="RutFAf wcB8se" style="width: @ViewBag.haiSao%"></div>
+                                </div>
+                            </div>
+                            <div class="JzwBgb" role="img">
+                                <div aria-hidden="true" class="Qjdn7d">1</div>
+                                <div aria-hidden="true" class="RJfYGf">
+                                    <div class="RutFAf wcB8se" style="width: @ViewBag.motSao%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <hr />
+
+                @if (ViewBag.ttDanhGia == 0 && ViewBag.ttMuaHang == 1)
                 {
                     <div>
-                        <div class="JzwBgb" role="img">
-                            <div aria-hidden="true" class="Qjdn7d">5</div>
-                            <div aria-hidden="true" class="RJfYGf">
-                                <div class="RutFAf wcB8se" style="width: 0"></div>
-                            </div>
-                        </div>
-                        <div class="JzwBgb" role="img">
-                            <div aria-hidden="true" class="Qjdn7d">4</div>
-                            <div aria-hidden="true" class="RJfYGf">
-                                <div class="RutFAf wcB8se" style="width: 0"></div>
-                            </div>
-                        </div>
-                        <div class="JzwBgb" role="img">
-                            <div aria-hidden="true" class="Qjdn7d">3</div>
-                            <div aria-hidden="true" class="RJfYGf">
-                                <div class="RutFAf wcB8se" style="width: 0"></div>
-                            </div>
-                        </div>
-                        <div class="JzwBgb" role="img">
-                            <div aria-hidden="true" class="Qjdn7d">2</div>
-                            <div aria-hidden="true" class="RJfYGf">
-                                <div class="RutFAf wcB8se" style="width: 0"></div>
-                            </div>
-                        </div>
-                        <div class="JzwBgb" role="img">
-                            <div aria-hidden="true" class="Qjdn7d">1</div>
-                            <div aria-hidden="true" class="RJfYGf">
-                                <div class="RutFAf wcB8se" style="width: 0"></div>
-                            </div>
+                        <div><h5 style="font-weight:600;">Tạo đánh giá</h5></div>
+                        <div class="stars">
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+                                <input class="star star-5" id="star-5" type="radio" value="5" name="star" />
+                                <label class="star star-5" for="star-5"></label>
+                                <input class="star star-4" id="star-4" type="radio" value="4" name="star" />
+                                <label class="star star-4" for="star-4"></label>
+                                <input class="star star-3" id="star-3" type="radio" value="3" name="star" />
+                                <label class="star star-3" for="star-3"></label>
+                                <input class="star star-2" id="star-2" type="radio" value="2" name="star" />
+                                <label class="star star-2" for="star-2"></label>
+                                <input class="star star-1" id="star-1" type="radio" value="1" name="star" />
+                                <label class="star star-1" for="star-1"></label>
+                                <input type="submit" style="border-radius: 5px; border:none; padding: 5px; " value="Đánh giá" />
+                            }
                         </div>
                     </div>
                 }
-                else
+                else if (ViewBag.ttDanhGia == 1)
                 {
                     <div>
-                        <div class="JzwBgb" role="img">
-                            <div aria-hidden="true" class="Qjdn7d">5</div>
-                            <div aria-hidden="true" class="RJfYGf">
-                                <div class="RutFAf wcB8se" style="width: @ViewBag.namSao"></div>
-                            </div>
-                        </div>
-                        <div class="JzwBgb" role="img">
-                            <div aria-hidden="true" class="Qjdn7d">4</div>
-                            <div aria-hidden="true" class="RJfYGf">
-                                <div class="RutFAf wcB8se" style="width: @ViewBag.bonSao%"></div>
-                            </div>
-                        </div>
-                        <div class="JzwBgb" role="img">
-                            <div aria-hidden="true" class="Qjdn7d">3</div>
-                            <div aria-hidden="true" class="RJfYGf">
-                                <div class="RutFAf wcB8se" style="width: @ViewBag.baSao%"></div>
-                            </div>
-                        </div>
-                        <div class="JzwBgb" role="img">
-                            <div aria-hidden="true" class="Qjdn7d">2</div>
-                            <div aria-hidden="true" class="RJfYGf">
-                                <div class="RutFAf wcB8se" style="width: @ViewBag.haiSao%"></div>
-                            </div>
-                        </div>
-                        <div class="JzwBgb" role="img">
-                            <div aria-hidden="true" class="Qjdn7d">1</div>
-                            <div aria-hidden="true" class="RJfYGf">
-                                <div class="RutFAf wcB8se" style="width: @ViewBag.motSao%"></div>
-                            </div>
-                        </div>
+                        <h5 style="font-weight:600;text-align:center;">Bạn đã đánh giá sản phẩm này!</h5>
                     </div>
                 }
             </div>
-            <hr />
-
-            @if (ViewBag.ttDanhGia == 0 && ViewBag.ttMuaHang == 1)
-            {
-                <div>
-                    <div><h5 style="font-weight:600;">Tạo đánh giá</h5></div>
-                    <div class="stars">
-                        @using (Html.BeginForm())
-                        {
-                            @Html.AntiForgeryToken()
-                            <input class="star star-5" id="star-5" type="radio" value="5" name="star" />
-                            <label class="star star-5" for="star-5"></label>
-                            <input class="star star-4" id="star-4" type="radio" value="4" name="star" />
-                            <label class="star star-4" for="star-4"></label>
-                            <input class="star star-3" id="star-3" type="radio" value="3" name="star" />
-                            <label class="star star-3" for="star-3"></label>
-                            <input class="star star-2" id="star-2" type="radio" value="2" name="star" />
-                            <label class="star star-2" for="star-2"></label>
-                            <input class="star star-1" id="star-1" type="radio" value="1" name="star" />
-                            <label class="star star-1" for="star-1"></label>
-                            <input type="submit" style="border-radius: 5px; border:none; padding: 5px; " value="Đánh giá" />
-                        }
-                    </div>
-                </div>
-            }
-            else if (ViewBag.ttDanhGia == 1)
-            {
-                <div>
-                    <h5 style="font-weight:600;text-align:center;">Bạn đã đánh giá sản phẩm này!</h5>
-                </div>
-            }
         </div>
     </div>
-</div>
 
-<script>
-    let slideIndex = 1;
-    showSlides(slideIndex);
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
 
-    function plusSlides(n) {
-        showSlides((slideIndex += n));
-    }
+        function plusSlides(n) {
+            showSlides((slideIndex += n));
+        }
 
-    function currentSlide(n) {
-        showSlides((slideIndex = n));
-    }
+        function currentSlide(n) {
+            showSlides((slideIndex = n));
+        }
 
-    function showSlides(n) {
-        let i;
-        let slides = document.getElementsByClassName("mySlides_product");
-        let dots = document.getElementsByClassName("miniImg");
-        if (n > slides.length) {
-            slideIndex = 1;
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides_product");
+            let dots = document.getElementsByClassName("miniImg");
+            if (n > slides.length) {
+                slideIndex = 1;
+            }
+            if (n < 1) {
+                slideIndex = slides.length;
+            }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
         }
-        if (n < 1) {
-            slideIndex = slides.length;
-        }
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
-        }
-        slides[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].className += " active";
-    }
-</script>
+    </script>

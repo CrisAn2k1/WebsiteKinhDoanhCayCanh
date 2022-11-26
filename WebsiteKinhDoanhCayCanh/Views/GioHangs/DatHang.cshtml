@@ -2,8 +2,7 @@
 @model IEnumerable<WebsiteKinhDoanhCayCanh.Models.GioHang>
 @using WebsiteKinhDoanhCayCanh.Models.LinQ;
 @using WebsiteKinhDoanhCayCanh.Models;
-@{
-    ViewBag.Title = "DatHang";
+@{ ViewBag.Title = "DatHang";
     Layout = "~/Views/Shared/_Layout.cshtml";
     User kh = (User)Session["TaiKhoan"];
     MyDataEF db = new MyDataEF();
@@ -41,7 +40,7 @@
 
     .btn-back-to-cart {
         background: #e4d6437a;
-        color: #f12121c7;
+        color: forestgreen;
         border-radius: 20px;
     }
 
@@ -50,18 +49,25 @@
             color: #2351cfd9;
         }
 </style>
-<div class="hero-wrap hero-bread" style="background-image: url('/Content/images/banner/laptop-tot-nhat-1638390226558.jpg'); ">
-    <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-            <div class="col-md-9 ftco-animate text-center">
-                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Đơn</a></span> <span>Hàng</span></p>
-                <h1 class="mb-0 bread">Chi tiết đơn hàng</h1>
+<div style="font-family: 'Sans-serif'">
+    <div class="hero-wrap hero-bread" style="background-image: url('/Template/img/banner-img.jpg');opacity:0.9" ;>
+        <div>
+            <div class="container">
+                <div class="row no-gutters slider-text align-items-center justify-content-center">
+                    <div class="col-md-9 ftco-animate text-center bg-text">
+                        <h1 class="mb-0 bread" style="color: antiquewhite; font-family: 'cursive', 'Amatic SC','Liberation Mono'; ">Chi Tiết Đơn Hàng</h1>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 <table class="table" style="margin: 50px 20px 0;font-size:16px;">
     <tr>
+        <th>
+            <strong>STT</strong>
+        </th>
         <th>
             <strong>Tên SP</strong>
         </th>
@@ -82,117 +88,136 @@
         </th>
         <th></th>
     </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr style="font-size:14px">
-
-            <td style="vertical-align: middle; font-weight: 600; font-size: 15px;">
-                @Html.DisplayFor(modelItem => item.sTenSanPham)
-            </td>
-            <td>
-                <img src="@item.sHinh" alt="Ảnh món ăn" width="40" />
-            </td>
-            <td style="vertical-align:middle;font-weight:600;font-size:15px;">
-                @String.Format("{0:0,0}", item.dGia)&#8363;
-            </td>
-            <td style="vertical-align: middle; font-weight: 600;font-size:15px;">
-                @Html.DisplayFor(modelItem => item.iSoLuong)
-            </td>
-            <td style="vertical-align: middle; font-weight: bold;font-size:15px;">
-                @String.Format("{0:0,0}", -item.igiamGia * item.iSoLuong * item.dGia / 100)&#8363;
-            </td>
-            <td style="vertical-align: middle; color: red; font-weight: bold;font-size:15px;">
-                @String.Format("{0:0,0}", item.dThanhTien)&#8363;
-            </td>
-        </tr>
+    @{ int index = 0;
+        foreach (var item in Model)
+        {
+            index++;
+            <tr style="font-size:14px">
+                <td style="vertical-align: middle; font-weight: 600; font-size: 15px;">
+                    @index
+                </td>
+                <td style="vertical-align: middle; font-weight: 600; font-size: 15px;">
+                    @Html.DisplayFor(modelItem => item.sTenSanPham)
+                </td>
+                <td>
+                    <img src="@item.sHinh" alt="Ảnh món ăn" width="40" />
+                </td>
+                <td style="vertical-align:middle;font-weight:600;font-size:15px;">
+                    @String.Format("{0:0,0}", item.dGia)&#8363;
+                </td>
+                <td style="vertical-align: middle; font-weight: 600;font-size:15px;">
+                    @Html.DisplayFor(modelItem => item.iSoLuong)
+                </td>
+                <td style="vertical-align: middle; font-weight: bold;font-size:15px;">
+                    @String.Format("{0:0,0}", -item.igiamGia * item.iSoLuong * item.dGia / 100)&#8363;
+                </td>
+                <td style="vertical-align: middle; color: red; font-weight: bold;font-size:15px;">
+                    @String.Format("{0:0,0}", item.dThanhTien)&#8363;
+                </td>
+            </tr>
+ }
     }
-    <tr style="font-weight:bold;text-align:right;font-size:18px;">
+
+    <tr style="font-weight:bold;text-align:left;font-size:18px;">
+        <td></td>
+        <td></td>
         <td colspan="2">Tổng số sản phẩm: <strong style="color: red;">&ensp; @ViewBag.TongSoSanPham</strong></td>
-        <td colspan="2">Tổng Tiền: <strong style="color: red;">&ensp;@String.Format("{0:0,0}", @ViewBag.TongTien)&#8363;</strong> </td>
-    </tr>
-
-
-    <tr style="font-weight:bold;color:yellow;text-align:right;">
-        <td colspan="6">
-            <!-- Button trigger modal -->
-            <button style="padding: 10px 15px" type="button" class="btn text-white btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
-                <i class="fa fa-money-bill"></i> Đặt hàng
-            </button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content" style="min-width:30vw;color:black">
-                        <div class="modal-header">
-                            <h5 class="modal-title" style="width:100%; padding-left:50px;color:red;font-weight:bold;" id="exampleModalLongTitle">Đặt Hàng</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        @using (Html.BeginForm())
-                        {
-                            <div class="modal-body">
-                                <table align="center" style="font-size: 15px;">
-                                    @Html.ValidationSummary(true)
-                                    <tr style="height:40px">
-                                        <td class="info-order">Họ tên KH: </td>
-                                        <td class="detail-info">&emsp; @kh.FullName</td>
-                                    </tr>
-                                    <tr style="height:40px">
-                                        <td class="info-order">Email: </td>
-                                        <td class="detail-info">&emsp; @kh.Email</td>
-                                    </tr>
-                                    <tr style="height:40px">
-                                        <td class="info-order">Địa chỉ: </td>
-                                        <td class="detail-info" style="font-weight: bold">
-                                            &emsp; <input type="text" name="txtAddress" maxlength="200" value="@kh.Address" />
-                                        </td>
-                                    </tr>
-                                    <tr style-"height:40px">
-                                        <td class="info-order">Điện thoại: </td>
-                                        <td class="detail-info" style="font-weight: bold">&emsp; @kh.PhoneNumber</td>
-                                    </tr>
-                                    <tr style-"height:40px">
-                                        <td class="info-order">Ngày đặt: </td>
-                                        <td class="detail-info">&emsp; @DateTime.Now.ToString("dd/MM/yyyy (hh:mm tt)")</td>
-                                    </tr>
-                                    <tr style-"height: 40px">
-                                        <td class="info-order">Ngày giao: </td>
-                                        <td class="detail-info">
-                                            &emsp;<input style="color:red;font-weight:600" type="date" id="setDay" name="NgayGiao" required value="@DateTime.Today.ToString("dd-MM-yyyy")" />
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div>
-                                <div style="font-weight:bold;width:100%;padding:5px 40px;height:200px;">
-                                    <div>
-                                        <h5>Thanh Toán Khi Nhận Hàng</h5>
-                                        <input style="font-size:15px;font-weight:500" type="submit" value="Đặt Hàng" class="btn btn-success" />
-                                    </div>
-                                    <hr />
-                                    <h5>Ví Điện Tử</h5>
-                                    <div style="display:flex;justify-content:center;">
-                                        <div>
-                                            <a style="margin:10px;" class="primary-btn momo" href="@Url.Action("ThanhToan", "GioHang")"><img src="~/Content/img/momo.png" alt="Momo" width="20" /> Thanh toan MoMo</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                        <div class="modal-footer">
-
-                        </div>
-                    </div>
-                </div>
-            </div><br /><br />
-            <div>
-                <a href="/GioHangs/GioHang" class="btn-back-to-cart py-3 px-4" style="text-decoration:none"><i class="fa fa-solid fa-bag-shopping"></i> Trở Về Giỏ Hàng</a>
-            </div>
-        </td>
+        <td colspan="2">Tổng Tiền: <strong id="tongTien" style="color: red;">&ensp;@String.Format("{0:0,0}", @ViewBag.TongTien)&#8363;</strong> </td>
     </tr>
 </table>
+<br />
+
+@*<tr style="font-weight:bold;color:yellow;text-align:right;">
+    <td colspan="8">*@
+<div class="row">
+    <div class="col-lg-6" style="text-align:center">
+        @*<a href="/GioHangs/GioHang?IdVoucher=@ViewBag.Voucher" class="btn-back-to-cart py-3 px-4" style="text-decoration:none"><i class="fa fa-solid fa-bag-shopping"></i> Trở Về Giỏ Hàng</a>*@
+        <a href="/GioHangs/GioHang?IdVoucher=@ViewBag.Voucher" class="btn-back-to-cart py-3 px-4" style="text-decoration:none"><i class="fa fa-solid fa-bag-shopping"></i> Trở về giỏ hàng </a>
+    </div>
+
+    <!-- Button trigger modal -->
+    <div class="col-lg-6" style="text-align:center">
+        <button style="padding: 10px 15px" type="button" class="btn text-white btn-success" data-toggle="modal" data-target="#exampleModalCenter">
+            <i class="icon-shopping_cart"></i> Đặt hàng
+        </button>
+    </div>
+</div>
+
+<!-- Modal -->
+<div style="font-weight:bold;color:yellow;text-align:center;">
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" style="min-width:30vw;color:black">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="width:100%; padding-left:50px;color:red;font-weight:bold;" id="exampleModalLongTitle">Đặt Hàng</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @using (Html.BeginForm())
+                {
+                    <div class="modal-body">
+                        <table align="center" style="font-size: 15px;">
+                            @Html.ValidationSummary(true)
+                            <tr style="height:40px">
+                                <td class="info-order">Họ tên KH: </td>
+                                <td class="detail-info">&emsp; @kh.FullName</td>
+                            </tr>
+                            <tr style="height:40px">
+                                <td class="info-order">Email: </td>
+                                <td class="detail-info">&emsp; @kh.Email</td>
+                            </tr>
+                            <tr style="height:40px">
+                                <td class="info-order">Địa chỉ: </td>
+                                <td class="detail-info" style="font-weight: bold">
+                                    &emsp; <input type="text" id="txtAddress" name="txtAddress" maxlength="200" value="@kh.Address" />
+                                </td>
+                            </tr>
+                            <tr style="height:40px">
+                                <td class="info-order">Điện thoại: </td>
+                                <td class="detail-info" style="font-weight: bold">&emsp; @kh.PhoneNumber</td>
+                            </tr>
+                            <tr style="height:40px">
+                                <td class="info-order">Ngày đặt: </td>
+                                <td class="detail-info">&emsp; @DateTime.Now.ToString("dd/MM/yyyy (hh:mm tt)")</td>
+                            </tr>
+                            <tr style-"height: 40px">
+                                <td class="info-order">Ngày giao (dự kiến): </td>
+                                <td class="detail-info">
+                                    &emsp;<input style="color:red;font-weight:600" type="date" id="setDay" name="NgayGiao" required value="@DateTime.Today.ToString("dd-MM-yyyy")" />
+                                </td>
+                            </tr>
+                            <tr style="height:40px; font-size:18px">
+                                <td class="info-order"> Tổng tiền: </td>
+                                <td class="detail-info">&emsp;<strong id="tongTien" style="color: red;">&ensp;@String.Format("{0:0,0}", @ViewBag.TongTien)&#8363;</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <div style="font-weight:bold;width:100%;padding:5px 40px;height:200px;">
+                            <div>
+                                <h5>Thanh Toán Khi Nhận Hàng</h5>
+                                <input style="font-size:15px;font-weight:500" type="submit" value="Đặt Hàng" class="btn btn-success" />
+                            </div>
+                            <hr />
+                            <h5>Ví Điện Tử</h5>
+                            <div style="display:flex;justify-content:center;">
+                                <div>
+                                    <a style="margin:10px;cursor:pointer" class="primary-btn momo" onclick="thanhToanMomo()"><img src="~/Template/img/momo.png" alt="Momo" width="20" /> Thanh Toán MoMo</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input hidden id="input_Voucher" type="text" name="Voucher" maxlength="200" value="@ViewBag.Voucher" />}
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div><br /><br />
+    @*</td>
+        </tr>*@
+</div>
 <script>
     $(document).ready(function () {
         var date = new Date();
@@ -204,20 +229,21 @@
         if (month < 10) month = "0" + month;
         if (day < 10) day = "0" + day;
 
-        var today = year + "-" + month + "-" + day;
+        var tomorow = year + "-" + month + "-" + day;
 
-        $("#setDay").attr("value", today);
+        $("#setDay").attr("value", tomorow);
 
         $('#setDay').change(function (e) {
             var startDate = new Date(document.getElementById('setDay').value);
             var setDay = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
 
             if (isNaN(startDate))
-                $("#setDay").val(today);
+                $("#setDay").val(tomorow);
 
-            if (startDate < setDay)
-                $("#setDay").val(today);
-            if (startDate.getDate() - date.getDate() > 7) {
+            if (startDate < setDay || startDate.getMonth() - date.getMonth() < 0 || startDate.getFullYear() - date.getFullYear() < 0)
+                $("#setDay").val(tomorow);
+
+            if (startDate.getDate() - date.getDate() > 7 || startDate.getMonth() - date.getMonth() > 0 || startDate.getFullYear() - date.getFullYear() > 0) {
                 Swal.fire(
                     'Thông báo!',
                     'Ngày giao hàng nhiều nhất là 7 ngày kể từ lúc đặt hàng!',
@@ -228,12 +254,15 @@
             }
         });
     });
+
+
+    function thanhToanMomo() {
+        var ngayGiao = document.getElementById('setDay').value
+        var diaChi = document.getElementById('txtAddress').value
+        var id_Voucher = document.getElementById('input_Voucher').value
+        location.assign('https://localhost:44351/GioHangs/ThanhToan?ngayGiao=' + ngayGiao + '&diaChi=' + diaChi + '&voucher=' + id_Voucher);
+    }
 </script>
-@*<script>
-    function reload() {
-        document.getElementById("myForm").submit();
-    };
-</script>*@
 
 
 
