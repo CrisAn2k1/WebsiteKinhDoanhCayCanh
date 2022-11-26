@@ -44,7 +44,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 return RedirectToAction("Error401", "Admin");
             var all_donHang = data.DonHangs.ToList();
             //ViewBag.Keyword = searchString;
-            return View(all_donHang.OrderByDescending(p => p.ngayDat));
+            return View(all_donHang.OrderByDescending(p => p.id_DH));
 
         }
 
@@ -209,9 +209,6 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             }
         }
 
-
-
-
         public bool AuthAdmin()
         {
             var user = dataUser.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
@@ -224,7 +221,6 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 return false;
             return true;
         }
-
 
         public ActionResult XemDonMua()
         {

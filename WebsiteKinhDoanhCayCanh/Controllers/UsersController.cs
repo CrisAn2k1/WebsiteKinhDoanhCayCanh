@@ -151,6 +151,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 return RedirectToAction("Error401", "Admin");
             if (ModelState.IsValid)
             {
+
                 db.Users.Add(applicationUser);
                 db.SaveChanges();
                 return RedirectToAction("Index");

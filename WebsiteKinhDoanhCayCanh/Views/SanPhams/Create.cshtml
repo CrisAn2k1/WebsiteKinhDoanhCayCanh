@@ -3,6 +3,7 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+@Html.Partial("_MessageAlert")
 <style>
     .signup-form {
         background-color: #f3efea;
@@ -29,6 +30,7 @@
                 </div>}
             @using (Html.BeginForm())
             {
+                @Html.ValidationSummary(true)
                 @Html.AntiForgeryToken()
                 <div style="padding: 4vh 17vw">
                     <div class="signup-form">
@@ -37,8 +39,9 @@
                         <hr />
                         <div class="form-group">
                             <strong class="control-label col-md-2">Nhóm sản phẩm</strong>
-                            <div class="col-md-3">
-                                @Html.DropDownList("id_Nhom", null, htmlAttributes: new { @class = "form-control", @style = "min-width:120px" })
+                            <div class="col-md-5">
+                                @*@Html.DropDownList("id_Nhom", null, htmlAttributes: new { @class = "form-control", @style = "min-width:120px" })*@
+                                @Html.DropDownListFor(model => model.id_Nhom, null, htmlAttributes: new { @class = "form-control", @style = "min-width:120px" })
                                 @Html.ValidationMessageFor(model => model.id_Nhom, "", new { @class = "text-danger" })
                             </div>
                         </div>
