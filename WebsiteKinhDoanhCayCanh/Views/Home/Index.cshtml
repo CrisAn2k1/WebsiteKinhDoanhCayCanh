@@ -265,7 +265,7 @@
                                         }
                                         <div class="bottom-area d-flex px-3">
                                             <div class="m-auto d-flex">
-                                                <a href="@Url.Action("ThemGioHang", "GioHangs", new { @id = item.id_SP, @strURL = Request.Url.ToString(), @soLuong = 1 })" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                                <a onclick="AddToCart(this.id,1)" id="@item.id_SP" style="cursor:pointer" class="buy-now d-flex justify-content-center align-items-center mx-1">
                                                     <span><i class="ion-ios-cart"></i></span>
                                                 </a>
                                             </div>
@@ -324,7 +324,7 @@
                                         }
                                         <div class="bottom-area d-flex px-3">
                                             <div class="m-auto d-flex">
-                                                <a href="@Url.Action("ThemGioHang", "GioHangs", new { @id = item.id_SP, @strURL = Request.Url.ToString(), @soLuong = 1 })" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                                <a onclick="AddToCart(this.id,1)" id="@item.id_SP" style="cursor:pointer" class="buy-now d-flex justify-content-center align-items-center mx-1">
                                                     <span><i class="ion-ios-cart"></i></span>
                                                 </a>
                                             </div>
@@ -442,6 +442,48 @@
                         Swal.fire(
                             "Thông báo!",
                             "Lưu voucher thất bại!",
+                            "error"
+                        )
+                    }
+                });
+        }
+    }
+
+    function AddToCart(id_SP, soLuong) {
+
+        if (window.FormData !== undefined) {
+
+            var formData = new FormData();
+            formData.append('id', id_SP);
+            formData.append('soLuong', soLuong);
+
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: '/GioHangs/AddToCart',
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    success: function (message) {
+                        if (message != "existed") {
+                            document.getElementById('cart').innerHTML = message;
+                            Swal.fire(
+                                "Thông báo!",
+                                "Thêm vào giỏ hàng thành công!",
+                                "success"
+                            )
+                        } else {
+                            Swal.fire(
+                                "Thông báo!",
+                                "Sản phẩm này đã có trong giỏ hàng!",
+                                "warning"
+                            )
+                        } 
+                    },
+                    error: function (err) {
+                        Swal.fire(
+                            "Thông báo!",
+                            "Có lỗi xảy ra, vui lòng thử lại!",
                             "error"
                         )
                     }

@@ -29,7 +29,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             return lstGioHang;
         }
 
-        public ActionResult ThemGioHang(string id, string strURL, int soLuong)
+        public string AddToCart(string id, int soLuong)
         {
 
             List<GioHang> lstGioHang = layGioHang();
@@ -41,24 +41,20 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                     sanPham = new GioHang(id);
                     sanPham.iSoLuong = soLuong;
                     lstGioHang.Add(sanPham);
-                    Notification.set_flash("Đã thêm sản phẩm vào giỏ hàng!", "success");
-                    return Redirect(strURL);
+                    return lstGioHang.Count().ToString();
                 }
                 else
                 {
                     sanPham = new GioHang(id);
                     sanPham.iSoLuong = 1;
                     lstGioHang.Add(sanPham);
-                    Notification.set_flash("Đã thêm sản phẩm vào giỏ hàng!", "success");
-                    return Redirect(strURL);
+                    return lstGioHang.Count().ToString();
                 }
 
             }
             else
             {
-                //sanPham.updateGiamGia(id)
-                Notification.set_flash("Đã có sản phẩm này trong giỏ hàng!", "warning");
-                return Redirect(strURL);
+                return "existed";
             }
         }
 
