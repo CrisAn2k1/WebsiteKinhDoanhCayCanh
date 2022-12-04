@@ -62,6 +62,35 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             }
         }
 
+        public string AddToCart(string id, int soLuong)
+        {
+
+            List<GioHang> lstGioHang = layGioHang();
+            GioHang sanPham = lstGioHang.Find(n => n.iIdSanPham == id);
+            if (sanPham == null)
+            {
+                if (soLuong > 1)
+                {
+                    sanPham = new GioHang(id);
+                    sanPham.iSoLuong = soLuong;
+                    lstGioHang.Add(sanPham);
+                    return lstGioHang.Count().ToString();
+                }
+                else
+                {
+                    sanPham = new GioHang(id);
+                    sanPham.iSoLuong = 1;
+                    lstGioHang.Add(sanPham);
+                    return lstGioHang.Count().ToString();
+                }
+
+            }
+            else
+            {
+                return "existed";
+            }
+        }
+
         private int TongSoLuongSanPham()
         {
             int tsl = 0;
