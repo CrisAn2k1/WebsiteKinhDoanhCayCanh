@@ -29,39 +29,6 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             return lstGioHang;
         }
 
-        public ActionResult ThemGioHang(string id, string strURL, int soLuong)
-        {
-
-            List<GioHang> lstGioHang = layGioHang();
-            GioHang sanPham = lstGioHang.Find(n => n.iIdSanPham == id);
-            if (sanPham == null)
-            {
-                if (soLuong > 1)
-                {
-                    sanPham = new GioHang(id);
-                    sanPham.iSoLuong = soLuong;
-                    lstGioHang.Add(sanPham);
-                    Notification.set_flash("Đã thêm sản phẩm vào giỏ hàng!", "success");
-                    return Redirect(strURL);
-                }
-                else
-                {
-                    sanPham = new GioHang(id);
-                    sanPham.iSoLuong = 1;
-                    lstGioHang.Add(sanPham);
-                    Notification.set_flash("Đã thêm sản phẩm vào giỏ hàng!", "success");
-                    return Redirect(strURL);
-                }
-
-            }
-            else
-            {
-                //sanPham.updateGiamGia(id)
-                Notification.set_flash("Đã có sản phẩm này trong giỏ hàng!", "warning");
-                return Redirect(strURL);
-            }
-        }
-
         public string AddToCart(string id, int soLuong)
         {
 
