@@ -104,19 +104,6 @@
                     <dt><hr /></dt>
                     <dd><hr /></dd>
                     <dt class="col-md-2">
-                        Trạng thái sản phẩm:
-                    </dt>
-                    <dd class="col-md-10">
-                        @if (Model.trangThai == true)
-                        {
-                            <span style="color:limegreen;font-weight:500">Hiển thị sản phẩm</span>
-                            @Html.HiddenFor(model => model.trangThai) }
-                        else
-                        {
-                            <span style="color:limegreen;font-weight:500">Ẩn sản phẩm</span>
-                            @Html.HiddenFor(model => model.trangThai)}
-                    </dd>
-                    <dt class="col-md-2">
                         Mã đơn hàng:
                     </dt>
                     <dd class="col-md-10">
@@ -127,6 +114,30 @@
                     </dt>
                     <dd class="col-md-10">
                         @Html.DisplayFor(model => model.tenSP)
+                    </dd>
+                    <dt class="col-md-2">
+                        Số lượng:
+                    </dt>
+                    <dd class="col-md-10">
+                        @Html.DisplayFor(model => model.soLuong)
+                    </dd>
+                    <dt class="col-md-2">
+                        Giá:
+                    </dt>
+                    <dd class="col-md-10">
+                        <strong style="color:red;font-weight:bold"> @String.Format("{0:0,0}", @Model.gia) VNĐ</strong>
+                    </dd>
+                    <dt class="col-md-2">
+                        Phần trăm giảm giá:
+                    </dt>
+                    <dd class="col-md-10">
+                        <strong>-@Html.DisplayFor(model => model.phanTramGiamGia)%</strong>
+                    </dd>
+                    <dt class="col-md-2">
+                        Đơn vị tính:
+                    </dt>
+                    <dd class="col-md-10">
+                        @Html.DisplayFor(model => model.DVT)
                     </dd>
 
                     <dt class="col-md-2">
@@ -144,30 +155,6 @@
                     </dt>
                     <dd class="col-md-10">
                         @Html.DisplayFor(model => model.mota)
-                    </dd>
-                    <dt class="col-md-2">
-                        Số lượng:
-                    </dt>
-                    <dd class="col-md-10">
-                        @Html.DisplayFor(model => model.soLuong)
-                    </dd>
-                    <dt class="col-md-2">
-                        Đơn vị tính:
-                    </dt>
-                    <dd class="col-md-10">
-                        @Html.DisplayFor(model => model.DVT)
-                    </dd>
-                    <dt class="col-md-2">
-                        Giá:
-                    </dt>
-                    <dd class="col-md-10">
-                        @String.Format("{0:0,0}", @Model.gia) VNĐ
-                    </dd>
-                    <dt class="col-md-2">
-                        Phần trăm giảm giá:
-                    </dt>
-                    <dd class="col-md-10">
-                        @Html.DisplayFor(model => model.phanTramGiamGia) %
                     </dd>
 
                     <dt class="col-md-2">
@@ -240,7 +227,7 @@
                         }
                     </tbody>
                 </table>
-            </div>            
+            </div>
         </div>
     </main>
 </div>

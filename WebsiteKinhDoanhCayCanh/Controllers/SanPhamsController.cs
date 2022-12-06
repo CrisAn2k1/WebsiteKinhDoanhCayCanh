@@ -291,8 +291,8 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                     db.SaveChanges();
                     Notification.set_flash("Thêm thành công", "success");
                     return RedirectToAction("Create");
-                }              
-                
+                }
+
             }
             SetViewBag();
             return View(sanPham);
@@ -314,7 +314,8 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 return HttpNotFound();
             }
             ViewBag.id_Nhom = new SelectList(db.NhomSP, "id_Nhom", "tenNhom", sanPham.id_Nhom);
-            ViewBag.id_SP = new SelectList(db.ThongTinThemVeSP, "id_SP", "congDung", sanPham.id_SP);
+            ViewBag.congDung = sanPham.ThongTinThemVeSP.congDung;
+            ViewBag.cachTrong = sanPham.ThongTinThemVeSP.cachTrong;
             return View(sanPham);
         }
 
@@ -333,11 +334,11 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             if (ModelState.IsValid && idUser != null)
             {
                 db.Entry(sanPham).State = EntityState.Modified;
-                
+
                 if (Request["congDung"] != null && Request["cachTrong"] != null)
                 {
-                    string content1 = Request["congDung"].ToString() + " ";
-                    string content2 = Request["cachTrong"].ToString() + " ";
+                    string content1 = Request["congDung"].ToString() + "";
+                    string content2 = Request["cachTrong"].ToString() + "";
                     if (content1 == " " || content2 == " ")
                     {
                         return RedirectToAction("IndexAdmin");
@@ -357,7 +358,8 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 return RedirectToAction("IndexAdmin");
             }
             ViewBag.id_Nhom = new SelectList(db.NhomSP, "id_Nhom", "tenNhom", sanPham.id_Nhom);
-            ViewBag.id_SP = new SelectList(db.ThongTinThemVeSP, "id_SP", "congDung", sanPham.id_SP);
+            ViewBag.congDung = Request["congDung"];
+            ViewBag.cachTrong = Request["cachTrong"];
             return View(sanPham);
         }
 
