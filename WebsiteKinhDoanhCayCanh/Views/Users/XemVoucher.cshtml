@@ -208,20 +208,25 @@
                                 }
                             </div>
                             <!-- Modal -->
-                            <div class="modal fade" id="myModal_@item.Voucher.id_voucher" role="dialog">
+                            <div class="modal fade" id="myModal_@item.id_voucher" role="dialog">
                                 <div class="modal-dialog">
                                     <!-- Modal content-->
                                     <div class="modal-content">
                                         <div class="modal-header justify-content-center">
-                                            <h4 class="modal-title text-center"> <strong style="color: #00be00; font-size: 30px; "> @item.Voucher.tenVoucher</strong></h4>
+                                            <h4 class="modal-title text-center"> <strong style="color: #00be00; font-size: 30px; "> @item.tenVoucher</strong></h4>
                                         </div>
                                         <div class="modal-body">
-                                            <p style="word-break:break-all">@item.Voucher.noiDung</p>
+                                            <p><strong>Mô tả:</strong></p>
+                                            <p style="word-break:break-all">@item.noiDung</p>
+                                            <br />
                                             <hr />
-                                            <div style="font-size:16px" class="content_voucher">Áp dụng từ ngày: <strong> @Convert.ToDateTime(item.Voucher.thoiGianBatDau).ToString("dd/MM/yyyy") - @Convert.ToDateTime(item.Voucher.thoiGianKetThuc).ToString("dd/MM/yyyy")</strong></div>
+                                            <p>Phần trăm giảm giá: <strong>@item.phanTramGiamGia %</strong></p>
+                                            @*<p style="word-break:break-all">@item.phanTramGiamGia</p>*@
+                                            <hr />
+                                            <div style="font-size:16px" class="content_voucher">Thời gian áp dụng: <strong> @Convert.ToDateTime(item.thoiGianBatDau).ToString("dd/MM/yyyy") - @Convert.ToDateTime(item.thoiGianKetThuc).ToString("dd/MM/yyyy")</strong></div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                            <button type="button" class="btn btn-success" data-dismiss="modal">
                                                 Đóng
                                             </button>
                                         </div>
