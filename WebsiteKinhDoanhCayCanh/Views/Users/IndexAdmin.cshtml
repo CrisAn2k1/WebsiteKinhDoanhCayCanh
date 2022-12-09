@@ -1,12 +1,25 @@
 ﻿@*@model PagedList.PagedList<WebsiteKinhDoanhCayCanh.Models.ApplicationUser>
-@using PagedList.Mvc;
+    @using PagedList.Mvc;
 *@
 @model IEnumerable<WebsiteKinhDoanhCayCanh.Models.ApplicationUser>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-@Html.Partial("_MessageAlert")
+
+<style>
+    dt, dd {
+        padding: 5px 0;
+        width: 60%;
+    }
+
+    dt {
+        padding-right: 3%;
+        width: 40%;
+        text-align: right
+    }
+</style>
+<script src="~/Content/assets/js/bootstrap.min.js"></script>
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4" style="margin-bottom: 75px;">
@@ -15,7 +28,7 @@
                     <h2 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen; text-transform: capitalize;">
                         Danh Sách Tài Khoản Admin
                     </h2>
-                </div>                
+                </div>
                 <br />
             </div>
             <div class="card mb-4">
@@ -56,13 +69,13 @@
                                 <td style="vertical-align:middle">
                                     @Html.DisplayFor(modelItem => item.FullName)
                                 </td>
-                                <td style="vertical-align:middle">
+                                <td style="vertical-align: middle; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 30px;" class="col-3">
                                     @Html.DisplayFor(modelItem => item.Address)
                                 </td>
                                 <td style="vertical-align:middle">
                                     @Html.DisplayFor(modelItem => item.Email)
                                 </td>
-                                <td style="vertical-align:middle">
+                                <td style="vertical-align:middle;text-align:center">
                                     @Html.DisplayFor(modelItem => item.PhoneNumber)
                                 </td>
                                 <td style="vertical-align:middle; text-align:center">
@@ -76,14 +89,62 @@
 
                                 </td>
 
-                                <td class="text-center align-middle">
-                                    @Html.ActionLink("Chi tiết", "Details", new { id = item.Id }, new { @class = "btn btn-info", @style = "margin-left:5px" })
+                                <td style="vertical-align:middle; text-align:center">
+                                    <a class="btn btn-info" style="cursor:pointer;" data-toggle="modal" data-target="#myModal_@item.Id"> Chi tiết </a>
                                 </td>
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModal_@item.Id" role="dialog">
+                                    <div class="modal-dialog" style="max-width:50vw">
+                                        <!-- Modal content-->
+                                        <div class="modal-content" style="width:50vw">
+                                            <div class="modal-header justify-content-center">
+                                                <h4 class="modal-title text-center"> <strong style="color: #00be00; font-size: 30px; "> Chi Tiết Tài Khoản</strong></h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <dl style="display: flex;
+                                                    flex-wrap: wrap;
+                                                    justify-content: center">
+                                                    <dt> Mã KH:</dt>
+                                                    <dd> <strong>@item.Id</strong></dd>
+
+                                                    <dt>Họ & tên:</dt>
+                                                    <dd> <strong>@item.FullName</strong></dd>
+
+                                                    <dt>Địa chỉ:</dt>
+                                                    <dd> <span style="word-wrap:break-word"> <strong>@item.Address</strong></span></dd>
+
+                                                    <dt>Email:</dt>
+                                                    <dd>  <strong>@item.Email</strong></dd>
+
+                                                    <dt> SĐT: </dt>
+                                                    <dd> <strong>@item.PhoneNumber</strong></dd>
+                                                </dl>
+
+                                                @if (item.LockoutEnabled)
+                                                {
+                                                    <p class="text-center">Trạng thái: <strong style="color:red">Khóa</strong></p>
+
+                                                }
+                                                else
+                                                {
+                                                    <p class="text-center">Trạng thái: <strong style="color:limegreen">Kích hoạt</strong></p>
+                                                }
+                                                @*<p style="word-break:break-all">@item.phanTramGiamGia</p>*@
+                                                <hr />
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-success" data-dismiss="modal">
+                                                    Đóng
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </tr>
                         }
                     </tbody>
                 </table>
-            </div>            
+            </div>
         </div>
     </main>
 </div>

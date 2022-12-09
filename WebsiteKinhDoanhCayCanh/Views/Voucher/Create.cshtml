@@ -19,12 +19,19 @@
     .col-md-10 {
         max-width: 100% !important;
     }
+    .form-group > div{
+        margin: 15px 0;
+    }
 </style>
 
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4">
-
+            <p style="position:fixed">
+                <a class="btn btn-info" href='@Url.Action("Index", "Voucher")' style="margin-top:60px;">
+                    Trở về
+                </a>
+            </p>
             <h2 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen; text-transform: capitalize;">Thêm voucher mới </h2>
             <hr />
             @using (Html.BeginForm())
@@ -35,46 +42,57 @@
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
-                            <strong class="control-label col-md-2">Mã Voucher</strong>
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.id_voucher, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.id_voucher, "", new { @class = "text-danger" })
+                            <div>
+                                <strong class="control-label col-md-2">Mã Voucher</strong>
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.id_voucher, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.id_voucher, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                            <strong class="control-label col-md-2">Tên Voucher</strong>
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.tenVoucher, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.tenVoucher, "", new { @class = "text-danger" })
+                            <div>
+                                <strong class="control-label col-md-2">Tên Voucher</strong>
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.tenVoucher, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.tenVoucher, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                            <strong class="control-label col-md-2">Nội dung</strong>
-                            <div class="col-md-10">
+                            <div>
+                                <strong class="control-label col-md-2">Nội dung</strong>
+                                <div class="col-md-10">
 
-                                @Html.EditorFor(model => model.noiDung, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.noiDung, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.noiDung, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.noiDung, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                            <strong class="control-label col-md-2">Phần trăm giảm giá</strong>
-                            <div class="col-md-10">
+                            <div>
+                                <strong class="control-label col-md-2">Phần trăm giảm giá</strong>
+                                <div class="col-md-10">
+                                    <input type="number" class="form-control" name="phanTramGiamGia" value="ViewBag.Discount" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace('.','');" />
+                                    @Html.ValidationMessageFor(model => model.phanTramGiamGia, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div style="display:flex;">
+                                <div>
+                                    <strong class="control-label col-md-2">Thời gian bắt đầu </strong>
+                                    <div class="col-md-10">
+                                        <input type="date" name="thoiGianBatDau" value="" />
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.thoiGianBatDau, "", new { @class = "text-danger" })
 
-                                @Html.EditorFor(model => model.phanTramGiamGia, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.phanTramGiamGia, "", new { @class = "text-danger" })
-                            </div>
-                            <strong class="control-label col-md-2">Thời gian bắt đầu</strong>
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.thoiGianBatDau, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.thoiGianBatDau, "", new { @class = "text-danger" })
-                            </div>
-                            <strong class="control-label col-md-2">Thời gian kết thúc</strong>
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.thoiGianKetThuc, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.thoiGianKetThuc, "", new { @class = "text-danger" })
+                                </div>
+                                <div style="margin-left:20px;">
+                                    <strong class="control-label col-md-2">Thời gian kết thúc</strong>
+                                    <div class="col-md-10">
+                                        <input type="date" name="thoiGianKetThuc" value="" />
+                                    </div>
+                                        @Html.ValidationMessageFor(model => model.thoiGianKetThuc, "", new { @class = "text-danger" })
+                                </div>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Thêm" class="btn btn-success" />   |
-                                <a class="btn btn-info" href='@Url.Action("Index", "Voucher")' style="margin:10px 0px;">
-                                    Trở về
-                                </a>
+                                <input type="submit" value="Thêm" class="btn btn-success" />  
                             </div>
                         </div>
                     </div>

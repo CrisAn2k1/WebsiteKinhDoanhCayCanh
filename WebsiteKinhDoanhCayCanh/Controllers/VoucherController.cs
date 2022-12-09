@@ -17,7 +17,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         private MyDataEF db = new MyDataEF();
         ApplicationDbContext data = new ApplicationDbContext();
 
-        
+
         [Authorize]
         /*public ActionResult Index(int? page, string searchString)
         {
@@ -81,20 +81,20 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             {
                 if (db.Voucher.Where(p => p.id_voucher == voucher.id_voucher).FirstOrDefault() != null)
                 {
-                    Notification.set_flash("Đã tồn tại!", "error");
+                    Notification.set_flash("Mã voucher đã tồn tại!", "error");
                     return RedirectToAction("Create", "Voucher");
                 }
                 else
                 {
                     db.Voucher.Add(voucher);
                     db.SaveChanges();
-                    Notification.set_flash("Thêm thành công", "success");
+                    Notification.set_flash("Thêm voucher thành công!", "success");
                     return RedirectToAction("Index");
                 }
-                
+
             }
 
-            //ViewBag.id_CachChamSoc = new SelectList(db.CachChamSoc, "id_CCS", nhomSP.id_CCS);
+            ViewBag.Discount = voucher.phanTramGiamGia;
             return View(voucher);
         }
 
@@ -131,47 +131,34 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             {
                 db.Entry(voucher).State = EntityState.Modified;
                 db.SaveChanges();
+                Notification.set_flash("Cập nhật voucher thành công!", "success");
                 return RedirectToAction("Index");
             }
             //ViewBag.id_CachChamSoc = new SelectList(db.CachChamSoc, "id_CCS", nhomSP.id_CCS);
             return View(voucher);
         }
-        // GET: /Delete
-        [Authorize]
-        public ActionResult Delete(string id)
-        {
-            if (!AuthAdmin())
-                return RedirectToAction("Error401", "Admin");
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Voucher voucher = db.Voucher.Find(id);
-            if (voucher == null)
-            {
-                return HttpNotFound();
-            }
-            return View(voucher);
-        }
 
         // POST: /Delete
         [Authorize]
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult Delete(string id)
         {
-            if (!AuthAdmin())
-                return RedirectToAction("Error401", "Admin");
+
             Voucher voucher = db.Voucher.Find(id);
-            if (db.DonHang.Where(p => p.id_Voucher == voucher.id_voucher).FirstOrDefault() != null)
+            try
             {
-                Notification.set_flash("Không thể xoá loại \' " + voucher.tenVoucher + " \'!", "error");
+                if (!AuthAdmin())
+                    return RedirectToAction("Error401", "Admin");
+                Notification.set_flash("Đã xoá voucher \' " + voucher.tenVoucher + " \'!", "success");
+                db.Voucher.Remove(voucher);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            Notification.set_flash("Đã xoá loại \' " + voucher.tenVoucher + " \'!", "success");
-            db.Voucher.Remove(voucher);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            catch (Exception)
+            {
+                Notification.set_flash("Không thể xoá voucher \' " + voucher.tenVoucher + " \'!", "error");
+                return RedirectToAction("Index");
+            }
+
         }
 
         public bool AuthAdmin()

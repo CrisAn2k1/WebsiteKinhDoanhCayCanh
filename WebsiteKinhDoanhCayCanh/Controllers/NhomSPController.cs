@@ -36,7 +36,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             int pageNum = page ?? 1;
             return View(NhomSP.getAll(searchString).ToPagedList(pageNum, pageSize));
         }*/
-        public ActionResult Index( string searchString)
+        public ActionResult Index(string searchString)
         {
             if (!AuthAdmin())
                 return RedirectToAction("Error401", "Admin");
@@ -86,18 +86,19 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 return RedirectToAction("Error401", "Admin");
             if (ModelState.IsValid)
             {
-                if(db.NhomSP.Where(p => p.id_Nhom == nhomSP.id_Nhom).FirstOrDefault() != null)
+                if (db.NhomSP.Where(p => p.id_Nhom == nhomSP.id_Nhom).FirstOrDefault() != null)
                 {
-                        Notification.set_flash("Đã tồn tại!", "error");
-                        return RedirectToAction("Create", "NhomSP");
+                    Notification.set_flash("Mã nhóm cây đã tồn tại!", "error");
+                    return View(nhomSP);
                 }
-                else {
+                else
+                {
                     db.NhomSP.Add(nhomSP);
                     db.SaveChanges();
-                    Notification.set_flash("Thêm thành công", "success");
+                    Notification.set_flash("Thêm nhóm cây thành công", "success");
                     return RedirectToAction("Index");
                 }
-                
+
             }
             //ViewBag.id_CachChamSoc = new SelectList(db.CachChamSoc, "id_CCS", nhomSP.id_CCS);
             SetViewBag();
@@ -137,47 +138,35 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             {
                 db.Entry(nhomSP).State = EntityState.Modified;
                 db.SaveChanges();
+                Notification.set_flash("Cập nhật nhóm cây thành công", "success");
                 return RedirectToAction("Index");
             }
             ViewBag.id_CachChamSoc = new SelectList(db.CachChamSoc, "id_CCS", nhomSP.id_CCS);
             return View(nhomSP);
         }
-        // GET: /Delete
-        [Authorize]
-        public ActionResult Delete(string id)
-        {
-            if (!AuthAdmin())
-                return RedirectToAction("Error401", "Admin");
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            NhomSP nhomSP = db.NhomSP.Find(id);
-            if (nhomSP == null)
-            {
-                return HttpNotFound();
-            }
-            return View(nhomSP);
-        }
 
         // POST: /Delete
         [Authorize]
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult Delete(string id)
         {
-            if (!AuthAdmin())
-                return RedirectToAction("Error401", "Admin");
             NhomSP nhomSP = db.NhomSP.Find(id);
-            if (db.SanPham.Where(p => p.id_Nhom == nhomSP.id_Nhom).FirstOrDefault() != null)
+
+            try
             {
-                Notification.set_flash("Không thể xoá loại \' " + nhomSP.tenNhom + " \'!", "error");
+                if (!AuthAdmin())
+                    return RedirectToAction("Error401", "Admin");
+                Notification.set_flash("Đã xoá nhóm cây \' " + nhomSP.tenNhom + " \'!", "success");
+                db.NhomSP.Remove(nhomSP);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            Notification.set_flash("Đã xoá loại \' " + nhomSP.tenNhom + " \'!", "success");
-            db.NhomSP.Remove(nhomSP);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            catch (Exception)
+            {
+                Notification.set_flash("Không thể xoá nhóm cây \' " + nhomSP.tenNhom + " \'!", "error");
+                return RedirectToAction("Index");
+            }
+
+
         }
 
         public bool AuthAdmin()

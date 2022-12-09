@@ -62,7 +62,7 @@
                         @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.id_Nhom }, new { @class = "btn btn-warning", @style = "margin:5px" })
                         @*@Html.ActionLink("Chi tiết", "Details", new { id = item.id_Nhom }, new { @class = "btn btn-info", @style = "margin:5px" })*@
                         <a class="btn btn-info" style="cursor:pointer;" data-toggle="modal" data-target="#myModal_@item.id_Nhom"> Chi tiết </a>
-                        @Html.ActionLink("Xóa", "Delete", new { id = item.id_Nhom }, new { @class = "btn btn-danger", @style = "margin:5px" })
+                        <a style="cursor:pointer;margin:5px" id="@item.id_Nhom" class="btn btn-danger" onclick="deleteGroupTree(this.id)">Xóa</a>
                     </td>
                 </tr> <!-- Modal -->
                         <div class="modal fade" id="myModal_@item.id_Nhom" role="dialog">
@@ -97,5 +97,23 @@
         </div>
     </main>
 </div>
+
+<script>
+    function deleteGroupTree(id_Nhom) {
+        Swal.fire({
+            title: 'Delete?',
+            text: "Bạn có chắc chắn xóa nhóm cây này?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Có, hãy xóa nhóm cây này!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = "https://localhost:44351/NhomSP/Delete/" + id_Nhom
+            }
+        })
+    }
+</script>
 
 
