@@ -42,9 +42,6 @@
                                 Tên voucher
                             </th>
                             <th class="thead_table">
-                                Nội dung
-                            </th>
-                            <th class="thead_table">
                                 Phần trăm giảm giá
                             </th>
                             <th class="thead_table">
@@ -69,9 +66,6 @@
                                     <td class="tbody_table col-lg-2">
                                         @Html.DisplayFor(modelItem => item.tenVoucher)
                                     </td>
-                                    <td class="tbody_table col-lg-3" style="max-width: 150px; text-overflow: ellipsis; overflow: hidden; ">
-                                        <span style="white-space:nowrap;">@item.noiDung</span>
-                                    </td>
                                     <td class="tbody_table">
                                         <strong>
                                             @Html.DisplayFor(modelItem => item.phanTramGiamGia)%
@@ -83,10 +77,10 @@
                                     <td class="tbody_table">
                                         @Convert.ToDateTime(item.thoiGianKetThuc).ToString("dd-MM-yyyy")
                                     </td>
-                                    <td class="col-lg-2 text-center">
+                                    <td class="col-lg-3 text-center">
                                         @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.id_voucher }, new { @class = "btn btn-warning", @style = "margin:5px" })
                                         <a class="btn btn-info" style="cursor:pointer;" data-toggle="modal" data-target="#myModal_@item.id_voucher"> Chi tiết </a>
-                                        @*@Html.ActionLink("Xóa", "Delete", new { id = item.id_voucher }, new { @class = "btn btn-danger", @style = "margin-left:5px" })*@
+                                        <a style="cursor:pointer;margin:5px" id="@item.id_voucher" class="btn btn-danger" onclick="deleteVoucher(this.id)">Xóa</a>
                                     </td>
                                 </tr>
                                 <!-- Modal -->
@@ -122,6 +116,23 @@
         </div>
     </main>
 </div>
+<script>
+    function deleteVoucher(id_voucher) {
+        Swal.fire({
+            title: 'Delete?',
+            text: "Bạn có chắc chắn xóa voucher này?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Có, hãy xóa voucher này!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = "https://localhost:44351/Voucher/Delete/" + id_voucher
+            }
+        })
+    }
+</script>
 
 
 

@@ -22,12 +22,12 @@
 
     tr td {
         text-align: center;
-        vertical-align: middle;
+        vertical-align: middle !important;
     }
 
     tr th {
-        text-align: center;
-        vertical-align: middle;
+        text-align: center !important;
+        vertical-align: middle !important;
     }
 
     /* Css for table*/
@@ -73,23 +73,10 @@
         clear: both;
     }
 
-        table thead tr th:last-child {
-            vertical-align: middle;
-            text-align: center;
-        }
-
-        table tbody tr td:last-child {
-            vertical-align: middle;
-            text-align: center;
-        }
-
-            table tbody tr td:last-child:hover {
-                cursor: pointer
-            }
 </style>
 <div id="layoutSidenav_content">
     <main>
-        <div class="container-fluid px-4" style=" margin-top:20px;">
+        <div class="container-fluid px-4" style=" margin-top: 20px; margin-bottom: 75px;">
             <p style="position:fixed">
                 <a class="btn btn-info" href='@Url.Action("IndexAdmin", "SanPhams")' style="margin:10px 0px;">
                     Trở về

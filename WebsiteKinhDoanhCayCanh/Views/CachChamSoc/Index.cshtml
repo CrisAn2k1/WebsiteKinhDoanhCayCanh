@@ -1,5 +1,5 @@
 ﻿@*
-@model PagedList.PagedList<WebsiteKinhDoanhCayCanh.Models.CachChamSoc>*@
+    @model PagedList.PagedList<WebsiteKinhDoanhCayCanh.Models.CachChamSoc>*@
 @model IEnumerable<WebsiteKinhDoanhCayCanh.Models.CachChamSoc>
 @using PagedList.Mvc;
 @{
@@ -14,7 +14,7 @@
             <div>
                 <div>
                     <h2 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen; text-transform: capitalize;">Danh sách cách chăm sóc</h2>
-                </div>                
+                </div>
                 <br />
 
             </div>
@@ -56,14 +56,33 @@
                                 <td class="col-lg-4 text-center align-middle">
                                     @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.id_CCS }, new { @class = "btn btn-warning", @style = "margin:5px" })
                                     @Html.ActionLink("Chi tiết", "Details", new { id = item.id_CCS }, new { @class = "btn btn-info", @style = "margin:5px" })
-                                    @Html.ActionLink("Xóa", "Delete", new { id = item.id_CCS }, new { @class = "btn btn-danger", @style = "margin:5px" })
+                                    <a style="cursor:pointer;margin:5px" id="@item.id_CCS" class="btn btn-danger" onclick="deleteCCS(this.id)">Xóa</a>
                                 </td>
-                            </tr>}
+                            </tr>
+}
                     </tbody>
                 </table>
-                </div>            
             </div>
-</main>
+        </div>
+    </main>
 </div>
+<script>
+    function deleteCCS(id_CCS) {
+        Swal.fire({
+            title: 'Delete?',
+            text: "Bạn có chắc chắn xóa cách chăm sóc này?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Có, hãy xóa cách chăm sóc này!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = "https://localhost:44351/CachChamSoc/Delete/" + id_CCS
+            }
+        })
+    }
+</script>
+
 
 

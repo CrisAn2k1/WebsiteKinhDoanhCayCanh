@@ -91,7 +91,7 @@
                         <div class="form-group">
                             <strong class="control-label col-md-2">Giảm giá</strong>
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.phanTramGiamGia, new { htmlAttributes = new { @class = "form-control" } })
+                                <input type="number" class="form-control" name="phanTramGiamGia" value="@Model.phanTramGiamGia" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace('.','');" />
                                 @Html.ValidationMessageFor(model => model.phanTramGiamGia, "", new { @class = "text-danger" })
                             </div>
                         </div>
