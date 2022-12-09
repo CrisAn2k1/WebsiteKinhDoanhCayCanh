@@ -2,7 +2,7 @@
     @using PagedList.Mvc;*@
 @model IEnumerable<WebsiteKinhDoanhCayCanh.Models.Voucher>
 @{ ViewBag.Title = "Index";
-                Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
 
 @Html.Partial("_MessageAlert")
 <style>
@@ -18,7 +18,7 @@
             <div>
                 <div>
                     <h2 style="text-align: center; margin-top: 20px; font-weight: bold; color: forestgreen; text-transform: capitalize;">Danh Sách Voucher</h2>
-                </div>                
+                </div>
                 <br />
 
             </div>
@@ -42,9 +42,6 @@
                                 Tên voucher
                             </th>
                             <th class="thead_table">
-                                Nội dung
-                            </th>
-                            <th class="thead_table">
                                 Phần trăm giảm giá
                             </th>
                             <th class="thead_table">
@@ -61,60 +58,57 @@
                             foreach (var item in Model)
                             {
                                 i++;
-                <tr>
-                    <td class="tbody_table"><strong>@i</strong></td>
-                    <td class="tbody_table col-lg-1">
-                        @Html.DisplayFor(modelItem => item.id_voucher)
-                    </td>
-                    <td class="tbody_table col-lg-2">
-                        @Html.DisplayFor(modelItem => item.tenVoucher)
-                    </td>
-                    <td class="tbody_table col-lg-3" style="max-width: 150px; text-overflow: ellipsis; overflow: hidden; ">
-                        <span style="white-space:nowrap;">@item.noiDung</span>
-                    </td>
-                    <td class="tbody_table">
-                        <strong>
-                            @Html.DisplayFor(modelItem => item.phanTramGiamGia)%
-                        </strong>
-                    </td>
-                    <td class="tbody_table">
-                        @Convert.ToDateTime(item.thoiGianBatDau).ToString("dd-MM-yyyy")
-                    </td>
-                    <td class="tbody_table">
-                        @Convert.ToDateTime(item.thoiGianKetThuc).ToString("dd-MM-yyyy")
-                    </td>
-                    <td class="col-lg-2 text-center">
-                        @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.id_voucher }, new { @class = "btn btn-warning", @style = "margin:5px" })
-                        <a class="btn btn-info" style="cursor:pointer;" data-toggle="modal" data-target="#myModal_@item.id_voucher"> Chi tiết </a>
-                        @*@Html.ActionLink("Xóa", "Delete", new { id = item.id_voucher }, new { @class = "btn btn-danger", @style = "margin-left:5px" })*@
-                    </td>
-                </tr>
-                     <!-- Modal -->
-                            <div class="modal fade" id="myModal_@item.id_voucher" role="dialog">
-                                <div class="modal-dialog">
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header justify-content-center">
-                                            <h4 class="modal-title text-center"> <strong style="color: #00be00; font-size: 30px; "> @item.tenVoucher</strong></h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p><strong>Mô tả:</strong></p>
-                                            <p style="word-break:break-all">@item.noiDung</p>
-                                            <br />
-                                            <hr />
-                                            <p>Phần trăm giảm giá: <strong>@item.phanTramGiamGia %</strong></p>
-                                            @*<p style="word-break:break-all">@item.phanTramGiamGia</p>*@
-                                            <hr />
-                                            <div style="font-size:16px" class="content_voucher">Thời gian áp dụng: <strong> @Convert.ToDateTime(item.thoiGianBatDau).ToString("dd/MM/yyyy") - @Convert.ToDateTime(item.thoiGianKetThuc).ToString("dd/MM/yyyy")</strong></div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-success" data-dismiss="modal">
-                                                Đóng
-                                            </button>
+                                <tr>
+                                    <td class="tbody_table"><strong>@i</strong></td>
+                                    <td class="tbody_table col-lg-1">
+                                        @Html.DisplayFor(modelItem => item.id_voucher)
+                                    </td>
+                                    <td class="tbody_table col-lg-2">
+                                        @Html.DisplayFor(modelItem => item.tenVoucher)
+                                    </td>
+                                    <td class="tbody_table">
+                                        <strong>
+                                            @Html.DisplayFor(modelItem => item.phanTramGiamGia)%
+                                        </strong>
+                                    </td>
+                                    <td class="tbody_table">
+                                        @Convert.ToDateTime(item.thoiGianBatDau).ToString("dd-MM-yyyy")
+                                    </td>
+                                    <td class="tbody_table">
+                                        @Convert.ToDateTime(item.thoiGianKetThuc).ToString("dd-MM-yyyy")
+                                    </td>
+                                    <td class="col-lg-3 text-center">
+                                        @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.id_voucher }, new { @class = "btn btn-warning", @style = "margin:5px" })
+                                        <a class="btn btn-info" style="cursor:pointer;" data-toggle="modal" data-target="#myModal_@item.id_voucher"> Chi tiết </a>
+                                        <a style="cursor:pointer;margin:5px" id="@item.id_voucher" class="btn btn-danger" onclick="deleteVoucher(this.id)">Xóa</a>
+                                    </td>
+                                </tr>
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModal_@item.id_voucher" role="dialog">
+                                    <div class="modal-dialog">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header justify-content-center">
+                                                <h4 class="modal-title text-center"> <strong style="color: #00be00; font-size: 30px; "> @item.tenVoucher</strong></h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p><strong>Mô tả:</strong></p>
+                                                <p style="word-break:break-all">@item.noiDung</p>
+                                                <br />
+                                                <hr />
+                                                <p>Phần trăm giảm giá: <strong>@item.phanTramGiamGia %</strong></p>
+                                                @*<p style="word-break:break-all">@item.phanTramGiamGia</p>*@
+                                                <hr />
+                                                <div style="font-size:16px" class="content_voucher">Thời gian áp dụng: <strong> @Convert.ToDateTime(item.thoiGianBatDau).ToString("dd/MM/yyyy") - @Convert.ToDateTime(item.thoiGianKetThuc).ToString("dd/MM/yyyy")</strong></div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-success" data-dismiss="modal">
+                                                    Đóng
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                             }}
                     </tbody>
                 </table>
@@ -122,6 +116,23 @@
         </div>
     </main>
 </div>
+<script>
+    function deleteVoucher(id_voucher) {
+        Swal.fire({
+            title: 'Delete?',
+            text: "Bạn có chắc chắn xóa voucher này?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Có, hãy xóa voucher này!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = "https://localhost:44351/Voucher/Delete/" + id_voucher
+            }
+        })
+    }
+</script>
 
 
 

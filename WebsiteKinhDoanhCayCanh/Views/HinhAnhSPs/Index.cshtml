@@ -6,6 +6,7 @@
 }
 @Html.Partial("_MessageAlert")
 <link href="/Content/assets/css/css/Style1.css" rel="stylesheet" />
+
 <style>
     .image-popup {
         cursor: -webkit-zoom-in;
@@ -50,7 +51,7 @@
 
                     index = 0;
                     <div class="row_product">
-                        
+
                         @foreach (var item in Model)
                         {
                             index++;
@@ -82,7 +83,7 @@
                 }
                 <hr />
                 <div class="col-md-offset-2 col-md-10">
-                    
+
                     <a class="btn btn-info" href='@Url.Action("IndexAdmin", "SanPhams")' style="margin:10px 0px;">
                         Trở về
                     </a>

@@ -272,7 +272,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { code = 500, msg = "Lấy thông tin cá nhân thất bại:" + ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new { code = 500, msg = "Lấy thông tin cá nhân thất bại !" + ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -285,11 +285,11 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 user.FullName = name;
                 db.SaveChanges();
 
-                return Json(new { code = 200, msg = "Cật nhật tên thành công" }, JsonRequestBehavior.AllowGet);
+                return Json(new { code = 200, msg = "Cật nhật tên thành công !", typemsg = "success" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return Json(new { code = 500, msg = "Cật nhật tên thất bại:" + ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new { code = 500, msg = "Cật nhật tên thất bại !" + ex.Message, typemsg = "error" }, JsonRequestBehavior.AllowGet);
 
             }
         }
@@ -303,11 +303,11 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 user.Address = address;
                 db.SaveChanges();
 
-                return Json(new { code = 200, msg = "Cật nhật địa chỉ thành công" }, JsonRequestBehavior.AllowGet);
+                return Json(new { code = 200, msg = "Cật nhật địa chỉ thành công !", typemsg = "success" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return Json(new { code = 500, msg = "Cật nhật địa chỉ thất bại:" + ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new { code = 500, msg = "Cật nhật địa chỉ thất bại !" + ex.Message, typemsg = "error" }, JsonRequestBehavior.AllowGet);
 
             }
         }
@@ -321,11 +321,11 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 user.PhoneNumber = phone;
                 db.SaveChanges();
 
-                return Json(new { code = 200, msg = "Cật nhật số điện thoại thành công" }, JsonRequestBehavior.AllowGet);
+                return Json(new { code = 200, msg = "Cật nhật số điện thoại thành công !", typemsg = "success" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return Json(new { code = 500, msg = "Cật nhật số điện thoại thất bại:" + ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new { code = 500, msg = "Cật nhật số điện thoại thất bại !" + ex.Message, typemsg = "error" }, JsonRequestBehavior.AllowGet);
 
             }
         }
@@ -339,7 +339,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
                 {
                     user.PasswordHash = Crypto.HashPassword(newPassword);
                     db.SaveChanges();
-                    return Json(new { code = 200, msg = "Thay đổi mật khẩu thành công", typemsg = "success" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { code = 200, msg = "Thay đổi mật khẩu thành công !", typemsg = "success" }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
@@ -349,7 +349,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { code = 500, msg = "Thay đổi mật khẩu  thất bại" + ex.Message, typemsg = "error" }, JsonRequestBehavior.AllowGet);
+                return Json(new { code = 500, msg = "Thay đổi mật khẩu  thất bại !" + ex.Message, typemsg = "error" }, JsonRequestBehavior.AllowGet);
 
             }
         }

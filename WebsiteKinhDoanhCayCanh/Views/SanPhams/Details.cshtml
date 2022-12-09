@@ -6,6 +6,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     MyDataEF db = new MyDataEF();
 }
+
+<style>
+    .add-to-cart {
+        cursor: pointer;
+        color: #fff !important
+    }
+
+        .add-to-cart:hover {
+            border: 1px solid #82ae46;
+            background: transparent;
+            color: #82ae46 !important;
+        }
+</style>
+
+
 <div style="font-family: 'Sans-serif'">
     <div class="hero-wrap hero-bread" style="background-image: url('/Template/img/banner-img.jpg');opacity:0.9" ;>
         <div>
@@ -95,7 +110,6 @@
                             </p>
 
                         </div>
-                        @*<p class="price"><span style="display: flex; align-items: center;"> <price style="font-weight:bold;color:red;"> @String.Format("{0:0,0}", @Model.SanPham.gia)&#8363; </price></span></p>*@
 
                     }
                     <p>
@@ -148,9 +162,11 @@
                         <br />
                     </div>
                     <p>
-                        <a id="URL_SoLuong" href="@Url.Action("ThemGioHang", "GioHangs", new { @id = Model.SanPham.id_SP, @strURL = Request.Url.ToString(), @soLuong = 1 })" class="btn btn-primary py-3 px-4">
-                            <span><i class="icon-shopping_cart"> </i> Thêm vào giỏ hàng</span>
+                        <a onclick="AddToCart(this.id,null)" id="@Model.SanPham.id_SP" class="btn btn-primary py-3 px-4 add-to-cart">
+                            <i class="icon-shopping_cart"></i> Thêm vào giỏ hàng
                         </a>
+                        @*<a id="URL_SoLuong/1" href="@Url.Action("ThemGioHang", "GioHangs", new { @id = Model.SanPham.id_SP, @strURL = Request.Url.ToString(), @soLuong = 1 })" class="btn btn-primary py-3 px-4">
+                            </a>*@
                     </p>
                 </div>
             </div>
@@ -158,7 +174,7 @@
     </section>
 
     @{
-        var lstSP = db.SanPham.Where(p => p.id_Nhom == Model.SanPham.id_Nhom & p.soLuong>0 & p.id_SP != Model.SanPham.id_SP).ToList();
+        var lstSP = db.SanPham.Where(p => p.id_Nhom == Model.SanPham.id_Nhom & p.soLuong > 0 & p.id_SP != Model.SanPham.id_SP).ToList();
         if (lstSP.Count() > 0)
         {
             <section class="ftco-section">
@@ -202,7 +218,7 @@
                                             </div>}
                                         <div class="bottom-area d-flex px-3">
                                             <div class="m-auto d-flex">
-                                                <a href="@Url.Action("ThemGioHang", "GioHangs", new { @id = item.id_SP, @strURL = Request.Url.ToString(), @soLuong = 1 })" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                                <a onclick="AddToCart(this.id,1)" id="@item.id_SP" style="cursor:pointer" class="buy-now d-flex justify-content-center align-items-center mx-1">
                                                     <span><i class="ion-ios-cart"></i></span>
                                                 </a>
                                             </div>
@@ -214,10 +230,10 @@
                     </div>
                 </div>
             </section>
-            }
         }
+    }
 
-        <script>
+    <script>
         $(document).ready(function () {
 
             var quantitiy = 0;
@@ -246,7 +262,6 @@
                     else {
                         quantity_product++;
                         $('#quantity_product').val(quantity_product);
-                        $('#URL_SoLuong').prop('href', '/GioHangs/ThemGioHang/' + '@Model.SanPham.id_SP' + '?strURL=' + location.href + '&soLuong=' + quantity_product)
                     }
                 }
 
@@ -271,11 +286,6 @@
                 if (quantity_product > 1) {
                     quantity_product--;
                     $('#quantity_product').val(quantity_product);
-                    $('#URL_SoLuong').prop('href', '/GioHangs/ThemGioHang/' + '@Model.SanPham.id_SP' + '?strURL=' + location.href + '&soLuong=' + quantity_product)
-                }
-                else {
-                    $('#URL_SoLuong').prop('href', '/GioHangs/ThemGioHang/' + '@Model.SanPham.id_SP' + '?strURL=' + location.href + '&soLuong=' + 1)
-
                 }
             });
 
@@ -284,13 +294,11 @@
             $('#quantity_product').change(function (e) {
 
                 var quantity_product = $('#quantity_product').val();
-                $('#URL_SoLuong').prop('href', '/GioHangs/ThemGioHang/' + '@Model.SanPham.id_SP' + '?strURL=' + location.href + '&soLuong=' + quantity_product)
 
 
                 if (quantity_product <= 0 || quantity_product == '') {
                     console.log('adasdadasd')
                     $('#quantity_product').val(1);
-                    $('#URL_SoLuong').prop('href', '/GioHangs/ThemGioHang/' + '@Model.SanPham.id_SP' + '?strURL=' + location.href + '&soLuong=' + 1)
                 }
 
                 if (quantity_product > @Model.SanPham.soLuong) {
@@ -301,7 +309,6 @@
                             'warning')
 
                         $('#quantity_product').val(100);
-                        $('#URL_SoLuong').prop('href', '/GioHangs/ThemGioHang/' + '@Model.SanPham.id_SP' + '?strURL=' + location.href + '&soLuong=' + 100)
                     }
                      else {
                          Swal.fire(
@@ -310,7 +317,6 @@
                         'warning')
 
                         $('#quantity_product').val(@Model.SanPham.soLuong);
-                        $('#URL_SoLuong').prop('href', '/GioHangs/ThemGioHang/' + '@Model.SanPham.id_SP' + '?strURL=' + location.href + '&soLuong=' + @Model.SanPham.soLuong)
                      }
                 }
                 else {
@@ -321,276 +327,326 @@
                             'warning')
 
                         $('#quantity_product').val(100);
-                        $('#URL_SoLuong').prop('href', '/GioHangs/ThemGioHang/' + '@Model.SanPham.id_SP' + '?strURL=' + location.href + '&soLuong=' + 100)
                     }
                 }
             });
 
 
-
         });
-        </script>
-    </div>
-
-    <!-- Comment & đánh giá -->
-    <div class="col-lg-12" style="background: rgb(71 198 92 / 13%); margin: 40px 0; ">
-        <div class="row">
-            <div class="col-lg-6" style="padding: 30px 20px;">
-                @using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
-                    if (HttpContext.Current.User.Identity.IsAuthenticated == true && @ViewBag.ttMuaHang == 1)
-                    {
-                        <div class="form-horizontal" style="margin-bottom: 10px;">
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            <div style="margin-bottom: 10px;"> <strong style="font-size:20px">Bình Luận(@Model.SanPham.BinhLuan.Count())</strong></div>
-                            <div>
-                                <textarea name="txtContent" rows="3" style="resize:none;border:none;font-size:14px; width:100%; padding: 10px;" placeholder="Hãy để lại cảm nghĩ của bạn về sản phẩm này nhé!"></textarea>
-                            </div>
-                            <div style=" display:flex; flex-direction: row; justify-content: right;">
-                                <input type="submit" value="Send" class="btn btn-warning pull-right" />
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="form-horizontal" style="margin-bottom: 10px;">
-                            <div>
-                                <p style="font-weight: bold; color: #cd9932; font-size: 18px">Hãy để lại bình luận sau khi nhận hàng nhé!</p>
-                            </div>
-                        </div>
-                    }
 
 
-                }
-                <hr />
-                @foreach (var item in Model.BinhLuan)
-                {
-                    if (item.trangThai == true)
-                    {
-                        <div class="card p-3" style="margin-bottom: 20px;">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="user d-flex flex-row align-items-center">
-                                    <img src="https://i.imgur.com/hczKIze.jpg" width="30" class="user-img rounded-circle mr-2">
-                                    <span>
-                                        <small style="font-size: 16px;" class="font-weight-bold text-primary">@item.hoTen</small>
-                                    </span>
-                                </div> <small style="font-size: 14px;"> @Html.DisplayFor(ngaytao => item.ngayDangBinhLuan)</small>
-                            </div>
-                            <div class="action d-flex justify-content-between mt-2 align-items-center">
-                                <div class="reply px-4" style="font-size: 16px;min-width:100vw;">@Html.DisplayFor(noidung => item.noiDung)</div>
-                            </div>
-                        </div>
-                    }
-
-                }
-                <div class="col text-center">
-                    <div class="block-27">
-                        Trang @(Model.BinhLuan.PageCount < Model.BinhLuan.PageNumber ? 0 : Model.BinhLuan.PageNumber) / @Model.BinhLuan.PageCount
-                        <div style="display:flex;justify-content:center">
-                            @Html.PagedListPager(Model.BinhLuan, page => Url.Action("Details", new { page = page }))
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="col-lg-6" style="padding: 30px 20px;">
-                <div class="Te9Tpc">
-                    <div>
-                        @if (@Model.SanPham.DanhGia.Count() == 0)
-                        {
-                            <div class="jILTFe">0/5</div>
-                        }
-                        else
-                        {
-                            <div class="jILTFe">@ViewBag.updateStar/5</div>
-                        }
-                        <div role="img" class="I26one" style="display: inline-block;">
-                            <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="1" ssk="1#1">
-                                <span class="Z1Dz7b" aria-hidden="true">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                        <path d="M0 0h24v24H0z" fill="none"></path>
-                                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
-                                    </svg>
-                                </span>
-                            </span>
-                            <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="2" ssk="1#2">
-                                <span class="Z1Dz7b" aria-hidden="true">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                        <path d="M0 0h24v24H0z" fill="none"></path>
-                                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
-                                    </svg>
-                                </span>
-                            </span>
-                            <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="3" ssk="1#3">
-                                <span class="Z1Dz7b" aria-hidden="true">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                        <path d="M0 0h24v24H0z" fill="none"></path>
-                                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
-                                    </svg>
-                                </span>
-                            </span>
-                            <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="4" ssk="1#4">
-                                <span class="Z1Dz7b" aria-hidden="true">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                        <path d="M0 0h24v24H0z" fill="none"></path>
-                                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
-                                    </svg>
-                                </span>
-                            </span>
-                            <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="5" ssk="1#5">
-                                <span class="" aria-hidden="true">
-                                    <svg class="xdPrrd" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="url(#lAhE9)">
-                                        <defs>
-                                            <linearGradient id="lAhE9">
-                                                <stop stop-opacity="1" offset="50%" class="Z1Dz7b"></stop>
-                                                <stop stop-opacity="1" offset="50%" class="Wi7KIe"></stop>
-                                            </linearGradient>
-                                        </defs>
-                                        <path d="M0 0h24v24H0z" fill="none"></path>
-                                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
-                                    </svg>
-                                </span>
-                            </span>
-                        </div>
-                        <div class="EHUI5b">@Model.SanPham.DanhGia.Count() &nbsp;đánh giá</div>
-                    </div>
-                    @if (@Model.SanPham.DanhGia.Count() == 0)
-                    {
-                        <div>
-                            <div class="JzwBgb" role="img">
-                                <div aria-hidden="true" class="Qjdn7d">5</div>
-                                <div aria-hidden="true" class="RJfYGf">
-                                    <div class="RutFAf wcB8se" style="width: 0"></div>
-                                </div>
-                            </div>
-                            <div class="JzwBgb" role="img">
-                                <div aria-hidden="true" class="Qjdn7d">4</div>
-                                <div aria-hidden="true" class="RJfYGf">
-                                    <div class="RutFAf wcB8se" style="width: 0"></div>
-                                </div>
-                            </div>
-                            <div class="JzwBgb" role="img">
-                                <div aria-hidden="true" class="Qjdn7d">3</div>
-                                <div aria-hidden="true" class="RJfYGf">
-                                    <div class="RutFAf wcB8se" style="width: 0"></div>
-                                </div>
-                            </div>
-                            <div class="JzwBgb" role="img">
-                                <div aria-hidden="true" class="Qjdn7d">2</div>
-                                <div aria-hidden="true" class="RJfYGf">
-                                    <div class="RutFAf wcB8se" style="width: 0"></div>
-                                </div>
-                            </div>
-                            <div class="JzwBgb" role="img">
-                                <div aria-hidden="true" class="Qjdn7d">1</div>
-                                <div aria-hidden="true" class="RJfYGf">
-                                    <div class="RutFAf wcB8se" style="width: 0"></div>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div>
-                            <div class="JzwBgb" role="img">
-                                <div aria-hidden="true" class="Qjdn7d">5</div>
-                                <div aria-hidden="true" class="RJfYGf">
-                                    <div class="RutFAf wcB8se" style="width: @ViewBag.namSao"></div>
-                                </div>
-                            </div>
-                            <div class="JzwBgb" role="img">
-                                <div aria-hidden="true" class="Qjdn7d">4</div>
-                                <div aria-hidden="true" class="RJfYGf">
-                                    <div class="RutFAf wcB8se" style="width: @ViewBag.bonSao%"></div>
-                                </div>
-                            </div>
-                            <div class="JzwBgb" role="img">
-                                <div aria-hidden="true" class="Qjdn7d">3</div>
-                                <div aria-hidden="true" class="RJfYGf">
-                                    <div class="RutFAf wcB8se" style="width: @ViewBag.baSao%"></div>
-                                </div>
-                            </div>
-                            <div class="JzwBgb" role="img">
-                                <div aria-hidden="true" class="Qjdn7d">2</div>
-                                <div aria-hidden="true" class="RJfYGf">
-                                    <div class="RutFAf wcB8se" style="width: @ViewBag.haiSao%"></div>
-                                </div>
-                            </div>
-                            <div class="JzwBgb" role="img">
-                                <div aria-hidden="true" class="Qjdn7d">1</div>
-                                <div aria-hidden="true" class="RJfYGf">
-                                    <div class="RutFAf wcB8se" style="width: @ViewBag.motSao%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                </div>
-                <hr />
-
-                @if (ViewBag.ttDanhGia == 0 && ViewBag.ttMuaHang == 1)
-                {
-                    <div>
-                        <div><h5 style="font-weight:600;">Tạo đánh giá</h5></div>
-                        <div class="stars">
-                            @using (Html.BeginForm())
-                            {
-                                @Html.AntiForgeryToken()
-                                <input class="star star-5" id="star-5" type="radio" value="5" name="star" />
-                                <label class="star star-5" for="star-5"></label>
-                                <input class="star star-4" id="star-4" type="radio" value="4" name="star" />
-                                <label class="star star-4" for="star-4"></label>
-                                <input class="star star-3" id="star-3" type="radio" value="3" name="star" />
-                                <label class="star star-3" for="star-3"></label>
-                                <input class="star star-2" id="star-2" type="radio" value="2" name="star" />
-                                <label class="star star-2" for="star-2"></label>
-                                <input class="star star-1" id="star-1" type="radio" value="1" name="star" />
-                                <label class="star star-1" for="star-1"></label>
-                                <input type="submit" style="border-radius: 5px; border:none; padding: 5px; " value="Đánh giá" />
-                            }
-                        </div>
-                    </div>
-                }
-                else if (ViewBag.ttDanhGia == 1)
-                {
-                    <div>
-                        <h5 style="font-weight:600;text-align:center;">Bạn đã đánh giá sản phẩm này!</h5>
-                    </div>
-                }
-            </div>
-        </div>
-    </div>
-
+    </script>
     <script>
-        let slideIndex = 1;
-        showSlides(slideIndex);
+        function AddToCart(id_SP, soLuong) {
 
-        function plusSlides(n) {
-            showSlides((slideIndex += n));
-        }
+            if (window.FormData !== undefined) {
 
-        function currentSlide(n) {
-            showSlides((slideIndex = n));
-        }
 
-        function showSlides(n) {
-            let i;
-            let slides = document.getElementsByClassName("mySlides_product");
-            let dots = document.getElementsByClassName("miniImg");
-            if (n > slides.length) {
-                slideIndex = 1;
+                var formData = new FormData();
+                formData.append('id', id_SP);
+                if (soLuong == null) {
+                    var quantity_product = parseInt($('#quantity_product').val());
+                    formData.append('soLuong', quantity_product);
+                }
+                else {
+                    formData.append('soLuong', soLuong);
+                }
+
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: '/GioHangs/AddToCart',
+                        contentType: false,
+                        processData: false,
+                        data: formData,
+                        success: function (message) {
+                            if (message != "existed") {
+                                document.getElementById('cart').innerHTML = message;
+                                Swal.fire(
+                                    "Thông báo!",
+                                    "Thêm vào giỏ hàng thành công!",
+                                    "success"
+                                )
+                            } else {
+                                Swal.fire(
+                                    "Thông báo!",
+                                    "Sản phẩm này đã có trong giỏ hàng!",
+                                    "warning"
+                                )
+                            }
+                        },
+                        error: function (err) {
+                            Swal.fire(
+                                "Thông báo!",
+                                "Có lỗi xảy ra, vui lòng thử lại!",
+                                "error"
+                            )
+                        }
+                    });
             }
-            if (n < 1) {
-                slideIndex = slides.length;
-            }
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
-            }
-            slides[slideIndex - 1].style.display = "block";
-            dots[slideIndex - 1].className += " active";
         }
     </script>
+</div>
+
+<!-- Comment & đánh giá -->
+<div class="col-lg-12" style="background: rgb(71 198 92 / 13%); margin: 40px 0; ">
+    <div class="row">
+        <div class="col-lg-6" style="padding: 30px 20px;">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                if (HttpContext.Current.User.Identity.IsAuthenticated == true && @ViewBag.ttMuaHang == 1)
+                {
+                    <div class="form-horizontal" style="margin-bottom: 10px;">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div style="margin-bottom: 10px;"> <strong style="font-size:20px">Bình Luận(@Model.SanPham.BinhLuan.Count())</strong></div>
+                        <div>
+                            <textarea name="txtContent" rows="3" style="resize:none;border:none;font-size:14px; width:100%; padding: 10px;" placeholder="Hãy để lại cảm nghĩ của bạn về sản phẩm này nhé!"></textarea>
+                        </div>
+                        <div style=" display:flex; flex-direction: row; justify-content: right;">
+                            <input type="submit" value="Send" class="btn btn-warning pull-right" />
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-horizontal" style="margin-bottom: 10px;">
+                        <div>
+                            <p style="font-weight: bold; color: #cd9932; font-size: 18px">Hãy để lại bình luận sau khi nhận hàng nhé!</p>
+                        </div>
+                    </div>
+                }
+
+
+            }
+            <hr />
+            @foreach (var item in Model.BinhLuan)
+            {
+                if (item.trangThai == true)
+                {
+                    <div class="card p-3" style="margin-bottom: 20px;">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="user d-flex flex-row align-items-center">
+                                <img src="https://i.imgur.com/hczKIze.jpg" width="30" class="user-img rounded-circle mr-2">
+                                <span>
+                                    <small style="font-size: 16px;" class="font-weight-bold text-primary">@item.hoTen</small>
+                                </span>
+                            </div> <small style="font-size: 14px;"> @Html.DisplayFor(ngaytao => item.ngayDangBinhLuan)</small>
+                        </div>
+                        <div class="action d-flex justify-content-between mt-2 align-items-center">
+                            <div class="reply px-4" style="font-size: 16px;min-width:100vw;">@Html.DisplayFor(noidung => item.noiDung)</div>
+                        </div>
+                    </div>
+                }
+
+            }
+            <div class="col text-center">
+                <div class="block-27">
+                    Trang @(Model.BinhLuan.PageCount < Model.BinhLuan.PageNumber ? 0 : Model.BinhLuan.PageNumber) / @Model.BinhLuan.PageCount
+                    <div style="display:flex;justify-content:center">
+                        @Html.PagedListPager(Model.BinhLuan, page => Url.Action("Details", new { page = page }))
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-6" style="padding: 30px 20px;">
+            <div class="Te9Tpc">
+                <div>
+                    @if (@Model.SanPham.DanhGia.Count() == 0)
+                    {
+                        <div class="jILTFe">0/5</div>
+                    }
+                    else
+                    {
+                        <div class="jILTFe">@ViewBag.updateStar/5</div>
+                    }
+                    <div role="img" class="I26one" style="display: inline-block;">
+                        <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="1" ssk="1#1">
+                            <span class="Z1Dz7b" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                                </svg>
+                            </span>
+                        </span>
+                        <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="2" ssk="1#2">
+                            <span class="Z1Dz7b" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                                </svg>
+                            </span>
+                        </span>
+                        <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="3" ssk="1#3">
+                            <span class="Z1Dz7b" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                                </svg>
+                            </span>
+                        </span>
+                        <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="4" ssk="1#4">
+                            <span class="Z1Dz7b" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                                </svg>
+                            </span>
+                        </span>
+                        <span aria-hidden="true" jsname="fI6EEc" class="deXnLd" data-number="5" ssk="1#5">
+                            <span class="" aria-hidden="true">
+                                <svg class="xdPrrd" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="url(#lAhE9)">
+                                    <defs>
+                                        <linearGradient id="lAhE9">
+                                            <stop stop-opacity="1" offset="50%" class="Z1Dz7b"></stop>
+                                            <stop stop-opacity="1" offset="50%" class="Wi7KIe"></stop>
+                                        </linearGradient>
+                                    </defs>
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+                                </svg>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="EHUI5b">@Model.SanPham.DanhGia.Count() &nbsp;đánh giá</div>
+                </div>
+                @if (@Model.SanPham.DanhGia.Count() == 0)
+                {
+                    <div>
+                        <div class="JzwBgb" role="img">
+                            <div aria-hidden="true" class="Qjdn7d">5</div>
+                            <div aria-hidden="true" class="RJfYGf">
+                                <div class="RutFAf wcB8se" style="width: 0"></div>
+                            </div>
+                        </div>
+                        <div class="JzwBgb" role="img">
+                            <div aria-hidden="true" class="Qjdn7d">4</div>
+                            <div aria-hidden="true" class="RJfYGf">
+                                <div class="RutFAf wcB8se" style="width: 0"></div>
+                            </div>
+                        </div>
+                        <div class="JzwBgb" role="img">
+                            <div aria-hidden="true" class="Qjdn7d">3</div>
+                            <div aria-hidden="true" class="RJfYGf">
+                                <div class="RutFAf wcB8se" style="width: 0"></div>
+                            </div>
+                        </div>
+                        <div class="JzwBgb" role="img">
+                            <div aria-hidden="true" class="Qjdn7d">2</div>
+                            <div aria-hidden="true" class="RJfYGf">
+                                <div class="RutFAf wcB8se" style="width: 0"></div>
+                            </div>
+                        </div>
+                        <div class="JzwBgb" role="img">
+                            <div aria-hidden="true" class="Qjdn7d">1</div>
+                            <div aria-hidden="true" class="RJfYGf">
+                                <div class="RutFAf wcB8se" style="width: 0"></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        <div class="JzwBgb" role="img">
+                            <div aria-hidden="true" class="Qjdn7d">5</div>
+                            <div aria-hidden="true" class="RJfYGf">
+                                <div class="RutFAf wcB8se" style="width: @ViewBag.namSao"></div>
+                            </div>
+                        </div>
+                        <div class="JzwBgb" role="img">
+                            <div aria-hidden="true" class="Qjdn7d">4</div>
+                            <div aria-hidden="true" class="RJfYGf">
+                                <div class="RutFAf wcB8se" style="width: @ViewBag.bonSao%"></div>
+                            </div>
+                        </div>
+                        <div class="JzwBgb" role="img">
+                            <div aria-hidden="true" class="Qjdn7d">3</div>
+                            <div aria-hidden="true" class="RJfYGf">
+                                <div class="RutFAf wcB8se" style="width: @ViewBag.baSao%"></div>
+                            </div>
+                        </div>
+                        <div class="JzwBgb" role="img">
+                            <div aria-hidden="true" class="Qjdn7d">2</div>
+                            <div aria-hidden="true" class="RJfYGf">
+                                <div class="RutFAf wcB8se" style="width: @ViewBag.haiSao%"></div>
+                            </div>
+                        </div>
+                        <div class="JzwBgb" role="img">
+                            <div aria-hidden="true" class="Qjdn7d">1</div>
+                            <div aria-hidden="true" class="RJfYGf">
+                                <div class="RutFAf wcB8se" style="width: @ViewBag.motSao%"></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <hr />
+
+            @if (ViewBag.ttDanhGia == 0 && ViewBag.ttMuaHang == 1)
+            {
+                <div>
+                    <div><h5 style="font-weight:600;">Tạo đánh giá</h5></div>
+                    <div class="stars">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            <input class="star star-5" id="star-5" type="radio" value="5" name="star" />
+                            <label class="star star-5" for="star-5"></label>
+                            <input class="star star-4" id="star-4" type="radio" value="4" name="star" />
+                            <label class="star star-4" for="star-4"></label>
+                            <input class="star star-3" id="star-3" type="radio" value="3" name="star" />
+                            <label class="star star-3" for="star-3"></label>
+                            <input class="star star-2" id="star-2" type="radio" value="2" name="star" />
+                            <label class="star star-2" for="star-2"></label>
+                            <input class="star star-1" id="star-1" type="radio" value="1" name="star" />
+                            <label class="star star-1" for="star-1"></label>
+                            <input type="submit" style="border-radius: 5px; border:none; padding: 5px; " value="Đánh giá" />
+                        }
+                    </div>
+                </div>
+            }
+            else if (ViewBag.ttDanhGia == 1)
+            {
+                <div>
+                    <h5 style="font-weight:600;text-align:center;">Bạn đã đánh giá sản phẩm này!</h5>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides((slideIndex += n));
+    }
+
+    function currentSlide(n) {
+        showSlides((slideIndex = n));
+    }
+
+    function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("mySlides_product");
+        let dots = document.getElementsByClassName("miniImg");
+        if (n > slides.length) {
+            slideIndex = 1;
+        }
+        if (n < 1) {
+            slideIndex = slides.length;
+        }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+    }
+</script>

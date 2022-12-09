@@ -32,7 +32,7 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
         {
             if (!AuthAdmin())
                 return RedirectToAction("Error401", "Admin");
-            ViewBag.Keyword = searchString;            
+            ViewBag.Keyword = searchString;
             return View(CachChamSoc.getAll(searchString));
         }
         // GET: Details
@@ -73,17 +73,17 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             {
                 if (db.CachChamSoc.Where(p => p.id_CCS == cachChamSoc.id_CCS).FirstOrDefault() != null)
                 {
-                    Notification.set_flash("Đã tồn tại!", "error");
+                    Notification.set_flash("Mã cách chăm sóc đã tồn tại!", "error");
                     return RedirectToAction("Create", "CachChamSoc");
                 }
                 else
                 {
                     db.CachChamSoc.Add(cachChamSoc);
                     db.SaveChanges();
-                    Notification.set_flash("Thêm thành công", "success");
+                    Notification.set_flash("Thêm cách chăm sóc thành công", "success");
                     return RedirectToAction("Index");
                 }
-                
+
             }
             return View(cachChamSoc);
         }
@@ -118,39 +118,32 @@ namespace WebsiteKinhDoanhCayCanh.Controllers
             {
                 db.Entry(cachChamSoc).State = EntityState.Modified;
                 db.SaveChanges();
+                Notification.set_flash("Cập nhật cách chăm sóc thành công!", "success");
                 return RedirectToAction("Index");
-            }
-            return View(cachChamSoc);
-        }
-        // GET: Delete
-        public ActionResult Delete(string id)
-        {
-            if (!AuthAdmin())
-                return RedirectToAction("Error401", "Admin");
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CachChamSoc cachChamSoc = db.CachChamSoc.Find(id);
-            if (cachChamSoc == null)
-            {
-                return HttpNotFound();
             }
             return View(cachChamSoc);
         }
 
         // POST: Delete
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        [Authorize]
+        public ActionResult Delete(string id)
         {
-            if (!AuthAdmin())
-                return RedirectToAction("Error401", "Admin");
-            CachChamSoc cachChamSoc = db.CachChamSoc.Find(id);        
-            db.CachChamSoc.Remove(cachChamSoc);
-            Notification.set_flash("Đã xoá  thành công !", "success");
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            CachChamSoc cachChamSoc = db.CachChamSoc.Find(id);
+            try
+            {
+                if (!AuthAdmin())
+                    return RedirectToAction("Error401", "Admin");
+                Notification.set_flash("Đã xoá cách chăm sóc \' " + cachChamSoc.tenCCS + " \'!", "success");
+                db.CachChamSoc.Remove(cachChamSoc);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                Notification.set_flash("Không thể xoá cách chăm sóc \' " + cachChamSoc.tenCCS + " \'!", "error");
+                return RedirectToAction("Index");
+            }
+
         }
 
         public bool AuthAdmin()

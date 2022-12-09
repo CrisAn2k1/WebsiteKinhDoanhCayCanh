@@ -8,7 +8,7 @@
 <style>
     .signup-form {
         background-color: #f3efea;
-        padding: 10px 45px;
+        padding: 10px 75px 30px;
         border-radius: 5px;
         font-family: 'Raleway', sans-serif;
     }
@@ -19,6 +19,13 @@
 
     .col-md-10 {
         max-width: 100% !important;
+    }
+    .form-group{
+        padding-top:10px;
+    }
+    .col-md-10{
+        padding:5px 0;
+        width:100%;
     }
 </style>
 
@@ -42,7 +49,7 @@
                         <hr />
                         <div class="form-group">
                             <strong class="control-label col-md-2">Tên sản phẩm</strong>
-
+                            <br />
                             <div class="col-md-10">
                                 @Html.EditorFor(model => model.tenSP, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.tenSP, "", new { @class = "text-danger" })
@@ -81,30 +88,26 @@
                                 @Html.ValidationMessageFor(model => model.DVT, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
                         <div class="form-group">
                             <strong class="control-label col-md-2">Giảm giá</strong>
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.phanTramGiamGia, new { htmlAttributes = new { @class = "form-control" } })
+                                <input type="number" class="form-control" name="phanTramGiamGia" value="@Model.phanTramGiamGia" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').replace('.','');" />
                                 @Html.ValidationMessageFor(model => model.phanTramGiamGia, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
                             <strong class="control-label col-md-2">Cách trồng</strong>
                             <div class="col-md-10">
-                                @*@Html.EditorFor(model => model.ThongTinThemVeSP.cachTrong, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.ThongTinThemVeSP.cachTrong, "", new { @class = "text-danger" })*@
-                                <input type="text" name="cachTrong" class="form-control" value="@Model.ThongTinThemVeSP.cachTrong">
+                                <input type="text" name="cachTrong" class="form-control" value="@ViewBag.cachTrong.Trim()">
                             </div>
                         </div>
                         <div class="form-group">
                             <strong class="control-label col-md-2">Công dụng</strong>
                             <div class="col-md-10">
-                                @*@Html.EditorFor(model => model.ThongTinThemVeSP.congDung, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.ThongTinThemVeSP.congDung, "", new { @class = "text-danger" })*@
-                                <input type="text" name="congDung" class="form-control" value="@Model.ThongTinThemVeSP.congDung">
+                                <input type="text" name="congDung" class="form-control" value="@ViewBag.congDung.Trim()">
                             </div>
                         </div>
+
                         <div class="form-group">
                             <strong class="control-label col-md-2">Nhóm sản phẩm</strong>
                             <div class="col-md-10">
@@ -162,45 +165,10 @@
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
                                 <input type="submit" value="Lưu" class="btn btn-info" />
-                                
                             </div>
                         </div>
                     </div>
                 </div>
-            }
-            @section upload
-{
-                <script>
-                    $(function () {
-                        $('#btnUpload').click(function () {
-                            $('#fileUpload').trigger('click');
-                        });
-                    });
-                    $('#fileUpload').change(function () {
-                        if (window.FormData !== undefined) {
-                            var fileUpload = $('#fileUpload').get(0);
-                            var files = fileUpload.files;
-                            var formData = new FormData();
-                            formData.append('file', files[0]);
-
-                            $.ajax(
-                                {
-                                    type: 'POST',
-                                    url: '/SanPhams/ProcessUpload',
-                                    contentType: false,
-                                    processData: false,
-                                    data: formData,
-                                    success: function (urlImage) {
-
-                                        $('#pictureUpload').attr('src', urlImage);
-                                        $('#Hinh').val(urlImage);
-                                    },
-                                    error: function (err) {
-                                        alert('Error ', err.statusText);
-                                    }
-                                });
-                        }
-                    });</script>
             }
         </div>
     </main>
