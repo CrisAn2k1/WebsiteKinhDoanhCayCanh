@@ -136,271 +136,271 @@
     @*<div class="searchForm">
             <input class="search-form" type="search" placeholder="Tìm kiếm theo tên sản phẩm" />
         </div>*@
-    <div class="listDonHang">
-        <div class="listDonHangs active">
-            @foreach (var item in Model.listDonHang)
-            {
-                <div class="list-order">
+<div class="listDonHang">
+    <div class="listDonHangs active">
+        @foreach (var item in Model.listDonHang)
+        {
+            <div class="list-order">
 
-                    <div class="table-order">
-                        <div class="header-order">
-                            <p style="color: black; padding-left: 10px;">Mã đơn hàng: @item.id_DH</p>
-                            @if (item.trangThaiGiaoHang.ToString() == "1")
-                            {
-                                <h5 style="border-left: solid 1px; padding-left: 15px;font-weight:bold;color:#449744 ; ">Đã giao</h5>
-                            }
-                            else if (item.trangThaiGiaoHang.ToString() == "2")
-                            {
-                                <h5 style="border-left: solid 1px; padding-left: 15px;font-weight:bold;color:red ">Đơn bị hủy</h5>
-                            }
-                            else
-                            {
-                                <h5 style="border-left: solid 1px; padding-left: 15px;font-weight:bold;color:orange; ">Đang giao</h5>
-                            }
-                        </div>
-                        <hr />
-                        <table style="width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th>Hình Ảnh</th>
-
-                                    <th style="width: 40%;">Sản Phẩm</th>
-
-                                    <th>Số Lượng</th>
-
-                                    <th>Đơn Giá</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var i in Model.chiTietDonHangs)
-                                {
-                                    if (i.id_DH == item.id_DH)
-                                    {
-                                        <tr style="border-top: solid 0.5px; border-color:rgb(128 128 128 / 0.27); ">
-                                            <td class="a"><img src="@db.HinhAnhSP.Where(p=>p.id_SP==i.id_SP).FirstOrDefault().duongDan" alt="Alternate Text" width="50" /></td>
-                                           
-                                            <td>@i.SanPham.tenSP</td>
-                                          
-                                            <td>@i.soLuong</td>
-
-                                            <td>@String.Format("{0:0,0}", i.SanPham.gia) VNĐ</td>
-                                        </tr>
-                                    }
-                                }
-
-                            </tbody>
-
-                        </table>
-                        <hr />
-                        <div class="footer-order">
-                            @if (item.trangThaiGiaoHang.ToString() == "2")
-                            {
-                                <input type="button" style="border: none; background: #dbcc8f;" value="Mua lại" />
-                            }
-                            &emsp;
-                            <a href="@Url.Action("Contact","Home")" style="border: none;">Liên hệ cửa hàng</a>
-                        </div>
-                    </div>
-                </div>
-
-            }
-            @if (ViewBag.numberDonHang == 0)
-            {
-                <div class="list-order">
-                    <div class="table-order" style="display: flex; justify-content: center; align-items: center;">
-                        <p>
-                            Hiện tại bạn không có đơn hàng nào
-                        </p>
-                    </div>
-                </div>
-            }
-        </div>
-        <div class="listDonHangs">
-            @foreach (var item in Model.listDonHangDaGiao)
-            {
-                <div class="list-order">
-
-                    <div class="table-order">
-                        <div class="header-order">
-                            <p style="color: black; padding-left: 10px;">Mã đơn hàng: @item.id_DH</p>
-                            <h5 style="border-left: solid 1px; padding-left: 15px;font-weight:bold;color:#449744; ">Đã giao</h5>
-                        </div>
-                        <hr />
-                        <table style="width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th>Hình Ảnh</th>
-
-                                    <th style="width: 40%;">Sản Phẩm</th>
-
-                                    <th>Số Lượng mua</th>
-
-                                    <th>Đơn Giá</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var i in Model.chiTietDonHangs)
-                                {
-                                    if (i.id_DH == item.id_DH)
-                                    {
-                                <tr style="border-top: solid 0.5px; border-color:rgb(128 128 128 / 0.27); ">
-                                    <td class="a"><img src="@db.HinhAnhSP.Where(p=>p.id_SP==i.id_SP).FirstOrDefault().duongDan" alt="Alternate Text" width="50" /></td>
-
-                                    <td>@i.SanPham.tenSP</td>
-
-                                    <td>@i.soLuong</td>
-
-                                    <td>@String.Format("{0:0,0}", i.SanPham.gia) VNĐ</td>
-                                </tr>
-                                    }
-                                }
-
-                            </tbody>
-
-                        </table>
-                        <hr />
-                        <div class="footer-order">
-                            <a href="@Url.Action("Contact","Home")" style="border: none;">Liên hệ cửa hàng</a>
-                        </div>
-                    </div>
-                </div>
-            }
-            @if (ViewBag.numberDonHangDaGiao == 0)
-            {
-                <div class="list-order">
-                    <div class="table-order" style="display: flex; justify-content: center; align-items: center;">
-                        <p>
-                            Hiện tại bạn không có đơn hàng nào đã giao!
-                        </p>
-                    </div>
-                </div>
-            }
-        </div>
-        <div class="listDonHangs">
-            @foreach (var item in Model.listDonHangDangGiao)
-            {
-                <div class="list-order">
-
-                    <div class="table-order">
-                        <div class="header-order">
-                            <p style="color: black; padding-left: 10px;">Mã đơn hàng: @item.id_DH</p>
-                            <h5 style="border-left: solid 1px; padding-left: 15px;font-weight:bold;color:orange; ">Đang giao</h5>
-                        </div>
-                        <hr />
-                        <table style="width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th>Hình Ảnh</th>
-
-                                    <th style="width: 40%;">Sản Phẩm</th>
-
-                                    <th >Số Lượng</th>
-
-                                    <th >Đơn Giá</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var i in Model.chiTietDonHangs)
-                                {
-                                    if (i.id_DH == item.id_DH)
-                                    {
-                                        <tr style="border-top: solid 0.5px; border-color:rgb(128 128 128 / 0.27); ">
-                                            <td class="a"><img src="@db.HinhAnhSP.Where(p=>p.id_SP==i.id_SP).FirstOrDefault().duongDan" alt="Alternate Text" width="50" /></td>
-                                            
-                                            <td>@i.SanPham.tenSP</td>
-                                           
-                                            <td>@i.soLuong</td>
-
-                                            <td>@String.Format("{0:0,0}", i.SanPham.gia) VNĐ</td>
-                                        </tr>
-                                    }
-                                }
-
-                            </tbody>
-
-                        </table>
-                        <hr />
-                        <div class="footer-order">
-                            <a href="@Url.Action("Contact","Home")" style="border: none;">Liên hệ cửa hàng</a>
-                        </div>
-                    </div>
-                </div>
-            }
-            @if (ViewBag.numberDonHangDangGiao == 0)
-            {
-                <div class="list-order">
-                    <div class="table-order" style="display: flex; justify-content: center; align-items: center;">
-                        <p>
-                            Hiện tại bạn không có đơn hàng nào đang giao!
-                        </p>
-                    </div>
-                </div>
-            }
-        </div>
-        <div class="listDonHangs">
-            @foreach (var item in Model.listDonHangDaHuy)
-            {
-                <div class="list-order">
-
-                    <div class="table-order">
-                        <div class="header-order">
-                            <p style="color: black; padding-left: 10px;">Mã đơn hàng: @item.id_DH</p>
+                <div class="table-order">
+                    <div class="header-order">
+                        <p style="color: black; padding-left: 10px;">Mã đơn hàng: @item.id_DH</p>
+                        @if (item.trangThaiGiaoHang.ToString() == "1")
+                        {
+                            <h5 style="border-left: solid 1px; padding-left: 15px;font-weight:bold;color:#449744 ; ">Đã giao</h5>
+                        }
+                        else if (item.trangThaiGiaoHang.ToString() == "2")
+                        {
                             <h5 style="border-left: solid 1px; padding-left: 15px;font-weight:bold;color:red ">Đơn bị hủy</h5>
-                        </div>
-                        <hr />
-                        <table style="width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th>Hình Ảnh</th>
+                        }
+                        else
+                        {
+                            <h5 style="border-left: solid 1px; padding-left: 15px;font-weight:bold;color:orange; ">Đang giao</h5>
+                        }
+                    </div>
+                    <hr />
+                    <table style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Hình Ảnh</th>
 
-                                    <th style="width: 40%;">Sản Phẩm</th>
+                                <th style="width: 40%;">Sản Phẩm</th>
 
-                                    <th >Số Lượng mua</th>
+                                <th>Số Lượng</th>
 
-                                    <th >Đơn Giá</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var i in Model.chiTietDonHangs)
+                                <th>Đơn Giá</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var i in Model.chiTietDonHangs)
+                            {
+                                if (i.id_DH == item.id_DH)
                                 {
-                                    if (i.id_DH == item.id_DH)
-                                    {
-                                        <tr style="border-top: solid 0.5px; border-color:rgb(128 128 128 / 0.27); ">
-                                            <td class="a"><img src="@db.HinhAnhSP.Where(p=>p.id_SP==i.id_SP).FirstOrDefault().duongDan" alt="Alternate Text" width="50" /></td>
-                                        
-                                            <td>@i.SanPham.tenSP</td>
-                                            
-                                            <td>@i.soLuong</td>
+                                    <tr style="border-top: solid 0.5px; border-color:rgb(128 128 128 / 0.27); ">
+                                        <td class="a"><img src="@db.HinhAnhSP.Where(p=>p.id_SP==i.id_SP).FirstOrDefault().duongDan" alt="Alternate Text" width="50" /></td>
 
-                                            <td>@String.Format("{0:0,0}", i.SanPham.gia) VNĐ</td>
-                                        </tr>
-                                    }
+                                        <td><a href="/SanPhams/Details/@i.id_SP">@i.SanPham.tenSP</a> </td>
+
+                                        <td>@i.soLuong</td>
+
+                                        <td style="color:red;font-weight:bold">@String.Format("{0:0,0}", i.thanhTien) VNĐ</td>
+                                    </tr>
                                 }
+                            }
 
-                            </tbody>
+                        </tbody>
 
-                        </table>
-                        <hr />
-                        <div class="footer-order">
-                            <a href="@Url.Action("Details","SanPhams")" style="border: none;">Mua lại</a>
-                            &emsp;
-                            <a href="@Url.Action("Contact","Home")" style="border: none;">Liên hệ cửa hàng</a>
-                        </div>
+                    </table>
+                    <hr />
+                    <div class="footer-order">
+                        @if (item.trangThaiGiaoHang.ToString() == "2")
+                        {
+                            <input type="button" style="border: none; background: #dbcc8f;" value="Mua lại" />
+                        }
+                        &emsp;
+                        <a href="@Url.Action("Contact","Home")" style="border: none;">Liên hệ cửa hàng</a>
                     </div>
                 </div>
-            }
-            @if (ViewBag.numberDonHangDaHuy == 0)
-            {
-                <div class="list-order">
-                    <div class="table-order" style="display: flex; justify-content: center; align-items: center;">
-                        <p>
-                            Hiện tại bạn không có đơn hàng hủy nào!
-                        </p>
-                    </div>
+            </div>
+
+        }
+        @if (ViewBag.numberDonHang == 0)
+        {
+            <div class="list-order">
+                <div class="table-order" style="display: flex; justify-content: center; align-items: center;">
+                    <p>
+                        Hiện tại bạn không có đơn hàng nào
+                    </p>
                 </div>
-            }
-        </div>
+            </div>
+        }
     </div>
+    <div class="listDonHangs">
+        @foreach (var item in Model.listDonHangDaGiao)
+        {
+            <div class="list-order">
+
+                <div class="table-order">
+                    <div class="header-order">
+                        <p style="color: black; padding-left: 10px;">Mã đơn hàng: @item.id_DH</p>
+                        <h5 style="border-left: solid 1px; padding-left: 15px;font-weight:bold;color:#449744; ">Đã giao</h5>
+                    </div>
+                    <hr />
+                    <table style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Hình Ảnh</th>
+
+                                <th style="width: 40%;">Sản Phẩm</th>
+
+                                <th>Số Lượng mua</th>
+
+                                <th>Đơn Giá</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var i in Model.chiTietDonHangs)
+                            {
+                                if (i.id_DH == item.id_DH)
+                                {
+                                    <tr style="border-top: solid 0.5px; border-color:rgb(128 128 128 / 0.27); ">
+                                        <td class="a"><img src="@db.HinhAnhSP.Where(p=>p.id_SP==i.id_SP).FirstOrDefault().duongDan" alt="Alternate Text" width="50" /></td>
+
+                                        <td><a href="/SanPhams/Details/@i.id_SP">@i.SanPham.tenSP</a> </td>
+
+                                        <td>@i.soLuong</td>
+
+                                        <td style="color:red;font-weight:bold">@String.Format("{0:0,0}", i.thanhTien) VNĐ</td>
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+
+                    </table>
+                    <hr />
+                    <div class="footer-order">
+                        <a href="@Url.Action("Contact","Home")" style="border: none;">Liên hệ cửa hàng</a>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (ViewBag.numberDonHangDaGiao == 0)
+        {
+            <div class="list-order">
+                <div class="table-order" style="display: flex; justify-content: center; align-items: center;">
+                    <p>
+                        Hiện tại bạn không có đơn hàng nào đã giao!
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="listDonHangs">
+        @foreach (var item in Model.listDonHangDangGiao)
+        {
+            <div class="list-order">
+
+                <div class="table-order">
+                    <div class="header-order">
+                        <p style="color: black; padding-left: 10px;">Mã đơn hàng: @item.id_DH</p>
+                        <h5 style="border-left: solid 1px; padding-left: 15px;font-weight:bold;color:orange; ">Đang giao</h5>
+                    </div>
+                    <hr />
+                    <table style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Hình Ảnh</th>
+
+                                <th style="width: 40%;">Sản Phẩm</th>
+
+                                <th>Số Lượng</th>
+
+                                <th>Đơn Giá</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var i in Model.chiTietDonHangs)
+                            {
+                                if (i.id_DH == item.id_DH)
+                                {
+                                    <tr style="border-top: solid 0.5px; border-color:rgb(128 128 128 / 0.27); ">
+                                        <td class="a"><img src="@db.HinhAnhSP.Where(p=>p.id_SP==i.id_SP).FirstOrDefault().duongDan" alt="Alternate Text" width="50" /></td>
+
+                                        <td><a href="/SanPhams/Details/@i.id_SP">@i.SanPham.tenSP</a> </td>
+
+                                        <td>@i.soLuong</td>
+
+                                        <td style="color:red;font-weight:bold">@String.Format("{0:0,0}", i.thanhTien) VNĐ</td>
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+
+                    </table>
+                    <hr />
+                    <div class="footer-order">
+                        <a href="@Url.Action("Contact","Home")" style="border: none;">Liên hệ cửa hàng</a>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (ViewBag.numberDonHangDangGiao == 0)
+        {
+            <div class="list-order">
+                <div class="table-order" style="display: flex; justify-content: center; align-items: center;">
+                    <p>
+                        Hiện tại bạn không có đơn hàng nào đang giao!
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="listDonHangs">
+        @foreach (var item in Model.listDonHangDaHuy)
+        {
+            <div class="list-order">
+
+                <div class="table-order">
+                    <div class="header-order">
+                        <p style="color: black; padding-left: 10px;">Mã đơn hàng: @item.id_DH</p>
+                        <h5 style="border-left: solid 1px; padding-left: 15px;font-weight:bold;color:red ">Đơn bị hủy</h5>
+                    </div>
+                    <hr />
+                    <table style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Hình Ảnh</th>
+
+                                <th style="width: 40%;">Sản Phẩm</th>
+
+                                <th>Số Lượng mua</th>
+
+                                <th>Đơn Giá</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var i in Model.chiTietDonHangs)
+                            {
+                                if (i.id_DH == item.id_DH)
+                                {
+                                    <tr style="border-top: solid 0.5px; border-color:rgb(128 128 128 / 0.27); ">
+                                        <td class="a"><img src="@db.HinhAnhSP.Where(p=>p.id_SP==i.id_SP).FirstOrDefault().duongDan" alt="Alternate Text" width="50" /></td>
+
+                                        <td><a href="/SanPhams/Details/@i.id_SP">@i.SanPham.tenSP</a> </td>
+
+                                        <td>@i.soLuong</td>
+
+                                        <td style="color:red;font-weight:bold">@String.Format("{0:0,0}", i.thanhTien) VNĐ</td>
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+
+                    </table>
+                    <hr />
+                    <div class="footer-order">
+                        <a href="@Url.Action("Details","SanPhams")" style="border: none;">Mua lại</a>
+                        &emsp;
+                        <a href="@Url.Action("Contact","Home")" style="border: none;">Liên hệ cửa hàng</a>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (ViewBag.numberDonHangDaHuy == 0)
+        {
+            <div class="list-order">
+                <div class="table-order" style="display: flex; justify-content: center; align-items: center;">
+                    <p>
+                        Hiện tại bạn không có đơn hàng hủy nào!
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
 </div>
 
 <script>

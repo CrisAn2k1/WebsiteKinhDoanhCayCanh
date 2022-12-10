@@ -37,7 +37,7 @@
                     <dt><hr /></dt>
                     <dd><hr /></dd>
                     <dt></dt>
-                    <dd><p style="color:forestgreen">THÔNG TIN ĐƠN HÀNG</p></dd>
+                    <dd><p style="color:forestgreen;font-weight:500">THÔNG TIN ĐƠN HÀNG</p></dd>
                     <dt>Khách hàng: </dt>
                     <dd>
                         @Html.EditorFor(model => model.id_User, new { htmlAttributes = new { @class = "form-control", @style = "display:none" } })
@@ -57,7 +57,7 @@
                     </dd>
                     <dt>Ngày đặt:</dt>
                     <dd>
-                        @Convert.ToDateTime(Model.ngayGiao).ToString("dd-MM-yyyy")
+                        @Convert.ToDateTime(Model.ngayDat).ToString("dd-MM-yyyy")
                     </dd>
                     <dt>Tổng tiền: </dt>
                     <dd style="font-weight:bold;color:red">
@@ -76,7 +76,7 @@
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.id_DH)
-                    <p style="color:forestgreen">CẬP NHẬT ĐƠN HÀNG</p>
+                    <p style="color:forestgreen;font-weight:500">CẬP NHẬT ĐƠN HÀNG</p>
                     <strong class="control-label ">Trạng thái giao hàng</strong>
                     <div>
                         <div class="checkbox" style="width:100px">
