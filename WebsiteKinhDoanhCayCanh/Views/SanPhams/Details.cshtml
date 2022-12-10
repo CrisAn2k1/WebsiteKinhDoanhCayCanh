@@ -80,20 +80,16 @@
                 <div class="col-lg-6 product-details pl-md-5 ftco-animate">
                     <h3 style="font-family:  'Lora', Georgia, serif; font-weight:bold">@Model.SanPham.tenSP</h3>
                     <div class="rating d-flex">
-                        <p class="text-left mr-4">
-                            <a href="#" class="mr-2">5.0</a>
-                            <a href="#"><span class="ion-ios-star-outline"></span></a>
-                            <a href="#"><span class="ion-ios-star-outline"></span></a>
-                            <a href="#"><span class="ion-ios-star-outline"></span></a>
-                            <a href="#"><span class="ion-ios-star-outline"></span></a>
-                            <a href="#"><span class="ion-ios-star-outline"></span></a>
+                        <p class="text-left mr-4" style="font-size:17px">
+                            <a style="font-weight:bold;color:red" class="mr-2">@ViewBag.updateStar/5.0</a>
+                            <a style="color: #e6d530"><span class="ion-ios-star"></span></a>
                         </p>
-                        <p class="text-left mr-4">
-                            <a href="#" class="mr-2" style="color: #000;">100 <span style="color: #bbb;">Rating</span></a>
+                        <p class="text-left mr-4" style="font-size:17px">
+                            <a href="#" class="mr-2" style="color: #000;"><strong> @Model.SanPham.DanhGia.Count()</strong><span style="color: #bbb;">&ensp;Đánh giá</span></a>
                         </p>
-                        <p class="text-left">
+                        @*<p class="text-left">
                             <a href="#" class="mr-2" style="color: #000;">500 <span style="color: #bbb;">Sold</span></a>
-                        </p>
+                        </p>*@
                     </div>
                     <span>Còn lại:<strong> @Model.SanPham.soLuong </strong></span>
                     @if (Model.SanPham.phanTramGiamGia == 0)
@@ -589,21 +585,24 @@
             {
                 <div>
                     <div><h5 style="font-weight:600;">Tạo đánh giá</h5></div>
-                    <div class="stars">
+                    <div class="stars" style="width:100%">
                         @using (Html.BeginForm())
                         {
                             @Html.AntiForgeryToken()
-                            <input class="star star-5" id="star-5" type="radio" value="5" name="star" />
-                            <label class="star star-5" for="star-5"></label>
-                            <input class="star star-4" id="star-4" type="radio" value="4" name="star" />
-                            <label class="star star-4" for="star-4"></label>
-                            <input class="star star-3" id="star-3" type="radio" value="3" name="star" />
-                            <label class="star star-3" for="star-3"></label>
-                            <input class="star star-2" id="star-2" type="radio" value="2" name="star" />
-                            <label class="star star-2" for="star-2"></label>
-                            <input class="star star-1" id="star-1" type="radio" value="1" name="star" />
-                            <label class="star star-1" for="star-1"></label>
+                            <div style="width:100%">
+                                <input class="star star-5" id="star-5" type="radio" value="5" name="star" />
+                                <label class="star star-5" for="star-5"></label>
+                                <input class="star star-4" id="star-4" type="radio" value="4" name="star" />
+                                <label class="star star-4" for="star-4"></label>
+                                <input class="star star-3" id="star-3" type="radio" value="3" name="star" />
+                                <label class="star star-3" for="star-3"></label>
+                                <input class="star star-2" id="star-2" type="radio" value="2" name="star" />
+                                <label class="star star-2" for="star-2"></label>
+                                <input class="star star-1" id="star-1" type="radio" value="1" name="star" />
+                                <label class="star star-1" for="star-1"></label>
+                            </div>
                             <input type="submit" style="border-radius: 5px; border:none; padding: 5px; " value="Đánh giá" />
+
                         }
                     </div>
                 </div>

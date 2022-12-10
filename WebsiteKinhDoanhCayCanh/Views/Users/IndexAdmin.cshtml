@@ -81,11 +81,11 @@
                                 <td style="vertical-align:middle; text-align:center">
                                     @if (item.LockoutEnabled)
                                     {
-                                        <i id="@item.Id" onclick="changeStatus(this.id,@item.LockoutEnabled)" class="fa-regular fa-lock" style="color:red;font-weight:bold;font-size:20px;cursor:pointer"></i>
+                                        <i id="@item.Id" class="fa-regular fa-lock" style="color:red;font-weight:bold;font-size:20px;"></i>
                                     }
                                     else
                                     {
-                                        <i id="@item.Id" onclick="changeStatus(this.id,@item.LockoutEnabled)" class="fa fa-regular fa-lock-open" style="color:limegreen;font-weight:bold;cursor:pointer"></i>}
+                                        <i id="@item.Id" class="fa fa-regular fa-lock-open" style="color:limegreen;font-weight:bold;"></i>}
 
                                 </td>
 
@@ -148,38 +148,3 @@
         </div>
     </main>
 </div>
-
-<script>
-    function changeStatus(id_User, trangThai) {
-        if (trangThai == undefined) {
-            Swal.fire({
-                title: 'Khóa Tài Khoản?',
-                text: "Bạn có chắc chắn muốn khóa tài khoản này??",
-                icon: 'warning',
-                showCancelButton: true,
-                cancelButtonColor: '#3085d6',
-                confirmButtonColor: '#d33',
-                confirmButtonText: 'Có, hãy khóa tài khoản này!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    location.assign("https://localhost:44351/Users/ChangeStatusAccount?id_User=" + id_User)
-                }
-            })
-        }
-        else {
-            Swal.fire({
-                title: 'Mở Khóa Tài Khoản?',
-                text: "Bạn có chắc chắn muốn mở khóa tài khoản này??",
-                icon: 'warning',
-                showCancelButton: true,
-                cancelButtonColor: '#3085d6',
-                confirmButtonColor: 'rgb(31 187 21)',
-                confirmButtonText: 'Có, hãy mở khóa tài khoản này!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    location.assign("https://localhost:44351/Users/ChangeStatusAccount?id_User=" + id_User)
-                }
-            })
-        }
-    }
-</script>
