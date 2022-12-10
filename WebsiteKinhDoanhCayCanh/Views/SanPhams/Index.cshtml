@@ -126,7 +126,6 @@
                 @{
                     foreach (var item in Model.SanPhams)
                     {
-                        allName += item.tenSP + "$";
                         <div class="col-md-6 col-lg-3 ftco-animate">
                             <div class="product">
                                 <a href="@Url.Action("Details","SanPhams", new { id = item.id_SP })" class="img-prod">
@@ -179,6 +178,11 @@
     </section>
 
 </div>
+@foreach (var item in db.SanPham.ToList())
+{
+    allName += item.tenSP + "$";
+
+}
 <div hidden id="allProductName">@allName</div>
 <script>
     function AddToCart(id_SP, soLuong) {
@@ -242,7 +246,7 @@
             /*append the DIV element as a child of the autocomplete container:*/
             this.parentNode.appendChild(a);
             /*for each item in the array...*/
-            for (i = 0; i < arr.length; i++) {
+            for (i = 0; i < 10; i++) {
                 /*check if the item starts with the same letters as the text field value:*/
                 if (arr[i].toUpperCase().includes(val.toUpperCase())) {
                     /*create a DIV element for each matching element:*/

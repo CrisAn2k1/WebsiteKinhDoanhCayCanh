@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link href="~/Template/img/bonsai1.png" rel="icon" />
-    <title>TA-TREES Cây cảnh đẹp</title>
+    <title>AT-TREES Cây cảnh đẹp</title>
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet" />
@@ -65,7 +65,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar" @*style="background-color: #b3bc744f !important;"*@>
         <div class="container">
-            <a class="navbar-brand" href="/Home/Index" style="font-family:  'Lora', Georgia, serif;"><img src="~/Template/img/bonsai1.png" width="60" />TA-TREES</a>
+            <a class="navbar-brand" href="/Home/Index" style="font-family:  'Lora', Georgia, serif;"><img src="~/Template/img/bonsai1.png" width="60" />AT-TREES</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="oi oi-menu"></span> Menu
             </button>
@@ -104,16 +104,16 @@
                 </div>
             }
             <script>
-                    console.log(window.location.href.split('/')[4]);
+                console.log(window.location.href.split('/')[4]);
                 Array.from($('.nav-link')).forEach(function (item) {
                     console.log(item.href.split('/')[4]);
-                    if (location.href.split('/')[3].includes( item.href.split('/')[3]) &&  window.location.href.split('/')[4] == item.href.split('/')[4] ) {
+                    if (location.href.split('/')[3].includes(item.href.split('/')[3]) && window.location.href.split('/')[4] == item.href.split('/')[4]) {
                         item.style = 'color: #28a53f;transform: translateY(-3px);font-size: 13px;background: #00ff6b17;'
                     }
-                   else {
-                    item.style.color = 'black';
+                    else {
+                        item.style.color = 'black';
                     }
-               });
+                });
             </script>
         </div>
     </nav>
